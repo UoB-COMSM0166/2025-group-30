@@ -113,8 +113,11 @@ In this game, the player only needs to keep touching the screen to control a bir
 ### Game inspiration
 
 1.Players' teamwork skills can be developed by designing levels with ifficulty progressing from simple to complex.
+
 2.Innovations can be achieved by introducing challenges not present in the original game, such as adding fog to reduce players' visibility.
+
 3.Players can be given different skills, with specific skills assigned to them for different levels. However, a single player's skill would not be sufficient to complete the game, requiring cooperation between players to succeed.
+
 4.A story mode can be added to the game, incorporating engaging storylines to enhance the overall experience.
 
 
