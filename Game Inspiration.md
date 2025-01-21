@@ -80,3 +80,16 @@ This game requires two players to control characters with distinct attributes—
 #### 9. Extended Gameplay Options
 - **Time Limits:**
   - Some levels may include a time limit, requiring players to complete the level within a set time frame. Failure to do so results in a loss.
+
+
+## Flappy Bird
+
+In this game, the player only needs to keep touching the screen to control a bird to fly and avoid the green pipes. When the screen is released, the bird will start to fall. If the bird hits an obstacle, the game will be over. Each time the bird successfully passes through a set of pipes, the player will earn one point.
+
+### Ideas For Game Mechanic Upgrades
+- Increase the game's difficulty over time by increasing the speed, reducing the gap between obstacles, or adding moving obstacles.
+- Add some bonuses along the way. If the bird collects them, different effects can occur, such as increased speed, additional score, or a temporary ability to prevent falling.
+
+### Ideas For Multiple Game Modes
+- Multiplayer mode : Two players control two birds simultaneously. The obstacles will have a wider gap to allow both birds to pass through together. Players compete to collect bonuses, such as coins. If one player fails, their final scores will be compared to determine the winner.
+- Time-limited mode : Within a limited time, player should collect as many bonuses as possible. The goal is to maximize the score before the timer runs out.
