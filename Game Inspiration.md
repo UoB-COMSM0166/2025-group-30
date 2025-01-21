@@ -111,8 +111,30 @@ In this game, the player only needs to keep touching the screen to control a bir
 - Supporting 2-8 players locally or online, it’s a fun, flexible cooperative game that blends simplicity with engaging teamwork.
 
 ### Game inspiration
-- Players' teamwork skills can be developed by designing levels with ifficulty progressing from simple to complex.
-- Innovations can be achieved by introducing challenges not present in the original game, such as adding fog to reduce players' visibility.
-- Players can be given different skills, with specific skills assigned to them for different levels. However, a single player's skill would not be sufficient to complete the game, requiring cooperation between players to succeed.
-- A story mode can be added to the game, incorporating engaging storylines to enhance the overall experience.
-- Different colored buttons have been added to correspond to different players, which means that everyone has to undertake corresponding tasks, which can make the gathering force stronger.
+
+1.Players' teamwork skills can be developed by designing levels with ifficulty progressing from simple to complex.
+2.Innovations can be achieved by introducing challenges not present in the original game, such as adding fog to reduce players' visibility.
+3.Players can be given different skills, with specific skills assigned to them for different levels. However, a single player's skill would not be sufficient to complete the game, requiring cooperation between players to succeed.
+4.A story mode can be added to the game, incorporating engaging storylines to enhance the overall experience.
+
+
+## Grass Catching
+"Grass Catching” is one of the classic game form of Mole Manor.
+
+### Game Mechanics
+Initial Speed: At the start of the game, the character moves quickly, allowing easy maneuvering to catch grass.
+
+Weight Accumulation: As the player catches more grass, the character's movement speed gradually decreases. This simulates the effect of carrying a heavier load.
+~The more grass collected, the slower the character moves.
+~Slower movement increases the difficulty of positioning to catch falling grass accurately.
+
+Dynamic Balance: By gradually increasing the difficulty, this mechanic forces players to make more strategic and precise decisions in the later stages.
+
+### Effects of the Mechanic
+Impact on Player Actionsa
+~Players need to anticipate where the grass will fall and adjust their position in advance since slower movement makes catching grass more challenging.
+~Quick reaction times and efficient planning become more critical as the game progresses.
+Impact on Game Pacing
+~The early stages of the game are fast-paced and allow for more freedom of movement.
+~As the grass accumulates, the game becomes more tense and strategic, requiring players to adapt to the slower pace.
+
