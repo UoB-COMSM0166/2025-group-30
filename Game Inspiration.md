@@ -12,7 +12,7 @@ The game console is a 2D overview of a car park. Player needs to drive their car
 - Add other features of a real car park, e.g. pedestrian crossings, unloading areas for lorries. 
 
 
-## Fireboy & Watergirl
+## Fireboy and Watergirl
 
 ### Game Type
 Fireboy and Watergirl is a cooperative puzzle-platform game.
