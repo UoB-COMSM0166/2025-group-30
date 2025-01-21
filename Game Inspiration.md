@@ -97,13 +97,21 @@ In this game, the player only needs to keep touching the screen to control a bir
 
 ## Pico Park
 
-Pico Park is a multiplayer cooperative game where players start from a designated point, move in a straight line, avoid obstacles to obtain the key, and then use the key to unlock the gate at the endpoint to clear the level. The game features simple and easy-to-understand rules, focusing on interaction and communication between players to achieve goals rather than relying on complex individual operations.
+- Pico Park is a multiplayer cooperative game where players start from a designated point, move in a straight line, avoid obstacles to obtain the key(avoid obstacles only by going up,left,and right), and then use the key to unlock the gate at the endpoint to clear the level. 
+- The game features simple and easy-to-understand rules, focusing on interaction and communication between players to achieve goals rather than relying on complex individual operations.
+- Pico Park is a multiplayer cooperative game where players start from a designated point, move in a straight line, avoid obstacles to obtain the key, and then use the key to unlock the gate at the endpoint to clear the level. 
+- Each player can only move up,left,and right to  avoid attacks.
+- The game features simple and easy-to-understand rules, focusing on interaction and communication between players to achieve goals rather than relying on complex individual operations.
 
 ### Game Mechanics
 
-Pico Park revolves around teamwork and puzzle-solving. Players use simple controls (move, jump, interact) to collect keys and reach the exit together. It emphasizes coordination through synchronized actions like forming ladders or pulling ropes. Levels feature varied challenges, including time limits and physics puzzles, evolving with each stage. Supporting 2-8 players locally or online, it’s a fun, flexible cooperative game that blends simplicity with engaging teamwork.
+- Pico Park revolves around teamwork and puzzle-solving. Players use simple controls (move, jump, interact) to collect keys and reach the exit together.
+- It emphasizes coordination through synchronized actions like forming ladders or pulling ropes. Levels feature varied challenges, including time limits and physics puzzles, evolving with each stage
+- The approximate operation is set a button in front of each level. When the button is touched, something will happen on it with random probability. If one of the people is hit, the mission will fail.
+- Supporting 2-8 players locally or online, it’s a fun, flexible cooperative game that blends simplicity with engaging teamwork.
 
 ### Game inspiration
+
 1.Players' teamwork skills can be developed by designing levels with ifficulty progressing from simple to complex.
 2.Innovations can be achieved by introducing challenges not present in the original game, such as adding fog to reduce players' visibility.
 3.Players can be given different skills, with specific skills assigned to them for different levels. However, a single player's skill would not be sufficient to complete the game, requiring cooperation between players to succeed.
@@ -129,3 +137,4 @@ Impact on Player Actionsa
 Impact on Game Pacing
 ~The early stages of the game are fast-paced and allow for more freedom of movement.
 ~As the grass accumulates, the game becomes more tense and strategic, requiring players to adapt to the slower pace.
+
