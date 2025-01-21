@@ -93,3 +93,18 @@ In this game, the player only needs to keep touching the screen to control a bir
 ### Ideas For Multiple Game Modes
 - Multiplayer mode : Two players control two birds simultaneously. The obstacles will have a wider gap to allow both birds to pass through together. Players compete to collect bonuses, such as coins. If one player fails, their final scores will be compared to determine the winner.
 - Time-limited mode : Within a limited time, player should collect as many bonuses as possible. The goal is to maximize the score before the timer runs out.
+
+
+## Pico Park
+
+Pico Park is a multiplayer cooperative game where players start from a designated point, move in a straight line, avoid obstacles to obtain the key, and then use the key to unlock the gate at the endpoint to clear the level. The game features simple and easy-to-understand rules, focusing on interaction and communication between players to achieve goals rather than relying on complex individual operations.
+
+### Game Mechanics
+
+Pico Park revolves around teamwork and puzzle-solving. Players use simple controls (move, jump, interact) to collect keys and reach the exit together. It emphasizes coordination through synchronized actions like forming ladders or pulling ropes. Levels feature varied challenges, including time limits and physics puzzles, evolving with each stage. Supporting 2-8 players locally or online, it’s a fun, flexible cooperative game that blends simplicity with engaging teamwork.
+
+### Game inspiration
+1.Players' teamwork skills can be developed by designing levels with ifficulty progressing from simple to complex.
+2.Innovations can be achieved by introducing challenges not present in the original game, such as adding fog to reduce players' visibility.
+3.Players can be given different skills, with specific skills assigned to them for different levels. However, a single player's skill would not be sufficient to complete the game, requiring cooperation between players to succeed.
+4.A story mode can be added to the game, incorporating engaging storylines to enhance the overall experience.
