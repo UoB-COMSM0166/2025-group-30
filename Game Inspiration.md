@@ -97,15 +97,17 @@ In this game, the player only needs to keep touching the screen to control a bir
 
 ## Pico Park
 
+- Pico Park is a multiplayer cooperative game where players start from a designated point, move in a straight line, avoid obstacles to obtain the key(avoid obstacles only by going up,left,and right), and then use the key to unlock the gate at the endpoint to clear the level. 
+- The game features simple and easy-to-understand rules, focusing on interaction and communication between players to achieve goals rather than relying on complex individual operations.
 - Pico Park is a multiplayer cooperative game where players start from a designated point, move in a straight line, avoid obstacles to obtain the key, and then use the key to unlock the gate at the endpoint to clear the level. 
 - Each player can only move up,left,and right to  avoid attacks.
 - The game features simple and easy-to-understand rules, focusing on interaction and communication between players to achieve goals rather than relying on complex individual operations.
 
 ### Game Mechanics
 
-- Pico Park revolves around teamwork and puzzle-solving. Players use simple controls (move, jump, interact) to collect keys and reach the exit together. 
-- It emphasizes coordination through synchronized actions like forming ladders or pulling ropes. Levels feature varied challenges, including time limits and physics puzzles, evolving with each stage. 
-- Set a button in front of each level. When the button is touched, something will happen on it with random probability. If one of the people is hit, the mission will fail.
+- Pico Park revolves around teamwork and puzzle-solving. Players use simple controls (move, jump, interact) to collect keys and reach the exit together.
+- It emphasizes coordination through synchronized actions like forming ladders or pulling ropes. Levels feature varied challenges, including time limits and physics puzzles, evolving with each stage
+- The approximate operation is set a button in front of each level. When the button is touched, something will happen on it with random probability. If one of the people is hit, the mission will fail.
 - Supporting 2-8 players locally or online, it’s a fun, flexible cooperative game that blends simplicity with engaging teamwork.
 
 ### Game inspiration
