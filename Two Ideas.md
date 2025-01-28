@@ -1,18 +1,30 @@
-## 1. Grass Catching
+# 1. Grass Catching
 
-In this game, the player needs to move their avatar left and right to catch all the haystack falling from the sky.
+In this game, the player needs to move their avatar left and right to catch the haystack falling from the sky to meet the target within the time limit.
 
-### Game Mechanics
-Initial Speed: At the start of the game, the character moves quickly, allowing easy maneuvering to catch grass.
+## Game Mechanics
 
-Weight Accumulation: As the player catches more grass, the character's movement speed gradually decreases. This simulates the effect of carrying a heavier load.
-- The more grass collected, the slower the character moves.
-- Slower movement increases the difficulty of positioning to catch falling grass accurately.
+There is an option for a single player mode and one for two player mode.
 
-Dynamic Balance: By gradually increasing the difficulty, this mechanic forces players to make more strategic and precise decisions in the later stages.
+### Single Player Mode
 
-### Effects of the Mechanic
+- Each player has three lives to begin with. They lose a life when hit by a shovel or a bucket, and gain an extra life when they collect a star.
+- The haystack is of different shape and the player needs to balance them well on the platform. The player will lose the current haystack if it topples. The player could empty their haystack to a collection bucket on the side, where the percentage of target achieved is shown.
+- The next two items to be falling from the sky is shown on the console.
+- As the player has more haystack on their platform, they will move slower.
+
+### Double Player Mode
+
+The two players can either collaborate to reach a common target, or play against each other.
+
+When playing together, the game mechanics are similar to that of the single player mode except for now the stack will be falling at a faster speed and the next two stacks will not be shown.
+
+In the competition mode, the game console will be divided into two, each half will have features from the single player mode. Whoever that reaches the 
+
+## Effects of the Mechanic
+
 Impact on Player Actions
+
 - Players need to anticipate where the grass will fall and adjust their position in advance since slower movement makes catching grass more challenging.
 - Quick reaction times and efficient planning become more critical as the game progresses.
 Impact on Game Pacing
