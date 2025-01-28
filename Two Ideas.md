@@ -1,4 +1,4 @@
-# 1. Grass Catching
+# 1. Haystacking
 
 In this game, the player needs to move their avatar left and right to catch the haystack falling from the sky to meet the target within the time limit.
 
