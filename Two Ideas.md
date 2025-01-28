@@ -8,10 +8,13 @@ There is an option for a single player mode and one for two player mode.
 
 ### Single Player Mode
 
-- Each player has three lives to begin with. They lose a life when hit by a shovel or a bucket, and gain an extra life when they collect a star.
-- The haystack is of different shape and the player needs to balance them well on the platform. The player will lose the current haystack if it topples. The player could empty their haystack to a collection bucket on the side, where the percentage of target achieved is shown.
-- The next two items to be falling from the sky is shown on the console.
-- As the player has more haystack on their platform, they will move slower.
+Each player has three lives to begin with. They lose a life when hit by a shovel or a bucket, and gain an extra life when they collect a star.
+
+The haystack is of different shape and the player needs to balance them well on the platform. The player will lose the current haystack if it topples. The player could empty their haystack to a collection bucket on the side, where the percentage of target achieved is shown.
+
+The next two items to be falling from the sky is shown on the console.
+
+As the player has more haystack on their platform, they will move slower.
 
 ### Double Player Mode
 
