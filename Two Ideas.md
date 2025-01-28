@@ -19,14 +19,4 @@ The two players can either collaborate to reach a common target, or play against
 
 When playing together, the game mechanics are similar to that of the single player mode except for now the stack will be falling at a faster speed and the next two stacks will not be shown.
 
-In the competition mode, the game console will be divided into two, each half will have features from the single player mode. Whoever that reaches the 
-
-## Effects of the Mechanic
-
-Impact on Player Actions
-
-- Players need to anticipate where the grass will fall and adjust their position in advance since slower movement makes catching grass more challenging.
-- Quick reaction times and efficient planning become more critical as the game progresses.
-Impact on Game Pacing
-- The early stages of the game are fast-paced and allow for more freedom of movement.
-- As the grass accumulates, the game becomes more tense and strategic, requiring players to adapt to the slower pace.
+In the competition mode, the game console will be divided into two, each half will have features from the single player mode. Whoever that reaches the target first will win the game.
