@@ -23,3 +23,6 @@ The two players can either collaborate to reach a common target, or play against
 When playing together, the game mechanics are similar to that of the single player mode except for now the stack will be falling at a faster speed and the next two stacks will not be shown.
 
 In the competition mode, the game console will be divided into two, each half will have features from the single player mode. Whoever that reaches the target first will win the game.
+
+
+<video src="https://github.com/user-attachments/assets/2bc9ad40-728b-4c61-b258-6c2530942f93" controls width="600"></video>
