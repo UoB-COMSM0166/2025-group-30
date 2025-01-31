@@ -75,3 +75,4 @@ Players control characters with different attributes, working together to solve 
 - **(1) Map Design:** Designing maps within a fixed screen size while ensuring seamless integration of obstacles and mechanisms. The map must also accommodate varying player jump heights.  
 - **(2) Compatibility of Elemental Interactions and Mechanisms:** The game should allow players to complete levels regardless of the combination of characters chosen.  
 - **(3) Physics Interaction and Collision Detection:** Accurate and responsive physical interactions between players, objects, and environmental elements are essential to ensure smooth gameplay.
+<video src="https://github.com/user-attachments/assets/15159520-670e-4dd5-a12c-df1f558a09c6"></video>
