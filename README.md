@@ -60,6 +60,7 @@ Acceptance Criteria:
 - Given I am on the game, when I lose all my lives, then a game-over screen should appear.
 - Given I am on the game, when I gain or lose a life, then I should be able to tell how many remaining lives there are from the interface.
 
+---
 
 #### Epic 2: Enhance user interface and experience.
 **User Story 2.1:**
@@ -76,6 +77,7 @@ As a player, I want to pause and restart the game so that I can take breaks or r
 Acceptance Criteria:
 - Given I am on the game, when I click the pause button, then I should be given the options to pause, resume, or restart the game.
 
+---
 
 #### Epic 3: Include multiplayer mode.
 **User Story 3.1:**
@@ -94,6 +96,7 @@ Acceptance Criteria:
 - Given two players in the co-op mode, when they clash, then they should be able to move past each other.
 - Given two players in the co-op mode, when they catch the haystack, then they should contribute to the same haystack bucket.
 
+---
 
 #### Epic 4: Make the game challenging.
 **User Story 4.1:**
@@ -112,6 +115,7 @@ Acceptance Criteria:
 - Given I am on the game, when I catch a bonus object (e.g., stars), then I should gain an extra life.
 - Given I am on the game, when I catch a bonus object (e.g., stars), then a visual indicator should appear to show that I have gained an extra life.
 
+---
 
 #### Epic 5: Increase Accessibility.
 **User Story 5.1:**
