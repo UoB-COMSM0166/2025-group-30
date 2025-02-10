@@ -33,7 +33,8 @@ Add a group photo here!
 - Use case diagrams, user stories. Early stages design. Ideation process. How did you decide as a team what to develop? 
 
 #### Epic 1: Core gameplay mechanics is sound 
-##### **User Story 1.1:** 
+**User Story 1.1:**
+
 As a player, I want to move my platform left and right so that I can catch falling haystack.
 
 Acceptance Criteria:
@@ -41,7 +42,8 @@ Acceptance Criteria:
 - Given I am on the game, when I release the arrow keys, then the movement should stop.
 - Given I am on the game, when I try to move the platform off-screen, then the platform should stop.
   
-##### **User Story 1.2:**
+**User Story 1.2:**
+
 As a player, I want haystack to land realistically on top of each other so that the stack looks natural.
 
 Acceptance Criteria:
@@ -49,7 +51,8 @@ Acceptance Criteria:
 - Given I am on the game, when the player moves, then the stack moves with the platform.
 - Given I am on the game, when the player collects more haystack on their platform, then they should move slower.
 
-##### **User Story 1.3:**
+**User Story 1.3:**
+
 As a player, I want to lose a life if I miss a haystack and get hit by an obstacle so that the game remains challenging.
 
 Acceptance Criteria:
@@ -59,13 +62,15 @@ Acceptance Criteria:
 
 
 #### Epic 2: Enhance user interface and experience.
-##### **User Story 2.1:**
+**User Story 2.1:**
+
 As a player, I want to see my score so that I can track my progress.
 
 Acceptance Criteria:
 - Given I am on the game, when I empty my haystack into the bucket, then I should see score update in real-time. 
 
-##### **User Story 2.2:**
+**User Story 2.2:**
+
 As a player, I want to pause and restart the game so that I can take breaks or retry.
 
 Acceptance Criteria:
@@ -73,14 +78,16 @@ Acceptance Criteria:
 
 
 #### Epic 3: Include multiplayer mode.
-##### **User Story 3.1:**
+**User Story 3.1:**
+
 As two players, we want to play against each other on split screen so that we can compete.
 
 Acceptance Criteria:
 - Given two players in the competitive mode, when one player moves their platform, then the other player should be able to move their platform independently.
 - Given two players in the competitive mode, when one player reaches the target score first, then they should win the game.
 
-##### **User Story 3.2:**
+**User Story 3.2:**
+
 As two players, we want to work with each other so that we can beat the level together.
 
 Acceptance Criteria:
@@ -89,14 +96,16 @@ Acceptance Criteria:
 
 
 #### Epic 4: Make the game challenging.
-##### User Story 4.1:
+**User Story 4.1:**
+
 As a player, I want the game to get harder over time so that it stays engaging.
 
 Acceptance Criteria:
 - Given I am on the game, when the game progresses, then the speed of falling haystack should increase.
 - Given I am on the game, when the game progresses, then new obstacles or object types should appear over time.
 
-##### User Story 4.2:
+**User Story 4.2:**
+
 As a player, I want to collect power-ups so that I can gain advantages.
 
 Acceptance Criteria:
@@ -105,14 +114,16 @@ Acceptance Criteria:
 
 
 #### Epic 5: Increase Accessibility.
-##### User Story 5.1:
+**User Story 5.1:**
+
 As a new player, I want simple controls so that I can learn the game quickly.
 
 Acceptance Criteria:
 - Given I enters the game, when I click the question mark button, then I should see a short totorial explaining how to play.
 - Given I am on the game, when the game progresses, then I should see a short tutorial indroducing any new objects or obstacles. 
 
-##### User Story 5.2:
+**User Story 5.2:**
+
 As a player, I want to adjust game settings so that I can play comfortably.
 
 Acceptance Criteria:
