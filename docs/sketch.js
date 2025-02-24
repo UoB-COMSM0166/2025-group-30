@@ -1,16 +1,16 @@
-let player;
+let player1, player2;
 let grassPiles = [];
 let basket;
-let score = 0;
-let lives = 3;
+let score1 = 0, score2 = 0;
+let lives1 = 3, lives2 = 3;
 let gameOver = false;
-let moveDirection = 0;
-let flashTimer = 0;
+let moveDirection1 = 0, moveDirection2 = 0;
+let flashTimer1 = 0, flashTimer2 = 0;
 let paused = false;
 let showMenu = false;
 let showModeSelection = false;
 let startGame = false;
-let mode = "1 Player"; //default mode
+let mode = "1 Player";
 let grassDropInterval;
 let level = 1;
 let targetScores = [5, 50];
@@ -20,87 +20,155 @@ let showLevelUpScreen = false;
 let flashPaused = false;
 let isFlashVisible = true;
 let showHelp = false;
+let showTwoPlayerOptions = false;
+let isTwoPlayerMode = false;
+let isPlayAgainstMode = false;
 
 function setup() {
     createCanvas(800, 600);
-    player = new Player();
-    basket = new Basket();
+    basket1 = new Basket(true);
+    basket2 = new Basket(false);
+    player1 = new Player(true, basket1);
+    player2 = new Player(false, basket2);
+
+    player1.resetPosition(true);
+    player2.resetPosition(false);
 }
 
 function draw() {
     background(220);
-    
+    noStroke();
+    fill(0);
+    textSize(20);
+    textStyle(NORMAL);
+
+    if (isPlayAgainstMode) {
+      stroke(0);
+      line(width / 2, 0, width / 2, height);
+      noStroke(); 
+    }
+
     if (!startGame) {
         displayStartScreen();
         return;
     }
-  
+
     if (showLevelUpScreen) {
         displayLevelUpScreen();
         return;
     }
-    
+
     if (gameOver) {
         displayGameOverScreen();
         return;
     }
-    
-    if (flashTimer > 0 && !flashPaused) {
-        if (!flashPaused) {
-            flashTimer--;
-            isFlashVisible = frameCount % 10 < 5;
-        }
-    
-        if (flashTimer === 0 && lives > 0) {
+
+    if (flashTimer1 > 0 && !flashPaused) {
+        flashTimer1--;
+        isFlashVisible = frameCount % 10 < 5; 
+        if (flashTimer1 === 0 && lives1 > 0) {
+            player1.paused = false;
             paused = false;
-        } else if (flashTimer === 0 && lives <= 0) {
+            isFlashVisible = true;
+        } else if (flashTimer1 === 0 && lives1 <= 0) {
             gameOver = true;
         }
     }
-    
-    if (!paused) {
-        player.move(moveDirection);
+  
+    if (flashTimer2 > 0 && !flashPaused) {
+        flashTimer2--;
+        isFlashVisible = frameCount % 10 < 5;
+        if (flashTimer2 === 0 && lives2 > 0) {
+            player2.paused = false;
+            paused = false;
+            isFlashVisible = true;
+        } else if (flashTimer2 === 0 && lives2 <= 0) {
+            gameOver = true;
+        }
     }
-    //player.update();
-    player.show();
-    basket.show();
-    
+
+    if (!player1.paused) {
+        player1.move(moveDirection1);
+        player1.update();
+    }
+    player1.show();
+    basket1.show();
+
+    if (isTwoPlayerMode) {
+        if (!player2.paused) {
+            player2.move(moveDirection2);
+            player2.update();
+        }
+        player2.show();
+        if (isPlayAgainstMode) {
+            basket2.show();
+        }
+    }
+   
     for (let i = grassPiles.length - 1; i >= 0; i--) {
-        if (!paused) {
+        if ((isPlayAgainstMode && (player1.paused || player2.paused)) || (!isPlayAgainstMode && paused)) {
+        } else {
             grassPiles[i].update();
         }
         grassPiles[i].show();
-        
-        if (!paused && grassPiles[i].y > height) {
-            lives--;
-            flashTimer = 60;
-            paused = true;
-            grassPiles.splice(i, 1);
-            if (lives <= 0) {
-                flashTimer = 60; //flash before gameover screen
+
+    if (!paused && grassPiles[i].y > height) {
+      if (isPlayAgainstMode) {
+        if (grassPiles[i].isLeft) {
+            lives1--;
+            if (lives1 > 0) {
+                flashTimer1 = 60;
+                player1.paused = true;
+            } else {
+                gameOver = true;
             }
-        } else if (!paused && player.catchGrass(grassPiles[i])) {
+        } else {
+            lives2--;
+            if (lives2 > 0) {
+                flashTimer2 = 60;
+                player2.paused = true;
+            } else {
+                gameOver = true;
+            }
+        }
+      } else {
+        lives1--;
+        lives2--;
+        if (lives1 > 0 && lives2 > 0) {
+            flashTimer1 = 60;
+            flashTimer2 = 60;
+            paused = true;
+        } else {
+            gameOver = true;
+        }
+    }
+        grassPiles.splice(i, 1);
+        } else if (!paused && player1.catchGrass(grassPiles[i])) {
+            grassPiles.splice(i, 1);
+        } else if (isTwoPlayerMode && !paused && player2.catchGrass(grassPiles[i])) {
             grassPiles.splice(i, 1);
         }
     }
-    
+
     fill(0);
     textSize(20);
-    
     textAlign(CENTER);
     text(`Level ${level}`, width / 2, 30);
 
     textAlign(LEFT);
-    text(`Score: ${score}`, 20, 30);
-    text(`Target: ${targetScores[level - 1]}`, 20, 60);
-    text(`Time: ${timer}s`, 20, 90);
+    text(`Player 1 Score: ${score1}`, 20, 30);
+    if (isTwoPlayerMode) {
+        text(`Player 2 Score: ${score2}`, 20, 60);
+    }
+    if (!isPlayAgainstMode) {
+        text(`Total Score: ${score1 + score2}`, 20, 90);
+        text(`Target: ${targetScores[level - 1]}`, 20, 120);
+    }
+    text(`Time: ${timer}s`, 20, 150);
 
-    //text(`FPS: ${Math.round(frameRate())}`, 20, 180);
-    
     displayLives();
-  
-    textAlign(CENTER);
 
+    textAlign(CENTER);
     drawMenuButton();
     if (showMenu) {
         drawPauseMenu();
@@ -108,16 +176,37 @@ function draw() {
 }
 
 function keyPressed() {
-    if (gameOver && keyCode === ENTER) restartGame();
+    if (gameOver && keyCode === ENTER) {
+        restartGame();
+    }
+  
     if (!paused) {
-        if (keyCode === LEFT_ARROW) moveDirection = -1;
-        else if (keyCode === RIGHT_ARROW) moveDirection = 1;
-        else if (keyCode === 32) player.dropGrass();
+        if (keyCode === 65) { // A 键
+            moveDirection1 = -1;
+        } else if (keyCode === 68) { // D 键
+            moveDirection1 = 1;
+        } else if (keyCode === 32) { // 空格键
+            player1.dropGrass();
+        }
+        if (isTwoPlayerMode) {
+            if (keyCode === LEFT_ARROW) {
+                moveDirection2 = -1;
+            } else if (keyCode === RIGHT_ARROW) {
+                moveDirection2 = 1;
+            } else if (keyCode === ENTER) { // 回车键
+                player2.dropGrass();
+            }
+        }
     }
 }
 
 function keyReleased() {
-    if (keyCode === LEFT_ARROW || keyCode === RIGHT_ARROW) moveDirection = 0;
+    if (keyCode === 65 || keyCode === 68) { // A 或 D 键
+        moveDirection1 = 0;
+    }
+    if (isTwoPlayerMode && (keyCode === LEFT_ARROW || keyCode === RIGHT_ARROW)) {
+        moveDirection2 = 0;
+    }
 }
 
 function mousePressed() {
@@ -129,7 +218,7 @@ function mousePressed() {
                     showHelp = false;
                     return;
                 }
-            } else{
+            } else {
                 if (mouseX > width - 140 && mouseX < width - 90 && mouseY > 20 && mouseY < 50) {
                     showHelp = true;
                 }
@@ -143,33 +232,48 @@ function mousePressed() {
                     mouseY > height / 2 + 30 && mouseY < height / 2 + 70) {
                     showModeSelection = true;
                 }
-                if (mouseX > width - 140 && mouseX < width - 90 && mouseY > 20 && mouseY < 50) {
-                    showHelp = true;
-                }
             }
-            
         } else {
-            if (mouseX > width / 2 - 100 && mouseX < width / 2 + 100 &&
-                mouseY > height / 2 - 20 && mouseY < height / 2 + 30) {
-                mode = "1 Player";
-                showModeSelection = false;
-                startGame = true;
-                startGrassDrop();
-            }
-            if (mouseX > width / 2 - 100 && mouseX < width / 2 + 100 &&
-                mouseY > height / 2 + 60 && mouseY < height / 2 + 110) {
-                mode = "2 Players";
-                showModeSelection = false;
-                startGame = true;
-                startGrassDrop();
+            if (!showTwoPlayerOptions) {
+                if (mouseX > width / 2 - 100 && mouseX < width / 2 + 100 &&
+                    mouseY > height / 2 - 20 && mouseY < height / 2 + 30) {
+                    mode = "1 Player";
+                    showModeSelection = false;
+                    startGame = true;
+                    startGrassDrop();
+                }
+                if (mouseX > width / 2 - 100 && mouseX < width / 2 + 100 &&
+                    mouseY > height / 2 + 60 && mouseY < height / 2 + 110) {
+                    mode = "2 Players";
+                    
+                    showTwoPlayerOptions = true;
+                }
+            } else {
+                if (mouseX > width / 2 - 100 && mouseX < width / 2 + 100 &&
+                    mouseY > height / 2 - 20 && mouseY < height / 2 + 30) {
+                    mode = "Play Together";
+                    isTwoPlayerMode = true;
+                    isPlayAgainstMode = false;
+                    startGame = true;
+                    startGrassDrop();
+                }
+                if (mouseX > width / 2 - 100 && mouseX < width / 2 + 100 &&
+                    mouseY > height / 2 + 60 && mouseY < height / 2 + 110) {
+                    mode = "Play Against";
+                    isTwoPlayerMode = true;
+                    isPlayAgainstMode = true;
+                    startGame = true;
+                    startGrassDrop();
+                }
             }
         }
     }
+
     
     if (mouseX > width - 70 && mouseX < width - 20 && mouseY > 20 && mouseY < 50) {
         showMenu = !showMenu;
         paused = showMenu;
-        if (showMenu && flashTimer > 0) {
+        if (showMenu && (flashTimer1 > 0 || flashTimer2 > 0)) {
             flashPaused = true;
             isFlashVisible = true;
         } else if (!showMenu && flashPaused) {
@@ -178,7 +282,7 @@ function mousePressed() {
         }
     }
     
-    if (showMenu) {
+ if (showMenu) {
         if (mouseX > width / 2 - 50 && mouseX < width / 2 + 50) {
             if (mouseY > height / 2 - 10 && mouseY < height / 2 + 20) {
                 showMenu = false;
@@ -198,7 +302,7 @@ function mousePressed() {
         }
     }
   
-   if (showLevelUpScreen) {
+    if (showLevelUpScreen) {
         if (mouseX > width / 2 - 100 && mouseX < width / 2 + 100) {
             if (mouseY > height / 2 && mouseY < height / 2 + 50) {
                 levelUp();
@@ -207,9 +311,7 @@ function mousePressed() {
             }
         }
     }  
-  
 }
-
 
 
 

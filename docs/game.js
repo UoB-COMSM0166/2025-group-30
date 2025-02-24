@@ -1,63 +1,81 @@
 function restartLevel() {
-    player.resetPosition();
-    score = 0;
-    lives = 3;
+    player1.resetPosition(true);
+    if (isTwoPlayerMode) {
+        player2.resetPosition(false);
+    }
+    score1 = 0;
+    score2 = 0;
+    lives1 = 3;
+    lives2 = 3;
     gameOver = false;
     grassPiles = [];
-    player.stack = [];
-    player.velocity = 0;
+    player1.stack = [];
+    player2.stack = [];
     paused = false;
     showMenu = false;
     startGrassDrop();
 }
-
 function restartGame() {
-    player.resetPosition();
-    score = 0;
-    lives = 3;
+    player1.resetPosition(true);
+    if (isTwoPlayerMode) {
+        player2.resetPosition(false);
+    }
+    score1 = 0;
+    score2 = 0;
+    lives1 = 3;
+    lives2 = 3;
     gameOver = false;
     grassPiles = [];
-    player.stack = [];
-    player.velocity = 0;
+    player1.stack = [];
+    player2.stack = [];
     paused = false;
     startGame = false;
     showModeSelection = false;
     level = 1;
     showLevelUpScreen = false;
-    // clearInterval(grassDropInterval);
-    // clearInterval(levelTimerInterval);
-    startGrassDrop();
+    showTwoPlayerOptions = false;
+    isTwoPlayerMode = false;
+    isPlayAgainstMode = false;
+    clearInterval(grassDropInterval);
+    clearInterval(levelTimerInterval);
+    textStyle(NORMAL);
+    noStroke();
 }
 
-
 function startGrassDrop() {
-    if (grassDropInterval) {
-        clearInterval(grassDropInterval);
-    }
-    grassPiles = []; //Empty the grasspiles
+    if (grassDropInterval) clearInterval(grassDropInterval);
+    grassPiles = [];
     grassDropInterval = setInterval(() => {
         if (!gameOver && !paused && startGame) {
-            grassPiles.push(new Grass(random(200, width - 100), 10));
+            if (isPlayAgainstMode) {
+              isTwoPlayerMode = true;
+                grassPiles.push(new Grass(random(60, width / 2 - 50), 10, true));
+                grassPiles.push(new Grass(random(width / 2 + 50, width - 60), 10, false));
+            } else {
+                grassPiles.push(new Grass(random(60, width - 50), 10, true));
+            }
         }
     }, 2000);
     startLevelTimer();
 }
 
 function startLevelTimer() {
-    if (levelTimerInterval) {
-        clearInterval(levelTimerInterval);
-    }
+    if (levelTimerInterval) clearInterval(levelTimerInterval);
     timer = 30;
     levelTimerInterval = setInterval(() => {
         if (!paused && startGame) {
             timer--;
             if (timer <= 0) {
                 clearInterval(levelTimerInterval);
-                if (score >= targetScores[level - 1]) {
-                    showLevelUpScreen = true;
-                    paused = true;
+                if (isPlayAgainstMode) {
+                        gameOver = true;
                 } else {
-                    gameOver = true;
+                    if (score1 + score2 >= targetScores[level - 1]) {
+                        showLevelUpScreen = true;
+                        paused = true;
+                    } else {
+                        gameOver = true;
+                    }
                 }
             }
         }
@@ -69,12 +87,10 @@ function levelUp() {
         level++;
         showLevelUpScreen = false;
         paused = false;
-        player.resetPosition();
-        player.stack = [];
-      
-        //player.maxSpeed = 10;
-        player.acceleration = 2;
-      
+        player1.resetPosition(true);
+        player2.resetPosition(false);
+        player1.stack = [];
+        player2.stack = [];
         startGrassDrop();
     } else {
         gameOver = true;
