@@ -1,9 +1,10 @@
 class Basket {
-    constructor() {
-        this.x = 30;
-        this.y = height - 100;
-        this.w = 100;
+    constructor(isLeft) {
+        this.isLeft = isLeft;
+        this.w = 50;
         this.h = 100;
+        this.y = height - 100;
+        this.x = isLeft ? 10 : width - 60;
     }
 
     show() {
