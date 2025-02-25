@@ -15,25 +15,25 @@ function displayStartScreen() {
     text("Click Start to Begin", width / 2, height / 2 - 50);
     
     if (!showModeSelection) {
+        // 显示 "Start" 按钮
         fill(0, 255, 0);
         rect(width / 2 - 50, height / 2 - 20, 100, 40);
         fill(0);
         textSize(24);
         text("Start", width / 2, height / 2);
-        
-        fill(0, 191, 255);
-        rect(width / 2 - 50, height / 2 + 30, 100, 40);
-        fill(0);
-        textSize(24);
-        text("Mode", width / 2, height / 2 + 50);
       
+        // 显示帮助按钮
         drawHelpButton();
         
+        // 显示帮助界面
         if (showHelp) {
             drawHelpScreen();
         }
     } else {
+        // 显示模式选择界面
         if (!showTwoPlayerOptions) {
+            
+            // 显示模式选择按钮
             fill(255, 255, 0);
             rect(width / 2 - 100, height / 2 - 20, 200, 50);
             fill(0);
@@ -45,7 +45,15 @@ function displayStartScreen() {
             fill(0);
             textSize(24);
             text("2 Players", width / 2, height / 2 + 85);
+          
+          // 绘制居中的 "Back" 按钮
+            fill(255, 0, 0); // 红色返回键
+            rect(width / 2 - 50, height / 2 + 130, 100, 40); // 居中显示
+            fill(255);
+            textSize(20);
+            text("Back", width / 2, height / 2 + 150);
         } else {
+            // 显示双人模式选项（合作或对抗）
             displayTwoPlayerOptions();
         }
     }

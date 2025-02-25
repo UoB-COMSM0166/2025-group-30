@@ -213,28 +213,34 @@ function mousePressed() {
     if (!startGame) {
         if (!showModeSelection) {
             if (showHelp) {
+                // 处理帮助界面的返回按钮
                 if (mouseX > width / 2 - 50 && mouseX < width / 2 + 50 &&
                     mouseY > height / 2 + 80 && mouseY < height / 2 + 120) {
                     showHelp = false;
                     return;
                 }
             } else {
+                // 处理帮助按钮
                 if (mouseX > width - 140 && mouseX < width - 90 && mouseY > 20 && mouseY < 50) {
                     showHelp = true;
                 }
+                // 处理 "Start" 按钮
                 if (!showHelp && mouseX > width / 2 - 50 && mouseX < width / 2 + 50 &&
                     mouseY > height / 2 - 20 && mouseY < height / 2 + 20) {
-                    startGame = true;
-                    paused = false;
-                    startGrassDrop();
-                }
-                if (mouseX > width / 2 - 50 && mouseX < width / 2 + 50 &&
-                    mouseY > height / 2 + 30 && mouseY < height / 2 + 70) {
+                    // 点击 "Start" 按钮后显示模式选择界面
                     showModeSelection = true;
                 }
             }
         } else {
+            // 处理模式选择界面的返回键
+            if (mouseX > width / 2 - 50 && mouseX < width / 2 + 50 &&
+                mouseY > height / 2 + 130 && mouseY < height / 2 + 170) {
+                showModeSelection = false; // 返回主界面
+                return;
+            }
+
             if (!showTwoPlayerOptions) {
+                // 选择 "1 Player" 模式
                 if (mouseX > width / 2 - 100 && mouseX < width / 2 + 100 &&
                     mouseY > height / 2 - 20 && mouseY < height / 2 + 30) {
                     mode = "1 Player";
@@ -242,18 +248,19 @@ function mousePressed() {
                     startGame = true;
                     startGrassDrop();
                 }
+                // 选择 "2 Players" 模式
                 if (mouseX > width / 2 - 100 && mouseX < width / 2 + 100 &&
                     mouseY > height / 2 + 60 && mouseY < height / 2 + 110) {
                     mode = "2 Players";
-                    
                     showTwoPlayerOptions = true;
                 }
             } else {
+                // 处理双人模式选项
                 if (mouseX > width / 2 - 100 && mouseX < width / 2 + 100 &&
                     mouseY > height / 2 - 20 && mouseY < height / 2 + 30) {
                     mode = "Play Together";
                     isTwoPlayerMode = true;
-                    isPlayAgainstMode = false;
+                    isPlayAgainstMode = false; // 合作模式
                     startGame = true;
                     startGrassDrop();
                 }
@@ -261,7 +268,7 @@ function mousePressed() {
                     mouseY > height / 2 + 60 && mouseY < height / 2 + 110) {
                     mode = "Play Against";
                     isTwoPlayerMode = true;
-                    isPlayAgainstMode = true;
+                    isPlayAgainstMode = true; // 对抗模式
                     startGame = true;
                     startGrassDrop();
                 }
@@ -269,10 +276,10 @@ function mousePressed() {
         }
     }
 
-    
+    // 处理菜单按钮的点击
     if (mouseX > width - 70 && mouseX < width - 20 && mouseY > 20 && mouseY < 50) {
-        showMenu = !showMenu;
-        paused = showMenu;
+        showMenu = !showMenu; // 切换菜单显示状态
+        paused = showMenu; // 暂停游戏
         if (showMenu && (flashTimer1 > 0 || flashTimer2 > 0)) {
             flashPaused = true;
             isFlashVisible = true;
@@ -281,15 +288,16 @@ function mousePressed() {
             isFlashVisible = frameCount % 10 < 5;
         }
     }
-    
- if (showMenu) {
+
+    // 处理菜单中的选项
+    if (showMenu) {
         if (mouseX > width / 2 - 50 && mouseX < width / 2 + 50) {
             if (mouseY > height / 2 - 10 && mouseY < height / 2 + 20) {
                 showMenu = false;
                 if (flashPaused) {
                     flashPaused = false;
                 } else {
-                    paused = false;
+                    paused = false; // 恢复游戏
                 }
             } else if (mouseY > height / 2 + 30 && mouseY < height / 2 + 60) {
                 restartGame();
@@ -301,18 +309,7 @@ function mousePressed() {
             }
         }
     }
-  
-    if (showLevelUpScreen) {
-        if (mouseX > width / 2 - 100 && mouseX < width / 2 + 100) {
-            if (mouseY > height / 2 && mouseY < height / 2 + 50) {
-                levelUp();
-            } else if (mouseY > height / 2 + 70 && mouseY < height / 2 + 120) {
-                restartGame();
-            }
-        }
-    }  
 }
-
 
 
 
