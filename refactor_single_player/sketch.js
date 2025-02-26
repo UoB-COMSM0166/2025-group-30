@@ -1,4 +1,4 @@
-let domain = "home";  
+let domain = "single";  
 // domain could be "home","mode", "single", "coop", "pvp",
 // "singleHelp","coopHelp", "pvpHelp", "gameover"
 
@@ -19,18 +19,17 @@ function draw() {
     if (domain === "mode"){
         if (!mode) mode = new Mode();
         mode.displayMode();
-    } else mode = null;
+    } else {mode = null;}
 
     if (domain === "singleHelp"){
         if (!singleHelp) singleHelp = new SingleHelp();
         singleHelp.displayHelp();
-    } else singleHelp = null;
+    } else {singleHelp = null;}
 
     if (domain === "single"){
         if (!single) {single = new Single();}
         single.displaySingle();
     } else {
-        //single.stopGrassDrop(); // Ensure interval is cleared properly
         single = null;
     };
     

@@ -7,7 +7,7 @@ class Grass {
         this.speed = 4;
     }
     
-    update() {
+    fall() {
         this.y += this.speed;
     }
     

@@ -3,7 +3,7 @@ function keyPressed() {
     if (domain === "single") {
         if (keyCode === RIGHT_ARROW) single.player.dir = 1;
         else if (keyCode === LEFT_ARROW) single.player.dir = -1;
-        else if (keyCode === 32) single.player.dropGrass(); //spacebar
+        else if (keyCode === 32) single.emptyGrass(); //spacebar
     }
 }
 

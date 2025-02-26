@@ -45,8 +45,8 @@ class Player {
 
 
 
-    catchGrass(grass) {
-        if (this.stack.length > 5) {
+    catchGrass(grass) { //return if grass is caught, false otherwise
+        if (this.stack.length > 5) { //can't have more than 5 grass on the platform
             this.lives--;
             this.stack = [];
             this.maxSpeed = 10;
@@ -56,6 +56,7 @@ class Player {
             return false;
         }
         
+        // grass catching logic
         let topGrass = this.stack.length === 0 ? null : this.stack[this.stack.length - 1];
         let topY = topGrass ? topGrass.y - grass.height : this.y - grass.height;
         let catchXStart = topGrass ? topGrass.x : this.x; //left of the catching platform
@@ -74,19 +75,8 @@ class Player {
             //this.maxSpeed = max(this.minSpeed, this.maxSpeed - 1); 
             this.acceleration = max(0.5, this.acceleration - 0.2);
             return true;
-        }
-        //this.lives--;
-        //if (this.lives <= 0) {domain = "gameOver";}
+        } 
         return false;
-    }
-    
-    dropGrass() { //empty grass to the basket
-        if (this.x <= basket.x + basket.w) {
-            this.score += this.stack.length;
-            this.stack = [];
-            this.maxSpeed = 10;
-            this.acceleration = 2;
-        }
     }
     
     update() { //draw player with caught grass

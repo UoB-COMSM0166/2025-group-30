@@ -8,8 +8,8 @@ class SingleHelp {
         textAlign(CENTER,CENTER);
         text("Game Rules", width / 2, height / 2 - 70);
         textSize(14);
-        text("<-: LEFT", width / 2, height / 2 - 40);
-        text("->: RIGHT", width / 2, height / 2 - 20);
+        text("◀︎: LEFT", width / 2, height / 2 - 40);
+        text("▶︎: RIGHT", width / 2, height / 2 - 20);
         text("You can only catch up to 5 haystack", width / 2, height / 2);
         text("Move to basket & press SPACE to empty your pile", width / 2, height / 2+20);
 

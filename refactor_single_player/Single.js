@@ -6,7 +6,7 @@ class Single {
         this.targetScores = 5;
         this.score = 0;
         this.timer = 60;
-        this.dropGrass = [];
+        this.grass = []; //collection of falling grass
         this.grassDropInterval = null;
 
         this.startGrassDrop(); //start dropping grass immediately 
@@ -17,7 +17,6 @@ class Single {
         this.player.update();
         this.basket.show();
 
-        this.showGrass();
         this.updateGrass();
 
         this.displayLives();
@@ -27,10 +26,10 @@ class Single {
     startGrassDrop() {
         if (this.grassDropInterval) { clearInterval(this.grassDropInterval);}
 
-        this.dropGrass = []; //empty the grass piles
+        this.grass = []; //empty the grass piles
 
         this.grassDropInterval = setInterval(() => {
-            this.dropGrass.push(new Grass(random(200, width - 100), 10));            
+            this.grass.push(new Grass(random(200, width - 100), 10));            
         }, 2000); //grass falls every 2 second 
         //startLevelTimer();       
     }
@@ -42,20 +41,29 @@ class Single {
         }
     }
 
-    showGrass() {
-        for (let grass of this.dropGrass) {  
-            grass.show();  // Only show, update is handled in updateGrass()
+    updateGrass() { //update the grass from this.grass if caught or missed
+        for (let i = this.grass.length - 1; i >= 0; i--) {
+            this.grass[i].show();
+            this.grass[i].fall();
+
+            if (this.grass[i].y > height) { //if miss a grass, lives--
+                this.player.lives--;
+                if (this.player.lives <= 0) {domain="gameOver"};
+            }
+               
+            
+            if (this.grass[i].y > height || this.player.catchGrass(this.grass[i])) {
+                this.grass.splice(i, 1);  // Remove if off-screen or caught
+            }
         }
     }
 
-    updateGrass() { //update the grass from this.dropGrass if caught or missed
-        for (let i = this.dropGrass.length - 1; i >= 0; i--) {
-             
-            this.dropGrass[i].update();    
-            
-            if (this.dropGrass[i].y > height || this.player.catchGrass(this.dropGrass[i])) {
-                this.dropGrass.splice(i, 1);  // Remove if off-screen or caught
-            }
+    emptyGrass() { //empty grass to the basket
+        if (this.player.x <= this.basket.x + this.basket.w) {
+            this.score += this.player.stack.length;
+            this.player.stack = [];
+            this.player.maxSpeed = 10;
+            this.player.acceleration = 2;
         }
     }
 
@@ -71,6 +79,7 @@ class Single {
     displayUI() {
         fill(0);
         textSize(20);
+        textAlign(LEFT);
         text(`Level ${this.level}`, width / 2, 30);
         text(`Score: ${this.score}`, 20, 30);
         text(`Target: ${this.targetScores}`, 20, 60);
