@@ -1,4 +1,3 @@
-
 class Player {
     constructor() {
         this.resetPosition();
@@ -44,7 +43,6 @@ class Player {
     }
 
 
-
     catchGrass(grass) { //return if grass is caught, false otherwise
         if (this.stack.length > 5) { //can't have more than 5 grass on the platform
             this.lives--;
@@ -79,11 +77,7 @@ class Player {
         return false;
     }
     
-    update() { //draw player with caught grass
-        // if (flashTimer > 0 && !isFlashVisible) {
-        //     return;
-        // }
-    
+    update() { //draw player with caught grass   
         fill(0, 0, 255);
         rect(this.x, this.y, this.w, this.h);
     

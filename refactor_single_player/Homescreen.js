@@ -1,32 +1,19 @@
-class Homescreen {
+class HomeScreen extends Screen {
+    // constructor(screenManager) {
+    //     super(screenManager);
+    //     //this.screenManager = screenManager;
+    // }
 
-    displayHomescreen() {
-        fill(0);
-        textSize(32);
+    display() {
+        background(220);
         textAlign(CENTER, CENTER);
-        text("Click Start to Begin", width / 2, height / 2 - 50);
-    
-        //draw start button
-        this.drawStartButton();
+        textSize(30);
+        text("Welcome to Haystacking!", width / 2, height / 3);
+        textSize(20);
+        text("Click anywhere to start", width / 2, height / 2);
     }
 
-    drawStartButton() {
-        let buttonWidth = 100;
-        let buttonHeight = 40;
-        let buttonX = width/4*3;
-        let buttonY = height/5*4;
-
-        fill(0, 255, 0);
-        rect(buttonX, buttonY, buttonWidth, buttonHeight);
-        fill(0);
-        text("Start", buttonX+50, buttonY+20);
-
-        //click start button logic
-        if (mouseX > buttonX && mouseX < buttonX + buttonWidth 
-            && mouseY > buttonY && mouseY < buttonY + buttonHeight
-            && mouseIsPressed
-        ) { 
-            domain = "mode";
-        }
+    mousePressed() { //go to menuscreen
+        this.screenManager.changeScreen(this.screenManager.menuScreen);
     }
 }
