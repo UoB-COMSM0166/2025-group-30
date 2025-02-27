@@ -1,3 +1,5 @@
+let domain;
+
 let screenManager;
 let home = null, mode = null, singleHelp = null, single = null;
 

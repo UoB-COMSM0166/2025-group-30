@@ -1,5 +1,5 @@
 class Single extends Screen {
-    constructor(screenManager, level, targetScores, time, grassDropDelay) {
+    constructor(screenManager, level=1, targetScores=5, timer=10, grassDropDelay=2000) {
         super(screenManager);
 
         this.player = new Player();
@@ -7,7 +7,8 @@ class Single extends Screen {
 
         this.level = level;
         this.targetScores = targetScores;
-        this.timer = time;
+        this.timer = timer;
+        this.timeLeft = timer;
         this.grassDropDelay = grassDropDelay; // in milliseconds
 
         this.score = 0;
@@ -17,6 +18,9 @@ class Single extends Screen {
 
         this.startGrassDrop(); //start dropping grass immediately 
         this.startLevelTimer(); //start the level timer
+
+        this.levelSuccessScreen = new LevelSuccessScreen(this.screenManager, this.level, this.score, this.targetScores);
+        this.gameOverScreen = new GameOverScreen(this.screenManager,this.level, this.score, this.targetScores);
     }
 
     display(){   
@@ -48,20 +52,7 @@ class Single extends Screen {
     //     }
     // }
 
-    startLevelTimer() {
-        if (this.timerInterval) {clearInterval(this.timerInterval);}
-
-        //this.timer = time; //reset the timer at the start of a level
-        this.timerInterval = setInterval(() => {
-            if (this.timer >0) {
-                this.timer--;
-            }
-            else {
-                if (this.score >= this.targetScores) domain = "levelUp"
-                else {domain = "gameOver"};
-            }
-        }, 1000);
-    }
+    
 
     updateGrass() { //update the grass from this.grass if caught or missed
         for (let i = this.grass.length - 1; i >= 0; i--) {
@@ -70,7 +61,11 @@ class Single extends Screen {
 
             if (this.grass[i].y > height) { //if miss a grass, lives--
                 this.player.lives--;
-                if (this.player.lives <= 0) {domain="gameOver"};
+                if (this.player.lives <= 0) { //check for game over
+                    this.reset();
+                    this.gameOverScreen.update(this.level, this.score, this.targetScores);
+                    this.screenManager.changeScreen(this.gameOverScreen);
+                };
             }              
             
             if (this.grass[i].y > height || this.player.catchGrass(this.grass[i])) {
@@ -104,7 +99,7 @@ class Single extends Screen {
         text(`Level ${this.level}`, width / 2, 30);
         text(`Score: ${this.score}`, 20, 30);
         text(`Target: ${this.targetScores}`, 20, 60);
-        text(`Time: ${this.timer}s`, 20, 90);
+        text(`Time: ${this.timeLeft}s`, 20, 90);
     }
 
     keyPressed() { 
@@ -117,6 +112,55 @@ class Single extends Screen {
         if (keyCode === LEFT_ARROW || keyCode === RIGHT_ARROW) this.player.dir = 0;
     }
 
-    //mousePressed() {}
+    reset(){
+        this.timeLeft = this.timer;
+        this.player.lives =3;
+        this.score = 0;
+        this.grass = [];
+    }
+
+    // -- level up mechanism --//
+    startLevelTimer() {
+        if (this.timerInterval) {clearInterval(this.timerInterval);}
+
+        //this.timer = timer; //reset the timer at the start of a level
+        this.timerInterval = setInterval(() => {
+            if (this.timeLeft >0) {
+                this.timeLeft--;
+            }
+            else { //check when times run out
+                if (this.score >= this.targetScores){ //move up a level
+                    this.reset();
+                    this.levelSuccessScreen.update(this.level, this.score, this.targetScores);
+                    this.screenManager.changeScreen(this.levelSuccessScreen);
+                } 
+                else { //game over
+                    this.reset();
+                    this.gameOverScreen.update(this.level, this.score, this.targetScores);
+                    this.screenManager.changeScreen(this.gameOverScreen);
+                };
+            }
+        }, 1000);
+    }
+
+    // --- show level success screen --
+    showLevelSuccess() {
+        // Update the LevelSuccessScreen content dynamically
+        this.levelSuccessScreen.update(this.level, this.score, this.targetScores);
+        this.screenManager.changeScreen(this.levelSuccessScreen);
+    }
     
+    //--- Move to next level ---
+    levelUp() { 
+        this.level++;
+        this.targetScores = 50;
+        this.timer = 60;
+        this.timeLeft = 60;
+        this.grassDropDelay = 1500;
+        this.score = 0;
+
+        // Restart the grass drop and timer for the new level
+        this.startGrassDrop();
+        this.startLevelTimer();
+    }
 }
