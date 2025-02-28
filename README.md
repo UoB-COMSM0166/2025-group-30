@@ -98,6 +98,17 @@ yet challenging farm-harvesting atmosphere. With simple and intuitive controls, 
 - 15% ~750 words
 
 - One qualitative evaluation (your choice) 
+#### Heuristic Evaluation Table
+
+| **Interface**         | **Issue**                                                                 | **Heuristic(s)**                            | **Frequency** (0-4) | **Impact** (0-4) | **Persistence** (0-4) | **Severity Score** ((F+I+P)/3) |
+|----------------------|------------------------------------------------------------------------|--------------------------------------------|------------------|----------------|----------------|------------------|
+| **Main Menu**       | The extra "Start" button is unnecessary; players should select the mode first and then start. | User control and freedom                  | 3                | 3              | 3              | 3.00             |
+| **Mode Selection**  | The single-player or multiplayer selection screen lacks a button to return to the main menu. | User control and freedom                  | 3                | 3              | 4              | 3.33             |
+| **Multiplayer End** | Missing score comparison prevents players from visually comparing their scores. | Visibility of system status               | 3                | 3              | 4              | 3.33             |
+| **Multiplayer Gameplay** | The time display is only on the left side, making it difficult for the right-side player to see the remaining time. | Visibility of system status               | 4                | 3              | 4              | 3.67             |
+| **Gameplay Speed**  | The grass-cutting speed varies on different platforms, affecting the gaming experience. | Error prevention                          | 4                | 4              | 4              | 4.00             |
+| **Character Store** | The lack of a store system prevents players from selecting different characters or grass-cutting tools. | Flexibility and efficiency of use        | 3                | 2              | 3              | 2.67             |
+| **Multiplayer Gameplay** | In multiplayer mode, the character/tool selection cannot meet the personalized needs of different players. | Flexibility and efficiency of use        | 3                | 2              | 3              | 2.67             |
 
 - One quantitative evaluation (of your choice) 
 
