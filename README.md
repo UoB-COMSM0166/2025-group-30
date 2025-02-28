@@ -13,12 +13,14 @@ Include a demo video of your game here (you don't have to wait until the end, yo
 
 Add a group photo here!
 
-- Group member 1, name, email, role
-- Group member 2, name, email, role
-- Group member 3, name, email, role
-- Group member 4, name, email, role
-- Group member 5, name, email, role
-- Group member 6, name, email, role
+| Name         | Email                              | GitHub username |
+|-------------|----------------------------------|----------------|
+| Lingchen Li | [yf24777@bristol.ac.uk](mailto:yf24777@bristol.ac.uk) | lingchen2333 |
+| Lei Gao     | [yt24392@bristol.ac.uk](mailto:yt24392@bristol.ac.uk) | Muilka |
+| Hanying Bian | [oo24343@bristol.ac.uk](mailto:oo24343@bristol.ac.uk) | Hanying-Bian |
+| Shiyu Dou   | [hl24597@bristol.ac.uk](mailto:hl24597@bristol.ac.uk) | hl24597 |
+| Zhuoyan Qiu | [rp24358@bristol.ac.uk](mailto:rp24358@bristol.ac.uk) | 1003-qzy |
+| Liyang Li   | [gq24742@bristol.ac.uk](mailto:gq24742@bristol.ac.uk) | Misaki-1 |
 
 ## Project Report
 
