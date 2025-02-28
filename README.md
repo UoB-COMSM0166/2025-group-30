@@ -1,15 +1,18 @@
 # 2025-group-30
 2025 COMSM0166 group 30
 
-## Your Game
+## Haystacking
 
 Link to your game [PLAY HERE](https://uob-comsm0166.github.io/2025-group-30/) 
 
 Your game lives in the [/docs](/docs) folder, and is published using Github pages to the link above.
 
 Include a demo video of your game here (you don't have to wait until the end, you can insert a work in progress video)
+[🎬 Click here to watch the demo video](https://github.com/UoB-COMSM0166/2025-group-30/blob/nemo/videos/demo%20video.MP4)
 
-## Your Group
+## Table of Contents
+
+## Developent Team
 
 Add a group photo here!
 
@@ -28,6 +31,35 @@ Add a group photo here!
 
 - 5% ~250 words 
 - Describe your game, what is based on, what makes it novel? 
+
+Our **Haystacking** game is an innovative stacking-based casual challenge inspired by the classic game **Grass Catching**. 
+Set during the harvest season on a farm, players must control their character’s movement left and right to catch falling 
+haystacks and collect as much hay as possible within a limited time to reach the goal.
+
+#### **Game Objective**
+The game challenges players’ balancing and strategic skills while simulating the intensity of farm harvesting. 
+Players must constantly adjust their position and respond flexibly to randomly falling hay. If too much hay 
+accumulates, movement speed will slow down, making it harder to catch additional falling hay. Therefore, 
+players need to empty the collection bucket at the right time to maintain stability.
+
+#### **Game Mechanics**
+Building upon **Grass Catching**, **Haystacking** introduces increased difficulty and strategic depth. In 
+single-player mode, players must avoid falling shovels and buckets while collecting stars to gain extra lives. 
+In two-player mode, players can either cooperate to reach a shared goal or compete to be the first to achieve 
+the target. As haystack accumulation increases, movement speed gradually slows down, making the later stages 
+of the game more challenging and strategic.
+
+#### **Game Significance**
+The game tests players’ reflexes, spatial awareness, and strategic planning skills while creating a relaxed 
+yet challenging farm-harvesting atmosphere. With simple and intuitive controls, **Haystacking** offers both excitement and tension. Whether playing solo or competing with friends, this game delivers a uniquely entertaining experience!
+
+#### Table 1: Game Elements
+| Category  | Image  | Description  |
+|-----------|--------|--------------|
+| **Collection Basket** | ![Basket](image/basket.png) | The basket where players store the collected hay. Players need to transfer the caught hay into the basket to tally their score. |
+| **Player** | ![Player](image/player.png) | The character controlled by the player, moving left and right to catch falling hay. |
+| **Lifting Basket** | ![Lifting Basket](image/lifting_basket.png) | A secondary basket used for catching hay before transferring it to the main collection basket. |
+| **Falling Hay** | ![Falling Hay](image/falling_hay.png) | The hay stacks that fall from the sky. Players must catch them efficiently to reach the target before time runs out. |
 
 ### Requirements 
 
