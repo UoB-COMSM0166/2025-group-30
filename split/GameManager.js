@@ -65,9 +65,12 @@ class GameManager {
     }
 
     startGrassDrop() {
-        if (!this.state.gameStarted) return;
+        if (!this.state.gameStarted) return; 
+
         if (this.grassDropInterval) clearInterval(this.grassDropInterval);
-        this.grassPiles = [];
+
+        this.grassPiles = [];//清空之前的草堆掉落数据，防止旧的草堆影响新一轮游戏
+
         this.grassDropInterval = setInterval(() => {
             if (!this.state.gameOver && !this.state.paused && this.state.startGame) {
                 if (this.state.isPlayAgainstMode) {
@@ -82,16 +85,21 @@ class GameManager {
     }
 
     startLevelTimer() {
+        // 先清除可能存在的定时器，防止多个定时器叠加
         if (this.levelTimerInterval) clearInterval(this.levelTimerInterval);
-        this.state.timer = 30;
+        //当前关卡的倒计时初始值是 30 秒
+        this.state.timer = 30; 
+        //启动一个定时器，并将 setInterval 返回的 定时器 ID 存入 this.levelTimerInterval，以便后续可以清除
         this.levelTimerInterval = setInterval(() => {
+            //只有 游戏未暂停且已经开始，倒计时才会减少
             if (!this.state.paused && this.state.startGame) {
                 this.state.timer--;
                 if (this.state.timer <= 0) {
+                    //倒计时结束启动时间到的情况
                     this.handleTimeUp();
                 }
             }
-        }, 1000);
+        }, 1000);// 这里的代码每隔 1000 毫秒(1s)执行一次
     }
 
     handleTimeUp() {
@@ -110,22 +118,19 @@ class GameManager {
     }
 
     update() {
-            
         // 更新闪烁计时器
         this.updateFlashTimers();
+
         if (this.state.paused || !this.state.gameStarted) return;
+
+        // 更新游戏模式
         this.updateGameMode();
+
+        // 更新草方块
         this.updateGrassPiles();
     
         // 更新玩家位置
         this.updatePlayers();
-    
-        // 更新草方块
-        
-
-        
-
-        
     }
 
 

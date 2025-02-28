@@ -6,7 +6,7 @@ class Basket {
         this.y = height - 100;
         this.x = isLeft ? 10 : width - 60;
         //this.active = isLeft; 
-        this.active = true; // 默认只激活左边的篮子
+        this.active = true; // 默认篮子激活
     }
 
     show() {
