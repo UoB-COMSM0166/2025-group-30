@@ -40,7 +40,7 @@ class Player {
                 else this.gameManager.state.lives2--;
             } else {
 
-//#### potential bug? (both players lose a life if one of them has more than 5 grass) ####
+//#### a potential bug? (both players lose a life if one of them has more than 5 grass) ####
 
                 this.gameManager.state.lives1--;
                 this.gameManager.state.lives2--; 
