@@ -1,23 +1,33 @@
 class GameManager {
     constructor() {
+        // --- state ---
         this.state = new GameState();
+
         this.uiManager = new UIManager(this);
         this.inputHandler = new InputHandler(this);
-        this.grassDropInterval = null;
-        this.levelTimerInterval = null;
+
+        this.grassDropInterval = null; //manage how often a grass drops
+        this.levelTimerInterval = null; //manage how often the timer goes down i.e. 1 second
+
         this.moveDirection1 = 0;
         this.moveDirection2 = 0;
+
+
+        // --- flashTimer ---
+        // when a player loses a life, it triggers a fashing effecct, during which the game remains paused
         this.flashTimer1 = 0;
         this.flashTimer2 = 0;
+
+        // --- falling grass visibile on the screen ---
         this.grassPiles = [];
         
         // 创建两个篮子
-        this.basket1 = new Basket(true);
+        this.basket1 = new Basket(true); 
         this.basket2 = new Basket(false);
         
         // 初始化玩家
-        this.player1 = new Player(width / 4, height - 150, true);
-        this.player2 = new Player(3 * width / 4, height - 150, false);
+        this.player1 = new Player(width / 4, height - 150, true); // player on the left
+        this.player2 = new Player(3 * width / 4, height - 150, false); // player on the right 
         
         // 设置玩家和篮子的关联
         this.player1.gameManager = this;
@@ -39,7 +49,9 @@ class GameManager {
 
     updateGameMode() {
         //console.log("Current game mode - isPlayAgainstMode:", this.player1.w); // 添加调试信息
-        if (this.state.isPlayAgainstMode) {
+
+        // --- pvp mode ---
+        if (this.state.isPlayAgainstMode) { 
              // 对抗模式下激活两个篮子
              this.basket1.active = true;
              this.basket2.active = true;
@@ -53,7 +65,8 @@ class GameManager {
  
              //console.log("Player 1 basket:", this.player1.basket);
              //console.log("Player 2 basket:", this.player2.basket); // 确保玩家2的 basket 指向 basket2
-        } else {
+        } else { 
+        // --- single or coop mode --
             // 单人或合作模式下只激活左边篮子
             this.basket1.active = true;
             this.basket2.active = false;
@@ -65,48 +78,45 @@ class GameManager {
     }
 
     startGrassDrop() {
-        if (!this.state.gameStarted) return; 
-
+        if (!this.state.gameStarted) return;
         if (this.grassDropInterval) clearInterval(this.grassDropInterval);
-
-        this.grassPiles = [];//清空之前的草堆掉落数据，防止旧的草堆影响新一轮游戏
-
+        this.grassPiles = [];
         this.grassDropInterval = setInterval(() => {
             if (!this.state.gameOver && !this.state.paused && this.state.startGame) {
+// --- possible refactoring? 
                 if (this.state.isPlayAgainstMode) {
-                    this.grassPiles.push(new Grass(random(50, width / 2 - 50), 10, true));
-                    this.grassPiles.push(new Grass(random(width / 2 + 50, width - 50), 10, false));
+                    // --- pvp mode ---
+                    this.grassPiles.push(new Grass(random(50, width / 2 - 50), 10, true)); //grass falls on left half of the screen
+                    this.grassPiles.push(new Grass(random(width / 2 + 50, width - 50), 10, false)); ///grass falls on right half of the screen
                 } else {
+                    // --- single or coop mode ---
                     this.grassPiles.push(new Grass(random(50, width - 50), 10, true));
                 }
             }
-        }, 2000);
+        }, 2000); //grass falls every 2 seconds
         this.startLevelTimer();
     }
 
     startLevelTimer() {
-        // 先清除可能存在的定时器，防止多个定时器叠加
         if (this.levelTimerInterval) clearInterval(this.levelTimerInterval);
-        //当前关卡的倒计时初始值是 30 秒
-        this.state.timer = 30; 
-        //启动一个定时器，并将 setInterval 返回的 定时器 ID 存入 this.levelTimerInterval，以便后续可以清除
+        this.state.timer = 30;
         this.levelTimerInterval = setInterval(() => {
-            //只有 游戏未暂停且已经开始，倒计时才会减少
             if (!this.state.paused && this.state.startGame) {
                 this.state.timer--;
                 if (this.state.timer <= 0) {
-                    //倒计时结束启动时间到的情况
                     this.handleTimeUp();
                 }
             }
-        }, 1000);// 这里的代码每隔 1000 毫秒(1s)执行一次
+        }, 1000); //update timer every second
     }
 
     handleTimeUp() {
         clearInterval(this.levelTimerInterval);
+        // --- pvp mode ---
         if (this.state.isPlayAgainstMode) {
             this.state.gameOver = true;
         } else {
+        // --- single or coop mode ---
             if (this.state.score1 + this.state.score2 >= 
                 this.state.targetScores[this.state.level - 1]) {
                 this.state.showLevelUpScreen = true;
@@ -117,20 +127,18 @@ class GameManager {
         }
     }
 
-    update() {
+    update() {   
         // 更新闪烁计时器
         this.updateFlashTimers();
-
         if (this.state.paused || !this.state.gameStarted) return;
-
-        // 更新游戏模式
-        this.updateGameMode();
-
-        // 更新草方块
+        //this.updateGameMode();
         this.updateGrassPiles();
     
         // 更新玩家位置
         this.updatePlayers();
+    
+        // 更新草方块
+        
     }
 
 
@@ -226,17 +234,17 @@ class GameManager {
                     // 根据草方块在屏幕的左右位置决定减少哪个玩家的生命值
                     if (grass.x < width / 2) {
                         this.state.lives1--;
-                        this.flashTimer1 = 60; // 闪烁效果
+                        this.flashTimer1 = 60; // 闪烁效果 trigger flashing 
                     } else {
                         this.state.lives2--;
-                        this.flashTimer2 = 60; // 闪烁效果
+                        this.flashTimer2 = 60; // 闪烁效果 trigger flashing 
                     }
                 } 
                 // 在单人模式或双人合作模式下
                 else {
                     // 减少所有玩家的生命值
                     this.state.lives1--;
-                    this.flashTimer1 = 60;
+                    this.flashTimer1 = 60; //trigger flashing 
                     if (this.state.isTwoPlayerMode) {
                         this.state.lives2--;
                         this.flashTimer2 = 60;
@@ -263,6 +271,28 @@ class GameManager {
         }
     }
 
+    resetPlayers() {
+        if (this.player1) {
+            this.player1.paused = false;
+            this.player1.resetPosition(true);
+            this.player1.stack = [];
+        }
+        if (this.player2) {
+            this.player2.paused = false;
+            this.player2.resetPosition(false);
+            this.player2.stack = [];
+        }
+        this.moveDirection1 = 0;
+        this.moveDirection2 = 0;
+        this.flashTimer1 = 0;
+        this.flashTimer2 = 0;
+    }
+
+
+    // ====================
+    //       FlashTimer
+    // ====================
+
     updateFlashTimers() {
         if (this.flashTimer1 > 0 && !this.state.flashPaused) {
             this.updateFlashTimer1();
@@ -274,11 +304,11 @@ class GameManager {
 
     updateFlashTimer1() {
             this.flashTimer1--;
-            this.state.isFlashVisible = frameCount % 10 < 5; // 闪烁效果
+            this.state.isFlashVisible = frameCount % 10 < 5; // 闪烁效果 isFlashVisible alternate between true and false
             if (this.flashTimer1 === 0 && this.state.lives1 > 0) {
                 this.player1.paused = false;
                 this.state.paused = false;
-                this.state.isFlashVisible = true; // 闪烁结束后恢复可见
+                this.state.isFlashVisible = true; // 闪烁结束后恢复可见 
             } else if (this.flashTimer1 === 0 && this.state.lives1 <= 0) {
                 this.state.gameOver = true;
             }
@@ -298,20 +328,5 @@ class GameManager {
     }
 
 
-    resetPlayers() {
-        if (this.player1) {
-            this.player1.paused = false;
-            this.player1.resetPosition(true);
-            this.player1.stack = [];
-        }
-        if (this.player2) {
-            this.player2.paused = false;
-            this.player2.resetPosition(false);
-            this.player2.stack = [];
-        }
-        this.moveDirection1 = 0;
-        this.moveDirection2 = 0;
-        this.flashTimer1 = 0;
-        this.flashTimer2 = 0;
-    }
+    
 }

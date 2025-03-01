@@ -26,13 +26,14 @@ class GameState {
         this.showTwoPlayerOptions = false;
         this.showHelp = false;
         this.showLevelUpScreen = false;
-
+  
         //--timer and flash effect
-        this.flashPaused = false;
-        this.isFlashVisible = true;
+        this.flashPaused = false; //controls if flash timer should continue counting down
+        this.isFlashVisible = true; //player visible when true, not visible when false
     }
 
-    reset() {
+    reset() { //restores the default state, a new game can start fresh
+        
         //--Scores and lives
         this.score1 = 0;
         this.score2 = 0;
