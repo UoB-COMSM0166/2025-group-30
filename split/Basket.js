@@ -1,10 +1,12 @@
 class Basket {
-    constructor(isLeft) {
+    constructor(isLeft) { //ifLeft is only applicable to pvp mode
         this.isLeft = isLeft;
+
         this.w = 50;
         this.h = 100;
         this.y = height - 100;
         this.x = isLeft ? 10 : width - 60;
+        
         //this.active = isLeft; 
         this.active = true; // 默认篮子激活
     }

@@ -1,19 +1,25 @@
 class Player {
     constructor(x, y, isLeft) {
-        this.isLeft = isLeft;
+        this.gameManager = gameManager;
+
+        this.isLeft = isLeft; //used only for pvp mode
+        
         this.w = 100;
         this.h = 20;
         this.x = x;
         this.y = height - 50;
+
         this.velocity = 0;
         this.maxSpeed = 10;
         this.minSpeed = 5;
         this.acceleration = 2;
-        this.stack = [];  // 存储接住的绿色方块
-        this.maxStack = 5;  // 最多可以接住5个方块
-        this.paused = false;
+
+        this.stack = [];  //visible caught grass
+        this.maxStack = 5; 
+        
         this.basket = null; // 确保basket被正确初始化
-        this.gameManager = gameManager;
+
+        this.paused = false;
     }
 
     resetPosition(isLeft) {
@@ -22,19 +28,22 @@ class Player {
         } else {
             this.x = isLeft ? width / 4 - this.w / 2 : (3 * width) / 4 - this.w / 2;
         }
-        this.y = height - 50;  // 调整到底部
+        this.y = height - 50; 
         this.velocity = 0;
     }
 
     catchGrass(grass) {
         // 如果已经接住5个方块，则不能再接
         if (this.stack.length > this.maxStack) {
-            if(this.gameManager.isPlayAgainstMode){
+            if(this.gameManager.state.isPlayAgainstMode){
                 if(this.isLeft) this.gameManager.state.lives1--;
                 else this.gameManager.state.lives2--;
-            }else{
+            } else {
+
+//#### potential bug? (both players lose a life if one of them has more than 5 grass) ####
+
                 this.gameManager.state.lives1--;
-                this.gameManager.state.lives2--;
+                this.gameManager.state.lives2--; 
             }
             this.stack = [];
             this.maxSpeed = 10;
