@@ -37,9 +37,7 @@ The inspiration for our grass-catching game comes from Mole's World. Unlike the 
 
 During the conceptualization of the grass-catching game, we created a paper prototype to help visualize and test early game mechanics, including the way the grass falls, as well as the player's movement and interactions. Based on our initial discussions, we refined the game flow and mechanics, adding new elements to enhance the game's fun and challenge. To provide players with a clearer understanding of the game, we created a video based on the paper prototype, offering an intuitive demonstration of the gameplay.
 
-<div style="text-align: center;">
-    <b>Paper Prototype</b> developed during Workshop Three
-</div>
+<p style="center"><i>Paper Prototype</i> developed during Workshop Three</p >
 
 <video src="https://github.com/user-attachments/assets/2bc9ad40-728b-4c61-b258-6c2530942f93" controls width="600"></video>
 
