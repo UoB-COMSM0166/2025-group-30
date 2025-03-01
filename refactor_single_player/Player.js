@@ -26,18 +26,15 @@ class Player {
         this.y = this.baseY; // 复位 Y 位置
     }
 
-    handleInput(key) {
-        if (key === 'ArrowLeft') {
-            this.dir = -1;
-        } else if (key === 'ArrowRight') {
-            this.dir = 1;
-        }
-    }
 
-    stopInput(key) {
-        if (key === 'ArrowLeft' || key === 'ArrowRight') {
-            this.dir = 0;
+    loseLife() {
+        this.lives--;
+        console.log(`Player lost a life! Lives remaining: ${this.lives}`);
+        if (this.lives <= 0) {
+            console.log("Game Over!");
+            // 这里可以添加游戏结束的逻辑
         }
+        this.resetPosition(); // 生命减少后重置玩家状态
     }
 
     move() {
@@ -103,13 +100,15 @@ class Player {
                 this.y = this.baseY; // 清空stack 玩家复位 Y 位置
             } else {
                 let topGrass = this.stack.length === 0 ? { x: this.x, y: this.y } : this.stack[this.stack.length - 1];
-                grass.y = topGrass.y - grass.size.y; // 让新草块叠加在最上方的草块上
-                grass.x = topGrass.x; // 保持原始 x 位置
+                grass.y = topGrass.y - grass.size.y;
+                grass.x = topGrass.x;
                 this.stack.push(grass);
-                this.y = this.baseY - this.stack.length * 20; // 让玩家随着草堆升高
+                this.y = this.baseY - this.stack.length * 20;
             }
             return true;
         }
+        // 玩家未接住草，损失一条生命
+        this.loseLife();
         return false;
     }
 

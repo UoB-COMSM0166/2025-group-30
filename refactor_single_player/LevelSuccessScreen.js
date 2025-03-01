@@ -1,11 +1,10 @@
-class LevelSuccessScreen extends Screen { //for single mode
+class LevelSuccessScreen extends Screen {
     constructor(screenManager, level = 1, score = 5, targetScores = 5) {
         super(screenManager);
         this.level = level;
         this.score = score;
         this.targetScores = targetScores;
 
-        // Buttons for navigating
         this.buttons = [
             {
                 label: "Next Level",
@@ -13,8 +12,7 @@ class LevelSuccessScreen extends Screen { //for single mode
                 y: height / 5 * 4,
                 color: "rgb(0, 200, 0)",
                 action: () => {
-                    this.screenManager.single.levelUp();
-                    return this.screenManager.single;
+                    return new Single(this.screenManager, this.level + 1); // **正确创建新关卡**
                 }
             },
             {
@@ -27,11 +25,10 @@ class LevelSuccessScreen extends Screen { //for single mode
         ];
     }
 
-    // Display the Level Success screen
     display() {
         background(200);
         fill(255);
-        rect(width / 2 - 150, height / 2 - 100, 300, 250);  // Display box for message
+        rect(width / 2 - 150, height / 2 - 100, 300, 250);
         fill(0);
         textSize(20);
         textAlign(CENTER, CENTER);
@@ -40,7 +37,6 @@ class LevelSuccessScreen extends Screen { //for single mode
         text(`Score: ${this.score}`, width / 2, height / 2);
         text(`Target: ${this.targetScores}`, width / 2, height / 2 + 20);
 
-        // Display buttons
         for (let button of this.buttons) {
             fill(button.color);
             let buttonWidth = 120;
@@ -52,7 +48,6 @@ class LevelSuccessScreen extends Screen { //for single mode
         }
     }
 
-    // mouse clicks on buttons
     mousePressed() {
         let buttonWidth = 120;
         let buttonHeight = 40;
@@ -67,10 +62,10 @@ class LevelSuccessScreen extends Screen { //for single mode
         }
     }
 
-    // Update the content of the LevelSuccessScreen
     update(level, score, targetScores) {
         this.level = level;
         this.score = score;
         this.targetScores = targetScores;
     }
 }
+
