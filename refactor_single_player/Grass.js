@@ -7,10 +7,11 @@ class Grass {
     }
 
     fall() {
-        this.y += this.speed;  // 让草块向下移动，可以在这里设定下落速度随关卡的变化
+        this.y += this.speed;  // 让草块向下移动
     }
 
     show() {
+        noStroke();
         fill(0, 255, 0);  // 设定草块的颜色为绿色
         rect(this.x, this.y, this.size.x, this.size.y);  // 绘制草块
     }

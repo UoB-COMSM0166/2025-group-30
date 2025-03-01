@@ -107,8 +107,6 @@ class Player {
             }
             return true;
         }
-        // 玩家未接住草，损失一条生命
-        this.loseLife();
         return false;
     }
 

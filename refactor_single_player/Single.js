@@ -26,6 +26,7 @@ class Single extends Screen {
     display() {
         background(200);
         this.player.move();
+        this.player.drawPlayer();
         this.basket.show();
         
         this.updateGrass();
@@ -48,7 +49,7 @@ class Single extends Screen {
             grass.show();
             grass.fall();
 
-            if (grass.pos.y > height) { 
+            if (grass.y > height) { 
                 this.player.loseLife();
                 this.grass.splice(i, 1);
             } else if (this.player.catchGrass(grass)) {

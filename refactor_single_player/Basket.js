@@ -1,7 +1,7 @@
 class Basket {
     constructor() {
         this.size = { x: 80, y: 100 };
-        this.position = { x: width / 2 - this.size.x / 2, y: height - 100 };
+        this.position = { x: 0, y: height - 100 };
         this.score = 0; // 存储篮子内的草块数量
     }
 
