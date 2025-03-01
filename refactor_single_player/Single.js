@@ -10,9 +10,6 @@ class Single extends Screen {
         this.grassDropInterval = null;
         this.timerInterval = null;
         
-        this.startGrassDrop();
-        this.startLevelTimer();
-        
         this.levelSuccessScreen = new LevelSuccessScreen(this.screenManager, this.stats.level, this.stats.score, this.stats.targetScores);
         this.gameOverScreen = new GameOverScreen(this.screenManager, this.stats.level, this.stats.score, this.stats.targetScores);
     }
@@ -28,13 +25,26 @@ class Single extends Screen {
         this.stats.displayUI();
     }
 
-    startGrassDrop() {
-        if (this.grassDropInterval) { clearInterval(this.grassDropInterval); }
-        this.grass = [];
+    startGame() {
+        this.startGrassDrop();
+        this.startLevelTimer();
+    }
 
-        this.grassDropInterval = setInterval(() => {
+    startGrassDrop() {
+        if (this.grassDropInterval) { 
+            clearInterval(this.grassDropInterval); 
+        }
+        this.grass = [];
+        
+        // 设置一个较短的延迟来生成第一个草块
+        setTimeout(() => {
             this.grass.push(new Grass(random(200, width - 100), 10));
-        }, this.stats.grassDropDelay);
+            
+            // 然后开始正常的草块生成间隔
+            this.grassDropInterval = setInterval(() => {
+                this.grass.push(new Grass(random(200, width - 100), 10));
+            }, this.stats.grassDropDelay);
+        }, 1000); // 第一个草块1秒后出现
     }
 
     updateGrass() {
@@ -91,8 +101,14 @@ class Single extends Screen {
         this.player.resetPosition();
         this.player.stack = [];
         
-        this.startGrassDrop();
-        this.startLevelTimer();
+        if (this.grassDropInterval) {
+            clearInterval(this.grassDropInterval);
+            this.grassDropInterval = null;
+        }
+        if (this.timerInterval) {
+            clearInterval(this.timerInterval);
+            this.timerInterval = null;
+        }
     }
 
     startLevelTimer() {
