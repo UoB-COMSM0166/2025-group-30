@@ -4,14 +4,8 @@ class Single extends Screen {
         
         this.player = new Player();
         this.basket = new Basket();
+        this.stats = new GameStats(level);
         
-        this.level = level;
-        this.targetScores = 10 * level; // 每个关卡目标分数递增
-        this.timer = 30; // 每关限时30秒
-        this.timeLeft = this.timer;
-        this.grassDropDelay = 2000 - (level - 1) * 500; // 每关减少0.5s
-        
-        this.score = 0;
         this.grass = [];
         this.grassDropInterval = null;
         this.timerInterval = null;
@@ -19,8 +13,8 @@ class Single extends Screen {
         this.startGrassDrop();
         this.startLevelTimer();
         
-        this.levelSuccessScreen = new LevelSuccessScreen(this.screenManager, this.level, this.score, this.targetScores);
-        this.gameOverScreen = new GameOverScreen(this.screenManager, this.level, this.score, this.targetScores);
+        this.levelSuccessScreen = new LevelSuccessScreen(this.screenManager, this.stats.level, this.stats.score, this.stats.targetScores);
+        this.gameOverScreen = new GameOverScreen(this.screenManager, this.stats.level, this.stats.score, this.stats.targetScores);
     }
 
     display() {
@@ -30,8 +24,8 @@ class Single extends Screen {
         this.basket.show();
         
         this.updateGrass();
-        this.displayLives();
-        this.displayUI();
+        this.stats.displayLives();
+        this.stats.displayUI();
     }
 
     startGrassDrop() {
@@ -40,7 +34,7 @@ class Single extends Screen {
 
         this.grassDropInterval = setInterval(() => {
             this.grass.push(new Grass(random(200, width - 100), 10));
-        }, this.grassDropDelay);
+        }, this.stats.grassDropDelay);
     }
 
     updateGrass() {
@@ -51,8 +45,23 @@ class Single extends Screen {
 
             if (grass.y > height) { 
                 this.player.loseLife();
+                this.stats.loseLife();
                 this.grass.splice(i, 1);
+                if (this.stats.lives <= 0) {
+                    clearInterval(this.grassDropInterval);
+                    clearInterval(this.timerInterval);
+                    this.showGameOver();
+                }
             } else if (this.player.catchGrass(grass)) {
+                if (this.player.stack.length >= this.player.maxStack) {
+                    this.player.loseLife();
+                    this.stats.loseLife();
+                    if (this.stats.lives <= 0) {
+                        clearInterval(this.grassDropInterval);
+                        clearInterval(this.timerInterval);
+                        this.showGameOver();
+                    }
+                }
                 this.grass.splice(i, 1);
             }
         }
@@ -61,27 +70,9 @@ class Single extends Screen {
     emptyGrass() {
         if (this.player.x + this.player.w >= this.basket.position.x && 
             this.player.x <= this.basket.position.x + this.basket.size.x) {
-            this.score += this.player.stack.length;
+            this.stats.addScore(this.player.stack.length);
             this.player.stack = [];
         }
-    }
-
-    displayLives() {
-        let heartX = 20, heartY = 120;
-        for (let i = 0; i < 3; i++) {
-            fill(i < this.player.lives ? 'red' : 'gray');
-            circle(heartX + i * 30, heartY, 20);
-        }
-    }
-
-    displayUI() {
-        fill(0);
-        textSize(20);
-        textAlign(LEFT);
-        text(`Level ${this.level}`, width / 2, 30);
-        text(`Score: ${this.score}`, 20, 30);
-        text(`Target: ${this.targetScores}`, 20, 60);
-        text(`Time: ${this.timeLeft}s`, 20, 90);
     }
 
     keyPressed() { 
@@ -95,22 +86,24 @@ class Single extends Screen {
     }
 
     reset() {
-        this.timeLeft = this.timer;
-        this.player.lives = 3;
-        this.score = 0;
+        this.stats.reset();
         this.grass = [];
+        this.player.resetPosition();
+        this.player.stack = [];
+        
+        this.startGrassDrop();
+        this.startLevelTimer();
     }
 
     startLevelTimer() {
         if (this.timerInterval) { clearInterval(this.timerInterval); }
 
         this.timerInterval = setInterval(() => {
-            if (this.timeLeft > 0) {
-                this.timeLeft--;
-            } else {
+            const timeLeft = this.stats.decrementTime();
+            if (timeLeft <= 0) {
                 clearInterval(this.timerInterval);
                 clearInterval(this.grassDropInterval);
-                if (this.score >= this.targetScores) {
+                if (this.stats.hasReachedTarget()) {
                     this.showLevelSuccess();
                 } else {
                     this.showGameOver();
@@ -120,23 +113,17 @@ class Single extends Screen {
     }
 
     showLevelSuccess() {
-        this.levelSuccessScreen.update(this.level, this.score, this.targetScores);
+        this.levelSuccessScreen.update(this.stats.level, this.stats.score, this.stats.targetScores);
         this.screenManager.changeScreen(this.levelSuccessScreen);
     }
     
     showGameOver() {
-        this.gameOverScreen.update(this.level, this.score, this.targetScores);
+        this.gameOverScreen.update(this.stats.level, this.stats.score, this.stats.targetScores);
         this.screenManager.changeScreen(this.gameOverScreen);
     }
     
     levelUp() {
-        if (this.level < 3) {
-            this.level++;
-            this.targetScores = 10 * this.level;
-            this.timeLeft = 30;
-            this.grassDropDelay = 2000 - (this.level - 1) * 500;
-            this.score = 0;
-
+        if (this.stats.levelUp()) {
             this.startGrassDrop();
             this.startLevelTimer();
         }

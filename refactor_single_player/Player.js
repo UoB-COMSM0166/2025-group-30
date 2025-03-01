@@ -4,16 +4,17 @@ class Player {
         this.h = 20;
         this.stack = []; // Stack for caught grass
         this.maxStack = 5; // Maximum grass stack size
-        this.maxSpeed = 15;
-        this.accelerationValue = 2;
-        this.minSpeed = 5;
+        this.baseMaxSpeed = 15; // 基础最大速度
+        this.baseAcceleration = 1.8; // 基础加速度
+        this.friction = 0.92; // 摩擦力系数
+        this.minSpeed = 3;
         this.lives = 3;
         this.dir = 0;
         this.basket = new Basket(); // 初始化篮子
 
         this.x = width / 2;
         this.baseY = height - 50; // 记录初始 Y 位置
-        this.y = this.baseY;
+        this.y = this.baseY; // 玩家将始终保持在这个高度
         this.velocity = 0;
         this.acceleration = 0;
     }
@@ -30,80 +31,137 @@ class Player {
     loseLife() {
         this.lives--;
         console.log(`Player lost a life! Lives remaining: ${this.lives}`);
-        if (this.lives <= 0) {
-            console.log("Game Over!");
-            // 这里可以添加游戏结束的逻辑
-        }
-        this.resetPosition(); // 生命减少后重置玩家状态
+        
+        // 只重置速度和清空堆叠，保持位置不变
+        this.velocity = 0;
+        this.dir = 0;
+        this.stack = [];
     }
 
     move() {
         this.updateAcceleration(); 
         this.updateVelocity(); 
-        this.updatePosition(); 
-        this.updateStack(); 
+        
+        // 计算新位置
+        let newX = this.x + this.velocity;
+        newX = constrain(newX, 0, width - this.w);
+        
+        // 计算移动距离
+        let dx = newX - this.x;
+        
+        // 同时更新玩家和草块的位置
+        this.x = newX;
+        for (let grass of this.stack) {
+            grass.x += dx;
+        }
     }
     
     updateAcceleration() {
+        // 根据堆叠数量计算实际加速度
+        let stackFactor = Math.max(0.4, 1 - (this.stack.length * 0.12));
+        let currentAcceleration = this.baseAcceleration * stackFactor;
+        
         if (this.dir !== 0) {
-            this.acceleration = this.dir * this.accelerationValue;
+            this.acceleration = this.dir * currentAcceleration;
         } else {
             this.acceleration = 0;
         }
     }
 
     updateVelocity() {
-        let speedReduction = this.stack.length * 1.5; // 每个堆叠的草块减少速度
-        let adjustedMaxSpeed = Math.max(15 - speedReduction, this.minSpeed);
+        // 根据堆叠数量计算实际最大速度
+        let stackFactor = Math.max(0.3, 1 - (this.stack.length * 0.15));
+        let currentMaxSpeed = this.baseMaxSpeed * stackFactor;
         
+        // 应用加速度
         this.velocity += this.acceleration;
-        this.velocity = constrain(this.velocity, -adjustedMaxSpeed, adjustedMaxSpeed);
+        
+        // 应用摩擦力
+        if (this.dir === 0) {
+            this.velocity *= this.friction;
+        }
+        
+        // 如果速度非常小，直接设为0
+        if (Math.abs(this.velocity) < 0.1) {
+            this.velocity = 0;
+        }
+        
+        // 限制速度范围
+        this.velocity = constrain(this.velocity, -currentMaxSpeed, currentMaxSpeed);
     }
 
-    //玩家只能左右移动，位置只更新x轴，y轴受stack的影响
+    moveAsWhole() {
+        // 计算新位置
+        let newX = this.x + this.velocity;
+        newX = constrain(newX, 0, width - this.w);
+        
+        // 计算移动距离
+        let dx = newX - this.x;
+        
+        // 同时更新玩家和草块的位置
+        this.x = newX;
+        for (let grass of this.stack) {
+            grass.x += dx;
+        }
+    }
+
+    // 移除不需要的方法
     updatePosition() {
         let newX = this.x + this.velocity;
         newX = constrain(newX, 0, width - this.w);
-        let dx = newX - this.x;
-        this.x = newX;
-        return dx;
+        return newX - this.x;
     }
 
     updateStack() {
-        let dx = this.updatePosition();
-        for (let i = 0; i < this.stack.length; i++) {
-            let grass = this.stack[i];
-            grass.x += dx;
-        }
-        // 更新玩家 Y 位置，使其随着 stack 增长而上升
-        this.y = this.baseY - this.stack.length * 20;
+        // 不再需要单独的更新逻辑
     }
 
     checkGrassCollision(grass) {
-        let topGrass = this.stack.length === 0 ? null : this.stack[this.stack.length - 1];
-        let catchXStart = this.x - 10;
-        let catchXEnd = this.x + this.w + 10;
-        let tolerance = 5;
+        let minOverlap = grass.size.x * 0.3; // 保持30%的重叠要求
+        
+        if (this.stack.length === 0) {
+            // 如果没有草，使用玩家矩形的位置判断
+            let catchXStart = this.x;
+            let catchXEnd = this.x + this.w;
+            
+            // 计算与玩家的重叠
+            let overlapStart = Math.max(catchXStart, grass.x);
+            let overlapEnd = Math.min(catchXEnd, grass.x + grass.size.x);
+            let overlapWidth = overlapEnd - overlapStart;
 
-        return (
-            grass.y + grass.size.y >= (topGrass ? topGrass.y - grass.size.y : this.y - grass.size.y) - tolerance &&
-            grass.x + grass.size.x > catchXStart &&
-            grass.x < catchXEnd
-        );
+            if (overlapWidth < minOverlap) return false;
+
+            return (
+                grass.y + grass.size.y >= this.y &&      // 草块底部要接触到玩家顶部
+                grass.y + grass.size.y <= this.y + 10    // 草块底部不能太低
+            );
+        } else {
+            // 如果有草，使用最上面的草块的位置判断
+            let topGrass = this.stack[this.stack.length - 1];
+            let catchXStart = topGrass.x;
+            let catchXEnd = topGrass.x + topGrass.size.x;
+            
+            // 计算与顶部草块的重叠
+            let overlapStart = Math.max(catchXStart, grass.x);
+            let overlapEnd = Math.min(catchXEnd, grass.x + grass.size.x);
+            let overlapWidth = overlapEnd - overlapStart;
+
+            if (overlapWidth < minOverlap) return false;
+
+            return (
+                grass.y + grass.size.y >= topGrass.y &&      // 草块底部要接触到顶部草块
+                grass.y + grass.size.y <= topGrass.y + 10    // 草块底部不能太低
+            );
+        }
     }
 
     catchGrass(grass) {
         if (this.checkGrassCollision(grass)) {
             if (this.stack.length >= this.maxStack) {
                 this.loseLife();
-                this.stack = [];
-                this.y = this.baseY; // 清空stack 玩家复位 Y 位置
             } else {
-                let topGrass = this.stack.length === 0 ? { x: this.x, y: this.y } : this.stack[this.stack.length - 1];
-                grass.y = topGrass.y - grass.size.y;
-                grass.x = topGrass.x;
+                // 直接将草块添加到堆叠中，保持其当前位置
                 this.stack.push(grass);
-                this.y = this.baseY - this.stack.length * 20;
             }
             return true;
         }
@@ -119,10 +177,9 @@ class Player {
     
             this.basket.updateStats(collectedGrass); // 更新篮子统计信息
             this.stack = [];
-            this.y = this.baseY; // 复位 Y 位置
     
-            this.maxSpeed = 15; // 恢复原始最大速度
-            this.accelerationValue = 2;
+            this.baseMaxSpeed = 15; // 恢复原始最大速度
+            this.baseAcceleration = 1.8;
         }
     }
     
@@ -130,18 +187,8 @@ class Player {
         fill(0, 0, 255);
         rect(this.x, this.y, this.w, this.h);
     
-        let previousY = this.y;///
-        let previousX = this.x; // 记录当前 玩家x 位置
-    
-        for (let i = 0; i < this.stack.length; i++) {
-            let grass = this.stack[i];
-    
-            // 确保草块跟随玩家移动
-            grass.x = previousX;
-            grass.y = previousY - grass.size.y;
-    
-            previousY = grass.y; // 更新 y 位置
-            previousX = grass.x; // 更新 x 位置
+        // 绘制堆叠的草，保持其原始位置
+        for (let grass of this.stack) {
             grass.show();
         }
     }
