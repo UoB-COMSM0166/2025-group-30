@@ -14,16 +14,16 @@ class GameState {
         this.timer = 60;
 
         //--Flow flags
-        this.gameStarted = false;
-        this.startGame = false;      
+        this.gameStarted = false; // a one-time flag that checks whether the game has been started at least once
+        this.startGame = false;  // checks whether the game is currently running
         this.paused = false;
         this.gameOver = false;       
         this.isPlayAgainstMode = false;
 
         //--UI flags
         this.showMenu = false;
-        this.showModeSelection = false;
-        this.showTwoPlayerOptions = false;
+        this.showModeSelection = false; // whether the game is in menu screen 
+        this.showTwoPlayerOptions = false; // whether the game should display the two-player mode selection options
         this.showHelp = false;
         this.showLevelUpScreen = false;
   

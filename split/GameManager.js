@@ -146,7 +146,7 @@ class GameManager {
     levelUp() {
         if (this.state.level < this.state.targetScores.length) {
             this.state.level++;
-            this.state.showLevelUpScreen = false;
+            this.state.showLevelUpScreen = false; //?
             this.state.paused = false;
             this.resetPlayers();
             this.startGrassDrop();
@@ -169,14 +169,6 @@ class GameManager {
         this.state.isTwoPlayerMode = isTwoPlayer;
         this.state.isPlayAgainstMode = isPlayAgainst;
     
-        // 根据模式设置篮子状态
-        if (this.state.isPlayAgainstMode) {
-            this.basket1.active = true;
-            this.basket2.active = true;
-        } else {
-            this.basket1.active = true;
-            this.basket2.active = false;
-        }
     
         if (this.state.isPlayAgainstMode) {
             // 对抗模式下的重置
@@ -187,14 +179,24 @@ class GameManager {
             this.player2 = new Player(width - 160, height - 50, false);
             
             // 设置玩家的gameManager引用
-            this.player1.gameManager = this;
+            this.player1.gameManager = this; //??? add gameManager as a palyer attribute
             this.player2.gameManager = this;
             
             // 设置篮子引用
             this.player1.basket = this.basket1;
             this.player2.basket = this.basket2; // 确保玩家2的 basket 指向 basket2
+        } else {
+            // --- single or coop mode --
+            this.player1.resetPosition(true);
+            this.player2.resetPosition(false);
+
+            this.basket1.active = true;
+            this.basket2.active = false;
+            this.player1.basket = this.basket1;
+            this.player2.basket = this.basket1;
         }
     }
+
 
     updatePlayers() {
         if (this.state.paused || !this.state.gameStarted) return;
@@ -326,7 +328,5 @@ class GameManager {
                 this.state.gameOver = true;
             }
     }
-
-
     
 }

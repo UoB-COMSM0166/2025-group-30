@@ -6,14 +6,19 @@ class InputHandler {
    handleKeyPressed(keyCode) {
       //console.log("2 players mode:", this.gameManager.state.isTwoPlayerMode);
       //console.log("gameStarted:", this.gameManager.state.gameStarted);
+
+      // --- game over ----
        if (this.gameManager.state.gameOver && keyCode === ENTER) {
            this.gameManager.restartGame();
            return;
        }
 
+        // --- game paused or at not in game screen e.g. help screen, menu screen etc ----
        if (this.gameManager.state.paused || !this.gameManager.state.gameStarted) {
          return;
        }
+
+       // --- game screen (single, coop and pvp) ----
        // 玩家1的控制
        if (keyCode === 65) { // A键
            this.gameManager.moveDirection1 = -1;
@@ -25,6 +30,7 @@ class InputHandler {
            }
        }
        
+       // --- coop and pvp game screen ---
        // 玩家2的控制
        if (this.gameManager.state.isTwoPlayerMode) {
            if (keyCode === LEFT_ARROW) {
@@ -59,18 +65,20 @@ class InputHandler {
    }
 
    handleMousePressed(mouseX, mouseY) {
+        // --- not in game screen i.e. game not running ---
        if (!this.gameManager.state.startGame) {
            this.handleStartScreenInput(mouseX, mouseY);
-       } else {
+       } else { // --- game screen (single, coop and pvp) ---- 
            this.handleGameInput(mouseX, mouseY);
        }
    }
 
+   // --- not in game screen i.e. game not running ---
    handleStartScreenInput(mouseX, mouseY) {
-       if (!this.gameManager.state.showModeSelection) {
-           if (this.gameManager.state.showHelp) {
+       if (!this.gameManager.state.showModeSelection) { // --- not in menu screen ---
+           if (this.gameManager.state.showHelp) { // --- in help screen ---
                this.gameManager.uiManager.handleHelpScreenInput(mouseX, mouseY);
-           } else {
+           } else { // --- in home screen ---
                this.handleMainMenuInput(mouseX, mouseY);
            }
        } else if (!this.gameManager.state.showTwoPlayerOptions) {
@@ -112,7 +120,7 @@ class InputHandler {
        }
    }
 
-   handleMainMenuInput(mouseX, mouseY) {
+   handleMainMenuInput(mouseX, mouseY) { // --- in home screen ---
        // 模式选择按钮
        if (mouseX > width / 2 - 50 && mouseX < width / 2 + 50 &&
            mouseY > height / 2 - 20 && mouseY < height / 2 + 20) {
