@@ -15,22 +15,26 @@ class UIManager {
         textSize(20);
         textStyle(NORMAL);
 
+        // --- pvp screen ---
         if (this.gameManager.state.isPlayAgainstMode) {
             stroke(0);
             line(width / 2, 0, width / 2, height);
             noStroke();
         }
 
-        if (!this.gameManager.state.startGame) {
-            this.displayStartScreen();
+        // --- not in game screen, game not running --- 
+        if (!this.gameManager.state.startGame) { 
+            this.displayStartScreen();   // home screen or mode selection screen or two player mode selection screen 
             return;
         }
 
+        // --- level up screen ---
         if (this.gameManager.state.showLevelUpScreen) {
             this.displayLevelUpScreen();
             return;
         }
 
+        // --- game over screen 
         if (this.gameManager.state.gameOver) {
             this.displayGameOverScreen();
             return;
@@ -40,69 +44,98 @@ class UIManager {
         this.renderUI();
     }
 
+    renderUI() { 
+        this.displayGameInfo(); // text info during a game
+        if (this.gameManager.state.showPauseMenu) {
+            this.drawPauseMenu();
+        }
+    }
+
+    // draw the start button before a game 
+    // draw player, basket, grass during a game
+    // draw the pause menu if pause the game 
     renderGameElements() {
-        if (this.gameManager && this.gameManager.player1) {
-            this.gameManager.player1.show();
-        }
-        
-        if (this.gameManager && this.gameManager.basket1) {
-            this.gameManager.basket1.show();
-        }
+        // draw player 1 and basket 1
+        this.gameManager.player1.show();
+        if (this.gameManager.state.isTwoPlayerMode) this.gameManager.player2.show(); // only draw player 2 if in 2 player mode
 
-        if (this.gameManager.state.isTwoPlayerMode && this.gameManager.player2) {
-            this.gameManager.player2.show();
-            if (this.gameManager.state.isPlayAgainstMode && this.gameManager.basket2) {
-                this.gameManager.basket2.show();
-            }
-        }
+        this.gameManager.basket1.show();
+        this.gameManager.basket2.show();
 
-        if (!this.gameManager.state.gameStarted) {
-            this.displayLargeStartButton();
+        if (!this.gameManager.state.gameStarted) { //in the game, but the game has not started
+            this.displayLargeStartButton(); // button appear in the game screen before starting 
             return;
         }
 
-        if (this.gameManager.grassPiles && Array.isArray(this.gameManager.grassPiles)) {
-            for (let grass of this.gameManager.grassPiles) {
-                if (grass) {
-                    grass.show();
-                }
-            }
+        // =====================================
+        // the actual game screen during a game
+        // =====================================
+        for (let grass of this.gameManager.grassPiles) {
+            grass.show();
         }
 
         if (this.gameManager.state.showPauseMenu) {
             this.drawPauseMenu();
         }
 
-        if (this.gameManager.basket1) {
-            this.gameManager.basket1.show();
-        }
-        if (this.gameManager.state.isPlayAgainstMode && this.gameManager.basket2) {
-            this.gameManager.basket2.show();
-        }
+        // if (this.gameManager && this.gameManager.player1) {
+        //     this.gameManager.player1.show();
+        // }
+        
+        // if (this.gameManager && this.gameManager.basket1) {
+        //     this.gameManager.basket1.show();
+        // }
+       
+        // if (this.gameManager.state.isTwoPlayerMode){ // draw player 2 if in 2 player mode
+        //     this.gameManager.player2.show();
+        //     if (this.gameManager.state.isPlayAgainstMode) { // draw basket2 if in pvp mode 
+        //         this.gameManager.basket2.show();
+        //     }
+        // }
+
+        // if (this.gameManager.grassPiles && Array.isArray(this.gameManager.grassPiles)) {
+        //     for (let grass of this.gameManager.grassPiles) {
+        //         // if (grass) {
+        //         //     grass.show();
+        //         // }
+        //     }
+        // }
+        
+        // if (this.gameManager.basket1) {
+        //     this.gameManager.basket1.show();
+        // }
+        // if (this.gameManager.state.isPlayAgainstMode && this.gameManager.basket2) {
+        //     this.gameManager.basket2.show();
+        // }
     }
 
-    renderUI() {
-        this.displayGameInfo();
-        if (this.gameManager.state.showPauseMenu) {
-            this.drawPauseMenu();
-        }
-    }
+   
 
+
+    // ====================
+    //  not in game screen 
+    // ====================
     displayStartScreen() {
         fill(0);
         textSize(32);
         textAlign(CENTER, CENTER);
         text("Click Start to Begin", width / 2, height / 2 - 50);
         
-        if (!this.gameManager.state.showModeSelection) {
+        // in home screen 
+        if (!this.gameManager.state.showModeSelection) { 
             this.drawStartButtons();
-        } else if (!this.gameManager.state.showTwoPlayerOptions) {
+        } 
+        // in mode selection screen
+        else if (!this.gameManager.state.showTwoPlayerOptions) {
             this.drawModeSelectionButtons();
-        } else {
+        } 
+        // two player mode selection screen 
+        else {
             this.displayTwoPlayerOptions();
         }
     }
 
+    //--- start buttons for home screen
     drawStartButtons() {
         // 首先绘制一个背景矩形来清除之前的内容
         fill(220);  // 使用和背景相同的颜色
@@ -126,11 +159,14 @@ class UIManager {
         textSize(24);
         text("Help", width / 2, height / 2 + 60);
         
-        if (this.gameManager.state.showHelp) {
+        if (this.gameManager.state.showHelp) { //??? handle the logic else where???
             this.drawHelpScreen();
         }
     }
 
+    // ================
+    // level up screen 
+    // ================
     displayLevelUpScreen() {
         background(220);
         fill(0);
@@ -149,6 +185,10 @@ class UIManager {
         text("Home", width / 2, height / 2 + 95);
     }
 
+
+    //========================
+    //  game over screen 
+    //=======================
     displayGameOverScreen() {
         background(220);
         fill(0);
@@ -178,6 +218,9 @@ class UIManager {
         text("Help", width / 2, height / 2 + 100);
     }
 
+    //========================
+    //  help screen 
+    //========================
     drawHelpScreen() {
         fill(220);
         rect(width/4, height/4, width/2, height/2);
@@ -209,6 +252,7 @@ class UIManager {
         }
     }
 
+    // ---- text info, part of game screen 
     displayGameInfo() {
         textAlign(LEFT);
         textSize(24);
@@ -269,6 +313,7 @@ class UIManager {
         }
     }
 
+    // --- part of game pause screen 
     drawPauseMenu() {
         // 半透明背景
         fill(0, 0, 0, 127);
@@ -306,10 +351,12 @@ class UIManager {
 
     handleFlashPause() {
         if (this.gameManager.flashTimer1 > 0 || this.gameManager.flashTimer2 > 0) {
-            this.gameManager.state.flashPaused = this.gameManager.state.showPauseMenu;
+            //no flashing if pause menu is shown, flashing goes on if pause menu if not shown
+            this.gameManager.state.flashPaused = this.gameManager.state.showPauseMenu; 
         }
     }
 
+    // ----- for mode selection screen 
     drawModeSelectionButtons() {
         // 首先绘制一个背景矩形来清除之前的内容
         fill(220);  // 使用和背景相同的颜色
@@ -345,6 +392,10 @@ class UIManager {
         text("Back", width / 2, height / 2 + 80);
     }
 
+
+    //================================
+    //two player mode selection screen 
+    //=================================
     displayTwoPlayerOptions() {
         // 首先绘制一个背景矩形来清除之前的内容
         fill(220);  // 使用和背景相同的颜色
@@ -380,6 +431,7 @@ class UIManager {
         text("Back", width / 2, height / 2 + 120);
     }
 
+    // button appear in the game screen before starting 
     displayLargeStartButton() {
         // 半透明背景
         fill(0, 0, 0, 127);

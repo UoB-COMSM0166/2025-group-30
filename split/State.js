@@ -22,13 +22,13 @@ class GameState {
 
         //--UI flags
         this.showPauseMenu = false; // the pause menu that appears during the game 
-        this.showModeSelection = false; // whether the game is in menu screen 
+        this.showModeSelection = false; // whether in mode selection screen 
         this.showTwoPlayerOptions = false; // whether the game should display the two-player mode selection options
         this.showHelp = false;
         this.showLevelUpScreen = false;
   
         //--timer and flash effect
-        this.flashPaused = false; //controls if flash timer should continue counting down
+        this.flashPaused = false; //controls if flash timer should continue counting down, if true: no flash; if false, flashing
         this.isFlashVisible = true; //player visible when true, not visible when false
     }
 
