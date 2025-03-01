@@ -37,8 +37,8 @@ The inspiration for our grass-catching game comes from Mole's World. Unlike the 
 
 During the conceptualization of the grass-catching game, we created a paper prototype to help visualize and test early game mechanics, including the way the grass falls, as well as the player's movement and interactions. Based on our initial discussions, we refined the game flow and mechanics, adding new elements to enhance the game's fun and challenge. To provide players with a clearer understanding of the game, we created a video based on the paper prototype, offering an intuitive demonstration of the gameplay.
 
- |Paper Prototype of grass-catching game|
- |:------------------------------------:|      
+|Paper Prototype of grass-catching game|
+|:------------------------------------:|      
 
 <video src="https://github.com/user-attachments/assets/2bc9ad40-728b-4c61-b258-6c2530942f93" controls width="600"></video>
 
@@ -46,10 +46,15 @@ During the conceptualization of the grass-catching game, we created a paper prot
 
 To help players quickly get familiar with the game, we created a digital model based on the paper prototype. Hanying attempted to generate the digital model using her iPad, which allowed for a representation that more closely resembled the actual game compared to the paper prototype.
 
- |Digital Paper Prototype Tool|
- |:--------------------------:|   
+|Digital Paper Prototype Tool|
+|:--------------------------:|   
 
- <img src="https://github.com/user-attachments/assets/dfb59e37-652d-4112-a203-70f36f721ae3" width="500">
+ <img src="https://github.com/user-attachments/assets/dfb59e37-652d-4112-a203-70f36f721ae3" width="600">
+
+|Failed|
+|:--------------------------:|   
+
+<img src="https://github.com/user-attachments/assets/a21f37c9-d280-421e-a664-1148eeae3f51" width="600">
 
 
 - 15% ~750 words
