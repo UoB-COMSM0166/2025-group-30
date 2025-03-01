@@ -1,17 +1,17 @@
 class Grass {
     constructor(x, y) {
-        this.pos = createVector(x, y);  // 使用向量存储草的坐标
-        this.size = createVector(60, 40); // 使用向量存储宽度和高度 (width, height)
+        this.x = x;
+        this.y = y;
+        this.size = { x: 60, y: 40 }; // 统一使用普通对象存储宽高
         this.speed = 4;  // 草块下落速度
     }
 
     fall() {
-        this.pos.y += this.speed;  // 让草块向下移动
+        this.y += this.speed;  // 让草块向下移动，可以在这里设定下落速度随关卡的变化
     }
 
     show() {
         fill(0, 255, 0);  // 设定草块的颜色为绿色
-        rect(this.pos.x, this.pos.y, this.size.x, this.size.y);  // 绘制草块
+        rect(this.x, this.y, this.size.x, this.size.y);  // 绘制草块
     }
-
 }

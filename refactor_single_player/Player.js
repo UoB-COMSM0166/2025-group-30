@@ -9,10 +9,11 @@ class Player {
         this.minSpeed = 5;
         this.lives = 3;
         this.dir = 0;
-        this.basket = null;
+        this.basket = new Basket(); // 初始化篮子
 
         this.x = width / 2;
-        this.y = height - 50;
+        this.baseY = height - 50; // 记录初始 Y 位置
+        this.y = this.baseY;
         this.velocity = 0;
         this.acceleration = 0;
     }
@@ -22,6 +23,7 @@ class Player {
         this.velocity = 0;
         this.dir = 0;
         this.stack = []; // 清空堆叠的草块
+        this.y = this.baseY; // 复位 Y 位置
     }
 
     handleInput(key) {
@@ -61,6 +63,7 @@ class Player {
         this.velocity = constrain(this.velocity, -adjustedMaxSpeed, adjustedMaxSpeed);
     }
 
+    //玩家只能左右移动，位置只更新x轴，y轴受stack的影响
     updatePosition() {
         let newX = this.x + this.velocity;
         newX = constrain(newX, 0, width - this.w);
@@ -75,6 +78,8 @@ class Player {
             let grass = this.stack[i];
             grass.x += dx;
         }
+        // 更新玩家 Y 位置，使其随着 stack 增长而上升
+        this.y = this.baseY - this.stack.length * 20;
     }
 
     checkGrassCollision(grass) {
@@ -91,17 +96,17 @@ class Player {
     }
 
     catchGrass(grass) {
-        //先检查是否能接住这个草
         if (this.checkGrassCollision(grass)) {
-            //再检查是否超过最大接草数
             if (this.stack.length >= this.maxStack) {
                 this.loseLife();
                 this.stack = [];
+                this.y = this.baseY; // 清空stack 玩家复位 Y 位置
             } else {
                 let topGrass = this.stack.length === 0 ? { x: this.x, y: this.y } : this.stack[this.stack.length - 1];
                 grass.y = topGrass.y - grass.size.y; // 让新草块叠加在最上方的草块上
-                grass.x = grass.x; // 保持原始 x 位置
+                grass.x = topGrass.x; // 保持原始 x 位置
                 this.stack.push(grass);
+                this.y = this.baseY - this.stack.length * 20; // 让玩家随着草堆升高
             }
             return true;
         }
@@ -112,17 +117,14 @@ class Player {
         if (!this.basket) return;
         if (this.stack.length === 0) return;
     
-        if (this.x + this.w >= this.basket.x && this.x <= this.basket.x + this.basket.w) {
+        if (this.x + this.w >= this.basket.position.x && this.x <= this.basket.position.x + this.basket.size.x) {
             let collectedGrass = this.stack.length;
     
-            for (let grass of this.stack) {
-                grass.enterBasket();
-            }
-    
-            score += collectedGrass;
+            this.basket.updateStats(collectedGrass); // 更新篮子统计信息
             this.stack = [];
+            this.y = this.baseY; // 复位 Y 位置
     
-            this.maxSpeed = 10;
+            this.maxSpeed = 15; // 恢复原始最大速度
             this.accelerationValue = 2;
         }
     }
@@ -130,16 +132,23 @@ class Player {
     drawPlayer() {
         fill(0, 0, 255);
         rect(this.x, this.y, this.w, this.h);
-
-        let previousY = this.y;
+    
+        let previousY = this.y;///
+        let previousX = this.x; // 记录当前 玩家x 位置
+    
         for (let i = 0; i < this.stack.length; i++) {
-            //stack渲染
             let grass = this.stack[i];
+    
+            // 确保草块跟随玩家移动
+            grass.x = previousX;
             grass.y = previousY - grass.size.y;
-            previousY = grass.y;
+    
+            previousY = grass.y; // 更新 y 位置
+            previousX = grass.x; // 更新 x 位置
             grass.show();
         }
     }
+    
 }
 
 

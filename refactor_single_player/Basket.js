@@ -1,11 +1,13 @@
 class Basket {
-    constructor(isLeft) {
-        this.isLeft = isLeft;
-        this.size = createVector(80, 100); // 统一存储大小
-        this.position = createVector(
-            isLeft ? width / 4 - this.size.x / 2 : (3 * width) / 4 - this.size.x / 2,
-            height - 100
-        );
+    constructor() {
+        this.size = { x: 80, y: 100 };
+        this.position = { x: width / 2 - this.size.x / 2, y: height - 100 };
+        this.score = 0; // 存储篮子内的草块数量
+    }
+
+    //更新篮子分数
+    updateStats(collectedGrass) {
+        this.score += collectedGrass; // 更新得分或草块数量
     }
 
     show() {
