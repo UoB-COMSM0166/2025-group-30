@@ -1,93 +1,148 @@
 class Player {
     constructor() {
-        this.resetPosition();
-        this.w = 120;
+        this.w = 120; 
         this.h = 20;
-        this.stack = []; //caught grass
+        this.stack = []; // Stack for caught grass
+        this.maxStack = 5; // Maximum grass stack size
         this.maxSpeed = 15;
-        this.acceleration = 2;
-        this.decelerationFactor = 0.8;
-        this.velocity = 0;
-        this.minSpeed = 2;
+        this.accelerationValue = 2;
+        this.minSpeed = 5;
         this.lives = 3;
-        this.dir = 0;  //moving direction
-    }
+        this.dir = 0;
+        this.basket = null;
 
-    resetPosition() {
         this.x = width / 2;
         this.y = height - 50;
+        this.velocity = 0;
+        this.acceleration = 0;
+    }
+    
+    resetPosition() {
+        this.x = width / 2;
+        this.velocity = 0;
+        this.dir = 0;
+        this.stack = []; // 清空堆叠的草块
+    }
+
+    handleInput(key) {
+        if (key === 'ArrowLeft') {
+            this.dir = -1;
+        } else if (key === 'ArrowRight') {
+            this.dir = 1;
+        }
+    }
+
+    stopInput(key) {
+        if (key === 'ArrowLeft' || key === 'ArrowRight') {
+            this.dir = 0;
+        }
     }
 
     move() {
+        this.updateAcceleration(); 
+        this.updateVelocity(); 
+        this.updatePosition(); 
+        this.updateStack(); 
+    }
+    
+    updateAcceleration() {
         if (this.dir !== 0) {
-            if (Math.sign(this.dir) !== Math.sign(this.velocity) && abs(this.velocity) > 0.1) {
-                this.velocity = this.dir * (this.acceleration + abs(this.velocity) * 0.5);
-            } else {
-                this.velocity += this.dir * this.acceleration;
-                this.velocity = constrain(this.velocity, -this.maxSpeed, this.maxSpeed);
-            }
+            this.acceleration = this.dir * this.accelerationValue;
         } else {
-            this.velocity *= this.decelerationFactor;
-            if (abs(this.velocity) < 0.1) this.velocity = 0;
+            this.acceleration = 0;
         }
+    }
 
+    updateVelocity() {
+        let speedReduction = this.stack.length * 1.5; // 每个堆叠的草块减少速度
+        let adjustedMaxSpeed = Math.max(15 - speedReduction, this.minSpeed);
+        
+        this.velocity += this.acceleration;
+        this.velocity = constrain(this.velocity, -adjustedMaxSpeed, adjustedMaxSpeed);
+    }
+
+    updatePosition() {
         let newX = this.x + this.velocity;
         newX = constrain(newX, 0, width - this.w);
         let dx = newX - this.x;
         this.x = newX;
-        
-        //caught grass moves with the player
-        for (let grass of this.stack) {
+        return dx;
+    }
+
+    updateStack() {
+        let dx = this.updatePosition();
+        for (let i = 0; i < this.stack.length; i++) {
+            let grass = this.stack[i];
             grass.x += dx;
         }
     }
 
-
-    catchGrass(grass) { //return if grass is caught, false otherwise
-        if (this.stack.length > 5) { //can't have more than 5 grass on the platform
-            this.lives--;
-            this.stack = [];
-            this.maxSpeed = 10;
-            if (this.lives <= 0) {
-                domain = "gameOver";
-            }
-            return false;
-        }
-        
-        // grass catching logic
+    checkGrassCollision(grass) {
         let topGrass = this.stack.length === 0 ? null : this.stack[this.stack.length - 1];
-        let topY = topGrass ? topGrass.y - grass.height : this.y - grass.height;
-        let catchXStart = topGrass ? topGrass.x : this.x; //left of the catching platform
-        let catchXEnd = topGrass ? topGrass.x + topGrass.width : this.x + this.w;
-        
-        if (
-            grass.y + grass.height >= topY && // grass bottom below topY
-            grass.y + grass.speed >= topY && // next frame's grass top below topY
-            grass.y <= topY && //top of grass above topY
-            grass.x + grass.width * 0.7 >= catchXStart && //at least 30% the grass need to be on the platform
-            grass.x + grass.width * 0.3 <= catchXEnd // at least 30% of the grass need to be on the platform 
-        ) {
-            grass.y = topY;
-            //grass.x = catchXStart + relativeX;
-            this.stack.push(grass);
-            //this.maxSpeed = max(this.minSpeed, this.maxSpeed - 1); 
-            this.acceleration = max(0.5, this.acceleration - 0.2);
+        let catchXStart = this.x - 10;
+        let catchXEnd = this.x + this.w + 10;
+        let tolerance = 5;
+
+        return (
+            grass.y + grass.size.y >= (topGrass ? topGrass.y - grass.size.y : this.y - grass.size.y) - tolerance &&
+            grass.x + grass.size.x > catchXStart &&
+            grass.x < catchXEnd
+        );
+    }
+
+    catchGrass(grass) {
+        //先检查是否能接住这个草
+        if (this.checkGrassCollision(grass)) {
+            //再检查是否超过最大接草数
+            if (this.stack.length >= this.maxStack) {
+                this.loseLife();
+                this.stack = [];
+            } else {
+                let topGrass = this.stack.length === 0 ? { x: this.x, y: this.y } : this.stack[this.stack.length - 1];
+                grass.y = topGrass.y - grass.size.y; // 让新草块叠加在最上方的草块上
+                grass.x = grass.x; // 保持原始 x 位置
+                this.stack.push(grass);
+            }
             return true;
-        } 
+        }
         return false;
     }
+
+    dropGrass() {
+        if (!this.basket) return;
+        if (this.stack.length === 0) return;
     
-    update() { //draw player with caught grass   
-        fill(0, 0, 255);
-        rect(this.x, this.y, this.w, this.h);
+        if (this.x + this.w >= this.basket.x && this.x <= this.basket.x + this.basket.w) {
+            let collectedGrass = this.stack.length;
     
-        for (let i = 0; i < this.stack.length; i++) {
-            fill(0, 255, 0);
-            rect(this.stack[i].x, this.stack[i].y, this.stack[i].width, this.stack[i].height);
+            for (let grass of this.stack) {
+                grass.enterBasket();
+            }
+    
+            score += collectedGrass;
+            this.stack = [];
+    
+            this.maxSpeed = 10;
+            this.accelerationValue = 2;
         }
     }
+    
+    drawPlayer() {
+        fill(0, 0, 255);
+        rect(this.x, this.y, this.w, this.h);
 
-   
+        let previousY = this.y;
+        for (let i = 0; i < this.stack.length; i++) {
+            //stack渲染
+            let grass = this.stack[i];
+            grass.y = previousY - grass.size.y;
+            previousY = grass.y;
+            grass.show();
+        }
+    }
 }
+
+
+
 
 
