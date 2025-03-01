@@ -75,19 +75,22 @@ class InputHandler {
 
    // --- not in game screen i.e. game not running ---
    handleStartScreenInput(mouseX, mouseY) {
-       if (!this.gameManager.state.showModeSelection) { // --- not in menu screen ---
+       if (!this.gameManager.state.showModeSelection) { // --- not in  selection screen ---
            if (this.gameManager.state.showHelp) { // --- in help screen ---
                this.gameManager.uiManager.handleHelpScreenInput(mouseX, mouseY);
            } else { // --- in home screen ---
                this.handleMainMenuInput(mouseX, mouseY);
            }
-       } else if (!this.gameManager.state.showTwoPlayerOptions) {
+       } else if (!this.gameManager.state.showTwoPlayerOptions) { // --- in the mode selection screen ---
            this.handleModeSelectionInput(mouseX, mouseY);
-       } else {
+       } else {  // --- in the coop and pvp mode selection screen ---
            this.handleTwoPlayerOptionsInput(mouseX, mouseY);
        }
    }
 
+   // ========================================
+   //   game screen (single, coop and pvp)  
+   // ========================================
    handleGameInput(mouseX, mouseY) {
        // 检查是否点击了菜单按钮
        if (mouseX > width - 100 && mouseX < width - 20 && 
@@ -99,12 +102,14 @@ class InputHandler {
        }
 
        // 如果显示菜单，处理菜单按钮点击
+       // --- game pause screen ---
        if (this.gameManager.state.showPauseMenu) {
            this.handlePauseMenuInput(mouseX, mouseY);
            return;
        }
 
        // 检查是否点击了开始按钮
+       // --- start button on the game screen ---
        if (!this.gameManager.state.gameStarted) {
            if (mouseX > width/2 - 150 && mouseX < width/2 + 150 &&
                mouseY > height/2 - 50 && mouseY < height/2 + 50) {
@@ -115,26 +120,33 @@ class InputHandler {
        }
 
        // 检查关卡完成屏幕
+       // --- level up screen ---
        if (this.gameManager.state.showLevelUpScreen) {
            this.handleLevelUpScreenInput(mouseX, mouseY);
        }
    }
 
-   handleMainMenuInput(mouseX, mouseY) { // --- in home screen ---
-       // 模式选择按钮
-       if (mouseX > width / 2 - 50 && mouseX < width / 2 + 50 &&
-           mouseY > height / 2 - 20 && mouseY < height / 2 + 20) {
-           this.gameManager.state.showModeSelection = true;
-       }
-       
-       // 帮助按钮
-       if (mouseX > width / 2 - 50 && mouseX < width / 2 + 50 &&
-           mouseY > height / 2 + 40 && mouseY < height / 2 + 80) {
-           this.gameManager.state.showHelp = true;
-       }
-   }
+    // =========================
+    //    in home screen 
+    // =========================
+    handleMainMenuInput(mouseX, mouseY) { 
+        // 模式选择按钮
+        if (mouseX > width / 2 - 50 && mouseX < width / 2 + 50 &&
+            mouseY > height / 2 - 20 && mouseY < height / 2 + 20) {
+            this.gameManager.state.showModeSelection = true;
+        }
+        
+        // 帮助按钮
+        if (mouseX > width / 2 - 50 && mouseX < width / 2 + 50 &&
+            mouseY > height / 2 + 40 && mouseY < height / 2 + 80) {
+            this.gameManager.state.showHelp = true;
+        }
+    }
 
-   handleModeSelectionInput(mouseX, mouseY) {
+    // ========================================
+    //     in the mode selection screen 
+    // ========================================
+    handleModeSelectionInput(mouseX, mouseY) {
        // 打印鼠标坐标，帮助调试
        //console.log(`Mouse clicked at: ${mouseX}, ${mouseY}`);
        
@@ -165,8 +177,12 @@ class InputHandler {
            mouseY > height / 2 + 60 && mouseY < height / 2 + 100) {
            this.gameManager.state.showModeSelection = false;
        }
-   }
+    }
 
+
+    // ========================================
+    //    coop and pvp mode selection screen
+    // ========================================
    handleTwoPlayerOptionsInput(mouseX, mouseY) {
        // 合作模式按钮 (Co-op Mode)
        if (mouseX > width / 2 - 100 && mouseX < width / 2 + 100 &&
@@ -210,6 +226,11 @@ class InputHandler {
        }
    }
 
+
+
+    // ====================
+    //    Level up screen 
+    // ====================
    handleLevelUpScreenInput(mouseX, mouseY) {
        // 下一关按钮
        if (mouseX > width / 2 - 100 && mouseX < width / 2 + 100 &&
@@ -227,14 +248,17 @@ class InputHandler {
        }
    }
 
-   handlePauseMenuInput(mouseX, mouseY) {
-       // 继续按钮
-       if (mouseX > width/2 - 60 && mouseX < width/2 + 60 &&
-           mouseY > height/2 - 40 && mouseY < height/2) {
-           this.gameManager.state.showPauseMenu = false;
-           this.gameManager.state.paused = false;
-           return;
-       }
+    // ====================
+    //   game pause screen
+    // ====================
+    handlePauseMenuInput(mouseX, mouseY) {
+        // 继续按钮
+        if (mouseX > width/2 - 60 && mouseX < width/2 + 60 &&
+            mouseY > height/2 - 40 && mouseY < height/2) {
+            this.gameManager.state.showPauseMenu = false;
+            this.gameManager.state.paused = false;
+            return;
+        }
        
        // 重新开始按钮 - 保持当前模式
        if (mouseX > width/2 - 60 && mouseX < width/2 + 60 &&
