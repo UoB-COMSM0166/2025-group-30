@@ -69,7 +69,7 @@ class UIManager {
             }
         }
 
-        if (this.gameManager.state.showMenu) {
+        if (this.gameManager.state.showPauseMenu) {
             this.drawPauseMenu();
         }
 
@@ -83,7 +83,7 @@ class UIManager {
 
     renderUI() {
         this.displayGameInfo();
-        if (this.gameManager.state.showMenu) {
+        if (this.gameManager.state.showPauseMenu) {
             this.drawPauseMenu();
         }
     }
@@ -306,7 +306,7 @@ class UIManager {
 
     handleFlashPause() {
         if (this.gameManager.flashTimer1 > 0 || this.gameManager.flashTimer2 > 0) {
-            this.gameManager.state.flashPaused = this.gameManager.state.showMenu;
+            this.gameManager.state.flashPaused = this.gameManager.state.showPauseMenu;
         }
     }
 

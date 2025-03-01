@@ -21,7 +21,7 @@ class GameState {
         this.isPlayAgainstMode = false;
 
         //--UI flags
-        this.showMenu = false;
+        this.showPauseMenu = false; // the pause menu that appears during the game 
         this.showModeSelection = false; // whether the game is in menu screen 
         this.showTwoPlayerOptions = false; // whether the game should display the two-player mode selection options
         this.showHelp = false;

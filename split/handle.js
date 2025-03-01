@@ -92,14 +92,14 @@ class InputHandler {
        // 检查是否点击了菜单按钮
        if (mouseX > width - 100 && mouseX < width - 20 && 
            mouseY > 20 && mouseY < 60) {
-           this.gameManager.state.showMenu = !this.gameManager.state.showMenu;
-           this.gameManager.state.paused = this.gameManager.state.showMenu;
+           this.gameManager.state.showPauseMenu = !this.gameManager.state.showPauseMenu;
+           this.gameManager.state.paused = this.gameManager.state.showPauseMenu;
            this.gameManager.uiManager.handleFlashPause();
            return;
        }
 
        // 如果显示菜单，处理菜单按钮点击
-       if (this.gameManager.state.showMenu) {
+       if (this.gameManager.state.showPauseMenu) {
            this.handlePauseMenuInput(mouseX, mouseY);
            return;
        }
@@ -231,7 +231,7 @@ class InputHandler {
        // 继续按钮
        if (mouseX > width/2 - 60 && mouseX < width/2 + 60 &&
            mouseY > height/2 - 40 && mouseY < height/2) {
-           this.gameManager.state.showMenu = false;
+           this.gameManager.state.showPauseMenu = false;
            this.gameManager.state.paused = false;
            return;
        }
@@ -249,7 +249,7 @@ class InputHandler {
            this.gameManager.state.mode = currentMode;
            this.gameManager.state.isTwoPlayerMode = isTwoPlayer;
            this.gameManager.state.isPlayAgainstMode = isPlayAgainst;
-           this.gameManager.state.showMenu = false;
+           this.gameManager.state.showPauseMenu = false;
            this.gameManager.state.startGame = true;
            this.gameManager.state.gameStarted = false;
            return;
@@ -262,7 +262,7 @@ class InputHandler {
            this.gameManager.restartGame();
            // 设置为初始界面状态
            this.gameManager.state.startGame = false;
-           this.gameManager.state.showMenu = false;
+           this.gameManager.state.showPauseMenu = false;
            this.gameManager.state.showModeSelection = false;
            this.gameManager.state.showTwoPlayerOptions = false;
            this.gameManager.state.gameStarted = false;
