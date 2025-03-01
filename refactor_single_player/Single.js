@@ -44,7 +44,7 @@ class Single extends Screen {
             grass.fall();
 
             if (grass.y > height) { 
-                this.player.loseLife();
+                this.player.loseLife(false);
                 this.stats.loseLife();
                 this.grass.splice(i, 1);
                 if (this.stats.lives <= 0) {
@@ -54,7 +54,7 @@ class Single extends Screen {
                 }
             } else if (this.player.catchGrass(grass)) {
                 if (this.player.stack.length >= this.player.maxStack) {
-                    this.player.loseLife();
+                    this.player.loseLife(true);
                     this.stats.loseLife();
                     if (this.stats.lives <= 0) {
                         clearInterval(this.grassDropInterval);

@@ -28,14 +28,15 @@ class Player {
     }
 
 
-    loseLife() {
+    loseLife(clearStack = false) {
         this.lives--;
         console.log(`Player lost a life! Lives remaining: ${this.lives}`);
         
-        // 只重置速度和清空堆叠，保持位置不变
         this.velocity = 0;
         this.dir = 0;
-        this.stack = [];
+        if (clearStack) {
+            this.stack = [];
+        }
     }
 
     move() {
