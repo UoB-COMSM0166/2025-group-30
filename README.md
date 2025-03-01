@@ -30,13 +30,17 @@ Add a group photo here!
 ### Requirements 
 
 - **Inspiration**
-The inspiration for the Grass Catching Game comes from Mole's World. Unlike Mole's World, where the grass follows a parabolic trajectory, our game features vertical free-fall, emphasizing players' reaction speed and precise judgment. We also took inspiration from classic arcade games such as Egg and Kaboom!, whose core mechanics provided valuable design insights.
+
+The inspiration for our grass-catching game comes from Mole's World. Unlike the grass-catching mechanics in Mole's World, where the grass follows a parabolic trajectory, our game adopts a vertical free-fall motion, emphasizing players' reaction speed and precise judgment. We also drew inspiration from classic arcade games such as Egg and Kaboom!, whose core mechanics provided valuable design insights for our game.
 
 - **Prototype**
-During the development of the Grass Catching Game, we created a paper prototype to help visualize and test the early game mechanics, including the falling behavior of the grass, player movement, and interaction. Based on initial discussions, we refined the game flow and mechanics, making adjustments and adding new elements to enhance the game's fun and challenge. To provide players with a more intuitive understanding of the game, we created a video based on the paper prototype, offering a clear visual representation of the gameplay process.
+
+During the conceptualization of the grass-catching game, we created a paper prototype to help visualize and test early game mechanics, including the way the grass falls, as well as the player's movement and interactions. Based on our initial discussions, we refined the game flow and mechanics, adding new elements to enhance the game's fun and challenge. To provide players with a clearer understanding of the game, we created a video based on the paper prototype, offering an intuitive demonstration of the gameplay.
 
 - **Digita Paper Prototype tool**
-To help players quickly get familiar with the game, we created a digital model based on the paper prototype. Hanying attempted to generate the digital model using her iPad, which allows for a closer representation of the actual game compared to the paper prototype.
+
+To help players quickly get familiar with the game, we created a digital model based on the paper prototype. Hanying attempted to generate the digital model using her iPad, which allowed for a representation that more closely resembled the actual game compared to the paper prototype.
+
 
 - 15% ~750 words
 - Use case diagrams, user stories. Early stages design. Ideation process. How did you decide as a team what to develop? 
