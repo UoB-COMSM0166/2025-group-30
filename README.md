@@ -29,13 +29,13 @@ Add a group photo here!
 
 ### Requirements 
 
-- Inspiration
+- **Inspiration**
 The inspiration for the Grass Catching Game comes from Mole's World. Unlike Mole's World, where the grass follows a parabolic trajectory, our game features vertical free-fall, emphasizing players' reaction speed and precise judgment. We also took inspiration from classic arcade games such as Egg and Kaboom!, whose core mechanics provided valuable design insights.
 
-- Prototype
+- **Prototype**
 During the development of the Grass Catching Game, we created a paper prototype to help visualize and test the early game mechanics, including the falling behavior of the grass, player movement, and interaction. Based on initial discussions, we refined the game flow and mechanics, making adjustments and adding new elements to enhance the game's fun and challenge. To provide players with a more intuitive understanding of the game, we created a video based on the paper prototype, offering a clear visual representation of the gameplay process.
 
-- Digital Paper Prototype
+- **Digita Paper Prototype tool**
 To help players quickly get familiar with the game, we created a digital model based on the paper prototype. Hanying attempted to generate the digital model using her iPad, which allows for a closer representation of the actual game compared to the paper prototype.
 
 - 15% ~750 words
