@@ -1,15 +1,14 @@
 class ScreenManager {
     constructor() {
-        this.homeScreen = new HomeScreen(this);
-        
-        this.single = new Single(this);
+        this.homeScreen = new HomeScreen(this);      
         this.menuScreen = new MenuScreen(this);
 
         this.singleHelpScreen = new SingleHelpScreen(this);
         this.coopHelpScreen = new CoopHelpScreen(this);
         this.pvpHelpScreen = new PvpHelpScreen(this);
 
-        //this.levelSuccessScreen = new LevelSuccessScreen(this);
+        this.single = new Single(this);
+
         this.currentScreen = this.homeScreen; //home screen is the default current
     }
 

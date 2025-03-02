@@ -1,22 +1,7 @@
-class Single extends Screen {
-    constructor(screenManager, level=1, targetScores=3, timer=10, grassDropDelay=2000) {
+class GameScreen extends Screen {
+    constructor(screenManager) {
         // --- basic settings ---
         super(screenManager);
-
-        this.player = new Player(width/2, height-50, true);
-        this.basket = new Basket(true);
-        this.player.basket = this.basket;
-
-        // --- level related settings ---
-        this.level = level;
-        this.targetScores = targetScores;
-        this.timer = timer;
-        this.timeLeft = timer;
-        this.grassDropDelay = grassDropDelay; // in milliseconds
-
-        this.grass = []; //collection of falling grass
-        this.grassDropInterval = null; //manage how often a grass drops
-        this.levelTimerInterval = null; //manage how often the timer goes down i.e. 1 second
 
         this.gameOverScreen = new GameOverScreen(this.screenManager,this);
         this.levelSuccessScreen = new LevelSuccessScreen(this.screenManager, this);

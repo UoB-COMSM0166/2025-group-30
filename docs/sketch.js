@@ -15,7 +15,7 @@ let grassDropInterval;
 let level = 1;
 let targetScores = [5, 50];
 let timer = 60;
-let levelTimerInterval;
+let timerInterval;
 let showLevelUpScreen = false;
 let flashPaused = false;
 let isFlashVisible = true;

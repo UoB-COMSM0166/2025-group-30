@@ -7,14 +7,17 @@ class SingleHelpScreen extends Screen {
                 x: width / 4 - 50, 
                 y: height / 5 * 4,
                 color: "rgb(255, 165, 0)",
-                action: () => this.screenManager.menuScreen
+                action: () => this.screenManager.changeScreen(this.screenManager.menuScreen)
             },
             {
                 label: "Start",
                 x: width/4*3, 
                 y: height/5*4,
                 color: "rgb(0, 200, 0)",
-                action: () => this.screenManager.single
+                action: () => {
+                    this.screenManager.single.reset(); //reset single to level 1
+                    this.screenManager.changeScreen(this.screenManager.single); 
+                }
             }
         ];
     }
@@ -31,7 +34,8 @@ class SingleHelpScreen extends Screen {
         text("◀︎: LEFT", width / 2, height / 2 - 40);
         text("▶︎: RIGHT", width / 2, height / 2 - 20);
         text("You can only catch up to 5 haystack", width / 2, height / 2);
-        text("Move to basket & press SPACE to empty your pile", width / 2, height / 2+20); 
+        text("Move to basket & press SPACE to empty your pile", width / 2, height / 2+20);
+        text("Press ESC to pause", width / 2, height / 2+40); 
         
         for (let button of this.buttons){
             fill(button.color);
@@ -53,7 +57,7 @@ class SingleHelpScreen extends Screen {
                 mouseX > button.x  && 
                 mouseX < button.x + buttonWidth
             ) {
-                this.screenManager.changeScreen(button.action());
+                button.action();
             }
         }
     }

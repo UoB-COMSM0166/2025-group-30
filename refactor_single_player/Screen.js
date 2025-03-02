@@ -13,4 +13,12 @@ class Screen {
     mousePressed() {
         //throw new Error("mousePressed() must be implemented by subclass.");
     }
+
+    keyPressed() {
+         
+    }
+
+    keyReleased() {
+        
+    }
 }

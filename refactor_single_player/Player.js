@@ -1,24 +1,47 @@
 class Player {
-    constructor() {
-        this.resetPosition();
-        this.w = 120;
+    constructor(x, isLeft) {   
+        this.isLeft = isLeft; //used only for pvp mode
+        
+        this.w = 100;
         this.h = 20;
-        this.stack = []; //caught grass
-        this.maxSpeed = 15;
+        this.x = x;
+        this.y = height - 50; //stay the same
+        this.lives = 3;
+        this.score = 0;
+
+        this.velocity = 0;
+        this.maxSpeed = 10;
+        this.minSpeed = 5;
         this.acceleration = 2;
         this.decelerationFactor = 0.8;
-        this.velocity = 0;
-        this.minSpeed = 2;
-        this.lives = 3;
-        this.dir = 0;  //moving direction
+        this.dir = 0;
+
+        this.stack = [];  //visible caught grass
+        this.maxStack = 5; 
+        
+        this.basket = null; // 确保basket被正确初始化
+
+        this.flash = new Flash(0); 
     }
 
-    resetPosition() {
-        this.x = width / 2;
-        this.y = height - 50;
+    reset(isLeft) {   
+        this.x = width/2;
+        this.lives = 3;
+        this.score = 0;
+
+        this.velocity = 0;
+        this.dir = 0;
+
+        this.stack = []; 
+        this.flash.flashDuration = 0;
     }
 
     move() {
+        //if (this.flash.flashDuration>0 && !this.flash.showPlayer) return;
+        if (this.flash.flashDuration > 0) return;
+
+        const oldX = this.x;
+
         if (this.dir !== 0) {
             if (Math.sign(this.dir) !== Math.sign(this.velocity) && abs(this.velocity) > 0.1) {
                 this.velocity = this.dir * (this.acceleration + abs(this.velocity) * 0.5);
@@ -31,63 +54,85 @@ class Player {
             if (abs(this.velocity) < 0.1) this.velocity = 0;
         }
 
+        // 计算x轴移动距离并更新堆叠的草的位置 caught grass moves with the player
         let newX = this.x + this.velocity;
-        newX = constrain(newX, 0, width - this.w);
         let dx = newX - this.x;
         this.x = newX;
-        
-        //caught grass moves with the player
+
         for (let grass of this.stack) {
             grass.x += dx;
         }
     }
 
-
-    catchGrass(grass) { //return if grass is caught, false otherwise
-        if (this.stack.length > 5) { //can't have more than 5 grass on the platform
-            this.lives--;
-            this.stack = [];
-            this.maxSpeed = 10;
-            if (this.lives <= 0) {
-                domain = "gameOver";
-            }
-            return false;
+    show() { //draw player with caught grass  
+  
+        this.flash.update();
+        if (!this.flash.showPlayer){ //player with grass is not shown if flash is running 
+            return;
         }
-        
-        // grass catching logic
-        let topGrass = this.stack.length === 0 ? null : this.stack[this.stack.length - 1];
-        let topY = topGrass ? topGrass.y - grass.height : this.y - grass.height;
-        let catchXStart = topGrass ? topGrass.x : this.x; //left of the catching platform
-        let catchXEnd = topGrass ? topGrass.x + topGrass.width : this.x + this.w;
-        
-        if (
-            grass.y + grass.height >= topY && // grass bottom below topY
-            grass.y + grass.speed >= topY && // next frame's grass top below topY
-            grass.y <= topY && //top of grass above topY
-            grass.x + grass.width * 0.7 >= catchXStart && //at least 30% the grass need to be on the platform
-            grass.x + grass.width * 0.3 <= catchXEnd // at least 30% of the grass need to be on the platform 
-        ) {
-            grass.y = topY;
-            //grass.x = catchXStart + relativeX;
-            this.stack.push(grass);
-            //this.maxSpeed = max(this.minSpeed, this.maxSpeed - 1); 
-            this.acceleration = max(0.5, this.acceleration - 0.2);
-            return true;
-        } 
-        return false;
-    }
-    
-    update() { //draw player with caught grass   
+
+        // 显示蓝色木板
+        noStroke();
         fill(0, 0, 255);
         rect(this.x, this.y, this.w, this.h);
     
-        for (let i = 0; i < this.stack.length; i++) {
+        //draw caught grass
+        for (let grass of this.stack) {
             fill(0, 255, 0);
-            rect(this.stack[i].x, this.stack[i].y, this.stack[i].width, this.stack[i].height);
+            rect(grass.x, grass.y, grass.w, grass.h);
         }
+        
+    }
+    
+    catchGrass(grass) { //return true if grass is caught, false otherwise
+        if (this.stack.length > this.maxStack) { //can't have more than 5 grass on the platform
+            this.lives--;
+            this.stack = [];
+            this.flash.flashDuration = 60; // trigger flash
+            if (this.lives <= 0 ) domain = "gameOver";
+            return false;
+        }
+
+        // 如果是第一个方块，检查是否与木板接触
+        if (this.stack.length === 0) {
+            if (grass.y + grass.h >= this.y && 
+                grass.y + grass.h <= this.y + this.h &&
+                grass.x + grass.w/2 >= this.x && 
+                grass.x + grass.w/2 <= this.x + this.w) {
+                
+                grass.y = this.y - grass.h;
+                this.stack.push(grass);
+                return true;
+            }
+        } else {
+            // 获取最上面的方块
+            const topGrass = this.stack[this.stack.length - 1];
+            
+            // 检查是否与最上面的方块接触
+            const newLeft = Math.round(grass.x);
+            const newRight = Math.round(grass.x + grass.w);
+            const topLeft = Math.round(topGrass.x);
+            const topRight = Math.round(topGrass.x + topGrass.w);
+
+            const hasHorizontalOverlap = !(newRight <= topLeft || newLeft >= topRight);
+            const isVerticalContact = (grass.y + grass.h) >= topGrass.y - 5;
+            
+            if (hasHorizontalOverlap && isVerticalContact) {
+                grass.y = this.y - (this.stack.length + 1) * grass.h;
+                this.stack.push(grass);
+                return true;
+            }
+        }       
+        return false;
     }
 
-   
+    emptyGrass() { //empty grass to the basket
+        if (this.stack.length === 0) return;
+        if (this.x <= this.basket.x + this.basket.w) {
+            this.score += this.stack.length;
+            this.stack = [];
+        }
+    }
 }
 
 

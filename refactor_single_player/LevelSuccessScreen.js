@@ -1,9 +1,10 @@
-class LevelSuccessScreen extends Screen { //for single mode
-    constructor(screenManager, level = 1, score = 5, targetScores = 5) {
+class LevelSuccessScreen extends Screen { 
+    constructor(screenManager, gameScreen) {
         super(screenManager);
-        this.level = level;
-        this.score = score;
-        this.targetScores = targetScores;
+        this.gameScreen = gameScreen;
+        this.level = this.gameScreen.level;
+        this.score = this.gameScreen.player.score;
+        this.targetScores = this.gameScreen.targetScores;
 
         // Buttons for navigating
         this.buttons = [
@@ -13,32 +14,36 @@ class LevelSuccessScreen extends Screen { //for single mode
                 y: height / 5 * 4,
                 color: "rgb(0, 200, 0)",
                 action: () => {
-                    this.screenManager.single.levelUp();
-                    return this.screenManager.single;
+                    this.gameScreen.startNextLevel();
+                    this.screenManager.changeScreen(this.gameScreen);
                 }
             },
             {
-                label: "Menu",
+                label: "Home",
                 x: width / 4 - 50,
                 y: height / 5 * 4,
                 color: "rgb(255, 165, 0)",
-                action: () => this.screenManager.menuScreen
+                action: () => {
+                    this.gameScreen.clearStats();
+                    this.screenManager.changeScreen(this.screenManager.homeScreen);
+                }
             }
         ];
     }
 
     // Display the Level Success screen
-    display() {
+    display() { // Update the content of the LevelSuccessScreen
+
         background(200);
         fill(255);
         rect(width / 2 - 150, height / 2 - 100, 300, 250);  // Display box for message
         fill(0);
         textSize(20);
         textAlign(CENTER, CENTER);
-        text(`Level ${this.level} Complete!`, width / 2, height / 2 - 70);
+        text(`Level ${this.gameScreen.level} Complete!`, width / 2, height / 2 - 70);
         textSize(16);
-        text(`Score: ${this.score}`, width / 2, height / 2);
-        text(`Target: ${this.targetScores}`, width / 2, height / 2 + 20);
+        text(`Score: ${this.gameScreen.player.score}`, width / 2, height / 2);
+        text(`Target: ${this.gameScreen.targetScores}`, width / 2, height / 2 + 20);
 
         // Display buttons
         for (let button of this.buttons) {
@@ -61,16 +66,7 @@ class LevelSuccessScreen extends Screen { //for single mode
                 mouseY < button.y - 20 + buttonHeight &&
                 mouseX > button.x &&
                 mouseX < button.x + buttonWidth
-            ) {
-                this.screenManager.changeScreen(button.action());
-            }
+            ) button.action()
         }
-    }
-
-    // Update the content of the LevelSuccessScreen
-    update(level, score, targetScores) {
-        this.level = level;
-        this.score = score;
-        this.targetScores = targetScores;
     }
 }

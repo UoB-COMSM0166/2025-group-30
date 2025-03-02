@@ -1,9 +1,11 @@
-class GameOverScreen extends Screen { //for single mode
-    constructor(screenManager, level, score, targetScores) {
+class GameOverScreen extends Screen { 
+    constructor(screenManager, gameScreen) {
         super(screenManager);
-        this.level = level;
-        this.score = score;
-        this.targetScores = targetScores; // Used for checking if the score met the target
+        this.gameScreen = gameScreen;
+        
+        this.level = this.gameScreen.level;
+        this.score = this.gameScreen.player.score;
+        this.targetScores = this.gameScreen.targetScores; // Used for checking if the score met the target
 
         this.buttons = [
             {
@@ -11,22 +13,27 @@ class GameOverScreen extends Screen { //for single mode
                 x: width / 4 - 50,
                 y: height / 5 * 4,
                 color: "rgb(255, 0, 0)", 
-                action: () => this.screenManager.homeScreen
+                action: () => {
+                    this.gameScreen.clearStats();
+                    this.screenManager.changeScreen(this.screenManager.homeScreen);
+                }
             },
             {
-                label: "Retry",
+                label: "Restart",
                 x: width / 4 * 3 - 50,
                 y: height / 5 * 4,
                 color: "rgb(0, 200, 0)", 
                 action: () => {
-                    this.screenManager.single.reset();
-                    return this.screenManager.single;
+                    this.gameScreen.restart();
+                    this.screenManager.changeScreen(this.gameScreen);
                 }
             }
         ];
     }
 
     display() {
+        this.update();
+
         background(200);
         fill(255);
         rect(width / 2 - 150, height / 2 - 100, 300, 250);
@@ -62,16 +69,14 @@ class GameOverScreen extends Screen { //for single mode
                 mouseY < button.y - 20 + buttonHeight &&
                 mouseX > button.x &&
                 mouseX < button.x + buttonWidth
-            ) {
-                this.screenManager.changeScreen(button.action());
-            }
+            ) button.action()
         }
     }
 
     // Update the content of the GameOverScreen
-    update(level, score, targetScores) {
-        this.level = level;
-        this.score = score;
-        this.targetScores = targetScores;
+    update() {
+        this.level = this.gameScreen.level;
+        this.score = this.gameScreen.player.score;
+        this.targetScores = this.gameScreen.targetScores;
     }
 }

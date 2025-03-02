@@ -1,4 +1,4 @@
-let domain;
+let domain = "homeScreen"; //default 
 
 let screenManager;
 let home = null, mode = null, singleHelp = null, single = null;
