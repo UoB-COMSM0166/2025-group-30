@@ -7,13 +7,13 @@ class Single extends Screen {
         this.stats = new GameStats(level);
         
         this.grass = [];
-        this.grassDropInterval = null;
-        this.timerInterval = null;
+        this.grassDropInterval = null;//控制草块掉落的定时器
+        this.timerInterval = null;//控制关卡计时的定时器
         
-        this.levelSuccessScreen = new LevelSuccessScreen(this.screenManager, this.stats.level, this.stats.score, this.stats.targetScores);
-        this.gameOverScreen = new GameOverScreen(this.screenManager, this.stats.level, this.stats.score, this.stats.targetScores);
+        this.levelSuccessScreen = new LevelSuccessScreen(this.screenManager, this.stats.level, this.stats.score, this.stats.targetScores);//创建一个关卡成功的屏幕对象
+        this.gameOverScreen = new GameOverScreen(this.screenManager, this.stats.level, this.stats.score, this.stats.targetScores);//创建一个游戏失败的屏幕对象
     }
-
+    //游戏对象渲染
     display() {
         background(200);
         this.player.move();
@@ -140,8 +140,23 @@ class Single extends Screen {
     
     levelUp() {
         if (this.stats.levelUp()) {
-            this.startGrassDrop();
-            this.startLevelTimer();
+            // 清理当前关卡的状态
+            if (this.grassDropInterval) {
+                clearInterval(this.grassDropInterval);
+                this.grassDropInterval = null;
+            }
+            if (this.timerInterval) {
+                clearInterval(this.timerInterval);
+                this.timerInterval = null;
+            }
+            
+            // 重置玩家状态
+            this.grass = [];
+            this.player.resetPosition();
+            this.player.stack = [];
+            
+            // 开始新关卡
+            this.startGame();
         }
     }
 }

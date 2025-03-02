@@ -40,6 +40,7 @@ class Player {
     }
 
     move() {
+        // 更新加速度和速度
         this.updateAcceleration(); 
         this.updateVelocity(); 
         
@@ -50,11 +51,9 @@ class Player {
         // 计算移动距离
         let dx = newX - this.x;
         
-        // 同时更新玩家和草块的位置
+        // 更新玩家和草块的位置
         this.x = newX;
-        for (let grass of this.stack) {
-            grass.x += dx;
-        }
+        this.updateStack(dx);
     }
     
     updateAcceleration() {
@@ -91,30 +90,11 @@ class Player {
         this.velocity = constrain(this.velocity, -currentMaxSpeed, currentMaxSpeed);
     }
 
-    moveAsWhole() {
-        // 计算新位置
-        let newX = this.x + this.velocity;
-        newX = constrain(newX, 0, width - this.w);
-        
-        // 计算移动距离
-        let dx = newX - this.x;
-        
-        // 同时更新玩家和草块的位置
-        this.x = newX;
+    updateStack(dx) {
+        // 更新所有堆叠草块的位置
         for (let grass of this.stack) {
             grass.x += dx;
         }
-    }
-
-    // 移除不需要的方法
-    updatePosition() {
-        let newX = this.x + this.velocity;
-        newX = constrain(newX, 0, width - this.w);
-        return newX - this.x;
-    }
-
-    updateStack() {
-        // 不再需要单独的更新逻辑
     }
 
     checkGrassCollision(grass) {
