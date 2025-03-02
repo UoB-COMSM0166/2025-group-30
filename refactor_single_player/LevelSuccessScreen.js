@@ -12,7 +12,8 @@ class LevelSuccessScreen extends Screen {
                 y: height / 5 * 4,
                 color: "rgb(0, 200, 0)",
                 action: () => {
-                    return new Single(this.screenManager, this.level + 1); // **正确创建新关卡**
+                    this.screenManager.single.levelUp();
+                    return this.screenManager.single;
                 }
             },
             {

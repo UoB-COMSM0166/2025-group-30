@@ -19,7 +19,7 @@ class GameOverScreen extends Screen { //for single mode
                 y: height / 5 * 4,
                 color: "rgb(0, 200, 0)", 
                 action: () => {
-                    this.screenManager.single.reset();
+                    this.screenManager.single.retryCurrentLevel(); // 重试当前关卡
                     return this.screenManager.single;
                 }
             }

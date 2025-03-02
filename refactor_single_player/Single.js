@@ -47,6 +47,7 @@ class Single extends Screen {
         }, 1000); // 第一个草块1秒后出现
     }
 
+    //接草
     updateGrass() {
         for (let i = this.grass.length - 1; i >= 0; i--) {
             let grass = this.grass[i];
@@ -54,22 +55,30 @@ class Single extends Screen {
             grass.fall();
 
             if (grass.y > height) { 
+                // 草块落地，失去一条命
                 this.player.loseLife(false);
                 this.stats.loseLife();
                 this.grass.splice(i, 1);
-                if (this.stats.lives <= 0) {
+                
+                // 检查游戏是否结束
+                if (!this.stats.lives.isAlive()) {
                     clearInterval(this.grassDropInterval);
                     clearInterval(this.timerInterval);
                     this.showGameOver();
+                    return; // 立即退出循环
                 }
             } else if (this.player.catchGrass(grass)) {
                 if (this.player.stack.length >= this.player.maxStack) {
+                    // 堆叠超过上限，失去一条命
                     this.player.loseLife(true);
                     this.stats.loseLife();
-                    if (this.stats.lives <= 0) {
+                    
+                    // 检查游戏是否结束
+                    if (!this.stats.lives.isAlive()) {
                         clearInterval(this.grassDropInterval);
                         clearInterval(this.timerInterval);
                         this.showGameOver();
+                        return; // 立即退出循环
                     }
                 }
                 this.grass.splice(i, 1);
@@ -77,11 +86,19 @@ class Single extends Screen {
         }
     }
 
+    //把草倒入篮子
     emptyGrass() {
         if (this.player.x + this.player.w >= this.basket.position.x && 
             this.player.x <= this.basket.position.x + this.basket.size.x) {
             this.stats.addScore(this.player.stack.length);
             this.player.stack = [];
+            
+            // 检查是否达到目标分数
+            if (this.stats.hasReachedTarget()) {
+                clearInterval(this.grassDropInterval);
+                clearInterval(this.timerInterval);
+                this.showLevelSuccess();
+            }
         }
     }
 
@@ -95,6 +112,7 @@ class Single extends Screen {
         if (keyCode === LEFT_ARROW || keyCode === RIGHT_ARROW) this.player.dir = 0;
     }
 
+    //重新开始游戏
     reset() {
         this.stats.reset();
         this.grass = [];
@@ -139,7 +157,10 @@ class Single extends Screen {
     }
     
     levelUp() {
-        if (this.stats.levelUp()) {
+        if (this.stats.levelManager.levelUp()) {
+            // 更新游戏状态
+            this.stats.updateLevelInfo();
+            
             // 清理当前关卡的状态
             if (this.grassDropInterval) {
                 clearInterval(this.grassDropInterval);
@@ -157,7 +178,50 @@ class Single extends Screen {
             
             // 开始新关卡
             this.startGame();
+            return true;
         }
+        return false;
+    }
+
+    // 重试当前关卡
+    retryCurrentLevel() {
+        // 重置游戏状态，但保持当前关卡难度
+        this.stats.resetCurrentLevel();
+        this.grass = [];
+        this.player.resetPosition();
+        this.player.stack = [];
+        
+        if (this.grassDropInterval) {
+            clearInterval(this.grassDropInterval);
+            this.grassDropInterval = null;
+        }
+        if (this.timerInterval) {
+            clearInterval(this.timerInterval);
+            this.timerInterval = null;
+        }
+        
+        // 开始游戏
+        this.startGame();
+    }
+
+    // 从第一关开始新游戏
+    startNewGame() {
+        this.stats.resetToFirstLevel();
+        this.grass = [];
+        this.player.resetPosition();
+        this.player.stack = [];
+        
+        if (this.grassDropInterval) {
+            clearInterval(this.grassDropInterval);
+            this.grassDropInterval = null;
+        }
+        if (this.timerInterval) {
+            clearInterval(this.timerInterval);
+            this.timerInterval = null;
+        }
+        
+        // 开始游戏
+        this.startGame();
     }
 }
 

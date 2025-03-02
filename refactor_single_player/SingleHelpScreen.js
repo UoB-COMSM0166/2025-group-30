@@ -41,10 +41,9 @@ class SingleHelpScreen extends Screen {
         
         if (mouseX > buttonX && mouseX < buttonX + buttonWidth &&
             mouseY > buttonY && mouseY < buttonY + buttonHeight) {
-            // 切换到游戏界面并开始游戏
-            this.screenManager.single.reset(); // 确保游戏状态重置
+            // 从第一关开始新游戏
+            this.screenManager.single.startNewGame();
             this.screenManager.changeScreen(this.screenManager.single);
-            this.screenManager.single.startGame();
         }
     }
 }

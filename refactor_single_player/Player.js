@@ -6,9 +6,8 @@ class Player {
         this.maxStack = 5; // Maximum grass stack size
         this.baseMaxSpeed = 15; // 基础最大速度
         this.baseAcceleration = 1.8; // 基础加速度
-        this.friction = 0.92; // 摩擦力系数
+        this.friction = 0.8; // 摩擦力系数
         this.minSpeed = 3;
-        this.lives = 3;
         this.dir = 0;
         this.basket = new Basket(); // 初始化篮子
 
@@ -27,11 +26,7 @@ class Player {
         this.y = this.baseY; // 复位 Y 位置
     }
 
-
     loseLife(clearStack = false) {
-        this.lives--;
-        console.log(`Player lost a life! Lives remaining: ${this.lives}`);
-        
         this.velocity = 0;
         this.dir = 0;
         if (clearStack) {

@@ -1,30 +1,50 @@
 class GameStats {
     constructor(level = 1) {
-        this.level = level;
+        this.levelManager = new Level(level);
         this.score = 0;
-        this.lives = 3;
-        this.targetScores = 10 * level; // 每个关卡目标分数递增
-        this.timer = 30; // 每关限时30秒
+        this.lives = new Lives(3); // 使用 Lives 类管理生命值
+        
+        // 从关卡管理器获取当前关卡信息
+        const levelInfo = this.levelManager.getCurrentLevelInfo();
+        this.targetScores = levelInfo.targetScore;
+        this.timer = levelInfo.timer;
         this.timeLeft = this.timer;
-        this.grassDropDelay = 2000 - (level - 1) * 500; // 每关减少0.5s
+        this.grassDropDelay = levelInfo.grassDropDelay;
     }
 
-    reset() {
+    // 重置到第一关
+    resetToFirstLevel() {
         this.score = 0;
-        this.lives = 3;
-        this.timeLeft = this.timer;
+        this.lives.reset(); // 重置生命值为3
+        
+        // 重置到第一关
+        this.levelManager.resetToFirstLevel();
+        const levelInfo = this.levelManager.getCurrentLevelInfo();
+        this.targetScores = levelInfo.targetScore;
+        this.timeLeft = levelInfo.timer;
+        this.grassDropDelay = levelInfo.grassDropDelay;
     }
 
-    levelUp() {
-        if (this.level < 3) {
-            this.level++;
-            this.targetScores = 10 * this.level;
-            this.timeLeft = this.timer;
-            this.grassDropDelay = 2000 - (this.level - 1) * 500;
-            this.score = 0;
-            return true;
-        }
-        return false;
+    // 重置当前关卡（保持关卡数不变）
+    resetCurrentLevel() {
+        this.score = 0;
+        this.lives.reset(); // 重置生命值为3
+        
+        // 重置当前关卡参数
+        this.levelManager.resetCurrentLevel();
+        const levelInfo = this.levelManager.getCurrentLevelInfo();
+        this.targetScores = levelInfo.targetScore;
+        this.timeLeft = levelInfo.timer;
+        this.grassDropDelay = levelInfo.grassDropDelay;
+    }
+
+    // 更新关卡信息的方法
+    updateLevelInfo() {
+        const levelInfo = this.levelManager.getCurrentLevelInfo();
+        this.targetScores = levelInfo.targetScore;
+        this.timeLeft = levelInfo.timer;
+        this.grassDropDelay = levelInfo.grassDropDelay;
+        this.score = 0;
     }
 
     addScore(points) {
@@ -32,8 +52,11 @@ class GameStats {
     }
 
     loseLife() {
-        this.lives--;
-        return this.lives;
+        return this.lives.loseLife();
+    }
+
+    gainLife() {
+        return this.lives.gainLife();
     }
 
     decrementTime() {
@@ -48,24 +71,24 @@ class GameStats {
     }
 
     isGameOver() {
-        return this.lives <= 0 || this.timeLeft <= 0;
+        const gameOver = !this.lives.isAlive() || this.timeLeft <= 0;
+        if (gameOver) {
+            this.lives.reset(); // 游戏结束时重置生命值为3
+        }
+        return gameOver;
     }
 
     displayUI() {
         fill(0);
         textSize(20);
         textAlign(LEFT);
-        text(`Level ${this.level}`, width / 2, 30);
+        text(`Level ${this.levelManager.currentLevel}`, width / 2, 30);
         text(`Score: ${this.score}`, 20, 30);
         text(`Target: ${this.targetScores}`, 20, 60);
         text(`Time: ${this.timeLeft}s`, 20, 90);
     }
 
     displayLives() {
-        let heartX = 20, heartY = 120;
-        for (let i = 0; i < 3; i++) {
-            fill(i < this.lives ? 'red' : 'gray');
-            circle(heartX + i * 30, heartY, 20);
-        }
+        this.lives.display();
     }
 } 
