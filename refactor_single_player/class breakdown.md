@@ -1,7 +1,7 @@
-class diagram
+Class Breakdown
 
 
-## Single
+## Single, Pvp, Coop
 display()
 <br>
 
