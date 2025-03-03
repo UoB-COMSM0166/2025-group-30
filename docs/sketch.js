@@ -309,6 +309,15 @@ function mousePressed() {
             }
         }
     }
+    if (showLevelUpScreen) {
+        if (mouseX > width / 2 - 100 && mouseX < width / 2 + 100) {
+            if (mouseY > height / 2 && mouseY < height / 2 + 50) {
+                levelUp();
+            } else if (mouseY > height / 2 + 70 && mouseY < height / 2 + 120) {
+                restartGame();
+            }
+        }
+    }  
 }
 
 
