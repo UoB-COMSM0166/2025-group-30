@@ -11,8 +11,12 @@ class Player {
         this.dir = 0;
         this.basket = new Basket(); // 初始化篮子
 
-        this.x = width / 2;
-        this.baseY = height - 50; // 记录初始 Y 位置
+        // 使用固定的基准尺寸
+        this.baseWidth = 800;
+        this.baseHeight = 600;
+        
+        this.x = this.baseWidth / 2;
+        this.baseY = this.baseHeight - 50; // 记录初始 Y 位置
         this.y = this.baseY; // 玩家将始终保持在这个高度
         this.velocity = 0;
         this.acceleration = 0;
@@ -24,10 +28,12 @@ class Player {
         this.blinkInterval = 100;    // 闪烁间隔（毫秒）
         this.visible = true;         // 控制闪烁效果时角色的可见性
         this.isPaused = false;       // 是否暂停行动
+        
+        console.log("Player初始化完成, 位置:", this.x, this.y);
     }
     
     resetPosition() {
-        this.x = width / 2;
+        this.x = this.baseWidth / 2;
         this.velocity = 0;
         this.dir = 0;
         this.stack = []; // 清空堆叠的草块
@@ -35,6 +41,8 @@ class Player {
         this.isBlinking = false;
         this.isPaused = false;
         this.visible = true;
+        
+        console.log("Player位置重置:", this.x, this.y);
     }
 
     loseLife(clearStack = false) {
@@ -88,7 +96,7 @@ class Player {
         
         // 计算新位置
         let newX = this.x + this.velocity;
-        newX = constrain(newX, 0, width - this.w);
+        newX = constrain(newX, 0, this.baseWidth - this.w);
         
         // 计算移动距离
         let dx = newX - this.x;
@@ -219,6 +227,9 @@ class Player {
             for (let grass of this.stack) {
                 grass.show();
             }
+            
+            // 调试信息
+            console.log("绘制Player - 位置:", this.x, this.y, "尺寸:", this.w, this.h);
         } else {
             // 即使玩家不可见，也绘制堆叠的草
             for (let grass of this.stack) {

@@ -66,8 +66,11 @@ class GameStats {
         textSize(20);
         textAlign(LEFT);
         
+        // 使用固定的基准尺寸
+        const baseWidth = 800;
+        
         // 显示关卡、分数、目标分数和时间
-        text(`Level ${this.levelManager.currentLevel}`, width / 2, 30);
+        text(`Level ${this.levelManager.currentLevel}`, baseWidth / 2, 30);
         text(`Score: ${this.score}`, 20, 30);
         text(`Target: ${this.targetScores}`, 20, 60);
         text(`Time: ${this.timeLeft}s`, 20, 90);

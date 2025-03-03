@@ -2,6 +2,10 @@ class Single extends Screen {
     constructor(screenManager, level = 1) {
         super(screenManager);
         
+        // 使用固定的基准尺寸
+        this.baseWidth = 800;
+        this.baseHeight = 600;
+        
         this.player = new Player();
         this.basket = new Basket();
         this.stats = new GameStats(level);
@@ -37,11 +41,11 @@ class Single extends Screen {
         
         // 设置一个较短的延迟来生成第一个草块
         setTimeout(() => {
-            this.grass.push(new Grass(random(200, width - 100), 10));
+            this.grass.push(new Grass(random(200, this.baseWidth - 100), 10));
             
             // 然后开始正常的草块生成间隔
             this.grassDropInterval = setInterval(() => {
-                this.grass.push(new Grass(random(200, width - 100), 10));
+                this.grass.push(new Grass(random(200, this.baseWidth - 100), 10));
             }, this.stats.grassDropDelay);
         }, 1000); // 第一个草块1秒后出现
     }
@@ -53,7 +57,7 @@ class Single extends Screen {
             grass.show();
             grass.fall();
 
-            if (grass.y > height) { 
+            if (grass.y > this.baseHeight) { 
                 // 草块落地，失去一条命
                 this.player.loseLife(false);
                 this.stats.loseLife();
@@ -146,12 +150,12 @@ class Single extends Screen {
     }
 
     showLevelSuccess() {
-        this.levelSuccessScreen.update(this.stats.level, this.stats.score, this.stats.targetScores);
+        this.levelSuccessScreen.update(this.stats.levelManager.currentLevel, this.stats.score, this.stats.targetScores);
         this.screenManager.changeScreen(this.levelSuccessScreen);
     }
     
     showGameOver() {
-        this.gameOverScreen.update(this.stats.level, this.stats.score, this.stats.targetScores);
+        this.gameOverScreen.update(this.stats.levelManager.currentLevel, this.stats.score, this.stats.targetScores);
         this.screenManager.changeScreen(this.gameOverScreen);
     }
     

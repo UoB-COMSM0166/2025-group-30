@@ -2,31 +2,35 @@ class Help extends Screen {
     constructor(screenManager) {
         super(screenManager);
         
+        // 按钮尺寸和位置
+        this.buttonWidth = 200;
+        this.buttonHeight = 60;
+        
         // 帮助屏幕的配置
         this.modes = {
             single: {
-                title: "单人模式说明",
+                title: "Single Player Instructions",
                 instructions: [
-                    "使用左右方向键移动",
-                    "按空格键将草放入篮子",
-                    "每次最多可以堆叠5个草块",
-                    "注意不要让草块掉落在地上"
+                    "Use LEFT/RIGHT arrow keys to move",
+                    "Press SPACE to place hay in the basket",
+                    "You can stack up to 5 hay blocks",
+                    "Don't let hay blocks fall to the ground"
                 ],
-                buttonText: "开始游戏",
+                buttonText: "Start Game",
                 startAction: () => {
                     this.screenManager.single.startNewGame();
                     this.screenManager.changeScreen(this.screenManager.single);
                 }
             },
             coop: {
-                title: "双人合作模式说明",
+                title: "Co-op Mode Instructions",
                 instructions: [
-                    "玩家1使用A/D键移动，玩家2使用左右方向键",
-                    "玩家1按W键放入篮子，玩家2按上键放入篮子",
-                    "两位玩家合作收集草块",
-                    "共享生命值和分数"
+                    "Player 1: Use A/D keys to move, Player 2: Use LEFT/RIGHT",
+                    "Player 1: Press W to place hay, Player 2: Press UP",
+                    "Work together to collect hay blocks",
+                    "Share lives and score"
                 ],
-                buttonText: "开始合作",
+                buttonText: "Start Co-op",
                 startAction: () => {
                     // 这里需要实现双人合作模式的启动逻辑
                     // 暂时返回菜单界面
@@ -34,14 +38,14 @@ class Help extends Screen {
                 }
             },
             pvp: {
-                title: "双人对战模式说明",
+                title: "PvP Mode Instructions",
                 instructions: [
-                    "玩家1使用A/D键移动，玩家2使用左右方向键",
-                    "玩家1按W键放入篮子，玩家2按上键放入篮子",
-                    "两位玩家互相竞争收集草块",
-                    "在时间结束时分数高者获胜"
+                    "Player 1: Use A/D keys to move, Player 2: Use LEFT/RIGHT",
+                    "Player 1: Press W to place hay, Player 2: Press UP",
+                    "Compete to collect more hay blocks",
+                    "The player with higher score at the end wins"
                 ],
-                buttonText: "开始对战",
+                buttonText: "Start PvP",
                 startAction: () => {
                     // 这里需要实现双人对战模式的启动逻辑
                     // 暂时返回菜单界面
@@ -52,6 +56,10 @@ class Help extends Screen {
         
         // 默认为单人模式
         this.currentMode = "single";
+        
+        // 按钮的位置会在display方法中计算
+        this.buttonX = 0;
+        this.buttonY = 0;
     }
     
     // 设置当前帮助模式
@@ -59,7 +67,7 @@ class Help extends Screen {
         if (this.modes[mode]) {
             this.currentMode = mode;
         } else {
-            console.error("未知的游戏模式: " + mode);
+            console.error("Unknown game mode: " + mode);
         }
     }
     
@@ -69,29 +77,41 @@ class Help extends Screen {
         background(230);
         textAlign(CENTER, CENTER);
         
+        // 使用固定的基准尺寸
+        const baseWidth = 800;
+        const baseHeight = 600;
+        
         // 显示标题
+        const titleY = baseHeight/4;
         textSize(32);
         fill(0);
-        text(mode.title, width/2, height/4);
+        text(mode.title, baseWidth/2, titleY);
         
         // 显示说明文本
+        const instructionsStartY = baseHeight/2 - 60;
+        const lineHeight = 40;
         textSize(20);
         for (let i = 0; i < mode.instructions.length; i++) {
-            text(mode.instructions[i], width/2, height/2 - 60 + (i * 40));
+            text(mode.instructions[i], baseWidth/2, instructionsStartY + (i * lineHeight));
         }
         
-        // 绘制开始按钮
-        let buttonWidth = 200;
-        let buttonHeight = 60;
-        let buttonX = width/2 - buttonWidth/2;
-        let buttonY = height * 3/4 - buttonHeight/2;
+        // 计算并存储按钮位置
+        this.buttonY = baseHeight * 3/4;
+        this.buttonX = baseWidth/2 - this.buttonWidth/2;
         
+        // 绘制开始按钮
         fill(0, 200, 0);
-        rect(buttonX, buttonY, buttonWidth, buttonHeight);
+        rect(this.buttonX, this.buttonY - this.buttonHeight/2, this.buttonWidth, this.buttonHeight);
         
         fill(255);
         textSize(24);
-        text(mode.buttonText, width/2, height * 3/4);
+        text(mode.buttonText, baseWidth/2, this.buttonY);
+        
+        // 调试 - 显示按钮边界
+        stroke(255, 0, 0);
+        noFill();
+        rect(this.buttonX, this.buttonY - this.buttonHeight/2, this.buttonWidth, this.buttonHeight);
+        noStroke();
     }
     
     mousePressed() {
@@ -99,16 +119,27 @@ class Help extends Screen {
         let mouseXGame = window.mouseXGame || mouseX;
         let mouseYGame = window.mouseYGame || mouseY;
         
-        // 检查是否点击了开始按钮
-        let buttonWidth = 200;
-        let buttonHeight = 60;
-        let buttonX = width/2 - buttonWidth/2;
-        let buttonY = height * 3/4 - buttonHeight/2;
+        console.log("Help mousePressed");
+        console.log("Mouse position:", mouseX, mouseY);
+        console.log("Game mouse position:", mouseXGame, mouseYGame);
         
-        if (mouseXGame > buttonX && mouseXGame < buttonX + buttonWidth &&
-            mouseYGame > buttonY && mouseYGame < buttonY + buttonHeight) {
+        // 计算按钮的点击区域
+        let buttonTop = this.buttonY - this.buttonHeight/2;
+        let buttonBottom = this.buttonY + this.buttonHeight/2;
+        let buttonLeft = this.buttonX;
+        let buttonRight = this.buttonX + this.buttonWidth;
+        
+        console.log(`Button position: x=${this.buttonX}, y=${this.buttonY}, w=${this.buttonWidth}, h=${this.buttonHeight}`);
+        console.log(`Click area: left=${buttonLeft}, right=${buttonRight}, top=${buttonTop}, bottom=${buttonBottom}`);
+        
+        // 检查是否点击了开始按钮
+        if (mouseXGame > buttonLeft && mouseXGame < buttonRight &&
+            mouseYGame > buttonTop && mouseYGame < buttonBottom) {
+            console.log(`Start button clicked!`);
             // 执行当前模式的开始动作
             this.modes[this.currentMode].startAction();
+        } else {
+            console.log("Button not clicked");
         }
     }
 } 

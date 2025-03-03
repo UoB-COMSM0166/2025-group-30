@@ -4,6 +4,7 @@ class Grass {
         this.y = y;
         this.size = { x: 60, y: 40 }; // 统一使用普通对象存储宽高
         this.speed = 4;  // 草块下落速度
+        this.baseHeight = 600; // 使用固定的基准高度
     }
 
     fall() {
