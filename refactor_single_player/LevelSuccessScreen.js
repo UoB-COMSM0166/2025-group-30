@@ -2,9 +2,6 @@ class LevelSuccessScreen extends Screen {
     constructor(screenManager, gameScreen) {
         super(screenManager);
         this.gameScreen = gameScreen;
-        this.level = this.gameScreen.level;
-        this.score = this.gameScreen.player.score;
-        this.targetScores = this.gameScreen.targetScores;
 
         // Buttons for navigating
         this.buttons = [
@@ -33,8 +30,12 @@ class LevelSuccessScreen extends Screen {
 
     // Display the Level Success screen
     display() { // Update the content of the LevelSuccessScreen
+        this.gameScreen.display();
+        
+        // 半透明背景
+        fill(0, 0, 0, 127);
+        rect(0, 0, width, height);
 
-        background(200);
         fill(255);
         rect(width / 2 - 150, height / 2 - 100, 300, 250);  // Display box for message
         fill(0);

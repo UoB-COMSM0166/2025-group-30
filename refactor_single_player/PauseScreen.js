@@ -10,7 +10,6 @@ class PauseScreen extends Screen {
                 y: height/2 - 20,
                 color: "rgb(0, 255, 0)",
                 action: () => {
-                    this.gameScreen.paused = false;
                     this.screenManager.changeScreen(this.gameScreen);
                 }
             },
@@ -39,7 +38,7 @@ class PauseScreen extends Screen {
 
     display() {
         this.gameScreen.display();
-        
+
         // 半透明背景
         fill(0, 0, 0, 127);
         rect(0, 0, width, height);

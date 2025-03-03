@@ -1,4 +1,4 @@
-class Single extends Screen {
+class Single extends GameScreen {
     constructor(screenManager, level=1, targetScores=3, timer=10, grassDropDelay=2000) {
         // --- basic settings ---
         super(screenManager);
@@ -21,23 +21,26 @@ class Single extends Screen {
         this.gameOverScreen = new GameOverScreen(this.screenManager,this);
         this.levelSuccessScreen = new LevelSuccessScreen(this.screenManager, this);
         this.pauseScreen = new PauseScreen(this.screenManager, this);
-        this.paused = false;
     }
 
     display(){ 
         background(200); 
         this.basket.show(); 
 
-        this.player.move(); 
-        this.player.show(); //show player with grass
-        
-        this.updateGrass();
+        if (this.screenManager.currentScreen === this){
+            this.player.move();   
+            this.updateGrass();     
+        }
+
+        this.player.show(); //show player with grass   
+        this.showGrass();
+
         this.displayUI();      
     }
 
     // --- initialising the game state ---
     startGrassDrop() {
-        if (!this.screenManager.currenScreen === this){return;}
+        //if (!this.screenManager.currentScreen === this) return;
         
         if (this.grassDropInterval) { clearInterval(this.grassDropInterval);}
 
@@ -47,7 +50,7 @@ class Single extends Screen {
         this.grass.push(new Grass(random(200, width - 100), 10));
 
         this.grassDropInterval = setInterval(() => {
-            if (this.player.flash.flashDuration === 0 && !this.paused){ //grass drop continue if flashing is not on && game is not paused
+            if (this.player.flash.flashDuration === 0 && this.screenManager.currentScreen === this){ //grass drop continue if flashing is not on && game is not paused
                 this.grass.push(new Grass(random(200, width - 100), 10));
                 console.log("start grass drop");
             }            
@@ -60,17 +63,17 @@ class Single extends Screen {
         if (this.grassDropInterval) {
             clearInterval(this.grassDropInterval);
             this.grassDropInterval = null;
+            console.log("stop grass drop");
         }
+        this.stopLevelTimer();
     }
     
 
     // --- main game logic ----
-    updateGrass() { //update the grass from this.grass if caught or missed
-        
+    updateGrass() { //update the grass from this.grass based on if caught or missed   
         for (let i = this.grass.length - 1; i >= 0; i--) {
-            this.grass[i].show();
-            if (this.player.flash.flashDuration === 0 && !this.paused) this.grass[i].fall(); //stop grass fall if flashing is on or game is paused
-
+            if (this.player.flash.flashDuration === 0 && this.screenManager.currentScreen === this) this.grass[i].fall(); //stop grass fall if flashing is on or game is paused
+            
             if (this.grass[i].y > height) { //if miss a grass, lives--, player flashes
                 this.player.lives--;
                 this.player.flash.flashDuration = 60;
@@ -86,17 +89,22 @@ class Single extends Screen {
             }
         }
     }
+    
+    showGrass(){ //draw the grass
+        for (let i = this.grass.length - 1; i >= 0; i--) {
+            this.grass[i].show();}
+    }
 
     startLevelTimer() {
         console.log("start level timer");
         if (this.levelTimerInterval) clearInterval(this.levelTimerInterval);
         this.levelTimerInterval = setInterval(() => {
             if (this.timeLeft > 0) {
-                if (this.player.flash.flashDuration === 0 && !this.paused) this.timeLeft--; //stop the timer if flashing is on or game is paused
+                if (this.player.flash.flashDuration === 0 && this.screenManager.currentScreen === this) this.timeLeft--;
             }
             else { //check when times run out
                 if (this.player.score >= this.targetScores){ //move up a level
-                    this.stopGrassDrop();
+                    this.stopGrassDrop();                    
                     this.screenManager.changeScreen(this.levelSuccessScreen);
                 } 
                 else { //game over
@@ -107,11 +115,18 @@ class Single extends Screen {
         }, 1000);
     }
 
+    stopLevelTimer() {      
+        if (this.levelTimerInterval) {
+            clearInterval(this.levelTimerInterval);
+            this.levelTimerInterval = null;
+        }
+        console.log("stop level timer");
+    }
+
     clearStats(){
         this.player.reset();
         this.timeLeft = this.timer;
-        this.paused = false;
-        this.stopGrassDrop();
+        this.stopGrassDrop();     
     }
 
     reset(){ //reset to level 1
@@ -154,7 +169,6 @@ class Single extends Screen {
         else if (keyCode === LEFT_ARROW) this.player.dir = -1;
         else if (keyCode === 32) this.player.emptyGrass(); //spacebar    
         else if (keyCode === ESCAPE) {
-            this.paused = true;
             this.screenManager.changeScreen(this.pauseScreen);
         }
     }

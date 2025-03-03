@@ -3,10 +3,6 @@ class GameOverScreen extends Screen {
         super(screenManager);
         this.gameScreen = gameScreen;
         
-        this.level = this.gameScreen.level;
-        this.score = this.gameScreen.player.score;
-        this.targetScores = this.gameScreen.targetScores; // Used for checking if the score met the target
-
         this.buttons = [
             {
                 label: "Home",
@@ -32,9 +28,12 @@ class GameOverScreen extends Screen {
     }
 
     display() {
-        this.update();
+        this.gameScreen.display();
+        
+        // 半透明背景
+        fill(0, 0, 0, 127);
+        rect(0, 0, width, height);
 
-        background(200);
         fill(255);
         rect(width / 2 - 150, height / 2 - 100, 300, 250);
 
@@ -46,8 +45,8 @@ class GameOverScreen extends Screen {
         textSize(14);
 
 
-        text(`Your Score: ${this.score}`, width / 2, height / 2 + 20);
-        text(`Target Score: ${this.targetScores}`, width / 2, height / 2 + 40);
+        text(`Your Score: ${this.gameScreen.player.score}`, width / 2, height / 2 + 20);
+        text(`Target Score: ${this.gameScreen.targetScores}`, width / 2, height / 2 + 40);
 
         // Display button options
         for (let button of this.buttons) {
@@ -71,12 +70,5 @@ class GameOverScreen extends Screen {
                 mouseX < button.x + buttonWidth
             ) button.action()
         }
-    }
-
-    // Update the content of the GameOverScreen
-    update() {
-        this.level = this.gameScreen.level;
-        this.score = this.gameScreen.player.score;
-        this.targetScores = this.gameScreen.targetScores;
     }
 }
