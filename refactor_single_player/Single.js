@@ -21,7 +21,6 @@ class Single extends Screen {
         this.basket.show();
         
         this.updateGrass();
-        this.stats.displayLives();
         this.stats.displayUI();
     }
 
@@ -160,6 +159,12 @@ class Single extends Screen {
         if (this.stats.levelManager.levelUp()) {
             // 更新游戏状态
             this.stats.updateLevelInfo();
+            
+            // 重置分数（保留这一步，因为我们想在新关卡中从0分开始）
+            this.stats.score = 0;
+            
+            // 重置生命值
+            this.stats.lives.reset();
             
             // 清理当前关卡的状态
             if (this.grassDropInterval) {

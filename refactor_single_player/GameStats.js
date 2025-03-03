@@ -2,40 +2,24 @@ class GameStats {
     constructor(level = 1) {
         this.levelManager = new Level(level);
         this.score = 0;
-        this.lives = new Lives(3); // 使用 Lives 类管理生命值
-        
-        // 从关卡管理器获取当前关卡信息
-        const levelInfo = this.levelManager.getCurrentLevelInfo();
-        this.targetScores = levelInfo.targetScore;
-        this.timer = levelInfo.timer;
-        this.timeLeft = this.timer;
-        this.grassDropDelay = levelInfo.grassDropDelay;
+        this.lives = new Lives(3);
+        this.updateLevelInfo();
     }
 
     // 重置到第一关
     resetToFirstLevel() {
         this.score = 0;
-        this.lives.reset(); // 重置生命值为3
-        
-        // 重置到第一关
+        this.lives.reset();
         this.levelManager.resetToFirstLevel();
-        const levelInfo = this.levelManager.getCurrentLevelInfo();
-        this.targetScores = levelInfo.targetScore;
-        this.timeLeft = levelInfo.timer;
-        this.grassDropDelay = levelInfo.grassDropDelay;
+        this.updateLevelInfo();
     }
 
     // 重置当前关卡（保持关卡数不变）
     resetCurrentLevel() {
         this.score = 0;
-        this.lives.reset(); // 重置生命值为3
-        
-        // 重置当前关卡参数
+        this.lives.reset();
         this.levelManager.resetCurrentLevel();
-        const levelInfo = this.levelManager.getCurrentLevelInfo();
-        this.targetScores = levelInfo.targetScore;
-        this.timeLeft = levelInfo.timer;
-        this.grassDropDelay = levelInfo.grassDropDelay;
+        this.updateLevelInfo();
     }
 
     // 更新关卡信息的方法
@@ -44,7 +28,6 @@ class GameStats {
         this.targetScores = levelInfo.targetScore;
         this.timeLeft = levelInfo.timer;
         this.grassDropDelay = levelInfo.grassDropDelay;
-        this.score = 0;
     }
 
     addScore(points) {
@@ -73,7 +56,7 @@ class GameStats {
     isGameOver() {
         const gameOver = !this.lives.isAlive() || this.timeLeft <= 0;
         if (gameOver) {
-            this.lives.reset(); // 游戏结束时重置生命值为3
+            this.lives.reset();
         }
         return gameOver;
     }
@@ -82,13 +65,18 @@ class GameStats {
         fill(0);
         textSize(20);
         textAlign(LEFT);
+        
+        // 显示关卡、分数、目标分数和时间
         text(`Level ${this.levelManager.currentLevel}`, width / 2, 30);
         text(`Score: ${this.score}`, 20, 30);
         text(`Target: ${this.targetScores}`, 20, 60);
         text(`Time: ${this.timeLeft}s`, 20, 90);
-    }
-
-    displayLives() {
-        this.lives.display();
+        
+        // 显示生命值
+        let heartX = 20, heartY = 120;
+        for (let i = 0; i < this.lives.maxLives; i++) {
+            fill(i < this.lives.currentLives ? 'red' : 'gray');
+            circle(heartX + i * 30, heartY, 20);
+        }
     }
 } 

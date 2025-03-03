@@ -1,7 +1,7 @@
 class Lives {
-    constructor(initialLives = 3) {
-        this.maxLives = initialLives;
-        this.currentLives = initialLives;
+    constructor(maxLives = 3) {
+        this.maxLives = maxLives;
+        this.currentLives = maxLives;
     }
 
     // 减少生命值
@@ -33,14 +33,5 @@ class Lives {
     // 获取当前生命值
     getLives() {
         return this.currentLives;
-    }
-
-    // 显示生命值UI
-    display() {
-        let heartX = 20, heartY = 120;
-        for (let i = 0; i < this.maxLives; i++) {
-            fill(i < this.currentLives ? 'red' : 'gray');
-            circle(heartX + i * 30, heartY, 20);
-        }
     }
 } 

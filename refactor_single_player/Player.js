@@ -16,6 +16,14 @@ class Player {
         this.y = this.baseY; // 玩家将始终保持在这个高度
         this.velocity = 0;
         this.acceleration = 0;
+        
+        // 添加闪烁和暂停相关属性
+        this.isBlinking = false;     // 是否处于闪烁状态
+        this.blinkStartTime = 0;     // 闪烁开始时间
+        this.blinkDuration = 500;    // 闪烁持续时间（毫秒）
+        this.blinkInterval = 100;    // 闪烁间隔（毫秒）
+        this.visible = true;         // 控制闪烁效果时角色的可见性
+        this.isPaused = false;       // 是否暂停行动
     }
     
     resetPosition() {
@@ -24,17 +32,56 @@ class Player {
         this.dir = 0;
         this.stack = []; // 清空堆叠的草块
         this.y = this.baseY; // 复位 Y 位置
+        this.isBlinking = false;
+        this.isPaused = false;
+        this.visible = true;
     }
 
     loseLife(clearStack = false) {
+        // 开始闪烁和暂停效果
+        this.startBlinking();
+        
         this.velocity = 0;
         this.dir = 0;
         if (clearStack) {
             this.stack = [];
         }
     }
+    
+    // 新增：开始闪烁和暂停效果
+    startBlinking() {
+        this.isBlinking = true;
+        this.isPaused = true;
+        this.blinkStartTime = millis();
+        this.visible = false;
+    }
+    
+    // 新增：更新闪烁状态
+    updateBlinkState() {
+        if (!this.isBlinking) return;
+        
+        let currentTime = millis();
+        let elapsedTime = currentTime - this.blinkStartTime;
+        
+        // 如果闪烁时间已结束
+        if (elapsedTime >= this.blinkDuration) {
+            this.isBlinking = false;
+            this.isPaused = false;
+            this.visible = true;
+            return;
+        }
+        
+        // 控制闪烁效果
+        this.visible = (Math.floor(elapsedTime / this.blinkInterval) % 2) === 0;
+    }
 
     move() {
+        // 如果玩家处于暂停状态，不进行移动
+        if (this.isPaused) {
+            this.updateBlinkState();
+            return;
+        }
+        
         // 更新加速度和速度
         this.updateAcceleration(); 
         this.updateVelocity(); 
@@ -160,12 +207,23 @@ class Player {
     }
     
     drawPlayer() {
-        fill(0, 0, 255);
-        rect(this.x, this.y, this.w, this.h);
-    
-        // 绘制堆叠的草，保持其原始位置
-        for (let grass of this.stack) {
-            grass.show();
+        // 更新闪烁状态
+        this.updateBlinkState();
+        
+        // 如果可见，则绘制玩家
+        if (this.visible) {
+            fill(0, 0, 255);
+            rect(this.x, this.y, this.w, this.h);
+        
+            // 绘制堆叠的草，保持其原始位置
+            for (let grass of this.stack) {
+                grass.show();
+            }
+        } else {
+            // 即使玩家不可见，也绘制堆叠的草
+            for (let grass of this.stack) {
+                grass.show();
+            }
         }
     }
     
