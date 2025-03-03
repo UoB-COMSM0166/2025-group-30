@@ -32,6 +32,7 @@ class MenuScreen extends Screen {
         background(200);
         textSize(25);
         textAlign(CENTER, CENTER);
+        fill(255);
         text("Select Game Mode", width / 2, height / 5);
 
         for (let button of this.buttons){

@@ -1,10 +1,14 @@
 class Player {
-    constructor(x, isLeft) {   
-        this.isLeft = isLeft; //used only for pvp mode
+    constructor(position = "middle") {   
+        this.position = position; //used only for pvp mode
         
         this.w = 100;
         this.h = 20;
-        this.x = x;
+
+        if (position === "middle") this.x = (width - this.w)/2;
+        else if (position === "left") this.x = (width - this.w)/4;
+        else if (position === "right") this.x = (width - this.w)/4*3;
+        
         this.y = height - 50; //stay the same
         this.lives = 3;
         this.score = 0;
@@ -24,8 +28,11 @@ class Player {
         this.flash = new Flash(0); 
     }
 
-    reset(isLeft) {   
-        this.x = width/2;
+    reset() {   
+        if (this.position === "middle") (width - this.w)/2;
+        else if (this.position === "left") this.x = (width - this.w)/4;
+        else if (this.position === "right") this.x = (width - this.w)/4*3;
+        
         this.lives = 3;
         this.score = 0;
 
@@ -54,22 +61,22 @@ class Player {
             if (abs(this.velocity) < 0.1) this.velocity = 0;
         }
 
-        // 计算x轴移动距离并更新堆叠的草的位置 caught grass moves with the player
-        let newX = this.x + this.velocity;
-        let dx = newX - this.x;
-        this.x = newX;
+        // 限制移动范围
+        if (this.position === "left") this.x = constrain(this.x, 0, width/2 - this.w);
+        else if (this.position === "right") this.x = constrain(this.x, width/2, width - this.w);
 
+
+        // 计算x轴移动距离并更新堆叠的草的位置 caught grass moves with the player
+        this.x += this.velocity;
+        const dx = this.x - oldX;
         for (let grass of this.stack) {
             grass.x += dx;
         }
     }
 
-    show() { //draw player with caught grass  
-  
+    show() { //draw player with caught grass    
         this.flash.update();
-        if (!this.flash.showPlayer){ //player with grass is not shown if flash is running 
-            return;
-        }
+        if (!this.flash.showPlayer) return;//player with grass is not shown if flash is running 
 
         // 显示蓝色木板
         noStroke();
@@ -89,7 +96,7 @@ class Player {
             this.lives--;
             this.stack = [];
             this.flash.flashDuration = 60; // trigger flash
-            if (this.lives <= 0 ) domain = "gameOver";
+            //if (this.lives <= 0 ) domain = "gameOver";
             return false;
         }
 

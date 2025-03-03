@@ -5,8 +5,8 @@ class GameScreen extends Screen {
 
         this.player = new Player();
 
-        this.gameOverScreen = new GameOverScreen(this.screenManager,this);
-        this.levelSuccessScreen = new LevelSuccessScreen(this.screenManager, this);
+        // this.gameOverScreen = new GameOverScreen(this.screenManager,this);
+        // this.levelSuccessScreen = new LevelSuccessScreen(this.screenManager, this);
         this.pauseScreen = new PauseScreen(this.screenManager, this);
     }
 

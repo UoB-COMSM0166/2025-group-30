@@ -1,22 +1,16 @@
 class Basket {
-    constructor(isLeft) { //ifLeft is only applicable to pvp mode
-        this.isLeft = isLeft;
+    constructor(position = "left") { //ifLeft is only applicable to pvp mode
+        this.position = position;
 
-        this.x = isLeft ? 10 : width - 60;
+        if (this.position === "left") this.x = 10;
+        else if (this.position === "right") this.x = width - 60;
         this.y = height - 100;
 
-        this.w = 100;
+        this.w = 50;
         this.h = 100;
-
-        //this.active = true; // 默认篮子激活
     }
 
     show() {
-        // 只有在激活状态下才显示篮子
-        // if (this.active) {
-        //     fill(165, 42, 42);
-        //     rect(this.x, this.y, this.w, this.h);
-        // }
         fill(165, 42, 42);
         rect(this.x, this.y, this.w, this.h);
     }

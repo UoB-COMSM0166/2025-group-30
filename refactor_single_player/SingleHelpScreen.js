@@ -3,7 +3,7 @@ class SingleHelpScreen extends Screen {
         super(screenManager);
         this.buttons = [
             {
-                label: "Home",
+                label: "Back",
                 x: width / 4 - 50, 
                 y: height / 5 * 4,
                 color: "rgb(255, 165, 0)",

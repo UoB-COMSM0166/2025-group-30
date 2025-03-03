@@ -8,6 +8,7 @@ class ScreenManager {
         this.pvpHelpScreen = new PvpHelpScreen(this);
 
         this.single = new Single(this);
+        this.pvp = new Pvp(this);
 
         this.currentScreen = this.homeScreen; //home screen is the default current
     }

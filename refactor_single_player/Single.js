@@ -3,8 +3,11 @@ class Single extends GameScreen {
         // --- basic settings ---
         super(screenManager);
 
-        this.player = new Player(width/2, height-50, true);
-        this.basket = new Basket(true);
+        this.gameOverScreen = new GameOverScreen(this.screenManager,this);
+        this.levelSuccessScreen = new LevelSuccessScreen(this.screenManager, this);
+
+        this.player = new Player("middle");
+        this.basket = new Basket("left");
         this.player.basket = this.basket;
 
         // --- level related settings ---
@@ -17,10 +20,6 @@ class Single extends GameScreen {
         this.grass = []; //collection of falling grass
         this.grassDropInterval = null; //manage how often a grass drops
         this.levelTimerInterval = null; //manage how often the timer goes down i.e. 1 second
-
-        this.gameOverScreen = new GameOverScreen(this.screenManager,this);
-        this.levelSuccessScreen = new LevelSuccessScreen(this.screenManager, this);
-        this.pauseScreen = new PauseScreen(this.screenManager, this);
     }
 
     display(){ 
@@ -103,14 +102,9 @@ class Single extends GameScreen {
                 if (this.player.flash.flashDuration === 0 && this.screenManager.currentScreen === this) this.timeLeft--;
             }
             else { //check when times run out
-                if (this.player.score >= this.targetScores){ //move up a level
-                    this.stopGrassDrop();                    
-                    this.screenManager.changeScreen(this.levelSuccessScreen);
-                } 
-                else { //game over
-                    this.stopGrassDrop();
-                    this.screenManager.changeScreen(this.gameOverScreen);
-                };
+                this.stopGrassDrop();
+                if (this.player.score >= this.targetScores) this.screenManager.changeScreen(this.levelSuccessScreen); //move up a level    
+                else this.screenManager.changeScreen(this.gameOverScreen); //game over
             }
         }, 1000);
     }
@@ -157,11 +151,24 @@ class Single extends GameScreen {
 
         fill(0);
         textSize(20);
-        textAlign(LEFT);
+        
+        textAlign(CENTER);
         text(`Level ${this.level}`, width / 2, 30);
+        
+        textAlign(LEFT);
         text(`Score: ${this.player.score}`, 20, 30);
         text(`Target: ${this.targetScores}`, 20, 60);
         text(`Time: ${this.timeLeft}s`, 20, 90);
+    }
+    
+    //--- Move to next level ---
+    startNextLevel() { 
+        this.level++;
+        this.targetScores+= 5;
+        this.timer += 10;
+        this.grassDropDelay = max(500, this.grassDropDelay-500);
+
+        this.restart();
     }
 
     keyPressed() { 
@@ -176,20 +183,4 @@ class Single extends GameScreen {
     keyReleased() {
         if (keyCode === LEFT_ARROW || keyCode === RIGHT_ARROW) this.player.dir = 0;
     }
-
-    
-
-    // -- level up mechanism --//
-    
-    
-    //--- Move to next level ---
-    startNextLevel() { 
-        this.level++;
-        this.targetScores+= 5;
-        this.timer += 10;
-        this.grassDropDelay = max(500, this.grassDropDelay-500);
-
-        this.restart();
-    }
-
 }
