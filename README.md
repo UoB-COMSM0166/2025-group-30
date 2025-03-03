@@ -133,7 +133,48 @@ As a player, I want to adjust game settings so that I can play comfortably.
 Acceptance Criteria:
 - Given I am on the game, when I click the setting button, then I should be able to change the volume of background music and other sound effect.
 - Given I am a user with low vision, when I click the setting button, then I should be able to resize text. 
-  
+
+### Feasibility Study Report
+
+**Project overview**
+
+The project aims to develop a simple 2D mini-game where players stack square grass blocks.
+Initially, we considered using different shapes for stacking as the core gameplay mechanism and planned to integrate an external physics engine for realistic physics simulation. 
+However, after preliminary research and technical assessment, we found that our current skill level poses certain limitations in implementing this approach. Therefore, we reassessed the feasibility.
+Eventually, we decided to remove the physics engine and use a simple square grass block stacking mechanism to reduce technical complexity.
+
+**Requirement Analysis**
+
+1.User Requirements
+-Players: Should be able to control and stack square grass blocks smoothly.
+2.Technical Requirements
+-Client-side Development: Implement the game interface and handle user input.
+-Physics Simulation: Remove the external physics engine and use a simple square block stacking mechanism.
+
+**Technical Feasibility**
+Shape Stacking Mechanism
+Initial Plan
+-Use an external physics engine (e.g., Box2D, Matter.js) for simulating different shape interactions.
+-Requires complex physics calculations, including collision detection and gravity simulation.
+
+**Feasibility Evaluation**
+-Lack of experience in physics engine development makes debugging and optimization challenging.
+-Complex physics calculations may lead to high computational resource consumption, affecting game performance.
+Alternative Plan
+-Switch to simple square grass block stacking without relying on an external physics engine.
+-Use a rule-based stacking method where each block is placed according to predefined logic rather than dynamic physics calculations.
+-Implement basic rectangle overlap detection for collision handling to improve development efficiency.
+
+Based on the feasibility analysis, we have decided to adjust the game design by abandoning the complex physics engine integration and opting for a simple square grass block stacking mechanism. 
+This will reduce technical difficulty, improve development efficiency, and ensure game stability.
+
+### Stakeholders Analysis 
+**Onion model**
+<img src=https://github.com/UoB-COMSM0166/2025-group-30/issues/25 alt="GitHub Logo" width="100">
+
+**User-case diagram**
+<img src=https://github.com/UoB-COMSM0166/2025-group-30/issues/27 alt="GitHub Logo" width="100">
+
 ### Design
 
 - 15% ~750 words 
