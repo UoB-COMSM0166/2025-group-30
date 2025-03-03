@@ -170,10 +170,10 @@ This will reduce technical difficulty, improve development efficiency, and ensur
 
 ### Stakeholders Analysis 
 **Onion model**
-<img src=https://github.com/UoB-COMSM0166/2025-group-30/issues/25 alt="GitHub Logo" width="100">
+![Image](https://github.com/user-attachments/assets/4a91b2c9-6289-4970-96d4-6c223d6df48f)
 
 **User-case diagram**
-<img src=https://github.com/UoB-COMSM0166/2025-group-30/issues/27 alt="GitHub Logo" width="100">
+<img width="915" alt="Image" src="https://github.com/user-attachments/assets/1f5c1da4-c239-4662-898a-9b46e998b081" />
 
 ### Design
 
