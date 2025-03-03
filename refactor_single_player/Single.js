@@ -1,8 +1,9 @@
-class Single extends GameScreen {
+class Single extends Screen {
     constructor(screenManager, level=1, targetScores=3, timer=10, grassDropDelay=2000) {
         // --- basic settings ---
         super(screenManager);
 
+        this.pauseScreen = new PauseScreen(this.screenManager, this);
         this.gameOverScreen = new GameOverScreen(this.screenManager,this);
         this.levelSuccessScreen = new LevelSuccessScreen(this.screenManager, this);
 
@@ -71,11 +72,13 @@ class Single extends GameScreen {
     // --- main game logic ----
     updateGrass() { //update the grass from this.grass based on if caught or missed   
         for (let i = this.grass.length - 1; i >= 0; i--) {
-            if (this.player.flash.flashDuration === 0 && this.screenManager.currentScreen === this) this.grass[i].fall(); //stop grass fall if flashing is on or game is paused
+            if (this.player.flash.flashDuration === 0 && this.screenManager.currentScreen === this) {
+                this.grass[i].fall();
+            } //stop grass fall if flashing is on or game is paused
             
             if (this.grass[i].y > height) { //if miss a grass, lives--, player flashes
                 this.player.lives--;
-                this.player.flash.flashDuration = 60;
+                this.player.flash.flashDuration = 30;
 
                 if (this.player.lives <= 0) { //check for game over
                     this.stopGrassDrop();
@@ -138,11 +141,9 @@ class Single extends GameScreen {
     }
 
     displayLives() {
-        let heartX = 20;
-        let heartY = 120;
         for (let i = 0; i < 3; i++) {
             fill(i < this.player.lives ? 'red' : 'gray');
-            circle(heartX + i * 30, heartY,20);
+            circle(20 + i * 30, 120, 20);
         }
     }
 
@@ -151,7 +152,7 @@ class Single extends GameScreen {
 
         fill(0);
         textSize(20);
-        
+
         textAlign(CENTER);
         text(`Level ${this.level}`, width / 2, 30);
         

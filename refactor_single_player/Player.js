@@ -6,8 +6,8 @@ class Player {
         this.h = 20;
 
         if (position === "middle") this.x = (width - this.w)/2;
-        else if (position === "left") this.x = (width - this.w)/4;
-        else if (position === "right") this.x = (width - this.w)/4*3;
+        else if (position === "left" || position === "pvpLeft") this.x = (width - this.w)/4;
+        else if (position === "right" || position === "pvpRight") this.x = (width - this.w)/4*3;
         
         this.y = height - 50; //stay the same
         this.lives = 3;
@@ -62,9 +62,9 @@ class Player {
         }
 
         // 限制移动范围
-        if (this.position === "left") this.x = constrain(this.x, 0, width/2 - this.w);
-        else if (this.position === "right") this.x = constrain(this.x, width/2, width - this.w);
-
+        if (this.position === "pvpLeft") this.x = constrain(this.x, 0, width/2 - this.w);
+        else if (this.position === "pvpRight") this.x = constrain(this.x, width/2, width - this.w);
+        else this.x = constrain(this.x, 0, width - this.w);
 
         // 计算x轴移动距离并更新堆叠的草的位置 caught grass moves with the player
         this.x += this.velocity;
@@ -96,7 +96,6 @@ class Player {
             this.lives--;
             this.stack = [];
             this.flash.flashDuration = 60; // trigger flash
-            //if (this.lives <= 0 ) domain = "gameOver";
             return false;
         }
 

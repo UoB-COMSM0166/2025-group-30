@@ -43,7 +43,13 @@ class LevelSuccessScreen extends Screen {
         textAlign(CENTER, CENTER);
         text(`Level ${this.gameScreen.level} Complete!`, width / 2, height / 2 - 70);
         textSize(16);
-        text(`Score: ${this.gameScreen.player.score}`, width / 2, height / 2);
+
+        if (this.gameScreen === this.screenManager.single){
+            text(`Score: ${this.gameScreen.player.score}`, width / 2, height / 2);
+        } else if (this.gameScreen === this.screenManager.coop){
+            text(`Score: ${this.gameScreen.player1.score + this.gameScreen.player2.score}`, width / 2, height / 2);
+        }
+
         text(`Target: ${this.gameScreen.targetScores}`, width / 2, height / 2 + 20);
 
         // Display buttons

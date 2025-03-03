@@ -44,8 +44,12 @@ class GameOverScreen extends Screen {
         text("Game Over", width / 2, height / 2 - 70); // Game over title
         textSize(14);
 
-
-        text(`Your Score: ${this.gameScreen.player.score}`, width / 2, height / 2 + 20);
+        if (this.gameScreen === this.screenManager.single){
+            text(`Your Score: ${this.gameScreen.player.score}`, width / 2, height / 2 + 20);
+        } else if (this.gameScreen === this.screenManager.coop){
+            text(`Your Score: ${this.gameScreen.player1.score + this.gameScreen.player2.score}`, width / 2, height / 2 + 20);
+        }
+       
         text(`Target Score: ${this.gameScreen.targetScores}`, width / 2, height / 2 + 40);
 
         // Display button options

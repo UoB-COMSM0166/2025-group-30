@@ -9,6 +9,7 @@ class ScreenManager {
 
         this.single = new Single(this);
         this.pvp = new Pvp(this);
+        this.coop = new Coop(this);
 
         this.currentScreen = this.homeScreen; //home screen is the default current
     }

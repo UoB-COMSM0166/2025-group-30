@@ -1,26 +1,21 @@
-class Pvp extends GameScreen { // player with higher score in the set time wins
+class Pvp extends Screen { // player with higher score in the set time wins
     constructor(screenManager, level=1, timer=30, grassDropDelay=2000) {
         // --- basic settings ---
         super(screenManager);
 
+        this.pauseScreen = new PauseScreen(this.screenManager, this);
         this.pvpLevelUpScreen = new PvpLevelUpScreen(this.screenManager,this);
 
-        this.player1 = new Player("left");
+        this.player1 = new Player("pvpLeft");
         this.basket1 = new Basket("left");
         this.player1.basket = this.basket1;
-        //this.timeLeft1 = timer;
         this.grass1 = []; //collection of falling grass
-        //this.grassDropInterval1 = null; //manage how often a grass drops
-        this.levelTimerInterval1 = null; //manage how often the timer goes down i.e. 1 second
-
-        this.player2 = new Player("right");
+        
+        this.player2 = new Player("pvpRight");
         this.basket2 = new Basket("right");
         this.player2.basket = this.basket2;
-        //this.timeLeft2= timer;
         this.grass2 = []; //collection of falling grass
-        // this.grassDropInterval2 = null; //manage how often a grass drops
-        this.levelTimerInterval2 = null; //manage how often the timer goes down i.e. 1 second
-
+        
         // --- level related settings ---
         this.level = level;
         this.timer = timer;       
@@ -28,6 +23,8 @@ class Pvp extends GameScreen { // player with higher score in the set time wins
 
         this.timeLeft= timer;
         this.grassDropInterval = null; //manage how often a grass drops
+        this.levelTimerInterval = null; //manage how often the timer goes down i.e. 1 second
+
     }
 
     display(){ 
