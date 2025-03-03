@@ -8,22 +8,31 @@ class MenuScreen extends Screen {
                 label: "Single player",
                 x : width/2 - 100, 
                 y : height/3,
-                screen : this.screenManager.singleHelpScreen,
-                action: () => this.screenManager.singleHelpScreen //go to single help screen
+                mode: "single",
+                action: () => {
+                    this.screenManager.helpScreen.setMode("single");
+                    return this.screenManager.helpScreen;
+                }
             },
             {
                 label: "Co-op Mode",
                 x : width/2 - 100, 
                 y : height / 2,
-                screen: this.screenManager.coopHelpScreen,
-                action: () => this.screenManager.coopHelpScreen //go to coop help screen
+                mode: "coop",
+                action: () => {
+                    this.screenManager.helpScreen.setMode("coop");
+                    return this.screenManager.helpScreen;
+                }
             },
             {
                 label: "PvP Mode",
                 x : width/2 - 100, 
                 y : height / 3 * 2,
-                screen: this.screenManager.pvpHelpScreen,
-                action: () => this.screenManager.pvpHelpScreen //go to pvp help screen
+                mode: "pvp",
+                action: () => {
+                    this.screenManager.helpScreen.setMode("pvp");
+                    return this.screenManager.helpScreen;
+                }
             }
         ];
     }
@@ -45,13 +54,17 @@ class MenuScreen extends Screen {
     }
 
     mousePressed() { //button clicking logic
+        // 使用转换后的游戏坐标
+        let mouseXGame = window.mouseXGame || mouseX;
+        let mouseYGame = window.mouseYGame || mouseY;
+        
         let buttonWidth = 200;
         let buttonHeight = 40;
         for (let button of this.buttons){
-            if (mouseY > button.y -20 && 
-                mouseY < button.y -20 + buttonHeight &&
-                mouseX > button.x  && 
-                mouseX < button.x + buttonWidth
+            if (mouseYGame > button.y -20 && 
+                mouseYGame < button.y -20 + buttonHeight &&
+                mouseXGame > button.x  && 
+                mouseXGame < button.x + buttonWidth
             ) {
                 this.screenManager.changeScreen(button.action());
             }

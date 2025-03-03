@@ -5,9 +5,8 @@ class ScreenManager {
         this.single = new Single(this);
         this.menuScreen = new MenuScreen(this);
 
-        this.singleHelpScreen = new SingleHelpScreen(this);
-        this.coopHelpScreen = new CoopHelpScreen(this);
-        this.pvpHelpScreen = new PvpHelpScreen(this);
+        // 创建单一的Help类实例，替代所有的HelpScreen类
+        this.helpScreen = new Help(this);
 
         //this.levelSuccessScreen = new LevelSuccessScreen(this);
         this.currentScreen = this.homeScreen; //home screen is the default current
