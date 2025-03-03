@@ -1,18 +1,18 @@
 class Basket {
-    constructor() {
+    constructor(x = 0) {
         this.baseWidth = 800;
         this.baseHeight = 600;
         
         this.size = { x: 80, y: 100 };
-        this.position = { x: 0, y: this.baseHeight - 100 };
-        this.score = 0; // 存储篮子内的草块数量
+        this.position = { x: x, y: this.baseHeight - 100 };
+        this.score = 0; // Store number of collected hay blocks
         
-        console.log("Basket初始化完成, 位置:", this.position.x, this.position.y);
+        console.log("Basket initialized, position:", this.position.x, this.position.y);
     }
 
-    //更新篮子分数
+    //Update basket score
     updateStats(collectedGrass) {
-        this.score += collectedGrass; // 更新得分或草块数量
+        this.score += collectedGrass; // Update score or hay block count
     }
 
     show() {

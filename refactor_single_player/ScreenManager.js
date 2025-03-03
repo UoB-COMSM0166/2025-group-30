@@ -7,6 +7,7 @@ class ScreenManager {
         // 初始化各个屏幕
         this.homeScreen = new HomeScreen(this);
         this.single = new Single(this);
+        this.coop = new Coop(this);
         this.menuScreen = new MenuScreen(this);
 
         // 创建单一的Help类实例，替代所有的HelpScreen类
@@ -14,12 +15,14 @@ class ScreenManager {
 
         // 设置默认屏幕为主屏幕
         this.currentScreen = this.homeScreen;
+        this.lastScreen = null;
         
         console.log("All screens initialized");
     }
 
     changeScreen(screen) {
         console.log("Changing screen to:", screen.constructor.name);
+        this.lastScreen = this.currentScreen;
         this.currentScreen = screen;
     }
 

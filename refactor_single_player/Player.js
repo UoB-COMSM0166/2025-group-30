@@ -1,48 +1,68 @@
 class Player {
-    constructor() {
+    constructor(id = 0, color = 'blue', position = 'center') {
+        this.id = id; // 0 for single player, 1 for player 1, 2 for player 2
+        this.color = color;
+        this.position = position; // 'center', 'left', 'right'
+        
         this.w = 120; 
         this.h = 20;
         this.stack = []; // Stack for caught grass
         this.maxStack = 5; // Maximum grass stack size
-        this.baseMaxSpeed = 15; // 基础最大速度
-        this.baseAcceleration = 1.8; // 基础加速度
-        this.friction = 0.8; // 摩擦力系数
+        this.baseMaxSpeed = 15; // Base maximum speed
+        this.baseAcceleration = 1.8; // Base acceleration
+        this.friction = 0.8; // Friction coefficient
         this.minSpeed = 3;
         this.dir = 0;
-        this.basket = new Basket(); // 初始化篮子
+        this.basket = new Basket(); // Initialize basket
 
-        // 使用固定的基准尺寸
+        // Use fixed base dimensions
         this.baseWidth = 800;
         this.baseHeight = 600;
         
-        this.x = this.baseWidth / 2;
-        this.baseY = this.baseHeight - 50; // 记录初始 Y 位置
-        this.y = this.baseY; // 玩家将始终保持在这个高度
+        // Set initial position based on player position parameter
+        if (this.position === 'center') {
+            this.x = this.baseWidth / 2 - this.w / 2;
+        } else if (this.position === 'left') {
+            this.x = this.baseWidth / 4 - this.w / 2;
+        } else if (this.position === 'right') {
+            this.x = this.baseWidth * 3 / 4 - this.w / 2;
+        }
+        
+        this.baseY = this.baseHeight - 50; // Record initial Y position
+        this.y = this.baseY; // Player will always stay at this height
         this.velocity = 0;
         this.acceleration = 0;
         
-        // 添加闪烁和暂停相关属性
-        this.isBlinking = false;     // 是否处于闪烁状态
-        this.blinkStartTime = 0;     // 闪烁开始时间
-        this.blinkDuration = 500;    // 闪烁持续时间（毫秒）
-        this.blinkInterval = 100;    // 闪烁间隔（毫秒）
-        this.visible = true;         // 控制闪烁效果时角色的可见性
-        this.isPaused = false;       // 是否暂停行动
+        // Add properties for blinking and pausing
+        this.isBlinking = false;     // Whether in blinking state
+        this.blinkStartTime = 0;     // Blink start time
+        this.blinkDuration = 500;    // Blink duration (milliseconds)
+        this.blinkInterval = 100;    // Blink interval (milliseconds)
+        this.visible = true;         // Controls character visibility when blinking
+        this.isPaused = false;       // Whether paused
         
-        console.log("Player初始化完成, 位置:", this.x, this.y);
+        console.log(`Player ${this.id} initialized, position:`, this.x, this.y);
     }
     
     resetPosition() {
-        this.x = this.baseWidth / 2;
+        // Reset position based on player position parameter
+        if (this.position === 'center') {
+            this.x = this.baseWidth / 2 - this.w / 2;
+        } else if (this.position === 'left') {
+            this.x = this.baseWidth / 4 - this.w / 2;
+        } else if (this.position === 'right') {
+            this.x = this.baseWidth * 3 / 4 - this.w / 2;
+        }
+        
         this.velocity = 0;
         this.dir = 0;
-        this.stack = []; // 清空堆叠的草块
-        this.y = this.baseY; // 复位 Y 位置
+        this.stack = []; // Clear stacked hay blocks
+        this.y = this.baseY; // Reset Y position
         this.isBlinking = false;
         this.isPaused = false;
         this.visible = true;
         
-        console.log("Player位置重置:", this.x, this.y);
+        console.log(`Player ${this.id} position reset:`, this.x, this.y);
     }
 
     loseLife(clearStack = false) {
@@ -84,24 +104,24 @@ class Player {
     }
 
     move() {
-        // 如果玩家处于暂停状态，不进行移动
+        // If player is paused, don't move
         if (this.isPaused) {
             this.updateBlinkState();
             return;
         }
         
-        // 更新加速度和速度
+        // Update acceleration and velocity
         this.updateAcceleration(); 
         this.updateVelocity(); 
         
-        // 计算新位置
+        // Calculate new position
         let newX = this.x + this.velocity;
         newX = constrain(newX, 0, this.baseWidth - this.w);
         
-        // 计算移动距离
+        // Calculate movement distance
         let dx = newX - this.x;
         
-        // 更新玩家和草块的位置
+        // Update player and hay block positions
         this.x = newX;
         this.updateStack(dx);
     }
@@ -207,6 +227,10 @@ class Player {
             let collectedGrass = this.stack.length;
     
             this.basket.updateStats(collectedGrass); // 更新篮子统计信息
+            
+            // 添加一行代码来更新GameStats中的得分（由于我们没有GameStats的引用，所以不能直接在这里更新）
+            window.updateScore(collectedGrass, this.id); // 通过全局函数来更新得分
+            
             this.stack = [];
     
             this.baseMaxSpeed = 15; // 恢复原始最大速度
@@ -215,15 +239,15 @@ class Player {
     }
     
     drawPlayer() {
-        // 更新闪烁状态
+        // Update blink state
         this.updateBlinkState();
         
-        // 如果可见，则绘制玩家
+        // If visible, draw the player
         if (this.visible) {
-            fill(0, 0, 255);
+            fill(this.color);
             rect(this.x, this.y, this.w, this.h);
         
-            // 绘制堆叠的草，保持其原始位置
+            // Draw stacked hay, keeping their original positions
             for (let grass of this.stack) {
                 grass.show();
             }
@@ -231,7 +255,7 @@ class Player {
             // 调试信息
             console.log("绘制Player - 位置:", this.x, this.y, "尺寸:", this.w, this.h);
         } else {
-            // 即使玩家不可见，也绘制堆叠的草
+            // Even if the player is invisible, still draw the stacked hay
             for (let grass of this.stack) {
                 grass.show();
             }

@@ -2,20 +2,33 @@ class Single extends Screen {
     constructor(screenManager, level = 1) {
         super(screenManager);
         
-        // 使用固定的基准尺寸
+        // Use fixed base dimensions
         this.baseWidth = 800;
         this.baseHeight = 600;
         
-        this.player = new Player();
-        this.basket = new Basket();
+        // Create player with default settings (centered)
+        this.player = new Player(0, 'blue', 'center');
+        
+        // Create basket in the left bottom corner
+        this.basket = new Basket(0);
+        
+        // Share the basket with player
+        this.player.basket = this.basket;
+        
         this.stats = new GameStats(level);
         
         this.grass = [];
-        this.grassDropInterval = null;//控制草块掉落的定时器
-        this.timerInterval = null;//控制关卡计时的定时器
+        this.grassDropInterval = null; // Controls grass falling timer
+        this.timerInterval = null; // Controls level timer
         
-        this.levelSuccessScreen = new LevelSuccessScreen(this.screenManager, this.stats.level, this.stats.score, this.stats.targetScores);//创建一个关卡成功的屏幕对象
-        this.gameOverScreen = new GameOverScreen(this.screenManager, this.stats.level, this.stats.score, this.stats.targetScores);//创建一个游戏失败的屏幕对象
+        this.levelSuccessScreen = new LevelSuccessScreen(this.screenManager, this.stats.levelManager.currentLevel, this.stats.score, this.stats.targetScores);
+        this.gameOverScreen = new GameOverScreen(this.screenManager, this.stats.levelManager.currentLevel, this.stats.score, this.stats.targetScores);
+        
+        // 设置全局的更新分数函数，供Player类使用
+        const self = this;
+        window.updateScore = function(points, playerId) {
+            self.emptyGrass();
+        };
     }
     //游戏对象渲染
     display() {
@@ -90,11 +103,24 @@ class Single extends Screen {
     }
 
     //把草倒入篮子
-    emptyGrass() {
-        if (this.player.x + this.player.w >= this.basket.position.x && 
-            this.player.x <= this.basket.position.x + this.basket.size.x) {
-            this.stats.addScore(this.player.stack.length);
-            this.player.stack = [];
+    emptyGrass(points) {
+        // 如果没有传入分数，则使用玩家的草堆长度
+        if (points === undefined) {
+            if (this.player.x + this.player.w >= this.basket.position.x && 
+                this.player.x <= this.basket.position.x + this.basket.size.x) {
+                this.stats.addScore(this.player.stack.length);
+                this.player.stack = []; // 不需要清空，因为Player.dropGrass已经清空了
+                
+                // 检查是否达到目标分数
+                if (this.stats.hasReachedTarget()) {
+                    clearInterval(this.grassDropInterval);
+                    clearInterval(this.timerInterval);
+                    this.showLevelSuccess();
+                }
+            }
+        } else {
+            // 如果传入了分数，则直接使用
+            this.stats.addScore(points);
             
             // 检查是否达到目标分数
             if (this.stats.hasReachedTarget()) {
@@ -108,7 +134,7 @@ class Single extends Screen {
     keyPressed() { 
         if (keyCode === RIGHT_ARROW) this.player.dir = 1;
         else if (keyCode === LEFT_ARROW) this.player.dir = -1;
-        else if (keyCode === 32) this.emptyGrass();
+        else if (keyCode === 32) this.emptyGrass(); // SPACE key for dropping grass
     }
 
     keyReleased() {

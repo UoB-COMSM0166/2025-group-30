@@ -12,17 +12,26 @@ class LevelSuccessScreen extends Screen {
         // 按钮位置将在display方法中更新
         this.buttons = [
             {
-                label: "Next Level",
+                label: "下一关",
                 width: this.buttonWidth,
                 height: this.buttonHeight,
                 color: "rgb(0, 200, 0)",
                 action: () => {
-                    this.screenManager.single.levelUp();
-                    return this.screenManager.single;
+                    // 检查当前的游戏模式
+                    if (this.screenManager.currentScreen === this.screenManager.single || 
+                        this.screenManager.lastScreen === this.screenManager.single) {
+                        // 单人模式
+                        this.screenManager.single.levelUp();
+                        return this.screenManager.single;
+                    } else {
+                        // 双人模式
+                        this.screenManager.coop.levelUp();
+                        return this.screenManager.coop;
+                    }
                 }
             },
             {
-                label: "Menu",
+                label: "菜单",
                 width: this.buttonWidth,
                 height: this.buttonHeight,
                 color: "rgb(255, 165, 0)",

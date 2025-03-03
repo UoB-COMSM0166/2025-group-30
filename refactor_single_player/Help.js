@@ -26,15 +26,14 @@ class Help extends Screen {
                 title: "Co-op Mode Instructions",
                 instructions: [
                     "Player 1: Use A/D keys to move, Player 2: Use LEFT/RIGHT",
-                    "Player 1: Press W to place hay, Player 2: Press UP",
+                    "Player 1: Press SPACE to place hay, Player 2: Press ENTER",
                     "Work together to collect hay blocks",
                     "Share lives and score"
                 ],
                 buttonText: "Start Co-op",
                 startAction: () => {
-                    // 这里需要实现双人合作模式的启动逻辑
-                    // 暂时返回菜单界面
-                    this.screenManager.changeScreen(this.screenManager.menuScreen);
+                    this.screenManager.coop.startNewGame();
+                    this.screenManager.changeScreen(this.screenManager.coop);
                 }
             },
             pvp: {

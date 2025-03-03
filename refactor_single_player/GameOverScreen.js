@@ -12,20 +12,28 @@ class GameOverScreen extends Screen { //for single mode
         // 按钮位置将在display方法中更新
         this.buttons = [
             {
-                label: "Home",
+                label: "主页",
                 width: this.buttonWidth,
                 height: this.buttonHeight,
                 color: "rgb(255, 0, 0)", 
                 action: () => this.screenManager.homeScreen
             },
             {
-                label: "Retry",
+                label: "重试",
                 width: this.buttonWidth,
                 height: this.buttonHeight,
                 color: "rgb(0, 200, 0)", 
                 action: () => {
-                    this.screenManager.single.retryCurrentLevel(); // 重试当前关卡
-                    return this.screenManager.single;
+                    // 检查当前的游戏模式
+                    if (this.screenManager.lastScreen === this.screenManager.single) {
+                        // 单人模式
+                        this.screenManager.single.retryCurrentLevel();
+                        return this.screenManager.single;
+                    } else {
+                        // 双人模式
+                        this.screenManager.coop.retryCurrentLevel();
+                        return this.screenManager.coop;
+                    }
                 }
             }
         ];
