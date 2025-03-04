@@ -62,13 +62,8 @@ To help players quickly get familiar with the game, we created a digital model b
 </div>
 
 
-<div style="text-align: center;">
-  <strong>Failed|</strong>
-</div>
-
-<div style="text-align: center;">
-  <video src="https://github.com/user-attachments/assets/a21f37c9-d280-421e-a664-1148eeae3f51" controls width="600"></video>
-</div>
+- Failed
+<img src="https://github.com/user-attachments/assets/a21f37c9-d280-421e-a664-1148eeae3f51.gif" width="500">
 
 
 - 15% ~750 words
