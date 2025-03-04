@@ -10,6 +10,14 @@ class Help extends Screen {
         this.buttonWidth = 200;
         this.buttonHeight = 60;
         
+        // 返回按钮配置
+        this.backButton = {
+            width: 100,
+            height: 40,
+            margin: 20,  // 距离左边和底部的边距
+            text: "Back"
+        };
+        
         // 帮助屏幕的配置
         this.modes = {
             single: {
@@ -109,11 +117,19 @@ class Help extends Screen {
         textSize(24);
         text(mode.buttonText, baseWidth/2, this.buttonY);
         
-        // 调试 - 显示按钮边界
-        stroke(255, 0, 0);
-        noFill();
-        rect(this.buttonX, this.buttonY - this.buttonHeight/2, this.buttonWidth, this.buttonHeight);
-        noStroke();
+        // 绘制返回按钮
+        fill(100);  // 灰色背景
+        rect(this.backButton.margin, 
+             baseHeight - this.backButton.margin - this.backButton.height,
+             this.backButton.width, 
+             this.backButton.height);
+        
+        fill(255);  // 白色文字
+        textAlign(CENTER, CENTER);
+        textSize(20);
+        text(this.backButton.text,
+             this.backButton.margin + this.backButton.width/2,
+             baseHeight - this.backButton.margin - this.backButton.height/2);
     }
     
     mousePressed() {
@@ -132,7 +148,29 @@ class Help extends Screen {
             mouseYGame > buttonTop && mouseYGame < buttonBottom) {
             // 执行当前模式的开始动作
             this.modes[this.currentMode].startAction();
+            return;
         }
+        
+        // 检查是否点击了返回按钮
+        const baseHeight = 600;
+        if (mouseXGame > this.backButton.margin && 
+            mouseXGame < this.backButton.margin + this.backButton.width &&
+            mouseYGame > baseHeight - this.backButton.margin - this.backButton.height &&
+            mouseYGame < baseHeight - this.backButton.margin) {
+            this.returnToHome();
+        }
+    }
+
+    keyPressed() {
+        // 按ESC键返回主页
+        if (keyCode === ESCAPE) {
+            this.returnToHome();
+        }
+    }
+    
+    // 返回主页的方法
+    returnToHome() {
+        this.screenManager.changeScreen(this.screenManager.homeScreen);
     }
 
     getHelpContent(mode) {
