@@ -1,3 +1,7 @@
+/**
+ * 帮助界面类
+ * 负责显示游戏的帮助信息
+ */
 class Help extends Screen {
     constructor(screenManager) {
         super(screenManager);
@@ -129,5 +133,16 @@ class Help extends Screen {
             // 执行当前模式的开始动作
             this.modes[this.currentMode].startAction();
         }
+    }
+
+    getHelpContent(mode) {
+        if (mode === 'single') {
+            return this.singleModeHelp;
+        } else if (mode === 'coop') {
+            return this.coopModeHelp;
+        } else if (mode === 'pvp') {
+            return this.pvpModeHelp;
+        }
+        return this.defaultHelp;  // 返回默认帮助内容而不是抛出错误
     }
 } 

@@ -1,3 +1,7 @@
+/**
+ * 对战模式类
+ * 负责处理双人对战模式的游戏逻辑
+ */
 class Pvp extends Screen {
     constructor(screenManager, level = 1) {
         super(screenManager);
@@ -44,7 +48,6 @@ class Pvp extends Screen {
         const self = this;
         // 使用全局作用域定义更新分数函数
         window.updateScore = function(points, playerId) {
-            // console.log(`全局updateScore被调用: 分数=${points}, 玩家ID=${playerId}`);
             if (playerId === 1) {
                 self.emptyGrass(points, 1);
             } else if (playerId === 2) {
@@ -152,13 +155,10 @@ class Pvp extends Screen {
     setupUpdateScoreFunction() {
         const self = this;
         window.updateScore = function(points, playerId) {
-            // console.log(`全局updateScore被调用: 分数=${points}, 玩家ID=${playerId}`);
             if (playerId === 1) {
                 self.stats1.addScore(points);
-                // console.log(`玩家1当前分数: ${self.stats1.score}`);
             } else if (playerId === 2) {
                 self.stats2.addScore(points);
-                // console.log(`玩家2当前分数: ${self.stats2.score}`);
             }
         };
     }
@@ -334,19 +334,11 @@ class Pvp extends Screen {
     }
     
     emptyGrass(points, playerId) {
-        // console.log(`emptyGrass被调用: 分数=${points}, 玩家ID=${playerId}`);
-        
         if (playerId === 1) {
-            // 直接更新分数
-            this.stats1.score += points;
-            // console.log(`玩家1当前分数: ${this.stats1.score}`);
+            this.stats1.addScore(points);
         } else if (playerId === 2) {
-            // 直接更新分数
-            this.stats2.score += points;
-            // console.log(`玩家2当前分数: ${this.stats2.score}`);
+            this.stats2.addScore(points);
         }
-        
-        // 没有需要检查的目标分数，因为PvP模式基于时间
     }
     
     displayStats() {

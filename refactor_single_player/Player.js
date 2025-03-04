@@ -1,25 +1,38 @@
+/**
+ * 玩家类
+ * 负责处理玩家角色的移动、碰撞检测、草块收集等功能
+ */
 class Player {
+    /**
+     * 初始化玩家
+     * @param {number} id - 玩家ID：0为单人模式，1为玩家1，2为玩家2
+     * @param {string} color - 玩家颜色
+     * @param {string} position - 玩家位置：'center'中间，'left'左侧，'right'右侧
+     */
     constructor(id = 0, color = 'blue', position = 'center') {
-        this.id = id; // 0 for single player, 1 for player 1, 2 for player 2
+        this.id = id;
         this.color = color;
-        this.position = position; // 'center', 'left', 'right'
+        this.position = position;
         
-        this.w = 120; 
-        this.h = 20;
-        this.stack = []; // Stack for caught grass
-        this.maxStack = 5; // Maximum grass stack size
-        this.baseMaxSpeed = 15; // Base maximum speed
-        this.baseAcceleration = 1.8; // Base acceleration
-        this.friction = 0.8; // Friction coefficient
-        this.minSpeed = 3;
-        this.dir = 0;
-        this.basket = new Basket(); // Initialize basket
-
-        // Use fixed base dimensions
+        // 玩家基本属性
+        this.w = 120;  // 宽度
+        this.h = 20;   // 高度
+        this.stack = []; // 收集的草块堆叠
+        this.maxStack = 5; // 最大堆叠数量
+        
+        // 移动相关属性
+        this.baseMaxSpeed = 15;      // 基础最大速度
+        this.baseAcceleration = 1.8; // 基础加速度
+        this.friction = 0.8;         // 摩擦系数
+        this.minSpeed = 3;           // 最小速度
+        this.dir = 0;                // 移动方向
+        this.basket = new Basket();  // 篮子实例
+        
+        // 游戏画面基础尺寸
         this.baseWidth = 800;
         this.baseHeight = 600;
         
-        // Set initial position based on player position parameter
+        // 根据位置设置初始坐标
         if (this.position === 'center') {
             this.x = this.baseWidth / 2 - this.w / 2;
         } else if (this.position === 'left') {
@@ -28,22 +41,24 @@ class Player {
             this.x = this.baseWidth * 3 / 4 - this.w / 2;
         }
         
-        this.baseY = this.baseHeight - 50; // Record initial Y position
-        this.y = this.baseY; // Player will always stay at this height
+        this.baseY = this.baseHeight - 50; // 初始Y坐标
+        this.y = this.baseY;
         this.velocity = 0;
         this.acceleration = 0;
         
-        // Add properties for blinking and pausing
-        this.isBlinking = false;     // Whether in blinking state
-        this.blinkStartTime = 0;     // Blink start time
-        this.blinkDuration = 500;    // Blink duration (milliseconds)
-        this.blinkInterval = 100;    // Blink interval (milliseconds)
-        this.visible = true;         // Controls character visibility when blinking
-        this.isPaused = false;       // Whether paused
+        // 闪烁和暂停相关属性
+        this.isBlinking = false;     // 是否处于闪烁状态
+        this.blinkStartTime = 0;     // 闪烁开始时间
+        this.blinkDuration = 500;    // 闪烁持续时间（毫秒）
+        this.blinkInterval = 100;    // 闪烁间隔（毫秒）
+        this.visible = true;         // 闪烁时的可见性
+        this.isPaused = false;       // 是否暂停
     }
     
+    /**
+     * 重置玩家位置和状态
+     */
     resetPosition() {
-        // Reset position based on player position parameter
         if (this.position === 'center') {
             this.x = this.baseWidth / 2 - this.w / 2;
         } else if (this.position === 'left') {
@@ -54,19 +69,19 @@ class Player {
         
         this.velocity = 0;
         this.dir = 0;
-        this.stack = []; // Clear stacked hay blocks
-        this.y = this.baseY; // Reset Y position
+        this.stack = [];
+        this.y = this.baseY;
         this.isBlinking = false;
         this.isPaused = false;
         this.visible = true;
-        
-        // console.log(`Player ${this.id} position reset:`, this.x, this.y);
     }
 
+    /**
+     * 失去生命时的处理
+     * @param {boolean} clearStack - 是否清空草块堆叠
+     */
     loseLife(clearStack = false) {
-        // 开始闪烁和暂停效果
         this.startBlinking();
-        
         this.velocity = 0;
         this.dir = 0;
         if (clearStack) {
@@ -74,7 +89,9 @@ class Player {
         }
     }
     
-    // 修改开始闪烁方法，支持PvP模式下的更长闪烁时间
+    /**
+     * 开始闪烁效果
+     */
     startBlinking() {
         this.isBlinking = true;
         this.isPaused = true;
@@ -82,17 +99,15 @@ class Player {
         this.visible = false;
     }
     
-    // 修改更新闪烁状态方法，使用统一的闪烁持续时间
+    /**
+     * 更新闪烁状态
+     */
     updateBlinkState() {
         if (!this.isBlinking) return;
         
         let currentTime = millis();
         let elapsedTime = currentTime - this.blinkStartTime;
         
-        // 统一使用blinkDuration，不再区分模式
-        // let duration = this.isPvpMode ? this.pvpBlinkDuration : this.blinkDuration;
-        
-        // 如果闪烁时间已结束
         if (elapsedTime >= this.blinkDuration) {
             this.isBlinking = false;
             this.isPaused = false;
@@ -100,35 +115,33 @@ class Player {
             return;
         }
         
-        // 控制闪烁效果
         this.visible = (Math.floor(elapsedTime / this.blinkInterval) % 2) === 0;
     }
 
+    /**
+     * 处理玩家移动
+     */
     move() {
-        // If player is paused, don't move
         if (this.isPaused) {
             this.updateBlinkState();
             return;
         }
         
-        // Update acceleration and velocity
-        this.updateAcceleration(); 
-        this.updateVelocity(); 
+        this.updateAcceleration();
+        this.updateVelocity();
         
-        // Calculate new position
         let newX = this.x + this.velocity;
         newX = constrain(newX, 0, this.baseWidth - this.w);
         
-        // Calculate movement distance
         let dx = newX - this.x;
-        
-        // Update player and hay block positions
         this.x = newX;
         this.updateStack(dx);
     }
     
+    /**
+     * 更新加速度
+     */
     updateAcceleration() {
-        // 根据堆叠数量计算实际加速度
         let stackFactor = Math.max(0.4, 1 - (this.stack.length * 0.12));
         let currentAcceleration = this.baseAcceleration * stackFactor;
         
@@ -139,44 +152,48 @@ class Player {
         }
     }
 
+    /**
+     * 更新速度
+     */
     updateVelocity() {
-        // 根据堆叠数量计算实际最大速度
         let stackFactor = Math.max(0.3, 1 - (this.stack.length * 0.15));
         let currentMaxSpeed = this.baseMaxSpeed * stackFactor;
         
-        // 应用加速度
         this.velocity += this.acceleration;
         
-        // 应用摩擦力
         if (this.dir === 0) {
             this.velocity *= this.friction;
         }
         
-        // 如果速度非常小，直接设为0
         if (Math.abs(this.velocity) < 0.1) {
             this.velocity = 0;
         }
         
-        // 限制速度范围
         this.velocity = constrain(this.velocity, -currentMaxSpeed, currentMaxSpeed);
     }
 
+    /**
+     * 更新草块堆叠位置
+     * @param {number} dx - X轴位移量
+     */
     updateStack(dx) {
-        // 更新所有堆叠草块的位置
         for (let grass of this.stack) {
             grass.x += dx;
         }
     }
 
+    /**
+     * 检查与草块的碰撞
+     * @param {Grass} grass - 草块对象
+     * @returns {boolean} 是否发生碰撞
+     */
     checkGrassCollision(grass) {
-        let minOverlap = grass.size.x * 0.3; // 保持30%的重叠要求
+        let minOverlap = grass.size.x * 0.3;
         
         if (this.stack.length === 0) {
-            // 如果没有草，使用玩家矩形的位置判断
             let catchXStart = this.x;
             let catchXEnd = this.x + this.w;
             
-            // 计算与玩家的重叠
             let overlapStart = Math.max(catchXStart, grass.x);
             let overlapEnd = Math.min(catchXEnd, grass.x + grass.size.x);
             let overlapWidth = overlapEnd - overlapStart;
@@ -184,16 +201,14 @@ class Player {
             if (overlapWidth < minOverlap) return false;
 
             return (
-                grass.y + grass.size.y >= this.y &&      // 草块底部要接触到玩家顶部
-                grass.y + grass.size.y <= this.y + 10    // 草块底部不能太低
+                grass.y + grass.size.y >= this.y &&
+                grass.y + grass.size.y <= this.y + 10
             );
         } else {
-            // 如果有草，使用最上面的草块的位置判断
             let topGrass = this.stack[this.stack.length - 1];
             let catchXStart = topGrass.x;
             let catchXEnd = topGrass.x + topGrass.size.x;
             
-            // 计算与顶部草块的重叠
             let overlapStart = Math.max(catchXStart, grass.x);
             let overlapEnd = Math.min(catchXEnd, grass.x + grass.size.x);
             let overlapWidth = overlapEnd - overlapStart;
@@ -201,18 +216,22 @@ class Player {
             if (overlapWidth < minOverlap) return false;
 
             return (
-                grass.y + grass.size.y >= topGrass.y &&      // 草块底部要接触到顶部草块
-                grass.y + grass.size.y <= topGrass.y + 10    // 草块底部不能太低
+                grass.y + grass.size.y >= topGrass.y &&
+                grass.y + grass.size.y <= topGrass.y + 10
             );
         }
     }
 
+    /**
+     * 尝试接住草块
+     * @param {Grass} grass - 草块对象
+     * @returns {boolean} 是否成功接住
+     */
     catchGrass(grass) {
         if (this.checkGrassCollision(grass)) {
             if (this.stack.length >= this.maxStack) {
                 this.loseLife();
             } else {
-                // 直接将草块添加到堆叠中，保持其当前位置
                 this.stack.push(grass);
             }
             return true;
@@ -220,47 +239,35 @@ class Player {
         return false;
     }
 
+    /**
+     * 尝试将草块放入篮子
+     */
     dropGrass() {
-        if (!this.basket) {
-            return;
-        }
-        if (this.stack.length === 0) {
+        if (!this.basket || this.stack.length === 0) {
             return;
         }
 
-        if (this.x + this.w >= this.basket.position.x && this.x <= this.basket.position.x + this.basket.size.x) {
+        if (this.x + this.w >= this.basket.position.x && 
+            this.x <= this.basket.position.x + this.basket.size.x) {
             let collectedGrass = this.stack.length;
-            
-            // 直接使用basket的updateScore方法
             this.basket.updateScore(collectedGrass);
-            
             this.stack = [];
-            this.baseMaxSpeed = 15; // 恢复原始最大速度
+            this.baseMaxSpeed = 15;
             this.baseAcceleration = 1.8;
         }
     }
     
+    /**
+     * 绘制玩家
+     */
     drawPlayer() {
-        // Update blink state
         this.updateBlinkState();
         
-        // If visible, draw the player
         if (this.visible) {
             fill(this.color);
             rect(this.x, this.y, this.w, this.h);
-        
-            // Draw stacked hay, keeping their original positions
-            for (let grass of this.stack) {
-                grass.show();
-            }
-            
-        } else {
-            for (let grass of this.stack) {
-                grass.show();
-            }
         }
     }
-    
 }
 
 
