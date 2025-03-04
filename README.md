@@ -65,6 +65,8 @@ To help players quickly get familiar with the game, we created a digital model b
 - Failed
 <img src="https://github.com/UoB-COMSM0166/2025-group-30/issues/24#issue-2888632891.gif" width="500">
 
+![Game Demo]("https://github.com/UoB-COMSM0166/2025-group-30/issues/24#issue-2888632891.gif")
+
 - 15% ~750 words
 - Use case diagrams, user stories. Early stages design. Ideation process. How did you decide as a team what to develop? 
 
