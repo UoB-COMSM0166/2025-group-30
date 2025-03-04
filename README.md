@@ -55,10 +55,11 @@ To help players quickly get familiar with the game, we created a digital model b
 
 - Digital Paper Prototype Tool
 
-<img src="https://github.com/UoB-COMSM0166/2025-group-30/issues/24#issue-2888632891.gif" width="500">
+<img src="https://github.com/user-attachments/assets/dfb59e37-652d-4112-a203-70f36f721ae3" width="500">
 
 - Failed
-<img src="https://github.com/UoB-COMSM0166/2025-group-30/issues/24#issue-2888632891.gif" width="500">
+<img src="https://github.com/user-attachments/assets/a21f37c9-d280-421e-a664-1148eeae3f51" width="500">
+
 
 
 - 15% ~750 words
