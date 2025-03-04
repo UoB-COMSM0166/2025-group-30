@@ -53,19 +53,13 @@ During the conceptualization of the grass-catching game, we created a paper prot
 
 To help players quickly get familiar with the game, we created a digital model based on the paper prototype. Hanying attempted to generate the digital model using her iPad, which allowed for a representation that more closely resembled the actual game compared to the paper prototype.
 
-<div style="text-align: center;">
-  <strong>Digital Paper Prototype Tool|</strong>
-</div>
+- Digital Paper Prototype Tool
 
-<div style="text-align: center;">
-  <video src="https://github.com/user-attachments/assets/dfb59e37-652d-4112-a203-70f36f721ae3" controls width="600"></video>
-</div>
-
+<img src="https://github.com/UoB-COMSM0166/2025-group-30/issues/24#issue-2888632891.gif" width="500">
 
 - Failed
 <img src="https://github.com/UoB-COMSM0166/2025-group-30/issues/24#issue-2888632891.gif" width="500">
 
-![Game Demo]("https://github.com/UoB-COMSM0166/2025-group-30/issues/24#issue-2888632891.gif")
 
 - 15% ~750 words
 - Use case diagrams, user stories. Early stages design. Ideation process. How did you decide as a team what to develop? 
