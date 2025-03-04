@@ -14,13 +14,26 @@ class Pvp extends Screen {
         this.player1 = new Player(1, 'red', 'left');
         this.player2 = new Player(2, 'blue', 'right');
         
-        // 创建两个篮子，分别位于左下角和右下角
-        this.basket1 = new Basket(20); // 左下角篮子
-        this.basket2 = new Basket(this.baseWidth - 120); // 右下角篮子
+        // 篮子的基本配置
+        const basketWidth = 80;
+        const basketHeight = 100;
+        const basketMargin = 20;  // 与边界的距离
         
-        // 确保篮子尺寸足够大
-        this.basket1.size.x = 100; // 增加篮子宽度
-        this.basket2.size.x = 100; // 增加篮子宽度
+        // 创建两个篮子，分别位于左下角和右下角，保持对称
+        this.basket1 = new Basket(basketMargin); // 左下角篮子
+        this.basket2 = new Basket(this.baseWidth - basketWidth - basketMargin); // 右下角篮子
+        
+        // 设置篮子尺寸和位置，确保对称
+        this.basket1.size = { x: basketWidth, y: basketHeight };
+        this.basket2.size = { x: basketWidth, y: basketHeight };
+        this.basket1.position = { 
+            x: basketMargin, 
+            y: this.baseHeight - basketHeight - basketMargin 
+        };
+        this.basket2.position = { 
+            x: this.baseWidth - basketWidth - basketMargin, 
+            y: this.baseHeight - basketHeight - basketMargin 
+        };
         
         // 为玩家分配篮子
         this.player1.basket = this.basket1;
