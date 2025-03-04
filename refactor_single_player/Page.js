@@ -106,10 +106,27 @@ class Page {
     
     // 设置鼠标坐标转换，在mousePressed等函数调用前使用
     setupMouseCoordinates() {
-        // p5.js中的mouseX和mouseY已经是相对于画布的坐标
-        // 我们只需要去除缩放因子
-        window.mouseXGame = mouseX / this.gameScale;
-        window.mouseYGame = mouseY / this.gameScale;
+        // 确保mouseX和mouseY在canvas范围内
+        if (this.canvas) {
+            // 获取canvas的实际显示尺寸和位置
+            let rect = this.canvas.canvas.getBoundingClientRect();
+            
+            // 计算鼠标在canvas中的相对位置
+            let mx = mouseX;
+            let my = mouseY;
+            
+            // 如果鼠标在canvas内，转换为游戏坐标
+            if (mx >= 0 && mx <= width && my >= 0 && my <= height) {
+                this.mouseXGame = mx / this.gameScale;
+                this.mouseYGame = my / this.gameScale;
+                
+                // 将坐标赋给全局变量，方便其他类使用
+                window.mouseXGame = this.mouseXGame;
+                window.mouseYGame = this.mouseYGame;
+            }
+        } else {
+            // Canvas未初始化
+        }
     }
     
     // 添加transformCoordinates方法，将屏幕坐标转换为游戏坐标

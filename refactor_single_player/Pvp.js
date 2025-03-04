@@ -10,9 +10,9 @@ class Pvp extends Screen {
         this.player1 = new Player(1, 'red', 'left');
         this.player2 = new Player(2, 'blue', 'right');
         
-        // 创建两个篮子，调整位置使其更容易被玩家访问
-        this.basket1 = new Basket(80); // 左侧篮子，稍微向右移动
-        this.basket2 = new Basket(this.baseWidth - 160); // 右侧篮子，稍微向左移动
+        // 创建两个篮子，分别位于左下角和右下角
+        this.basket1 = new Basket(20); // 左下角篮子
+        this.basket2 = new Basket(this.baseWidth - 120); // 右下角篮子
         
         // 确保篮子尺寸足够大
         this.basket1.size.x = 100; // 增加篮子宽度
@@ -271,6 +271,11 @@ class Pvp extends Screen {
         } else if (keyCode === this.controls.player2.drop) {
             this.player2.dropGrass(); // 回车键触发Player 2的dropGrass
         }
+        
+        // ESC键暂停游戏
+        if (keyCode === ESCAPE) {
+            this.pauseGame();
+        }
     }
     
     keyReleased() {
@@ -410,5 +415,97 @@ class Pvp extends Screen {
         // 开始新游戏
         this.startGrassDrop();
         this.startLevelTimer();
+    }
+    
+    // 暂停游戏
+    pauseGame() {
+        // 停止所有计时器
+        if (this.grassDropInterval) {
+            clearInterval(this.grassDropInterval);
+            this.grassDropInterval = null;
+        }
+        if (this.timerInterval) {
+            clearInterval(this.timerInterval);
+            this.timerInterval = null;
+        }
+        
+        // 暂停所有草的下落
+        for (let grass of this.grass1) {
+            grass.pause();
+        }
+        for (let grass of this.grass2) {
+            grass.pause();
+        }
+        
+        // 设置当前屏幕为上一个屏幕并切换到暂停界面
+        this.screenManager.pauseScreen.setLastScreen(this);
+        this.screenManager.changeScreen(this.screenManager.pauseScreen);
+    }
+    
+    // 恢复游戏
+    resumeGame() {
+        // 重新启动计时器，但不重新生成草
+        if (!this.grassDropInterval) {
+            // 中央分割线位置
+            const centerLine = this.baseWidth / 2;
+            
+            // 只创建生成草的定时器，不清空现有的草
+            this.grassDropInterval = setInterval(() => {
+                // 左侧区域随机生成草块
+                let leftPosition = random(50, centerLine - 60);
+                
+                // 右侧区域随机生成草块
+                let rightPosition = random(centerLine + 60, this.baseWidth - 50);
+                
+                this.grass1.push(new Grass(leftPosition, 10));
+                this.grass2.push(new Grass(rightPosition, 10));
+            }, this.stats1.grassDropDelay);
+        }
+        
+        if (!this.timerInterval) {
+            this.startLevelTimer();
+        }
+        
+        // 恢复所有草的下落
+        for (let grass of this.grass1) {
+            grass.resume();
+        }
+        for (let grass of this.grass2) {
+            grass.resume();
+        }
+    }
+    
+    // 重置游戏（用于从暂停菜单重新开始）
+    reset() {
+        // 重置游戏状态
+        this.stats1.reset();
+        this.stats2.reset();
+        
+        // 重新设置游戏时间
+        this.stats1.timeLeft = this.gameTime;
+        this.stats2.timeLeft = this.gameTime;
+        
+        // 清空分数
+        this.stats1.score = 0;
+        this.stats2.score = 0;
+        
+        // 清理计时器
+        if (this.grassDropInterval) {
+            clearInterval(this.grassDropInterval);
+            this.grassDropInterval = null;
+        }
+        if (this.timerInterval) {
+            clearInterval(this.timerInterval);
+            this.timerInterval = null;
+        }
+        
+        // 重置玩家和草
+        this.grass1 = [];
+        this.grass2 = [];
+        this.resetPositions();
+        this.player1.stack = [];
+        this.player2.stack = [];
+        
+        // 注意：reset后需要单独调用startGame
     }
 }

@@ -17,6 +17,9 @@ class ScreenManager {
         this.pvpResultScreen = new PvpResultScreen(this);
         this.levelSuccessScreen = new LevelSuccessScreen(this);
         this.gameOverScreen = new GameOverScreen(this);
+        
+        // 添加暂停屏幕
+        this.pauseScreen = new Pause(this);
 
         // 设置默认屏幕为主屏幕
         this.currentScreen = this.homeScreen;

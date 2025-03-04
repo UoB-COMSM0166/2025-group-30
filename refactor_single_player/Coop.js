@@ -104,14 +104,38 @@ class Coop extends Screen {
                     this.showGameOver();
                     return; // Exit loop immediately
                 }
-            } else if (this.player1.catchGrass(grass) || this.player2.catchGrass(grass)) {
-                // Either player caught the grass
-                if (this.player1.stack.length >= this.player1.maxStack || 
-                    this.player2.stack.length >= this.player2.maxStack) {
-                    // Stack exceeds limit, lose a life
+            } else if (this.player1.catchGrass(grass)) {
+                // 玩家1接住草块
+                if (this.player1.stack.length >= this.player1.maxStack) {
+                    // 只清空玩家1的stack
                     this.player1.loseLife(true);
+                    this.stats.loseLife();
+                    this.player1.stack = []; // 只清空玩家1的stack
+                    
+                    // 两个玩家都进入闪烁暂停状态
+                    this.player1.isPaused = true;
+                    this.player2.isPaused = true;
+                    
+                    // Check if game is over
+                    if (!this.stats.lives.isAlive()) {
+                        clearInterval(this.grassDropInterval);
+                        clearInterval(this.timerInterval);
+                        this.showGameOver();
+                        return; // Exit loop immediately
+                    }
+                }
+                this.grass.splice(i, 1);
+            } else if (this.player2.catchGrass(grass)) {
+                // 玩家2接住草块
+                if (this.player2.stack.length >= this.player2.maxStack) {
+                    // 只清空玩家2的stack
                     this.player2.loseLife(true);
                     this.stats.loseLife();
+                    this.player2.stack = []; // 只清空玩家2的stack
+                    
+                    // 两个玩家都进入闪烁暂停状态
+                    this.player1.isPaused = true;
+                    this.player2.isPaused = true;
                     
                     // Check if game is over
                     if (!this.stats.lives.isAlive()) {
@@ -143,6 +167,11 @@ class Coop extends Screen {
             this.player2.dir = 1;
         } else if (keyCode === this.controls.player2.drop) {
             this.player2.dropGrass(); // 回车键触发Player 2的dropGrass
+        }
+        
+        // ESC键暂停游戏
+        if (keyCode === ESCAPE) {
+            this.pauseGame();
         }
     }
     
@@ -288,5 +317,72 @@ class Coop extends Screen {
             clearInterval(this.timerInterval);
             this.showLevelSuccess();
         }
+    }
+    
+    // 暂停游戏
+    pauseGame() {
+        // 停止所有计时器
+        if (this.grassDropInterval) {
+            clearInterval(this.grassDropInterval);
+            this.grassDropInterval = null;
+        }
+        if (this.timerInterval) {
+            clearInterval(this.timerInterval);
+            this.timerInterval = null;
+        }
+        
+        // 暂停所有草的下落
+        for (let grass of this.grass) {
+            grass.pause();
+        }
+        
+        // 设置当前屏幕为上一个屏幕并切换到暂停界面
+        this.screenManager.pauseScreen.setLastScreen(this);
+        this.screenManager.changeScreen(this.screenManager.pauseScreen);
+    }
+    
+    // 恢复游戏
+    resumeGame() {
+        // 重新启动计时器，但不重新生成草
+        if (!this.grassDropInterval) {
+            // 只创建生成草的定时器，不清空现有的草
+            this.grassDropInterval = setInterval(() => {
+                this.grass.push(new Grass(random(200, this.baseWidth - 100), 10));
+            }, this.stats.grassDropDelay);
+        }
+        
+        if (!this.timerInterval) {
+            this.startLevelTimer();
+        }
+        
+        // 恢复所有草的下落
+        for (let grass of this.grass) {
+            grass.resume();
+        }
+    }
+    
+    // 重新开始游戏，用于从暂停菜单调用
+    reset() {
+        // 重置游戏状态
+        this.stats.reset();
+        
+        // 清理所有计时器
+        if (this.grassDropInterval) {
+            clearInterval(this.grassDropInterval);
+            this.grassDropInterval = null;
+        }
+        if (this.timerInterval) {
+            clearInterval(this.timerInterval);
+            this.timerInterval = null;
+        }
+        
+        // 重置玩家和草
+        this.grass = [];
+        this.player1.resetPosition();
+        this.player2.resetPosition();
+        this.player1.stack = [];
+        this.player2.stack = [];
+        
+        // 注意：reset后需要单独调用startGame
     }
 } 

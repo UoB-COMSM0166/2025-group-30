@@ -28,13 +28,28 @@ function draw() {
 }
 
 function mousePressed() {
-    console.log("---- mousePressed in sketch.js ----");
-    
     // 使用Page类的方法转换坐标
     page.setupMouseCoordinates();
     
     // 调用屏幕管理器的鼠标点击处理
     screenManager.mousePressed();
+    
+    // 特别检查是否在暂停界面
+    if (screenManager.currentScreen === screenManager.pauseScreen) {
+        // 获取转换后的鼠标坐标
+        let mouseXGame = page.mouseXGame;
+        let mouseYGame = page.mouseYGame;
+        
+        // 手动检查按钮点击
+        let buttons = screenManager.pauseScreen.buttons;
+        for (let button of buttons) {
+            if (mouseXGame >= button.x - button.width/2 && mouseXGame <= button.x + button.width/2 &&
+                mouseYGame >= button.y - button.height/2 && mouseYGame <= button.y + button.height/2) {
+                button.callback();
+                return; // 防止进一步处理
+            }
+        }
+    }
 }
 
 function mouseMoved() {

@@ -136,6 +136,7 @@ class Single extends Screen {
         if (keyCode === RIGHT_ARROW) this.player.dir = 1;
         else if (keyCode === LEFT_ARROW) this.player.dir = -1;
         else if (keyCode === 32) this.emptyGrass(); // SPACE key for dropping grass
+        else if (keyCode === ESCAPE) this.pauseGame(); // ESC键暂停游戏
     }
 
     keyReleased() {
@@ -157,6 +158,8 @@ class Single extends Screen {
             clearInterval(this.timerInterval);
             this.timerInterval = null;
         }
+        
+        // 重置后不会自动开始游戏，需要单独调用startGame
     }
 
     startLevelTimer() {
@@ -258,6 +261,48 @@ class Single extends Screen {
         
         // 开始游戏
         this.startGame();
+    }
+
+    // 暂停游戏
+    pauseGame() {
+        // 停止所有计时器
+        if (this.grassDropInterval) {
+            clearInterval(this.grassDropInterval);
+            this.grassDropInterval = null;
+        }
+        if (this.timerInterval) {
+            clearInterval(this.timerInterval);
+            this.timerInterval = null;
+        }
+        
+        // 暂停所有草的下落
+        for (let grass of this.grass) {
+            grass.pause();
+        }
+        
+        // 设置当前屏幕为上一个屏幕并切换到暂停界面
+        this.screenManager.pauseScreen.setLastScreen(this);
+        this.screenManager.changeScreen(this.screenManager.pauseScreen);
+    }
+    
+    // 恢复游戏
+    resumeGame() {
+        // 重新启动计时器，但不重新生成草
+        if (!this.grassDropInterval) {
+            // 只创建生成草的定时器，不清空现有的草
+            this.grassDropInterval = setInterval(() => {
+                this.grass.push(new Grass(random(200, this.baseWidth - 100), 10));
+            }, this.stats.grassDropDelay);
+        }
+        
+        if (!this.timerInterval) {
+            this.startLevelTimer();
+        }
+        
+        // 恢复所有草的下落
+        for (let grass of this.grass) {
+            grass.resume();
+        }
     }
 }
 
