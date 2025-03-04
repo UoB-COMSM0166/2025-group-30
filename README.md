@@ -109,19 +109,80 @@ To help players quickly get familiar with the game, we created a digital model b
 
 #### User Stories and Epics
 
-| **User Type**      | **Epic**                     | **User Story**                                                                 | **Acceptance Criteria**                                                                 |
-|-------------------|-----------------------------|-----------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
-| Casual Player    | Beginner-Friendly Experience | As a casual player, I want the game controls to be simple and intuitive so that I can quickly learn and enjoy the game. | The game should have minimal controls and simple rules to ensure ease of learning.  |
-|                 |                             | As a casual player, I want a clear tutorial when I first enter the game so that I can quickly learn how to play. | A tutorial should appear the first time a player enters the game, explaining basic controls and mechanics. |
-|                 |                             | As a casual player, I want a pause and resume function so that I can play at my own pace. | Players should be able to pause the game by clicking the "Pause" button and resume from where they left off using the "Continue" button. |
-|                 | Replayability                | As a casual player, I want to replay levels to improve my skills and gain a sense of achievement. | The game should allow players to replay the same level multiple times without restrictions. |
-| Hardcore Player  | Character Progression       | As a hardcore player, I want to upgrade my character’s equipment so that I can compete at higher difficulty levels. | Characters should be able to purchase gear using in-game currency or rewards, enhancing their abilities. |
-|                 | Ranking System               | As a hardcore player, I want to see global rankings so that I can compete with other players for high scores. | The main menu should display a leaderboard showing the top 10 players. |
-|                 |                             | As a hardcore player, I want to compare scores with my friends so that I can compete with them. | The game should include a friends’ leaderboard to compare scores easily. |
-|                 | Game Challenge               | As a hardcore player, I want the game to become more challenging over time so that it remains engaging. | The game should introduce new obstacles or increase speed as the game progresses to enhance difficulty. |
-| Social Player    | Multiplayer Mode            | As a social player, I want to compete or cooperate with my friends so that we can play together. | The game should offer both competitive and cooperative two-player modes, with rankings displayed after matches. |
-| Creative Player  | Character Customization     | As a creative player, I want to customize my character so that I can personalize my gaming experience. | The character customization menu should offer various appearance options and allow players to save their selections. |
-| Detail-Oriented Player | Realistic Physics      | As a detail-oriented player, I want realistic physics for stacking objects and accurate sound effects when catching items. | Objects should follow physics rules, smoothly falling and settling on surfaces while triggering appropriate sound effects. |
+<table>
+  <tr>
+    <th style="width: 12%;">User Type</th>
+    <th style="width: 15%;">Epic</th>
+    <th style="width: 35%;">User Story</th>
+    <th style="width: 38%;">Acceptance Criteria</th>
+  </tr>
+  <tr>
+    <td>Casual Player</td>
+    <td>Beginner-Friendly Experience</td>
+    <td>As a casual player, I want the game controls to be simple and intuitive so that I can quickly learn and enjoy the game.</td>
+    <td>The game should have minimal controls and simple rules to ensure ease of learning.</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>As a casual player, I want a clear tutorial when I first enter the game so that I can quickly learn how to play.</td>
+    <td>A tutorial should appear the first time a player enters the game, explaining basic controls and mechanics.</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>As a casual player, I want a pause and resume function so that I can play at my own pace.</td>
+    <td>Players should be able to pause the game by clicking the "Pause" button and resume from where they left off using the "Continue" button.</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>Replayability</td>
+    <td>As a casual player, I want to replay levels to improve my skills and gain a sense of achievement.</td>
+    <td>The game should allow players to replay the same level multiple times without restrictions.</td>
+  </tr>
+  <tr>
+    <td>Hardcore Player</td>
+    <td>Character Progression</td>
+    <td>As a hardcore player, I want to upgrade my character’s equipment so that I can compete at higher difficulty levels.</td>
+    <td>Characters should be able to purchase gear using in-game currency or rewards, enhancing their abilities.</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>Ranking System</td>
+    <td>As a hardcore player, I want to see global rankings so that I can compete with other players for high scores.</td>
+    <td>The main menu should display a leaderboard showing the top 10 players.</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>As a hardcore player, I want to compare scores with my friends so that I can compete with them.</td>
+    <td>The game should include a friends’ leaderboard to compare scores easily.</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>Game Challenge</td>
+    <td>As a hardcore player, I want the game to become more challenging over time so that it remains engaging.</td>
+    <td>The game should introduce new obstacles or increase speed as the game progresses to enhance difficulty.</td>
+  </tr>
+  <tr>
+    <td>Social Player</td>
+    <td>Multiplayer Mode</td>
+    <td>As a social player, I want to compete or cooperate with my friends so that we can play together.</td>
+    <td>The game should offer both competitive and cooperative two-player modes, with rankings displayed after matches.</td>
+  </tr>
+  <tr>
+    <td>Creative Player</td>
+    <td>Character Customization</td>
+    <td>As a creative player, I want to customize my character so that I can personalize my gaming experience.</td>
+    <td>The character customization menu should offer various appearance options and allow players to save their selections.</td>
+  </tr>
+  <tr>
+    <td>Detail-Oriented Player</td>
+    <td>Realistic Physics</td>
+    <td>As a detail-oriented player, I want realistic physics for stacking objects and accurate sound effects when catching items.</td>
+    <td>Objects should follow physics rules, smoothly falling and settling on surfaces while triggering appropriate sound effects.</td>
+  </tr>
+</table>
   
 ### Design
 
@@ -141,15 +202,80 @@ To help players quickly get familiar with the game, we created a digital model b
 - One qualitative evaluation (your choice) 
 #### Heuristic Evaluation Table
 
-| **Interface**         | **Issue**                                                                 | **Heuristic(s)**                            | **Frequency** (0-4) | **Impact** (0-4) | **Persistence** (0-4) | **Severity Score** ((F+I+P)/3) |
-|----------------------|------------------------------------------------------------------------|--------------------------------------------|------------------|----------------|----------------|------------------|
-| **Main Menu**       | The extra "Start" button is unnecessary; players should select the mode first and then start. | User control and freedom                  | 3                | 3              | 3              | 3.00             |
-| **Mode Selection**  | The single-player or multiplayer selection screen lacks a button to return to the main menu. | User control and freedom                  | 3                | 3              | 4              | 3.33             |
-| **Multiplayer End** | Missing score comparison prevents players from visually comparing their scores. | Visibility of system status               | 3                | 3              | 4              | 3.33             |
-| **Multiplayer Gameplay** | The time display is only on the left side, making it difficult for the right-side player to see the remaining time. | Visibility of system status               | 4                | 3              | 4              | 3.67             |
-| **Gameplay Speed**  | The grass-cutting speed varies on different platforms, affecting the gaming experience. | Error prevention                          | 4                | 4              | 4              | 4.00             |
-| **Character Store** | The lack of a store system prevents players from selecting different characters or grass-cutting tools. | Flexibility and efficiency of use        | 3                | 2              | 3              | 2.67             |
-| **Multiplayer Gameplay** | In multiplayer mode, the character/tool selection cannot meet the personalized needs of different players. | Flexibility and efficiency of use        | 3                | 2              | 3              | 2.67             |
+<table>
+  <tr>
+    <th style="width: 15%;">Interface</th>
+    <th style="width: 35%;">Issue</th>
+    <th style="width: 25%;">Heuristic(s)</th>
+    <th style="width: 5%;">F (0-4)</th>
+    <th style="width: 5%;">I (0-4)</th>
+    <th style="width: 5%;">P (0-4)</th>
+    <th style="width: 10%;">Severity</th>
+  </tr>
+  <tr>
+    <td>Main Menu</td>
+    <td>The extra "Start" button is unnecessary; players should select the mode first and then start.</td>
+    <td>User control and freedom</td>
+    <td>3</td>
+    <td>3</td>
+    <td>3</td>
+    <td>3.00</td>
+  </tr>
+  <tr>
+    <td>Mode Selection</td>
+    <td>The single-player or multiplayer selection screen lacks a button to return to the main menu.</td>
+    <td>User control and freedom</td>
+    <td>3</td>
+    <td>3</td>
+    <td>4</td>
+    <td>3.33</td>
+  </tr>
+  <tr>
+    <td>Multiplayer End</td>
+    <td>Missing score comparison prevents players from visually comparing their scores.</td>
+    <td>Visibility of system status</td>
+    <td>3</td>
+    <td>3</td>
+    <td>4</td>
+    <td>3.33</td>
+  </tr>
+  <tr>
+    <td>Multiplayer Gameplay</td>
+    <td>The time display is only on the left side, making it difficult for the right-side player to see the remaining time.</td>
+    <td>Visibility of system status</td>
+    <td>4</td>
+    <td>3</td>
+    <td>4</td>
+    <td>3.67</td>
+  </tr>
+  <tr>
+    <td>Gameplay Speed</td>
+    <td>The grass-cutting speed varies on different platforms, affecting the gaming experience.</td>
+    <td>Error prevention</td>
+    <td>4</td>
+    <td>4</td>
+    <td>4</td>
+    <td>4.00</td>
+  </tr>
+  <tr>
+    <td>Character Store</td>
+    <td>The lack of a store system prevents players from selecting different characters or grass-cutting tools.</td>
+    <td>Flexibility and efficiency of use</td>
+    <td>3</td>
+    <td>2</td>
+    <td>3</td>
+    <td>2.67</td>
+  </tr>
+  <tr>
+    <td>Multiplayer Gameplay</td>
+    <td>In multiplayer mode, the character/tool selection cannot meet the personalized needs of different players.</td>
+    <td>Flexibility and efficiency of use</td>
+    <td>3</td>
+    <td>2</td>
+    <td>3</td>
+    <td>2.67</td>
+  </tr>
+</table>
 
 - One quantitative evaluation (of your choice) 
 
