@@ -82,4 +82,34 @@ class GameStats {
             circle(heartX + i * 30, heartY, 20);
         }
     }
+
+    // 专门用于合作模式的UI显示
+    displayCoopUI() {
+        const baseWidth = 800;
+        
+        // 显示关卡信息（居中）
+        textAlign(CENTER);
+        textSize(24);
+        fill(0);
+        text(`Level ${this.levelManager.currentLevel}`, baseWidth / 2, 30);
+        
+        // 显示总分（居中，更大字体）
+        textSize(32);
+        text(`Score: ${this.score}`, baseWidth / 2, 70);
+        
+        // 显示目标分数（居中）
+        textSize(24);
+        text(`Target: ${this.targetScores}`, baseWidth / 2, 110);
+        
+        // 显示剩余时间（居中）
+        text(`Time: ${this.timeLeft}s`, baseWidth / 2, 150);
+        
+        // 显示生命值（居中）
+        let heartX = baseWidth / 2 - (this.lives.maxLives * 30) / 2;
+        let heartY = 180;
+        for (let i = 0; i < this.lives.maxLives; i++) {
+            fill(i < this.lives.currentLives ? 'red' : 'gray');
+            circle(heartX + i * 30, heartY, 20);
+        }
+    }
 } 

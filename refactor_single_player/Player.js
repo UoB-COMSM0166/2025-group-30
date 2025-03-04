@@ -222,26 +222,19 @@ class Player {
 
     dropGrass() {
         if (!this.basket) {
-            // console.log(`玩家${this.id}没有篮子`);
             return;
         }
         if (this.stack.length === 0) {
-            // console.log(`玩家${this.id}没有草块可放`);
             return;
         }
 
         if (this.x + this.w >= this.basket.position.x && this.x <= this.basket.position.x + this.basket.size.x) {
             let collectedGrass = this.stack.length;
-
-            this.basket.updateStats(collectedGrass); // 更新篮子统计信息
             
-            // 确保window.updateScore存在
-            if (typeof window.updateScore === 'function') {
-                window.updateScore(collectedGrass, this.id); // 通过全局函数来更新得分
-            }
+            // 直接使用basket的updateScore方法
+            this.basket.updateScore(collectedGrass);
             
             this.stack = [];
-    
             this.baseMaxSpeed = 15; // 恢复原始最大速度
             this.baseAcceleration = 1.8;
         }

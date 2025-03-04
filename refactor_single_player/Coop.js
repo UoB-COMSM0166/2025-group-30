@@ -13,22 +13,19 @@ class Coop extends Screen {
         // Create shared basket in the left bottom corner
         this.basket = new Basket(0);
         
+        // Create shared game stats
+        this.stats = new GameStats(level);
+        
+        // Set stats for basket
+        this.basket.setStats(this.stats);
+        
         // Share the basket with players
         this.player1.basket = this.basket;
         this.player2.basket = this.basket;
         
-        // Create shared game stats
-        this.stats = new GameStats(level);
-        
         this.grass = [];
         this.grassDropInterval = null; // Controls grass falling timer
         this.timerInterval = null; // Controls level timer
-
-        // 设置全局的更新分数函数，供Player类使用
-        const self = this;
-        window.updateScore = function(points, playerId) {
-            self.emptyGrass(points);
-        };
         
         // Player controls
         this.controls = {
@@ -109,12 +106,8 @@ class Coop extends Screen {
                 if (this.player1.stack.length >= this.player1.maxStack) {
                     // 只清空玩家1的stack
                     this.player1.loseLife(true);
+                    this.player2.loseLife(false); // 玩家2也闪烁暂停，但不清空stack
                     this.stats.loseLife();
-                    this.player1.stack = []; // 只清空玩家1的stack
-                    
-                    // 两个玩家都进入闪烁暂停状态
-                    this.player1.isPaused = true;
-                    this.player2.isPaused = true;
                     
                     // Check if game is over
                     if (!this.stats.lives.isAlive()) {
@@ -130,12 +123,8 @@ class Coop extends Screen {
                 if (this.player2.stack.length >= this.player2.maxStack) {
                     // 只清空玩家2的stack
                     this.player2.loseLife(true);
+                    this.player1.loseLife(false); // 玩家1也闪烁暂停，但不清空stack
                     this.stats.loseLife();
-                    this.player2.stack = []; // 只清空玩家2的stack
-                    
-                    // 两个玩家都进入闪烁暂停状态
-                    this.player1.isPaused = true;
-                    this.player2.isPaused = true;
                     
                     // Check if game is over
                     if (!this.stats.lives.isAlive()) {
@@ -308,7 +297,7 @@ class Coop extends Screen {
     
     // 添加emptyGrass方法处理得分更新
     emptyGrass(points) {
-        // 更新得分
+        // 直接使用传入的points更新分数
         this.stats.addScore(points);
         
         // 检查是否达到目标分数
