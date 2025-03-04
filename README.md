@@ -16,14 +16,19 @@ Include a demo video of your game here (you don't have to wait until the end, yo
 
 Add a group photo here!
 
-| Name         | Email                              | GitHub username |
-|-------------|----------------------------------|----------------|
+<div align="center">
+
+| Name | Email | GitHub username |
+|------------|------------------------------------|----------------|
 | Lingchen Li | [yf24777@bristol.ac.uk](mailto:yf24777@bristol.ac.uk) | lingchen2333 |
-| Lei Gao     | [yt24392@bristol.ac.uk](mailto:yt24392@bristol.ac.uk) | Muilka |
+| Lei Gao | [yt24392@bristol.ac.uk](mailto:yt24392@bristol.ac.uk) | Muilka |
 | Hanying Bian | [oo24343@bristol.ac.uk](mailto:oo24343@bristol.ac.uk) | Hanying-Bian |
-| Shiyu Dou   | [hl24597@bristol.ac.uk](mailto:hl24597@bristol.ac.uk) | hl24597 |
+| Shiyu Dou | [hl24597@bristol.ac.uk](mailto:hl24597@bristol.ac.uk) | hl24597 |
 | Zhuoyan Qiu | [rp24358@bristol.ac.uk](mailto:rp24358@bristol.ac.uk) | 1003-qzy |
-| Liyang Li   | [gq24742@bristol.ac.uk](mailto:gq24742@bristol.ac.uk) | Misaki-1 |
+| Liyang Li | [gq24742@bristol.ac.uk](mailto:gq24742@bristol.ac.uk) | Misaki-1 |
+
+</div>
+
 
 ## Project Report
 
@@ -90,12 +95,17 @@ During the conceptualization of the grass-catching game, we created a paper prot
 
 To help players quickly get familiar with the game, we created a digital model based on the paper prototype. Hanying attempted to generate the digital model using her iPad, which allowed for a representation that more closely resembled the actual game compared to the paper prototype.
 
-- Digital Paper Prototype Tool
+<p align="center"><b>Digital·Paper·Prototype·Tool</b></p>
 
-<img src="https://github.com/user-attachments/assets/dfb59e37-652d-4112-a203-70f36f721ae3" width="500">
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/dfb59e37-652d-4112-a203-70f36f721ae3" width="500">
+</p>
 
-- Failed
-<img src="https://github.com/user-attachments/assets/a21f37c9-d280-421e-a664-1148eeae3f51" width="500">
+<p align="center"><b>Failed</b></p>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/a21f37c9-d280-421e-a664-1148eeae3f51" width="500">
+</p>
 
 #### User Stories and Epics
 
