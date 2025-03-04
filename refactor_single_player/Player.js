@@ -232,6 +232,25 @@ class Player {
             if (this.stack.length >= this.maxStack) {
                 this.loseLife();
             } else {
+                // 保持草块的横向位置，只调整垂直位置
+                if (this.stack.length === 0) {
+                    // 如果是第一个草块，放在玩家板子上方
+                    grass.y = this.y - grass.size.y;
+                    // 保持原有的x位置，但确保不会完全超出玩家板子范围
+                    grass.x = constrain(grass.x, 
+                        this.x - grass.size.x * 0.7,  // 允许左边超出70%
+                        this.x + this.w - grass.size.x * 0.3  // 允许右边超出70%
+                    );
+                } else {
+                    // 如果已经有草块，放在最上面的草块上方
+                    const topGrass = this.stack[this.stack.length - 1];
+                    grass.y = topGrass.y - grass.size.y;
+                    // 保持原有的x位置，但确保与顶部草块有足够重叠
+                    grass.x = constrain(grass.x,
+                        topGrass.x - grass.size.x * 0.7,  // 允许左边超出70%
+                        topGrass.x + topGrass.size.x - grass.size.x * 0.3  // 允许右边超出70%
+                    );
+                }
                 this.stack.push(grass);
             }
             return true;
@@ -266,6 +285,13 @@ class Player {
         if (this.visible) {
             fill(this.color);
             rect(this.x, this.y, this.w, this.h);
+            
+            // 渲染已接住的草块堆叠
+            for (let grass of this.stack) {
+                noStroke();
+                fill(0, 255, 0);  // 绿色
+                rect(grass.x, grass.y, grass.size.x, grass.size.y);
+            }
         }
     }
 }
