@@ -1,13 +1,10 @@
 class Basket {
-    constructor(position = "left") { //ifLeft is only applicable to pvp mode
-        this.position = position;
-
-        if (this.position === "left") this.x = 10;
-        else if (this.position === "right") this.x = width - 60;
-        this.y = height - 100;
-
+    constructor(isLeft) {
+        this.isLeft = isLeft;
         this.w = 50;
         this.h = 100;
+        this.y = height - 100;
+        this.x = isLeft ? 10 : width - 60;
     }
 
     show() {
