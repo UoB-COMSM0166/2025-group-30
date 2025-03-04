@@ -23,11 +23,7 @@ class Coop extends Screen {
         this.grass = [];
         this.grassDropInterval = null; // Controls grass falling timer
         this.timerInterval = null; // Controls level timer
-        
-        // Create screens for level success and game over
-        this.levelSuccessScreen = new LevelSuccessScreen(this.screenManager, this.stats.levelManager.currentLevel, this.stats.score, this.stats.targetScores);
-        this.gameOverScreen = new GameOverScreen(this.screenManager, this.stats.levelManager.currentLevel, this.stats.score, this.stats.targetScores);
-        
+
         // 设置全局的更新分数函数，供Player类使用
         const self = this;
         window.updateScore = function(points, playerId) {
@@ -47,8 +43,6 @@ class Coop extends Screen {
                 drop: 13  // ENTER
             }
         };
-        
-        console.log("Coop mode initialized");
     }
     
     // Game objects rendering
@@ -192,13 +186,13 @@ class Coop extends Screen {
     }
     
     showLevelSuccess() {
-        this.levelSuccessScreen.update(this.stats.levelManager.currentLevel, this.stats.score, this.stats.targetScores);
-        this.screenManager.changeScreen(this.levelSuccessScreen);
+        this.screenManager.levelSuccessScreen.update(this.stats.levelManager.currentLevel, this.stats.score, this.stats.targetScores);
+        this.screenManager.changeScreen(this.screenManager.levelSuccessScreen);
     }
     
     showGameOver() {
-        this.gameOverScreen.update(this.stats.levelManager.currentLevel, this.stats.score, this.stats.targetScores);
-        this.screenManager.changeScreen(this.gameOverScreen);
+        this.screenManager.gameOverScreen.update(this.stats.levelManager.currentLevel, this.stats.score, this.stats.targetScores);
+        this.screenManager.changeScreen(this.screenManager.gameOverScreen);
     }
     
     levelUp() {

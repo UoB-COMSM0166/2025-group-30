@@ -7,16 +7,16 @@ class ScreenManager {
         this.homeScreen = new HomeScreen(this);
         this.single = new Single(this);
         this.coop = new Coop(this);
+        this.pvp = new Pvp(this);
         this.menuScreen = new MenuScreen(this);
 
         // 创建单一的Help类实例，替代所有的HelpScreen类
         this.helpScreen = new Help(this);
         
-        // 初始化PvP结果屏幕（在pvp之前）
+        // 初始化结果屏幕
         this.pvpResultScreen = new PvpResultScreen(this);
-        
-        // 初始化PvP模式（必须在pvpResultScreen之后）
-        this.pvp = new Pvp(this);
+        this.levelSuccessScreen = new LevelSuccessScreen(this);
+        this.gameOverScreen = new GameOverScreen(this);
 
         // 设置默认屏幕为主屏幕
         this.currentScreen = this.homeScreen;

@@ -1,5 +1,5 @@
 class LevelSuccessScreen extends Screen {
-    constructor(screenManager, level = 1, score = 5, targetScores = 5) {
+    constructor(screenManager, level = 1, score = 0, targetScores = 0) {
         super(screenManager);
         this.level = level;
         this.score = score;
@@ -12,7 +12,7 @@ class LevelSuccessScreen extends Screen {
         // 按钮位置将在display方法中更新
         this.buttons = [
             {
-                label: "下一关",
+                label: "Next Level",
                 width: this.buttonWidth,
                 height: this.buttonHeight,
                 color: "rgb(0, 200, 0)",
@@ -31,7 +31,7 @@ class LevelSuccessScreen extends Screen {
                 }
             },
             {
-                label: "菜单",
+                label: "Menu",
                 width: this.buttonWidth,
                 height: this.buttonHeight,
                 color: "rgb(255, 165, 0)",
@@ -96,33 +96,22 @@ class LevelSuccessScreen extends Screen {
         let mouseXGame = window.mouseXGame || mouseX;
         let mouseYGame = window.mouseYGame || mouseY;
         
-        console.log("LevelSuccessScreen mousePressed");
-        console.log("Mouse position:", mouseX, mouseY);
-        console.log("Game mouse position:", mouseXGame, mouseYGame);
-        
         for (let button of this.buttons) {
-            console.log(`Checking button: ${button.label}`);
-            console.log(`Button position: x=${button.x}, y=${button.y}, w=${button.width}, h=${button.height}`);
-            
             // 正确计算按钮的点击区域
             let buttonTop = button.y - button.height/2;
             let buttonBottom = button.y + button.height/2;
             let buttonLeft = button.x;
             let buttonRight = button.x + button.width;
             
-            console.log(`Click area: left=${buttonLeft}, right=${buttonRight}, top=${buttonTop}, bottom=${buttonBottom}`);
-            
             if (mouseYGame > buttonTop &&
                 mouseYGame < buttonBottom &&
                 mouseXGame > buttonLeft &&
                 mouseXGame < buttonRight
             ) {
-                console.log(`Button "${button.label}" clicked!`);
                 this.screenManager.changeScreen(button.action());
                 return; // 防止点击多个按钮
             }
         }
-        console.log("No button clicked");
     }
 
     update(level, score, targetScores) {

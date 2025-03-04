@@ -10,13 +10,13 @@ class Pvp extends Screen {
         this.player1 = new Player(1, 'red', 'left');
         this.player2 = new Player(2, 'blue', 'right');
         
-        // 设置为PvP模式，启用更长的闪烁惩罚时间
-        this.player1.isPvpMode = true;
-        this.player2.isPvpMode = true;
+        // 创建两个篮子，调整位置使其更容易被玩家访问
+        this.basket1 = new Basket(80); // 左侧篮子，稍微向右移动
+        this.basket2 = new Basket(this.baseWidth - 160); // 右侧篮子，稍微向左移动
         
-        // 创建两个篮子，分别位于左下角和右下角
-        this.basket1 = new Basket(20); // 左下角篮子
-        this.basket2 = new Basket(this.baseWidth - 100); // 右下角篮子
+        // 确保篮子尺寸足够大
+        this.basket1.size.x = 100; // 增加篮子宽度
+        this.basket2.size.x = 100; // 增加篮子宽度
         
         // 为玩家分配篮子
         this.player1.basket = this.basket1;
@@ -40,12 +40,11 @@ class Pvp extends Screen {
         this.grassDropInterval = null; // 草块下落计时器
         this.timerInterval = null; // 关卡计时器
         
-        // 直接使用ScreenManager中的PvpResultScreen
-        this.pvpResultScreen = this.screenManager.pvpResultScreen;
-        
         // 设置全局的更新分数函数，供Player类使用
         const self = this;
+        // 使用全局作用域定义更新分数函数
         window.updateScore = function(points, playerId) {
+            // console.log(`全局updateScore被调用: 分数=${points}, 玩家ID=${playerId}`);
             if (playerId === 1) {
                 self.emptyGrass(points, 1);
             } else if (playerId === 2) {
@@ -145,8 +144,23 @@ class Pvp extends Screen {
     
     startGame() {
         this.resetPositions();
+        this.setupUpdateScoreFunction();
         this.startGrassDrop();
         this.startLevelTimer();
+    }
+    
+    setupUpdateScoreFunction() {
+        const self = this;
+        window.updateScore = function(points, playerId) {
+            // console.log(`全局updateScore被调用: 分数=${points}, 玩家ID=${playerId}`);
+            if (playerId === 1) {
+                self.stats1.addScore(points);
+                // console.log(`玩家1当前分数: ${self.stats1.score}`);
+            } else if (playerId === 2) {
+                self.stats2.addScore(points);
+                // console.log(`玩家2当前分数: ${self.stats2.score}`);
+            }
+        };
     }
     
     startGrassDrop() {
@@ -287,32 +301,47 @@ class Pvp extends Screen {
             
             // 仅在时间结束时结束游戏
             if (this.stats1.timeLeft <= 0) {
-                this.checkGameEnd();
+                // 清理定时器（与Coop逻辑保持一致）
+                clearInterval(this.grassDropInterval);
+                clearInterval(this.timerInterval);
+                
+                // 游戏结束，显示结果
+                this.showPvpResult();
             }
         }, 1000);
     }
     
     checkGameEnd() {
-        clearInterval(this.grassDropInterval);
-        clearInterval(this.timerInterval);
+        // 清理定时器
+        if (this.grassDropInterval) clearInterval(this.grassDropInterval);
+        if (this.timerInterval) clearInterval(this.timerInterval);
         
         this.showPvpResult();
     }
     
     showPvpResult() {
-        // 更新结果屏幕上的分数
-        this.pvpResultScreen.update(this.stats1.score, this.stats2.score);
+        // 获取pvpResultScreen并更新分数
+        const pvpResultScreen = this.screenManager.pvpResultScreen;
+        pvpResultScreen.update(this.stats1.score, this.stats2.score);
         
         // 切换到结果屏幕
-        this.screenManager.changeScreen(this.pvpResultScreen);
+        this.screenManager.changeScreen(pvpResultScreen);
     }
     
     emptyGrass(points, playerId) {
+        // console.log(`emptyGrass被调用: 分数=${points}, 玩家ID=${playerId}`);
+        
         if (playerId === 1) {
-            this.stats1.addScore(points);
+            // 直接更新分数
+            this.stats1.score += points;
+            // console.log(`玩家1当前分数: ${this.stats1.score}`);
         } else if (playerId === 2) {
-            this.stats2.addScore(points);
+            // 直接更新分数
+            this.stats2.score += points;
+            // console.log(`玩家2当前分数: ${this.stats2.score}`);
         }
+        
+        // 没有需要检查的目标分数，因为PvP模式基于时间
     }
     
     displayStats() {
@@ -334,10 +363,6 @@ class Pvp extends Screen {
         text(`Score: ${this.stats2.score}`, this.baseWidth - 30, 30);
     }
     
-    // 添加鼠标点击处理方法
-    mousePressed() {
-        // PvP游戏进行中不处理点击事件
-    }
     
     resetPositions() {
         // 重置玩家位置
@@ -378,6 +403,9 @@ class Pvp extends Screen {
         // 清理定时器
         if (this.grassDropInterval) clearInterval(this.grassDropInterval);
         if (this.timerInterval) clearInterval(this.timerInterval);
+        
+        // 确保更新分数函数被正确设置
+        this.setupUpdateScoreFunction();
         
         // 开始新游戏
         this.startGrassDrop();

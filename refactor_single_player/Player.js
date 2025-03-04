@@ -40,12 +40,6 @@ class Player {
         this.blinkInterval = 100;    // Blink interval (milliseconds)
         this.visible = true;         // Controls character visibility when blinking
         this.isPaused = false;       // Whether paused
-        
-        // 增加PvP模式下的惩罚持续时间
-        this.isPvpMode = false; // 标识是否处于PvP模式
-        this.pvpBlinkDuration = 300; // PvP模式下的闪烁持续时间（毫秒），缩短为0.3秒
-        
-        console.log(`Player ${this.id} initialized, position:`, this.x, this.y);
     }
     
     resetPosition() {
@@ -66,7 +60,7 @@ class Player {
         this.isPaused = false;
         this.visible = true;
         
-        console.log(`Player ${this.id} position reset:`, this.x, this.y);
+        // console.log(`Player ${this.id} position reset:`, this.x, this.y);
     }
 
     loseLife(clearStack = false) {
@@ -88,18 +82,18 @@ class Player {
         this.visible = false;
     }
     
-    // 修改更新闪烁状态方法，支持PvP模式
+    // 修改更新闪烁状态方法，使用统一的闪烁持续时间
     updateBlinkState() {
         if (!this.isBlinking) return;
         
         let currentTime = millis();
         let elapsedTime = currentTime - this.blinkStartTime;
         
-        // 使用适当的闪烁持续时间
-        let duration = this.isPvpMode ? this.pvpBlinkDuration : this.blinkDuration;
+        // 统一使用blinkDuration，不再区分模式
+        // let duration = this.isPvpMode ? this.pvpBlinkDuration : this.blinkDuration;
         
         // 如果闪烁时间已结束
-        if (elapsedTime >= duration) {
+        if (elapsedTime >= this.blinkDuration) {
             this.isBlinking = false;
             this.isPaused = false;
             this.visible = true;
@@ -227,16 +221,24 @@ class Player {
     }
 
     dropGrass() {
-        if (!this.basket) return;
-        if (this.stack.length === 0) return;
-    
+        if (!this.basket) {
+            // console.log(`玩家${this.id}没有篮子`);
+            return;
+        }
+        if (this.stack.length === 0) {
+            // console.log(`玩家${this.id}没有草块可放`);
+            return;
+        }
+
         if (this.x + this.w >= this.basket.position.x && this.x <= this.basket.position.x + this.basket.size.x) {
             let collectedGrass = this.stack.length;
-    
+
             this.basket.updateStats(collectedGrass); // 更新篮子统计信息
             
-            // 添加一行代码来更新GameStats中的得分（由于我们没有GameStats的引用，所以不能直接在这里更新）
-            window.updateScore(collectedGrass, this.id); // 通过全局函数来更新得分
+            // 确保window.updateScore存在
+            if (typeof window.updateScore === 'function') {
+                window.updateScore(collectedGrass, this.id); // 通过全局函数来更新得分
+            }
             
             this.stack = [];
     
@@ -259,10 +261,7 @@ class Player {
                 grass.show();
             }
             
-            // 调试信息
-            console.log("绘制Player - 位置:", this.x, this.y, "尺寸:", this.w, this.h);
         } else {
-            // Even if the player is invisible, still draw the stacked hay
             for (let grass of this.stack) {
                 grass.show();
             }

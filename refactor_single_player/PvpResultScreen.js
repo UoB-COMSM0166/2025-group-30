@@ -37,13 +37,13 @@ class PvpResultScreen extends Screen {
         textSize(40);
         textAlign(CENTER);
         fill(0);
-        text("对战结果", this.baseWidth / 2, 80);
+        text("Battle Results", this.baseWidth / 2, 80);
         
         // 左侧玩家
         textSize(30);
         textAlign(CENTER);
         fill('red');
-        text("玩家 1", this.baseWidth / 4, 150);
+        text("Player 1", this.baseWidth / 4, 150);
         
         textSize(60);
         text(this.player1Score, this.baseWidth / 4, 220);
@@ -51,7 +51,7 @@ class PvpResultScreen extends Screen {
         // 右侧玩家
         textSize(30);
         fill('blue');
-        text("玩家 2", this.baseWidth * 3 / 4, 150);
+        text("Player 2", this.baseWidth * 3 / 4, 150);
         
         textSize(60);
         text(this.player2Score, this.baseWidth * 3 / 4, 220);
@@ -62,19 +62,19 @@ class PvpResultScreen extends Screen {
         
         if (this.player1Score > this.player2Score) {
             fill('red');
-            text("玩家 1 获胜！", this.baseWidth / 2, 300);
+            text("Player 1 Wins!", this.baseWidth / 2, 300);
             textSize(25);
-            text(`领先 ${scoreDiff} 分`, this.baseWidth / 2, 340);
+            text(`Leading by ${scoreDiff} points`, this.baseWidth / 2, 340);
         } else if (this.player2Score > this.player1Score) {
             fill('blue');
-            text("玩家 2 获胜！", this.baseWidth / 2, 300);
+            text("Player 2 Wins!", this.baseWidth / 2, 300);
             textSize(25);
-            text(`领先 ${scoreDiff} 分`, this.baseWidth / 2, 340);
+            text(`Leading by ${scoreDiff} points`, this.baseWidth / 2, 340);
         } else {
             fill(0);
-            text("平局！", this.baseWidth / 2, 300);
+            text("It's a Tie!", this.baseWidth / 2, 300);
             textSize(25);
-            text("两位玩家势均力敌", this.baseWidth / 2, 340);
+            text("Both players are evenly matched", this.baseWidth / 2, 340);
         }
         
         // 按钮
@@ -100,7 +100,7 @@ class PvpResultScreen extends Screen {
         textSize(24);
         textAlign(CENTER, CENTER);
         fill(255);
-        text("返回主菜单", this.menuButtonX + this.buttonWidth / 2, this.menuButtonY + this.buttonHeight / 2);
+        text("Back to Menu", this.menuButtonX + this.buttonWidth / 2, this.menuButtonY + this.buttonHeight / 2);
     }
     
     // 绘制重新开始按钮
@@ -121,7 +121,7 @@ class PvpResultScreen extends Screen {
         textSize(24);
         textAlign(CENTER, CENTER);
         fill(255);
-        text("再来一局", this.restartButtonX + this.buttonWidth / 2, this.restartButtonY + this.buttonHeight / 2);
+        text("Play Again", this.restartButtonX + this.buttonWidth / 2, this.restartButtonY + this.buttonHeight / 2);
     }
     
     // 检查鼠标是否在主菜单按钮上

@@ -22,10 +22,6 @@ class HomeScreen extends Screen {
     }
 
     mousePressed() {
-        console.log("HomeScreen mousePressed");
-        console.log("Mouse position:", mouseX, mouseY);
-        console.log("Game mouse position:", window.mouseXGame, window.mouseYGame);
-        
         // 转到菜单屏幕
         this.screenManager.changeScreen(this.screenManager.menuScreen);
     }

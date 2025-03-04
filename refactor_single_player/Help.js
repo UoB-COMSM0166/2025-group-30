@@ -116,28 +116,18 @@ class Help extends Screen {
         // 使用转换后的游戏坐标
         let mouseXGame = window.mouseXGame || mouseX;
         let mouseYGame = window.mouseYGame || mouseY;
-        
-        console.log("Help mousePressed");
-        console.log("Mouse position:", mouseX, mouseY);
-        console.log("Game mouse position:", mouseXGame, mouseYGame);
-        
+
         // 计算按钮的点击区域
         let buttonTop = this.buttonY - this.buttonHeight/2;
         let buttonBottom = this.buttonY + this.buttonHeight/2;
         let buttonLeft = this.buttonX;
         let buttonRight = this.buttonX + this.buttonWidth;
         
-        console.log(`Button position: x=${this.buttonX}, y=${this.buttonY}, w=${this.buttonWidth}, h=${this.buttonHeight}`);
-        console.log(`Click area: left=${buttonLeft}, right=${buttonRight}, top=${buttonTop}, bottom=${buttonBottom}`);
-        
         // 检查是否点击了开始按钮
         if (mouseXGame > buttonLeft && mouseXGame < buttonRight &&
             mouseYGame > buttonTop && mouseYGame < buttonBottom) {
-            console.log(`Start button clicked!`);
             // 执行当前模式的开始动作
             this.modes[this.currentMode].startAction();
-        } else {
-            console.log("Button not clicked");
         }
     }
 } 

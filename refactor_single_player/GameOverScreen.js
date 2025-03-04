@@ -1,5 +1,5 @@
 class GameOverScreen extends Screen { //for single mode
-    constructor(screenManager, level, score, targetScores) {
+    constructor(screenManager, level = 1, score = 0, targetScores = 0) {
         super(screenManager);
         this.level = level;
         this.score = score;
@@ -12,14 +12,14 @@ class GameOverScreen extends Screen { //for single mode
         // 按钮位置将在display方法中更新
         this.buttons = [
             {
-                label: "主页",
+                label: "Home",
                 width: this.buttonWidth,
                 height: this.buttonHeight,
                 color: "rgb(255, 0, 0)", 
                 action: () => this.screenManager.homeScreen
             },
             {
-                label: "重试",
+                label: "Retry",
                 width: this.buttonWidth,
                 height: this.buttonHeight,
                 color: "rgb(0, 200, 0)", 
@@ -95,13 +95,7 @@ class GameOverScreen extends Screen { //for single mode
         let mouseXGame = window.mouseXGame || mouseX;
         let mouseYGame = window.mouseYGame || mouseY;
         
-        console.log("GameOverScreen mousePressed");
-        console.log("Mouse position:", mouseX, mouseY);
-        console.log("Game mouse position:", mouseXGame, mouseYGame);
-        
         for (let button of this.buttons) {
-            console.log(`Checking button: ${button.label}`);
-            console.log(`Button position: x=${button.x}, y=${button.y}, w=${button.width}, h=${button.height}`);
             
             // 正确计算按钮的点击区域
             let buttonTop = button.y - button.height/2;
@@ -109,19 +103,15 @@ class GameOverScreen extends Screen { //for single mode
             let buttonLeft = button.x;
             let buttonRight = button.x + button.width;
             
-            console.log(`Click area: left=${buttonLeft}, right=${buttonRight}, top=${buttonTop}, bottom=${buttonBottom}`);
-            
             if (mouseYGame > buttonTop &&
                 mouseYGame < buttonBottom &&
                 mouseXGame > buttonLeft &&
                 mouseXGame < buttonRight
             ) {
-                console.log(`Button "${button.label}" clicked!`);
                 this.screenManager.changeScreen(button.action());
                 return; // 防止点击多个按钮
             }
         }
-        console.log("No button clicked");
     }
 
     // Update the content of the GameOverScreen

@@ -7,7 +7,7 @@ class MenuScreen extends Screen {
         this.buttonWidth = 200;
         this.buttonHeight = 40;
         
-        // 我们将在display方法中计算按钮位置
+        // 在display方法中计算按钮位置
         // 这样可以确保响应窗口大小变化
         this.buttons = [
             {
@@ -41,8 +41,6 @@ class MenuScreen extends Screen {
                 }
             }
         ];
-        
-        console.log("MenuScreen initialized");
     }
 
     display() {
@@ -93,22 +91,12 @@ class MenuScreen extends Screen {
         let mouseXGame = window.mouseXGame || mouseX;
         let mouseYGame = window.mouseYGame || mouseY;
         
-        console.log("MenuScreen mousePressed");
-        console.log("Mouse position:", mouseX, mouseY);
-        console.log("Game mouse position:", mouseXGame, mouseYGame);
-        
         for (let button of this.buttons) {
-            console.log(`Checking button: ${button.label}`);
-            console.log(`Button position: x=${button.x}, y=${button.y}, w=${button.width}, h=${button.height}`);
-            
             // 正确计算按钮的点击区域
             let buttonTop = button.y - button.height/2;
             let buttonBottom = button.y + button.height/2;
             let buttonLeft = button.x;
             let buttonRight = button.x + button.width;
-            
-            console.log(`Click area: left=${buttonLeft}, right=${buttonRight}, top=${buttonTop}, bottom=${buttonBottom}`);
-            console.log(`Mouse position: x=${mouseXGame}, y=${mouseYGame}`);
             
             // 检查鼠标是否在按钮区域内
             if (mouseXGame > buttonLeft && 
@@ -116,12 +104,10 @@ class MenuScreen extends Screen {
                 mouseYGame > buttonTop && 
                 mouseYGame < buttonBottom) {
                 
-                console.log(`Button "${button.label}" clicked!`);
                 let nextScreen = button.action();
                 this.screenManager.changeScreen(nextScreen);
                 return; // 防止点击多个按钮
             }
         }
-        console.log("No button clicked");
     }
 }

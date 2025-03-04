@@ -21,8 +21,9 @@ class Single extends Screen {
         this.grassDropInterval = null; // Controls grass falling timer
         this.timerInterval = null; // Controls level timer
         
-        this.levelSuccessScreen = new LevelSuccessScreen(this.screenManager, this.stats.levelManager.currentLevel, this.stats.score, this.stats.targetScores);
-        this.gameOverScreen = new GameOverScreen(this.screenManager, this.stats.levelManager.currentLevel, this.stats.score, this.stats.targetScores);
+        // 使用ScreenManager中的结果屏幕
+        // this.levelSuccessScreen = new LevelSuccessScreen(this.screenManager, this.stats.levelManager.currentLevel, this.stats.score, this.stats.targetScores);
+        // this.gameOverScreen = new GameOverScreen(this.screenManager, this.stats.levelManager.currentLevel, this.stats.score, this.stats.targetScores);
         
         // 设置全局的更新分数函数，供Player类使用
         const self = this;
@@ -176,13 +177,13 @@ class Single extends Screen {
     }
 
     showLevelSuccess() {
-        this.levelSuccessScreen.update(this.stats.levelManager.currentLevel, this.stats.score, this.stats.targetScores);
-        this.screenManager.changeScreen(this.levelSuccessScreen);
+        this.screenManager.levelSuccessScreen.update(this.stats.levelManager.currentLevel, this.stats.score, this.stats.targetScores);
+        this.screenManager.changeScreen(this.screenManager.levelSuccessScreen);
     }
     
     showGameOver() {
-        this.gameOverScreen.update(this.stats.levelManager.currentLevel, this.stats.score, this.stats.targetScores);
-        this.screenManager.changeScreen(this.gameOverScreen);
+        this.screenManager.gameOverScreen.update(this.stats.levelManager.currentLevel, this.stats.score, this.stats.targetScores);
+        this.screenManager.changeScreen(this.screenManager.gameOverScreen);
     }
     
     levelUp() {
