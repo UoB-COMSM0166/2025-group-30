@@ -20,7 +20,7 @@ class Player {
         this.dir = 0;
 
         this.stack = [];  //visible caught grass
-        this.maxStack = 2; 
+        this.maxStack = 5; 
         
         this.basket = null; // 确保basket被正确初始化
 

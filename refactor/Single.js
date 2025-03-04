@@ -1,5 +1,5 @@
 class Single extends Screen {
-    constructor(screenManager, level=1, targetScores=3, timer=10, grassDropDelay=2000) {
+    constructor(screenManager, level=1, targetScores=5, timer=20, grassDropDelay=2000) {
         // --- basic settings ---
         super(screenManager);
 
@@ -121,8 +121,8 @@ class Single extends Screen {
 
     reset(){ //reset to level 1
         this.level = 1;
-        this.targetScores = 3;
-        this.timer = 10;
+        this.targetScores = 5;
+        this.timer = 20;
         this.grassDropDelay = 2000;
 
         this.restart();
@@ -150,9 +150,9 @@ class Single extends Screen {
     //--- Move to next level ---
     startNextLevel() { 
         this.level++;
-        this.targetScores+= 5;
-        this.timer += 10;
-        this.grassDropDelay = max(500, this.grassDropDelay-500);
+        this.targetScores+= 20;
+        this.timer += 30;
+        this.grassDropDelay = max(500, this.grassDropDelay-1000);
 
         this.restart();
     }
