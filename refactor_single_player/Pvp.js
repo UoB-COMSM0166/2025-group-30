@@ -59,12 +59,11 @@ class Pvp extends Screen {
         
         // 设置全局的更新分数函数，供Player类使用
         const self = this;
-        // 使用全局作用域定义更新分数函数
         window.updateScore = function(points, playerId) {
             if (playerId === 1) {
-                self.emptyGrass(points, 1);
+                self.stats1.addScore(points);
             } else if (playerId === 2) {
-                self.emptyGrass(points, 2);
+                self.stats2.addScore(points);
             }
         };
         
@@ -349,8 +348,14 @@ class Pvp extends Screen {
     emptyGrass(points, playerId) {
         if (playerId === 1) {
             this.stats1.addScore(points);
+            this.player1.stack = [];  // 清空玩家1的草堆
+            this.player1.baseMaxSpeed = 15;
+            this.player1.baseAcceleration = 1.8;
         } else if (playerId === 2) {
             this.stats2.addScore(points);
+            this.player2.stack = [];  // 清空玩家2的草堆
+            this.player2.baseMaxSpeed = 15;
+            this.player2.baseAcceleration = 1.8;
         }
     }
     

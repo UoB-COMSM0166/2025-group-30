@@ -269,7 +269,12 @@ class Player {
         if (this.x + this.w >= this.basket.position.x && 
             this.x <= this.basket.position.x + this.basket.size.x) {
             let collectedGrass = this.stack.length;
-            this.basket.updateScore(collectedGrass);
+            // 使用玩家ID更新分数
+            if (window.updateScore) {
+                window.updateScore(collectedGrass, this.id);
+            } else {
+                this.basket.updateScore(collectedGrass);
+            }
             this.stack = [];
             this.baseMaxSpeed = 15;
             this.baseAcceleration = 1.8;
