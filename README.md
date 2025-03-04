@@ -8,17 +8,22 @@ Link to your game [PLAY HERE](https://uob-comsm0166.github.io/2025-group-30/)
 Your game lives in the [/docs](/docs) folder, and is published using Github pages to the link above.
 
 Include a demo video of your game here (you don't have to wait until the end, you can insert a work in progress video)
+[🎬 Click here to watch the demo video](https://github.com/UoB-COMSM0166/2025-group-30/blob/nemo/videos/demo%20video.MP4)
 
-## Your Group
+## Table of Contents
+
+## Development Team
 
 Add a group photo here!
 
-- Group member 1, name, email, role
-- Group member 2, name, email, role
-- Group member 3, name, email, role
-- Group member 4, name, email, role
-- Group member 5, name, email, role
-- Group member 6, name, email, role
+| Name         | Email                              | GitHub username |
+|-------------|----------------------------------|----------------|
+| Lingchen Li | [yf24777@bristol.ac.uk](mailto:yf24777@bristol.ac.uk) | lingchen2333 |
+| Lei Gao     | [yt24392@bristol.ac.uk](mailto:yt24392@bristol.ac.uk) | Muilka |
+| Hanying Bian | [oo24343@bristol.ac.uk](mailto:oo24343@bristol.ac.uk) | Hanying-Bian |
+| Shiyu Dou   | [hl24597@bristol.ac.uk](mailto:hl24597@bristol.ac.uk) | hl24597 |
+| Zhuoyan Qiu | [rp24358@bristol.ac.uk](mailto:rp24358@bristol.ac.uk) | 1003-qzy |
+| Liyang Li   | [gq24742@bristol.ac.uk](mailto:gq24742@bristol.ac.uk) | Misaki-1 |
 
 ## Project Report
 
@@ -27,112 +32,55 @@ Add a group photo here!
 - 5% ~250 words 
 - Describe your game, what is based on, what makes it novel? 
 
+Our **Haystacking** game is an innovative stacking-based casual challenge inspired by the classic game **Grass Catching**. 
+Set during the harvest season on a farm, players must control their character’s movement left and right to catch falling 
+haystacks and collect as much hay as possible within a limited time to reach the goal.
+
+#### **Game Objective**
+The game challenges players’ balancing and strategic skills while simulating the intensity of farm harvesting. 
+Players must constantly adjust their position and respond flexibly to randomly falling hay. If too much hay 
+accumulates, movement speed will slow down, making it harder to catch additional falling hay. Therefore, 
+players need to empty the collection bucket at the right time to maintain stability.
+
+#### **Game Mechanics**
+Building upon **Grass Catching**, **Haystacking** introduces increased difficulty and strategic depth. In 
+single-player mode, players must avoid falling shovels and buckets while collecting stars to gain extra lives. 
+In two-player mode, players can either cooperate to reach a shared goal or compete to be the first to achieve 
+the target. As haystack accumulation increases, movement speed gradually slows down, making the later stages 
+of the game more challenging and strategic.
+
+#### **Game Significance**
+The game tests players’ reflexes, spatial awareness, and strategic planning skills while creating a relaxed 
+yet challenging farm-harvesting atmosphere. With simple and intuitive controls, **Haystacking** offers both excitement and tension. Whether playing solo or competing with friends, this game delivers a uniquely entertaining experience!
+
+#### Table 1: Game Elements
+| Category  | Image  | Description  |
+|-----------|--------|--------------|
+| **Collection Basket** | ![Basket](image/basket.png) | The basket where players store the collected hay. Players need to transfer the caught hay into the basket to tally their score. |
+| **Player** | ![Player](image/player.png) | The character controlled by the player, moving left and right to catch falling hay. |
+| **Lifting Basket** | ![Lifting Basket](image/lifting_basket.png) | A secondary basket used for catching hay before transferring it to the main collection basket. |
+| **Falling Hay** | ![Falling Hay](image/falling_hay.png) | The hay stacks that fall from the sky. Players must catch them efficiently to reach the target before time runs out. |
+
 ### Requirements 
 
 - 15% ~750 words
 - Use case diagrams, user stories. Early stages design. Ideation process. How did you decide as a team what to develop? 
 
-#### Epic 1: Core gameplay mechanics is sound 
-**User Story 1.1:**
+#### User Stories and Epics
 
-As a player, I want to move my platform left and right so that I can catch falling haystack.
-
-Acceptance Criteria:
-- Given I am on the game, when I press left and right arrow keys, then the platform should move soomthly.
-- Given I am on the game, when I release the arrow keys, then the movement should stop.
-- Given I am on the game, when I try to move the platform off-screen, then the platform should stop.
-  
-**User Story 1.2:**
-
-As a player, I want haystack to land realistically on top of each other so that the stack looks natural.
-
-Acceptance Criteria:
-- Given I am on the game, when the haystack lands unevenly, then it can fall off the platform.
-- Given I am on the game, when the player moves, then the stack moves with the platform.
-- Given I am on the game, when the player collects more haystack on their platform, then they should move slower.
-
-**User Story 1.3:**
-
-As a player, I want to lose a life if I miss a haystack and get hit by an obstacle so that the game remains challenging.
-
-Acceptance Criteria:
-- Given I am on the game, when I miss a haystack or gets hit by an obstacle, then I should lose a life. 
-- Given I am on the game, when I lose all my lives, then a game-over screen should appear.
-- Given I am on the game, when I gain or lose a life, then I should be able to tell how many remaining lives there are from the interface.
-
----
-
-#### Epic 2: Enhance user interface and experience.
-**User Story 2.1:**
-
-As a player, I want to see my score so that I can track my progress.
-
-Acceptance Criteria:
-- Given I am on the game, when I empty my haystack into the bucket, then I should see score update in real-time. 
-
-**User Story 2.2:**
-
-As a player, I want to pause and restart the game so that I can take breaks or retry.
-
-Acceptance Criteria:
-- Given I am on the game, when I click the pause button, then I should be given the options to pause, resume, or restart the game.
-
----
-
-#### Epic 3: Include multiplayer mode.
-**User Story 3.1:**
-
-As two players, we want to play against each other on split screen so that we can compete.
-
-Acceptance Criteria:
-- Given two players in the competitive mode, when one player moves their platform, then the other player should be able to move their platform independently.
-- Given two players in the competitive mode, when one player reaches the target score first, then they should win the game.
-
-**User Story 3.2:**
-
-As two players, we want to work with each other so that we can beat the level together.
-
-Acceptance Criteria:
-- Given two players in the co-op mode, when they clash, then they should be able to move past each other.
-- Given two players in the co-op mode, when they catch the haystack, then they should contribute to the same haystack bucket.
-
----
-
-#### Epic 4: Make the game challenging.
-**User Story 4.1:**
-
-As a player, I want the game to get harder over time so that it stays engaging.
-
-Acceptance Criteria:
-- Given I am on the game, when the game progresses, then the speed of falling haystack should increase.
-- Given I am on the game, when the game progresses, then new obstacles or object types should appear over time.
-
-**User Story 4.2:**
-
-As a player, I want to collect power-ups so that I can gain advantages.
-
-Acceptance Criteria:
-- Given I am on the game, when I catch a bonus object (e.g., stars), then I should gain an extra life.
-- Given I am on the game, when I catch a bonus object (e.g., stars), then a visual indicator should appear to show that I have gained an extra life.
-
----
-
-#### Epic 5: Increase Accessibility.
-**User Story 5.1:**
-
-As a new player, I want simple controls so that I can learn the game quickly.
-
-Acceptance Criteria:
-- Given I enters the game, when I click the question mark button, then I should see a short totorial explaining how to play.
-- Given I am on the game, when the game progresses, then I should see a short tutorial indroducing any new objects or obstacles. 
-
-**User Story 5.2:**
-
-As a player, I want to adjust game settings so that I can play comfortably.
-
-Acceptance Criteria:
-- Given I am on the game, when I click the setting button, then I should be able to change the volume of background music and other sound effect.
-- Given I am a user with low vision, when I click the setting button, then I should be able to resize text. 
+| **User Type**      | **Epic**                     | **User Story**                                                                 | **Acceptance Criteria**                                                                 |
+|-------------------|-----------------------------|-----------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
+| Casual Player    | Beginner-Friendly Experience | As a casual player, I want the game controls to be simple and intuitive so that I can quickly learn and enjoy the game. | The game should have minimal controls and simple rules to ensure ease of learning.  |
+|                 |                             | As a casual player, I want a clear tutorial when I first enter the game so that I can quickly learn how to play. | A tutorial should appear the first time a player enters the game, explaining basic controls and mechanics. |
+|                 |                             | As a casual player, I want a pause and resume function so that I can play at my own pace. | Players should be able to pause the game by clicking the "Pause" button and resume from where they left off using the "Continue" button. |
+|                 | Replayability                | As a casual player, I want to replay levels to improve my skills and gain a sense of achievement. | The game should allow players to replay the same level multiple times without restrictions. |
+| Hardcore Player  | Character Progression       | As a hardcore player, I want to upgrade my character’s equipment so that I can compete at higher difficulty levels. | Characters should be able to purchase gear using in-game currency or rewards, enhancing their abilities. |
+|                 | Ranking System               | As a hardcore player, I want to see global rankings so that I can compete with other players for high scores. | The main menu should display a leaderboard showing the top 10 players. |
+|                 |                             | As a hardcore player, I want to compare scores with my friends so that I can compete with them. | The game should include a friends’ leaderboard to compare scores easily. |
+|                 | Game Challenge               | As a hardcore player, I want the game to become more challenging over time so that it remains engaging. | The game should introduce new obstacles or increase speed as the game progresses to enhance difficulty. |
+| Social Player    | Multiplayer Mode            | As a social player, I want to compete or cooperate with my friends so that we can play together. | The game should offer both competitive and cooperative two-player modes, with rankings displayed after matches. |
+| Creative Player  | Character Customization     | As a creative player, I want to customize my character so that I can personalize my gaming experience. | The character customization menu should offer various appearance options and allow players to save their selections. |
+| Detail-Oriented Player | Realistic Physics      | As a detail-oriented player, I want realistic physics for stacking objects and accurate sound effects when catching items. | Objects should follow physics rules, smoothly falling and settling on surfaces while triggering appropriate sound effects. |
   
 ### Design
 
@@ -150,6 +98,17 @@ Acceptance Criteria:
 - 15% ~750 words
 
 - One qualitative evaluation (your choice) 
+#### Heuristic Evaluation Table
+
+| **Interface**         | **Issue**                                                                 | **Heuristic(s)**                            | **Frequency** (0-4) | **Impact** (0-4) | **Persistence** (0-4) | **Severity Score** ((F+I+P)/3) |
+|----------------------|------------------------------------------------------------------------|--------------------------------------------|------------------|----------------|----------------|------------------|
+| **Main Menu**       | The extra "Start" button is unnecessary; players should select the mode first and then start. | User control and freedom                  | 3                | 3              | 3              | 3.00             |
+| **Mode Selection**  | The single-player or multiplayer selection screen lacks a button to return to the main menu. | User control and freedom                  | 3                | 3              | 4              | 3.33             |
+| **Multiplayer End** | Missing score comparison prevents players from visually comparing their scores. | Visibility of system status               | 3                | 3              | 4              | 3.33             |
+| **Multiplayer Gameplay** | The time display is only on the left side, making it difficult for the right-side player to see the remaining time. | Visibility of system status               | 4                | 3              | 4              | 3.67             |
+| **Gameplay Speed**  | The grass-cutting speed varies on different platforms, affecting the gaming experience. | Error prevention                          | 4                | 4              | 4              | 4.00             |
+| **Character Store** | The lack of a store system prevents players from selecting different characters or grass-cutting tools. | Flexibility and efficiency of use        | 3                | 2              | 3              | 2.67             |
+| **Multiplayer Gameplay** | In multiplayer mode, the character/tool selection cannot meet the personalized needs of different players. | Flexibility and efficiency of use        | 3                | 2              | 3              | 2.67             |
 
 - One quantitative evaluation (of your choice) 
 
