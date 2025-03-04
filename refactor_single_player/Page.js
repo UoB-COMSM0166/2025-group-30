@@ -24,9 +24,6 @@ class Page {
         
         // 添加窗口大小变化的事件监听
         window.addEventListener('resize', this.handleResize.bind(this));
-        
-        console.log("Page initialized with scale:", this.gameScale);
-        console.log("Canvas position:", this.xPadding + this.margin, this.yPadding + this.margin);
     }
 
     setPageSize() {
@@ -49,14 +46,11 @@ class Page {
 
         // 计算缩放比例
         this.gameScale = this.pageWidth / this.baseWidth;
-        
-        console.log("Page size updated:", this.pageWidth, this.pageHeight, "Scale:", this.gameScale);
     }
 
     setPadding() {
         this.xPadding = (window.innerWidth - this.pageWidth - this.margin * 2) / 2;
         this.yPadding = (window.innerHeight - this.pageHeight - this.margin * 2) / 2;
-        console.log("Padding updated:", this.xPadding, this.yPadding);
     }
 
     setCanvas() {
@@ -64,18 +58,15 @@ class Page {
             // 如果画布已存在，仅调整大小和位置
             resizeCanvas(this.pageWidth, this.pageHeight);
             this.canvas.position(this.xPadding + this.margin, this.yPadding + this.margin);
-            console.log("Canvas resized:", this.pageWidth, this.pageHeight);
         } else {
             // 首次创建画布 - 全局createCanvas方法会返回一个p5.Renderer对象
             this.canvas = createCanvas(this.pageWidth, this.pageHeight);
             this.canvas.position(this.xPadding + this.margin, this.yPadding + this.margin);
-            console.log("Canvas created:", this.pageWidth, this.pageHeight);
         }
     }
 
     // 处理窗口大小变化
     handleResize() {
-        console.log("Window resized");
         this.setPageSize();
         this.setPadding();
         this.setCanvas();
@@ -119,10 +110,14 @@ class Page {
         // 我们只需要去除缩放因子
         window.mouseXGame = mouseX / this.gameScale;
         window.mouseYGame = mouseY / this.gameScale;
-        
-        // 调试输出
-        console.log("Raw mouse coords:", mouseX, mouseY);
-        console.log("Game coords:", window.mouseXGame, window.mouseYGame);
-        console.log("Scale factor:", this.gameScale);
+    }
+    
+    // 添加transformCoordinates方法，将屏幕坐标转换为游戏坐标
+    transformCoordinates(screenX, screenY) {
+        // 转换为游戏内坐标系
+        return {
+            x: screenX / this.gameScale,
+            y: screenY / this.gameScale
+        };
     }
 } 

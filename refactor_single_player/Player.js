@@ -41,6 +41,10 @@ class Player {
         this.visible = true;         // Controls character visibility when blinking
         this.isPaused = false;       // Whether paused
         
+        // 增加PvP模式下的惩罚持续时间
+        this.isPvpMode = false; // 标识是否处于PvP模式
+        this.pvpBlinkDuration = 300; // PvP模式下的闪烁持续时间（毫秒），缩短为0.3秒
+        
         console.log(`Player ${this.id} initialized, position:`, this.x, this.y);
     }
     
@@ -76,7 +80,7 @@ class Player {
         }
     }
     
-    // 新增：开始闪烁和暂停效果
+    // 修改开始闪烁方法，支持PvP模式下的更长闪烁时间
     startBlinking() {
         this.isBlinking = true;
         this.isPaused = true;
@@ -84,15 +88,18 @@ class Player {
         this.visible = false;
     }
     
-    // 新增：更新闪烁状态
+    // 修改更新闪烁状态方法，支持PvP模式
     updateBlinkState() {
         if (!this.isBlinking) return;
         
         let currentTime = millis();
         let elapsedTime = currentTime - this.blinkStartTime;
         
+        // 使用适当的闪烁持续时间
+        let duration = this.isPvpMode ? this.pvpBlinkDuration : this.blinkDuration;
+        
         // 如果闪烁时间已结束
-        if (elapsedTime >= this.blinkDuration) {
+        if (elapsedTime >= duration) {
             this.isBlinking = false;
             this.isPaused = false;
             this.visible = true;

@@ -2,7 +2,6 @@ class ScreenManager {
     constructor() {
         // 存储外部引用的页面管理器
         this.page = window.page;
-        console.log("ScreenManager initialized, page:", this.page);
         
         // 初始化各个屏幕
         this.homeScreen = new HomeScreen(this);
@@ -12,16 +11,19 @@ class ScreenManager {
 
         // 创建单一的Help类实例，替代所有的HelpScreen类
         this.helpScreen = new Help(this);
+        
+        // 初始化PvP结果屏幕（在pvp之前）
+        this.pvpResultScreen = new PvpResultScreen(this);
+        
+        // 初始化PvP模式（必须在pvpResultScreen之后）
+        this.pvp = new Pvp(this);
 
         // 设置默认屏幕为主屏幕
         this.currentScreen = this.homeScreen;
         this.lastScreen = null;
-        
-        console.log("All screens initialized");
     }
 
     changeScreen(screen) {
-        console.log("Changing screen to:", screen.constructor.name);
         this.lastScreen = this.currentScreen;
         this.currentScreen = screen;
     }
@@ -33,7 +35,6 @@ class ScreenManager {
 
     mousePressed() {
         // 确保使用游戏坐标系下的鼠标位置
-        console.log("ScreenManager mousePressed, current screen:", this.currentScreen.constructor.name);
         this.currentScreen.mousePressed();
     }
 

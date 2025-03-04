@@ -40,15 +40,14 @@ class Help extends Screen {
                 title: "PvP Mode Instructions",
                 instructions: [
                     "Player 1: Use A/D keys to move, Player 2: Use LEFT/RIGHT",
-                    "Player 1: Press W to place hay, Player 2: Press UP",
+                    "Player 1: Press SPACE to place hay, Player 2: Press ENTER",
                     "Compete to collect more hay blocks",
                     "The player with higher score at the end wins"
                 ],
                 buttonText: "Start PvP",
                 startAction: () => {
-                    // 这里需要实现双人对战模式的启动逻辑
-                    // 暂时返回菜单界面
-                    this.screenManager.changeScreen(this.screenManager.menuScreen);
+                    this.screenManager.pvp.startNewGame();
+                    this.screenManager.changeScreen(this.screenManager.pvp);
                 }
             }
         };
