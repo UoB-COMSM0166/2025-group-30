@@ -38,9 +38,9 @@ class Pvp extends Screen { // player with higher score in the set time wins
             this.updateGrass();     
         }
 
-        this.player1.show(); //show player with grass 
-        this.player2.show();  
         this.showGrass();
+        this.player1.show(); //show player with grass 
+        this.player2.show();        
 
         this.displayUI();      
     }
@@ -92,13 +92,7 @@ class Pvp extends Screen { // player with higher score in the set time wins
             if (this.player1.flash.flashDuration === 0 && this.screenManager.currentScreen === this) this.grass1[i].fall(); //stop grass fall if flashing is on or game is paused
             
             if (this.grass1[i].y > height) { //if miss a grass, player flashes
-                //this.player1.lives--;
                 this.player1.flash.flashDuration = 30;
-
-                // if (this.player1.lives <= 0) { //check for game over
-                //     this.stopGrassDrop();
-                //     this.screenManager.changeScreen(this.pvpLevelUpScreen);
-                // };
             }              
             
             if (this.grass1[i].y > height || this.player1.catchGrass(this.grass1[i])) {
@@ -112,13 +106,7 @@ class Pvp extends Screen { // player with higher score in the set time wins
             if (this.player2.flash.flashDuration === 0 && this.screenManager.currentScreen === this) this.grass2[i].fall(); //stop grass fall if flashing is on or game is paused
             
             if (this.grass2[i].y > height) { //if miss a grass, player flashes
-                //this.player2.lives--;
                 this.player2.flash.flashDuration = 30;
-
-                // if (this.player2.lives <= 0) { //check for game over
-                //     this.stopGrassDrop();
-                //     this.screenManager.changeScreen(this.pvpLevelUpScreen);
-                // };
             }              
             
             if (this.grass2[i].y > height || this.player2.catchGrass(this.grass2[i])) {
@@ -174,24 +162,10 @@ class Pvp extends Screen { // player with higher score in the set time wins
         this.startGrassDrop();
     }
 
-    // displayLives() {
-    //     let heartY = 120;
-    //     for (let i = 0; i < 3; i++) {
-    //         fill(i < this.player1.lives ? 'red' : 'gray');
-    //         circle(30 + i * 30, heartY,20);
-    //     }
-    //     for (let i = 0; i < 3; i++) {
-    //         fill(i < this.player2.lives2 ? 'red' : 'gray');
-    //         ellipse(width - 100 + i * 30, heartY, 20, 20);
-    //     }
-    // }
-
     displayUI() {
         stroke(0);
         line(width / 2, 0, width / 2, height);
         noStroke();
-
-        //this.displayLives();
 
         fill(0);
         textSize(20);

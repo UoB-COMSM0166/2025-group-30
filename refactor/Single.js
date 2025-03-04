@@ -31,10 +31,9 @@ class Single extends Screen {
             this.player.move();   
             this.updateGrass();     
         }
-
-        this.player.show(); //show player with grass   
         this.showGrass();
-
+        this.player.show(); //show player with grass   
+        
         this.displayUI();      
     }
 
@@ -76,14 +75,8 @@ class Single extends Screen {
                 this.grass[i].fall();
             } //stop grass fall if flashing is on or game is paused
             
-            if (this.grass[i].y > height) { //if miss a grass, lives--, player flashes
-                this.player.lives--;
+            if (this.grass[i].y > height) { //if miss a grass, player flashes
                 this.player.flash.flashDuration = 30;
-
-                if (this.player.lives <= 0) { //check for game over
-                    this.stopGrassDrop();
-                    this.screenManager.changeScreen(this.gameOverScreen);
-                };
             }              
             
             if (this.grass[i].y > height || this.player.catchGrass(this.grass[i])) {
@@ -140,15 +133,7 @@ class Single extends Screen {
         this.startGrassDrop();
     }
 
-    displayLives() {
-        for (let i = 0; i < 3; i++) {
-            fill(i < this.player.lives ? 'red' : 'gray');
-            circle(20 + i * 30, 120, 20);
-        }
-    }
-
     displayUI() {
-        this.displayLives();
 
         fill(0);
         textSize(20);

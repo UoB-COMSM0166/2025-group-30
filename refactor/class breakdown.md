@@ -16,7 +16,7 @@ updateGrass() `// main game logic`
 showGrass()
 
 <br>
-displayUI() --> displayLives()
+displayUI()
 
 <br>
 keyPressed()

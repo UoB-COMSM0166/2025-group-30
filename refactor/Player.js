@@ -10,7 +10,6 @@ class Player {
         else if (position === "right" || position === "pvpRight") this.x = (width - this.w)/4*3;
         
         this.y = height - 50; //stay the same
-        this.lives = 3;
         this.score = 0;
 
         this.velocity = 0;
@@ -21,7 +20,7 @@ class Player {
         this.dir = 0;
 
         this.stack = [];  //visible caught grass
-        this.maxStack = 5; 
+        this.maxStack = 2; 
         
         this.basket = null; // 确保basket被正确初始化
 
@@ -33,7 +32,6 @@ class Player {
         else if (this.position === "left") this.x = (width - this.w)/4;
         else if (this.position === "right") this.x = (width - this.w)/4*3;
         
-        this.lives = 3;
         this.score = 0;
 
         this.velocity = 0;
@@ -93,9 +91,8 @@ class Player {
     
     catchGrass(grass) { //return true if grass is caught, false otherwise
         if (this.stack.length > this.maxStack) { //can't have more than 5 grass on the platform
-            this.lives--;
             this.stack = [];
-            this.flash.flashDuration = 60; // trigger flash
+            this.flash.flashDuration = 30; // trigger flash
             return false;
         }
 

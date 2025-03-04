@@ -10,7 +10,7 @@ class Coop extends Screen {
         this.basket = new Basket("left");  
         this.grass = []; //collection of falling grass 
         
-        this.player1 = new Player("left"); //player 1 lives represent the overall shared lives
+        this.player1 = new Player("left");
         this.player1.basket = this.basket;
 
         this.player2 = new Player("right");        
@@ -38,10 +38,10 @@ class Coop extends Screen {
             this.updateGrass();     
         }
 
+        this.showGrass();
         this.player1.show(); //show player with grass 
         this.player2.show();  
-        this.showGrass();
-
+    
         this.displayUI();      
     }
 
@@ -82,15 +82,8 @@ class Coop extends Screen {
             } //stop grass fall if flashing is on or game is paused
             
             if (this.grass[i].y > height) { //if miss a grass, both playes flash
-                this.player1.lives--;
-
                 this.player1.flash.flashDuration = 30;
                 this.player2.flash.flashDuration = 30;
-
-                if (this.player1.lives <= 0) { //check for game over
-                    this.stopGrassDrop();
-                    this.screenManager.changeScreen(this.gameOverScreen);
-                };
             }   
 
             if (this.player1.catchGrass(this.grass[i])) this.grass.splice(i, 1); // check if player 1 catches the grass first
@@ -149,15 +142,7 @@ class Coop extends Screen {
         this.startGrassDrop();
     }
 
-    displayLives() {
-        for (let i = 0; i < 3; i++) {
-            fill(i < this.player1.lives ? 'red' : 'gray');
-            circle(30 + i * 30, 120, 20);
-        }
-    }
-
     displayUI() {
-        this.displayLives();
 
         fill(0);
         textSize(20);
