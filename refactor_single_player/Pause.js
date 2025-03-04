@@ -34,12 +34,12 @@ class Pause extends Screen {
         fill(255);
         textSize(40);
         textAlign(CENTER, CENTER);
-        text("游戏暂停", this.baseWidth/2, this.baseHeight/2 - 100);
+        text("PAUSE", this.baseWidth/2, this.baseHeight/2 - 100);
         
         // 绘制按钮
-        this.drawButton("继续游戏", this.baseWidth/2, this.baseHeight/2, this.resumeGame.bind(this));
-        this.drawButton("重新开始", this.baseWidth/2, this.baseHeight/2 + this.buttonHeight + this.buttonSpacing, this.restartGame.bind(this));
-        this.drawButton("返回主界面", this.baseWidth/2, this.baseHeight/2 + (this.buttonHeight + this.buttonSpacing) * 2, this.returnHome.bind(this));
+        this.drawButton("Resume", this.baseWidth/2, this.baseHeight/2, this.resumeGame.bind(this));
+        this.drawButton("Restart", this.baseWidth/2, this.baseHeight/2 + this.buttonHeight + this.buttonSpacing, this.restartGame.bind(this));
+        this.drawButton("Home", this.baseWidth/2, this.baseHeight/2 + (this.buttonHeight + this.buttonSpacing) * 2, this.returnHome.bind(this));
         pop();
     }
     
@@ -125,28 +125,31 @@ class Pause extends Screen {
     // 重新开始游戏
     restartGame() {
         if (this.lastScreen) {
-            // 先切换回游戏屏幕
-            this.screenManager.changeScreen(this.lastScreen);
-            
-            // 重置游戏状态
-            this.lastScreen.reset();
-            
-            // 开始新游戏
-            this.lastScreen.startGame();
+            // 根据游戏模式调用不同的重新开始逻辑
+            if (this.lastScreen instanceof Single || this.lastScreen instanceof Coop) {
+                // Single和Coop模式使用retryCurrentLevel逻辑
+                this.screenManager.changeScreen(this.lastScreen);
+                this.lastScreen.retryCurrentLevel();
+            } else if (this.lastScreen instanceof Pvp) {
+                // Pvp模式使用startNewGame逻辑
+                this.screenManager.changeScreen(this.lastScreen);
+                this.lastScreen.startNewGame();
+            }
         }
     }
     
     // 返回主界面
     returnHome() {
-        // 停止所有计时器
         if (this.lastScreen) {
-            if (typeof this.lastScreen.reset === 'function') {
-                this.lastScreen.reset(); // 确保所有计时器都被清除
-            } else if (this.lastScreen.grass) {
-                // 清空草数组
-                this.lastScreen.grass = [];
+            // 先重置游戏状态
+            if (this.lastScreen instanceof Single || this.lastScreen instanceof Coop) {
+                this.lastScreen.retryCurrentLevel(); // 使用retryCurrentLevel来清理状态
+            } else if (this.lastScreen instanceof Pvp) {
+                this.lastScreen.startNewGame(); // 使用startNewGame来清理状态
             }
+            
+            // 切换到主界面
+            this.screenManager.changeScreen(this.screenManager.homeScreen);
         }
-        this.screenManager.changeScreen(this.screenManager.homeScreen);
     }
 }

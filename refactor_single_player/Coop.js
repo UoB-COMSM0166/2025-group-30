@@ -267,6 +267,8 @@ class Coop extends Screen {
         this.grass = [];
         this.player1.resetPosition();
         this.player2.resetPosition();
+        this.player1.stack = [];
+        this.player2.stack = [];
         
         // Start game again
         this.startGame();
