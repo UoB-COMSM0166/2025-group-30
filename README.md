@@ -170,11 +170,61 @@ This will reduce technical difficulty, improve development efficiency, and ensur
 
 ### Stakeholders Analysis 
 **Onion model**
-![Image](https://github.com/user-attachments/assets/4a91b2c9-6289-4970-96d4-6c223d6df48f)
+![Image](https://github.com/user-attachments/assets/5ef9c5c4-04e5-4d8f-b85d-7bf6b9ef1358)
+
+-Core layer:Group 30
+
+Group 30-2025 are the core creators of the game, responsible for its design, development, and implementation. They determine the quality, gameplay, and overall experience of the game. 
+
+-Internal layer:players and lecturers
+
+Players are the end-users of the game, including different types:New Players,Old Players,Casual Players,Competitive Players.
+
+Lecturers are the evaluators of the assignment, responsible for assessing the quality of the game and whether it meets the course requirements.
+
+-Competition Layer:other teams
+
+Other teams are competitors in the assignment, and their performance may influence the evaluation by lecturers and bystanders.
+
+-External Layer:Border audience (Potential players)
+
+Bystanders are potential users who may not directly participate in the game but could be attracted to become new players.
 
 **User-case diagram**
 <img width="915" alt="Image" src="https://github.com/user-attachments/assets/1f5c1da4-c239-4662-898a-9b46e998b081" />
 
+1.Players
+Players are the primary users of the game, interacting with the game system to achieve game objectives.
+Main Use Cases of players is:
+
+-Choose game mode: Select between single-player or multi-player mode.If player 1 choose multiplayer mode, then player 2 will exist.
+
+-Play game: Control character movement, catch grass, and drop grass into the basket.
+
+-Pause game: Pause the current game.
+
+2.Developers 
+Developers are responsible for maintaining and updating the game to ensure it runs smoothly.
+Main Use Cases of Developers is:
+
+-Debug game: Fix errors in the game.
+
+-Update game: Add new features or optimize existing ones.
+
+-Test game: Test the game to ensure stability.
+
+-Monitor game: Monitor the game's performance to identify potential issues.
+
+3.Game system
+Game system manages the core logic and state of the game.
+
+-Update score: Update the score when players drop grass into the basket.
+
+-Decrease lives: Reduce lives when players fail.
+
+-Level up: Increase game difficulty when players reach a certain score.
+
+-Game over: End the game when lives reach zero.
 ### Design
 
 - 15% ~750 words 
