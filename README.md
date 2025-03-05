@@ -107,6 +107,103 @@ To help players quickly get familiar with the game, we created a digital model b
   <img src="https://github.com/user-attachments/assets/a21f37c9-d280-421e-a664-1148eeae3f51" width="500">
 </p>
 
+**Project overview**
+
+The project aims to develop a simple 2D mini-game where players stack square grass blocks.
+Initially, we considered using different shapes for stacking as the core gameplay mechanism and planned to integrate an external physics engine for realistic physics simulation. 
+However, after preliminary research and technical assessment, we found that our current skill level poses certain limitations in implementing this approach. Therefore, we reassessed the feasibility.
+Eventually, we decided to remove the physics engine and use a simple square grass block stacking mechanism to reduce technical complexity.
+
+**Requirement Analysis**
+
+1.User Requirements
+-Players: Should be able to control and stack square grass blocks smoothly.
+2.Technical Requirements
+-Client-side Development: Implement the game interface and handle user input.
+-Physics Simulation: Remove the external physics engine and use a simple square block stacking mechanism.
+
+**Technical Feasibility**
+Shape Stacking Mechanism
+Initial Plan
+-Use an external physics engine (e.g., Box2D, Matter.js) for simulating different shape interactions.
+-Requires complex physics calculations, including collision detection and gravity simulation.
+
+**Feasibility Evaluation**
+-Lack of experience in physics engine development makes debugging and optimization challenging.
+-Complex physics calculations may lead to high computational resource consumption, affecting game performance.
+Alternative Plan
+-Switch to simple square grass block stacking without relying on an external physics engine.
+-Use a rule-based stacking method where each block is placed according to predefined logic rather than dynamic physics calculations.
+-Implement basic rectangle overlap detection for collision handling to improve development efficiency.
+
+Based on the feasibility analysis, we have decided to adjust the game design by abandoning the complex physics engine integration and opting for a simple square grass block stacking mechanism. 
+This will reduce technical difficulty, improve development efficiency, and ensure game stability.
+
+### Stakeholders Analysis 
+
+<p align="center"><strong>Onion model</strong></p>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/5ef9c5c4-04e5-4d8f-b85d-7bf6b9ef1358">
+</p>
+
+- Core layer: Group 30
+
+Group 30-2025 are the core creators of the game, responsible for its design, development, and implementation. They determine the quality, gameplay, and overall experience of the game. 
+
+-Internal layer:players and lecturers
+
+Players are the end-users of the game, including different types:New Players,Old Players,Casual Players,Competitive Players.
+
+Lecturers are the evaluators of the assignment, responsible for assessing the quality of the game and whether it meets the course requirements.
+
+-Competition Layer:other teams
+
+Other teams are competitors in the assignment, and their performance may influence the evaluation by lecturers and bystanders.
+
+-External Layer:Border audience (Potential players)
+
+Bystanders are potential users who may not directly participate in the game but could be attracted to become new players.
+
+<p align="center"><strong>User-case diagram</strong></p>
+
+<p align="center">
+  <img width="915" alt="Image" src="https://github.com/user-attachments/assets/1f5c1da4-c239-4662-898a-9b46e998b081" />
+</p>
+
+1.Players
+Players are the primary users of the game, interacting with the game system to achieve game objectives.
+Main Use Cases of players is:
+
+-Choose game mode: Select between single-player or multi-player mode.If player 1 choose multiplayer mode, then player 2 will exist.
+
+-Play game: Control character movement, catch grass, and drop grass into the basket.
+
+-Pause game: Pause the current game.
+
+2.Developers 
+Developers are responsible for maintaining and updating the game to ensure it runs smoothly.
+Main Use Cases of Developers is:
+
+-Debug game: Fix errors in the game.
+
+-Update game: Add new features or optimize existing ones.
+
+-Test game: Test the game to ensure stability.
+
+-Monitor game: Monitor the game's performance to identify potential issues.
+
+3.Game system
+Game system manages the core logic and state of the game.
+
+-Update score: Update the score when players drop grass into the basket.
+
+-Decrease lives: Reduce lives when players fail.
+
+-Level up: Increase game difficulty when players reach a certain score.
+
+-Game over: End the game when lives reach zero.
+
 #### User Stories and Epics
 
 <table>
