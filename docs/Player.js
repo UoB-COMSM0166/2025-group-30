@@ -5,11 +5,11 @@ class Player {
         this.w = 100;
         this.h = 20;
 
-        if (position === "middle") this.x = (width - this.w)/2;
-        else if (position === "left" || position === "pvpLeft") this.x = (width - this.w)/4;
-        else if (position === "right" || position === "pvpRight") this.x = (width - this.w)/4*3;
+        if (position === "middle") this.x = (baseWidth- this.w)/2;
+        else if (position === "left" || position === "pvpLeft") this.x = (baseWidth- this.w)/4;
+        else if (position === "right" || position === "pvpRight") this.x = (baseWidth- this.w)/4*3;
         
-        this.y = height - 50; //stay the same
+        this.y = baseHeight- 50; //stay the same
         this.score = 0;
 
         this.velocity = 0;
@@ -28,9 +28,9 @@ class Player {
     }
 
     reset() {   
-        if (this.position === "middle") (width - this.w)/2;
-        else if (this.position === "left") this.x = (width - this.w)/4;
-        else if (this.position === "right") this.x = (width - this.w)/4*3;
+        if (this.position === "middle") (baseWidth- this.w)/2;
+        else if (this.position === "left") this.x = (baseWidth- this.w)/4;
+        else if (this.position === "right") this.x = (baseWidth- this.w)/4*3;
         
         this.score = 0;
 
@@ -41,16 +41,16 @@ class Player {
         this.flash.flashDuration = 0;
     }
 
-    move() {
-        //if (this.flash.flashDuration>0 && !this.flash.showPlayer) return;
+    movePlayerWithCaughtGrass() {
         if (this.flash.flashDuration > 0) return;
 
         const oldX = this.x;
 
         if (this.dir !== 0) {
-            if (Math.sign(this.dir) !== Math.sign(this.velocity) && abs(this.velocity) > 0.1) {
+            if (Math.sign(this.dir) !== Math.sign(this.velocity)  //player changes direction
+                && abs(this.velocity) > 0.1) {
                 this.velocity = this.dir * (this.acceleration + abs(this.velocity) * 0.5);
-            } else {
+            } else { //continue moving in the same direction
                 this.velocity += this.dir * this.acceleration;
                 this.velocity = constrain(this.velocity, -this.maxSpeed, this.maxSpeed);
             }
@@ -61,8 +61,8 @@ class Player {
 
         // 限制移动范围
         if (this.position === "pvpLeft") this.x = constrain(this.x, 0, width/2 - this.w);
-        else if (this.position === "pvpRight") this.x = constrain(this.x, width/2, width - this.w);
-        else this.x = constrain(this.x, 0, width - this.w);
+        else if (this.position === "pvpRight") this.x = constrain(this.x, width/2, baseWidth- this.w);
+        else this.x = constrain(this.x, 0, baseWidth- this.w);
 
         // 计算x轴移动距离并更新堆叠的草的位置 caught grass moves with the player
         this.x += this.velocity;
@@ -72,7 +72,7 @@ class Player {
         }
     }
 
-    show() { //draw player with caught grass    
+    drawPlayerWithCaughtGrass() { //draw player with caught grass    
         this.flash.update();
         if (!this.flash.showPlayer) return;//player with grass is not shown if flash is running 
 
@@ -89,7 +89,7 @@ class Player {
         
     }
     
-    catchGrass(grass) { //return true if grass is caught, false otherwise
+    checkGrassCaught(grass) { //return true if grass is caught, false otherwise
         if (this.stack.length > this.maxStack) { //can't have more than 5 grass on the platform
             this.stack = [];
             this.flash.flashDuration = 30; // trigger flash
@@ -98,10 +98,15 @@ class Player {
 
         // 如果是第一个方块，检查是否与木板接触
         if (this.stack.length === 0) {
+            // Calculate overlap with player platform
+            const overlapLeft = Math.max(this.x, grass.x);
+            const overlapRight = Math.min(this.x + this.w, grass.x + grass.w);
+            const overlapWidth = Math.max(0, overlapRight - overlapLeft);
+            const minRequiredOverlap = 0.2 * grass.w; // 20% of grass width
+            
             if (grass.y + grass.h >= this.y && 
-                grass.y + grass.h <= this.y + this.h &&
-                grass.x + grass.w/2 >= this.x && 
-                grass.x + grass.w/2 <= this.x + this.w) {
+                grass.y + grass.h <= this.y + 2 && // if the falling grass is 2 pixel below the player platform, it cannot be caught
+                overlapWidth >= minRequiredOverlap) {
                 
                 grass.y = this.y - grass.h;
                 this.stack.push(grass);
@@ -111,16 +116,16 @@ class Player {
             // 获取最上面的方块
             const topGrass = this.stack[this.stack.length - 1];
             
-            // 检查是否与最上面的方块接触
-            const newLeft = Math.round(grass.x);
-            const newRight = Math.round(grass.x + grass.w);
-            const topLeft = Math.round(topGrass.x);
-            const topRight = Math.round(topGrass.x + topGrass.w);
-
-            const hasHorizontalOverlap = !(newRight <= topLeft || newLeft >= topRight);
-            const isVerticalContact = (grass.y + grass.h) >= topGrass.y - 5;
+            // Calculate overlap with top grass in stack
+            const overlapLeft = Math.max(topGrass.x, grass.x);
+            const overlapRight = Math.min(topGrass.x + topGrass.w, grass.x + grass.w);
+            const overlapWidth = Math.max(0, overlapRight - overlapLeft);
+            const minRequiredOverlap = 0.2 * grass.w; // 20% of grass width
             
-            if (hasHorizontalOverlap && isVerticalContact) {
+            // if the falling grass is 2 pixel below the player platform, it cannot be caught
+            const isVerticalContact = ((grass.y + grass.h) >= topGrass.y) && ((grass.y + grass.h) <= topGrass.y + 2);
+            
+            if (overlapWidth >= minRequiredOverlap && isVerticalContact) {
                 grass.y = this.y - (this.stack.length + 1) * grass.h;
                 this.stack.push(grass);
                 return true;
@@ -129,7 +134,7 @@ class Player {
         return false;
     }
 
-    emptyGrass() { //empty grass to the basket
+    emptyToBasket() { //empty grass to the basket
         if (this.stack.length === 0) return;
         if (this.x <= this.basket.x + this.basket.w) {
             this.score += this.stack.length;

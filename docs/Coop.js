@@ -30,17 +30,17 @@ class Coop extends Screen {
 
     display(){ 
         background(200); 
-        this.basket.show(); 
+        this.basket.draw(); 
 
         if (this.screenManager.currentScreen === this){
-            this.player1.move();  
-            this.player2.move();   
-            this.updateGrass();     
+            this.player1.movePlayerWithCaughtGrass();  
+            this.player2.movePlayerWithCaughtGrass();   
+            this.updateFallingGrass();     
         }
 
-        this.showGrass();
-        this.player1.show(); //show player with grass 
-        this.player2.show();  
+        this.drawGrass();
+        this.player1.drawPlayerWithCaughtGrass(); //show player with grass 
+        this.player2.drawPlayerWithCaughtGrass();  
     
         this.displayUI();      
     }
@@ -52,15 +52,16 @@ class Coop extends Screen {
   
         this.grass = []; //empty the grass piles
 
-        //grass drops start immediately 
-        this.grass.push(new Grass(random(200, width - 100), 10));
-    
+        this.grass.push(new Grass(random(200, baseWidth - 100), 10)); //grass drops start immediately 
+        
         this.grassDropInterval = setInterval(() => {
             if ((this.player1.flash.flashDuration === 0 || this.player2.flash.flashDuration === 0) && this.screenManager.currentScreen === this){ //grass drop continue if flashing for both player is not on && game is not paused
-                this.grass.push(new Grass(random(200, width - 100), 10));
+                this.grass.push(new Grass(random(200, baseWidth - 100), 10));
                 console.log("start grass drop");
             }           
         }, this.grassDropDelay); //grass falls every 1.5 seconds          
+       
+
         this.startLevelTimer();  
     }
 
@@ -75,26 +76,26 @@ class Coop extends Screen {
 
     // --- main game logic ----
 
-    updateGrass() { //update the grass from this.grass1 based on if caught or missed   
+    updateFallingGrass() { //update the grass from this.grass1 based on if caught or missed   
         for (let i = this.grass.length - 1; i >= 0; i--) {
             if ((this.player1.flash.flashDuration === 0 || this.player2.flash.flashDuration === 0) && this.screenManager.currentScreen === this) {
                 this.grass[i].fall();
             } //stop grass fall if flashing is on or game is paused
             
-            if (this.grass[i].y > height) { //if miss a grass, both playes flash
+            if (this.grass[i].y > baseHeight) { //if miss a grass, both playes flash
                 this.player1.flash.flashDuration = 30;
                 this.player2.flash.flashDuration = 30;
             }   
 
-            if (this.player1.catchGrass(this.grass[i])) this.grass.splice(i, 1); // check if player 1 catches the grass first
-            else if (this.player2.catchGrass(this.grass[i])) this.grass.splice(i, 1); //then player 2
-            else if (this.grass[i].y > height) this.grass.splice(i, 1);  // Remove if off-screen or caught
+            if (this.player1.checkGrassCaught(this.grass[i])) this.grass.splice(i, 1); // check if player 1 catches the grass first
+            else if (this.player2.checkGrassCaught(this.grass[i])) this.grass.splice(i, 1); //then player 2
+            else if (this.grass[i].y > baseHeight) this.grass.splice(i, 1);  // Remove if off-screen or caught
         }
     }
 
-    showGrass(){ //draw the grass
+    drawGrass(){ //draw the grass
         for (let i = this.grass.length - 1; i >= 0; i--){
-            this.grass[i].show();
+            this.grass[i].draw();
         }
     }
 
@@ -148,7 +149,7 @@ class Coop extends Screen {
         textSize(20);
         
         textAlign(CENTER);
-        text(`Level ${this.level}`, width / 2, 30);
+        text(`Level ${this.level}`, baseWidth / 2, 30);
         
         textAlign(LEFT);
         text(`Score: ${this.player1.score + this.player2.score}`, 20, 30);
@@ -169,11 +170,11 @@ class Coop extends Screen {
     keyPressed() { 
         if (keyCode === RIGHT_ARROW) this.player2.dir = 1;
         else if (keyCode === LEFT_ARROW) this.player2.dir = -1;
-        else if (keyCode === ENTER) this.player2.emptyGrass();
+        else if (keyCode === ENTER) this.player2.emptyToBasket();
 
         else if (keyCode === 68) this.player1.dir = 1; // D
         else if (keyCode === 65) this.player1.dir = -1; // A
-        else if (keyCode === 32) this.player1.emptyGrass(); //spacebar    
+        else if (keyCode === 32) this.player1.emptyToBasket(); //spacebar    
         
         else if (keyCode === ESCAPE) {
             this.screenManager.changeScreen(this.pauseScreen);

@@ -11,9 +11,9 @@ stopGrassDrop() --> stopLevelTimer()
 
 <br>
 
-updateGrass() `// main game logic`
+updateFallingGrass() `// main game logic`
 
-showGrass()
+drawGrass()
 
 <br>
 displayUI()
@@ -41,6 +41,6 @@ move()
 
 show()
 
-catchGrass(grass) `//return true or false`
+checkGrassCaught(grass) `//return true or false`
 
-emptyGrass() `//empty grass to basket`
+emptyToBasket() `//empty grass to basket`

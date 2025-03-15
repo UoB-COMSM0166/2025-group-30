@@ -3,21 +3,24 @@ class PauseScreen extends Screen {
         super(screenManager);
         this.gameScreen = gameScreen;
 
+        // Button dimensions and spacing
+        this.buttonWidth = 200;
+        this.buttonHeight = 50;
+        this.buttonSpacing = 30;
+
         this.buttons = [
             {
                 label: "Continue",
-                x: width/2 - 60,
-                y: height/2 - 20,
-                color: "rgb(0, 255, 0)",
+                x: baseWidth/2 ,
+                y: baseHeight/2,
                 action: () => {
                     this.screenManager.changeScreen(this.gameScreen);
                 }
             },
             {
                 label: "Restart",
-                x: width/2 - 60,
-                y: height/2 + 40,
-                color: "rgb(255, 165, 0)",
+                x: baseWidth/2,
+                y: baseHeight/2 + this.buttonHeight + this.buttonSpacing,
                 action: () => {
                     this.gameScreen.restart();
                     this.screenManager.changeScreen(this.gameScreen);
@@ -25,9 +28,8 @@ class PauseScreen extends Screen {
             },
             {
                 label: "Home",
-                x: width/2 - 60,
-                y:height/2 + 100,
-                color: "rgb(255, 0, 0)",
+                x: baseWidth/2,
+                y: baseHeight/2 + (this.buttonHeight + this.buttonSpacing)*2,
                 action: () => {
                     this.gameScreen.clearStats();
                     this.screenManager.changeScreen(this.screenManager.homeScreen);
@@ -39,40 +41,62 @@ class PauseScreen extends Screen {
     display() {
         this.gameScreen.display();
 
-        // 半透明背景
-        fill(0, 0, 0, 127);
-        rect(0, 0, width, height);
+        // Draw semi-transparent overlay
+        push();
+        fill(0, 0, 0, 180);
+        rectMode(CORNER);
+        rect(0, 0, baseWidth, baseHeight);
 
-        // 菜单背景
-        fill(220);
-        rect(width/4, height/4, width/2, height/2);
+
+        // Draw pause menu title
+        fill(255);
+        textSize(40);
+        textAlign(CENTER, CENTER);
+        text("PAUSE", baseWidth/2, baseHeight/2 - 100);
 
         // Display buttons
         for (let button of this.buttons) {
-            fill(button.color);
-            let buttonWidth = 120;
-            let buttonHeight = 40;
-            rect(button.x, button.y, buttonWidth, buttonHeight);
+            rectMode(CENTER);
 
-            fill(0);
-            textAlign(CENTER);
+            // Check if mouse is hovering over button
+            let isHovered = window.mouseXGame >= button.x - this.buttonWidth/2 
+                && window.mouseXGame <= button.x + this.buttonWidth/2 
+                && window.mouseYGame >= button.y - this.buttonHeight/2 
+                && window.mouseYGame <= button.y + this.buttonHeight/2;
+
+            if (isHovered) {
+                fill(100, 100, 255);
+            } else {
+                fill(70, 70, 200);
+            }
+            rect(button.x, button.y, this.buttonWidth, this.buttonHeight, 10);
+
+            // Draw button text
+            fill(255);
             textSize(20);
-            text(button.label, button.x + 60, button.y+20);
+            textAlign(CENTER, CENTER);
+            text(button.label, button.x, button.y);
         }
     }
 
     // mouse clicks on buttons
-    mousePressed() {
-        let buttonWidth = 120;
-        let buttonHeight = 40;
-        for (let button of this.buttons) {
-            if (mouseY > button.y &&
-                mouseY < button.y + buttonHeight &&
-                mouseX > button.x &&
-                mouseX < button.x + buttonWidth
-            ) {
-                button.action();
-            }
-        }
-    }
+    // mousePressed() {
+    //     for (let button of this.buttons) {
+    //         // 计算按钮的点击区域
+    //         let buttonTop = button.y - this.buttonHeight/2;
+    //         let buttonBottom = button.y + this.buttonHeight/2;
+    //         let buttonLeft = button.x;
+    //         let buttonRight = button.x + this.buttonWidth;
+
+    //         // 检查鼠标是否在按钮区域内
+    //         if (window.mouseXGame > buttonLeft && 
+    //             window.mouseXGame < buttonRight && 
+    //             window.mouseYGame > buttonTop && 
+    //             window.mouseYGame < buttonBottom) {
+                
+    //             button.action();
+    //             return; // 防止点击多个按钮
+    //         }
+    //     }
+    // }
 }

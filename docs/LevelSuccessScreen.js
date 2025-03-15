@@ -3,12 +3,15 @@ class LevelSuccessScreen extends Screen {
         super(screenManager);
         this.gameScreen = gameScreen;
 
+        this.buttonWidth = 120;
+        this.buttonHeight = 40;
+
         // Buttons for navigating
         this.buttons = [
             {
                 label: "Next Level",
-                x: width / 4 * 3 - 50,
-                y: height / 5 * 4,
+                x: baseWidth/ 4 * 3 - this.buttonWidth/2,
+                y: baseHeight/ 5 * 4,
                 color: "rgb(0, 200, 0)",
                 action: () => {
                     this.gameScreen.startNextLevel();
@@ -17,8 +20,8 @@ class LevelSuccessScreen extends Screen {
             },
             {
                 label: "Home",
-                x: width / 4 - 50,
-                y: height / 5 * 4,
+                x: baseWidth/ 4 - this.buttonWidth/2,
+                y: baseHeight/ 5 * 4,
                 color: "rgb(255, 165, 0)",
                 action: () => {
                     this.gameScreen.clearStats();
@@ -34,46 +37,39 @@ class LevelSuccessScreen extends Screen {
         
         // 半透明背景
         fill(0, 0, 0, 127);
-        rect(0, 0, width, height);
+        rect(0, 0, baseWidth, baseHeight);
 
+        // pop up window
+        const panelWidth = 300;
+        const panelHeight = 250;
         fill(255);
-        rect(width / 2 - 150, height / 2 - 100, 300, 250);  // Display box for message
+        rect(baseWidth/ 2 - panelWidth/2, baseHeight/ 2 - panelHeight/2, panelWidth, panelHeight);  // Display box for message
+      
+        // text
         fill(0);
         textSize(20);
         textAlign(CENTER, CENTER);
-        text(`Level ${this.gameScreen.level} Complete!`, width / 2, height / 2 - 70);
+        text(`Level ${this.gameScreen.level} Complete!`, baseWidth/ 2, baseHeight/ 2 - 70);
+       
         textSize(16);
-
         if (this.gameScreen === this.screenManager.single){
-            text(`Score: ${this.gameScreen.player.score}`, width / 2, height / 2);
+            text(`Score: ${this.gameScreen.player.score}`, baseWidth/ 2, baseHeight/ 2);
         } else if (this.gameScreen === this.screenManager.coop){
-            text(`Score: ${this.gameScreen.player1.score + this.gameScreen.player2.score}`, width / 2, height / 2);
+            text(`Score: ${this.gameScreen.player1.score + this.gameScreen.player2.score}`, baseWidth/ 2, baseHeight/ 2);
         }
 
-        text(`Target: ${this.gameScreen.targetScores}`, width / 2, height / 2 + 20);
+        text(`Target: ${this.gameScreen.targetScores}`, baseWidth/ 2, baseHeight/ 2 + 20);
 
         // Display buttons
         for (let button of this.buttons) {
+            noStroke();
             fill(button.color);
-            let buttonWidth = 120;
-            let buttonHeight = 40;
-            rect(button.x, button.y - 20, buttonWidth, buttonHeight);
+            rect(button.x, button.y - this.buttonHeight/2, this.buttonWidth, this.buttonHeight);
+            
             fill(0);
             textSize(16);
-            text(button.label, button.x + 60, button.y);
+            text(button.label, button.x + this.buttonWidth/2, button.y);
         }
     }
 
-    // mouse clicks on buttons
-    mousePressed() {
-        let buttonWidth = 120;
-        let buttonHeight = 40;
-        for (let button of this.buttons) {
-            if (mouseY > button.y - 20 &&
-                mouseY < button.y - 20 + buttonHeight &&
-                mouseX > button.x &&
-                mouseX < button.x + buttonWidth
-            ) button.action()
-        }
-    }
 }

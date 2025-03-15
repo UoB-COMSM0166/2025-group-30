@@ -11,7 +11,7 @@ class Grass {
         this.y += this.speed;
     }
     
-    show() {
+    draw() {
         stroke(0);
         fill(0, 255, 0);
         rectMode(LEFT);

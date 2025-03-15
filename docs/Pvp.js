@@ -29,18 +29,18 @@ class Pvp extends Screen { // player with higher score in the set time wins
 
     display(){ 
         background(200); 
-        this.basket1.show(); 
-        this.basket2.show(); 
+        this.basket1.draw(); 
+        this.basket2.draw(); 
 
         if (this.screenManager.currentScreen === this){
-            this.player1.move();  
-            this.player2.move();   
-            this.updateGrass();     
+            this.player1.movePlayerWithCaughtGrass();  
+            this.player2.movePlayerWithCaughtGrass();   
+            this.updateFallingGrass();     
         }
 
-        this.showGrass();
-        this.player1.show(); //show player with grass 
-        this.player2.show();        
+        this.drawGrass();
+        this.player1.drawPlayerWithCaughtGrass(); //show player with grass 
+        this.player2.drawPlayerWithCaughtGrass();        
 
         this.displayUI();      
     }
@@ -55,16 +55,16 @@ class Pvp extends Screen { // player with higher score in the set time wins
         this.grass2 = [];
 
         //grass drops start immediately 
-        this.grass1.push(new Grass(random(200, width/2 - 100), 10));
-        this.grass2.push(new Grass(random(width/2, width-100), 10));
+        this.grass1.push(new Grass(random(200, baseWidth/2 - 100), 10));
+        this.grass2.push(new Grass(random(baseWidth/2, baseWidth-100), 10));
 
         this.grassDropInterval1 = setInterval(() => {
             if (this.player1.flash.flashDuration === 0 && this.screenManager.currentScreen === this){ //grass drop continue if flashing is not on && game is not paused
-                this.grass1.push(new Grass(random(200, width/2 - 100), 10));
+                this.grass1.push(new Grass(random(200, baseWidth/2 - 100), 10));
                 console.log("start grass drop 1");
             }   
             if (this.player2.flash.flashDuration === 0 && this.screenManager.currentScreen === this){ //grass drop continue if flashing is not on && game is not paused
-                this.grass2.push(new Grass(random(width/2, width-100), 10));
+                this.grass2.push(new Grass(random(baseWidth/2, baseWidth-100), 10));
                 console.log("start grass drop 1");
             }         
         }, this.grassDropDelay); //grass falls every 2 seconds 
@@ -82,7 +82,7 @@ class Pvp extends Screen { // player with higher score in the set time wins
     }
 
     // --- main game logic ----
-    updateGrass() { //update the grass from this.grass based on if caught or missed   
+    updateFallingGrass() { //update the grass from this.grass based on if caught or missed   
         this.updateGrass1();
         this.updateGrass2();
     }
@@ -91,11 +91,11 @@ class Pvp extends Screen { // player with higher score in the set time wins
         for (let i = this.grass1.length - 1; i >= 0; i--) {
             if (this.player1.flash.flashDuration === 0 && this.screenManager.currentScreen === this) this.grass1[i].fall(); //stop grass fall if flashing is on or game is paused
             
-            if (this.grass1[i].y > height) { //if miss a grass, player flashes
+            if (this.grass1[i].y > baseHeight) { //if miss a grass, player flashes
                 this.player1.flash.flashDuration = 30;
             }              
             
-            if (this.grass1[i].y > height || this.player1.catchGrass(this.grass1[i])) {
+            if (this.grass1[i].y > baseHeight|| this.player1.checkGrassCaught(this.grass1[i])) {
                 this.grass1.splice(i, 1);  // Remove if off-screen or caught
             }
         }
@@ -105,19 +105,19 @@ class Pvp extends Screen { // player with higher score in the set time wins
         for (let i = this.grass2.length - 1; i >= 0; i--) {
             if (this.player2.flash.flashDuration === 0 && this.screenManager.currentScreen === this) this.grass2[i].fall(); //stop grass fall if flashing is on or game is paused
             
-            if (this.grass2[i].y > height) { //if miss a grass, player flashes
+            if (this.grass2[i].y > baseHeight) { //if miss a grass, player flashes
                 this.player2.flash.flashDuration = 30;
             }              
             
-            if (this.grass2[i].y > height || this.player2.catchGrass(this.grass2[i])) {
+            if (this.grass2[i].y > baseHeight|| this.player2.checkGrassCaught(this.grass2[i])) {
                 this.grass2.splice(i, 1);  // Remove if off-screen or caught
             }
         }
     }
     
-    showGrass(){ //draw the grass
-        for (let i = this.grass1.length - 1; i >= 0; i--) this.grass1[i].show();
-        for (let i = this.grass2.length - 1; i >= 0; i--) this.grass2[i].show();
+    drawGrass(){ //draw the grass
+        for (let i = this.grass1.length - 1; i >= 0; i--) this.grass1[i].draw();
+        for (let i = this.grass2.length - 1; i >= 0; i--) this.grass2[i].draw();
     }
 
     startLevelTimer() { 
@@ -164,21 +164,21 @@ class Pvp extends Screen { // player with higher score in the set time wins
 
     displayUI() {
         stroke(0);
-        line(width / 2, 0, width / 2, height);
+        line(baseWidth/ 2, 0, baseWidth/ 2, baseHeight);
         noStroke();
 
         fill(0);
         textSize(20);
         
         textAlign(CENTER);
-        text(`Level ${this.level}`, width / 2, 30);
-        text(`Time: ${this.timeLeft}s`, width/2, 60);
+        text(`Level ${this.level}`, baseWidth/ 2, 30);
+        text(`Time: ${this.timeLeft}s`, baseWidth/ 2, 60);
         
         textAlign(LEFT);
         text(`Score: ${this.player1.score}`, 20, 30);
 
         textAlign(RIGHT);
-        text(`Score: ${this.player2.score}`, width - 20, 30);
+        text(`Score: ${this.player2.score}`, baseWidth- 20, 30);
     }
     
     //--- Move to next level ---
@@ -193,11 +193,11 @@ class Pvp extends Screen { // player with higher score in the set time wins
     keyPressed() { 
         if (keyCode === RIGHT_ARROW) this.player2.dir = 1;
         else if (keyCode === LEFT_ARROW) this.player2.dir = -1;
-        else if (keyCode === ENTER) this.player2.emptyGrass();
+        else if (keyCode === ENTER) this.player2.emptyToBasket();
 
         else if (keyCode === 68) this.player1.dir = 1; // D
         else if (keyCode === 65) this.player1.dir = -1; // A
-        else if (keyCode === 32) this.player1.emptyGrass(); //spacebar    
+        else if (keyCode === 32) this.player1.emptyToBasket(); //spacebar    
         
         else if (keyCode === ESCAPE) {
             this.screenManager.changeScreen(this.pauseScreen);

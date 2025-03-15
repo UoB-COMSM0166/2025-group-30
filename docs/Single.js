@@ -25,36 +25,38 @@ class Single extends Screen {
 
     display(){ 
         background(200); 
-        this.basket.show(); 
+        this.basket.draw(); 
 
         if (this.screenManager.currentScreen === this){
-            this.player.move();   
-            this.updateGrass();     
+            this.player.movePlayerWithCaughtGrass();   
+            this.updateFallingGrass();     
         }
-        this.showGrass();
-        this.player.show(); //show player with grass   
+        this.drawGrass();
+        this.player.drawPlayerWithCaughtGrass(); //show player with grass   
         
         this.displayUI();      
     }
 
     // --- initialising the game state ---
     startGrassDrop() {
-        //if (!this.screenManager.currentScreen === this) return;
         
-        if (this.grassDropInterval) { clearInterval(this.grassDropInterval);}
+        if (this.grassDropInterval) {clearInterval(this.grassDropInterval);}
 
         this.grass = []; //empty the grass piles
 
-        //grass drops start immediately 
-        this.grass.push(new Grass(random(200, width - 100), 10));
+        // 设置一个较短的延迟来生成第一个草块
+        setTimeout(() => {
+            this.grass.push(new Grass(random(200, baseWidth - 100), 10)); //grass drops start immediately 
+            
+            // 然后开始正常的草块生成间隔
+            this.grassDropInterval = setInterval(() => {
+                if (this.player.flash.flashDuration === 0 && this.screenManager.currentScreen === this){ //grass drop continue if flashing is not on && game is not paused
+                    this.grass.push(new Grass(random(200, baseWidth- 100), 10));
+                    console.log("start grass drop");
+                } 
+            }, this.grassDropDelay);
+        }, 1000); // 第一个草块1秒后出现
 
-        this.grassDropInterval = setInterval(() => {
-            if (this.player.flash.flashDuration === 0 && this.screenManager.currentScreen === this){ //grass drop continue if flashing is not on && game is not paused
-                this.grass.push(new Grass(random(200, width - 100), 10));
-                console.log("start grass drop");
-            }            
-        }, this.grassDropDelay); //grass falls every 2 seconds 
-         
         this.startLevelTimer();    
     }
 
@@ -69,30 +71,31 @@ class Single extends Screen {
     
 
     // --- main game logic ----
-    updateGrass() { //update the grass from this.grass based on if caught or missed   
+    updateFallingGrass() { //update the grass from this.grass based on if caught or missed   
         for (let i = this.grass.length - 1; i >= 0; i--) {
             if (this.player.flash.flashDuration === 0 && this.screenManager.currentScreen === this) {
                 this.grass[i].fall();
             } //stop grass fall if flashing is on or game is paused
             
-            if (this.grass[i].y > height) { //if miss a grass, player flashes
+            if (this.grass[i].y > baseHeight) { //if miss a grass, player flashes
                 this.player.flash.flashDuration = 30;
             }              
             
-            if (this.grass[i].y > height || this.player.catchGrass(this.grass[i])) {
+            if (this.grass[i].y > baseHeight || this.player.checkGrassCaught(this.grass[i])) {
                 this.grass.splice(i, 1);  // Remove if off-screen or caught
             }
         }
     }
     
-    showGrass(){ //draw the grass
+    drawGrass(){ //draw the grass
         for (let i = this.grass.length - 1; i >= 0; i--) {
-            this.grass[i].show();}
+            this.grass[i].draw();}
     }
 
     startLevelTimer() {
         console.log("start level timer");
         if (this.levelTimerInterval) clearInterval(this.levelTimerInterval);
+        
         this.levelTimerInterval = setInterval(() => {
             if (this.timeLeft > 0) {
                 if (this.player.flash.flashDuration === 0 && this.screenManager.currentScreen === this) this.timeLeft--;
@@ -139,7 +142,7 @@ class Single extends Screen {
         textSize(20);
 
         textAlign(CENTER);
-        text(`Level ${this.level}`, width / 2, 30);
+        text(`Level ${this.level}`, baseWidth/ 2, 30);
         
         textAlign(LEFT);
         text(`Score: ${this.player.score}`, 20, 30);
@@ -160,7 +163,7 @@ class Single extends Screen {
     keyPressed() { 
         if (keyCode === RIGHT_ARROW) this.player.dir = 1;
         else if (keyCode === LEFT_ARROW) this.player.dir = -1;
-        else if (keyCode === 32) this.player.emptyGrass(); //spacebar    
+        else if (keyCode === 32) this.player.emptyToBasket(); //spacebar    
         else if (keyCode === ESCAPE) {
             this.screenManager.changeScreen(this.pauseScreen);
         }

@@ -3,14 +3,14 @@ class Basket {
         this.position = position;
 
         if (this.position === "left") this.x = 10;
-        else if (this.position === "right") this.x = width - 60;
-        this.y = height - 100;
+        else if (this.position === "right") this.x = baseWidth - 60;
+        this.y = baseHeight- 100;
 
         this.w = 50;
         this.h = 100;
     }
 
-    show() {
+    draw() {
         fill(165, 42, 42);
         rect(this.x, this.y, this.w, this.h);
     }
