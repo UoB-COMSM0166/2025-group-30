@@ -9,46 +9,287 @@ class SingleHelpScreen extends Screen {
             {
                 label: "Back",
                 x: baseWidth / 4, 
-                y: baseHeight / 5 * 4,
+                y: baseHeight / 6 * 5,
                 action: () => this.screenManager.changeScreen(this.screenManager.menuScreen)
             },
             {
                 label: "Start",
                 x: baseWidth / 4 * 3, 
-                y: baseHeight / 5 * 4,
+                y: baseHeight / 6 * 5,
                 action: () => {
                     this.screenManager.single.resetToLevel1(); //reset single to level 1
                     this.screenManager.changeScreen(this.screenManager.single); 
                 }
+            },
+            {
+                label: "Next Step",
+                x: baseWidth / 2, 
+                y: baseHeight / 6 * 5,
+                action: () => this.nextStep()
             }
         ];
 
-        this.title = "Single Player Instructions";
-        this.instructions = [
-            "Use LEFT/RIGHT arrow keys to move",
-            "Press SPACE to place hay in the basket",
-            "You can stack up to 5 hay blocks",
-            "Don't let hay blocks fall to the ground"
+        this.title = "Single Player Tutorial";
+        
+        this.demoPlayer = new Player("middle");
+        this.demoPlayer.y = baseHeight/3 * 2; // Position higher for visibility
+        
+        this.demoBasket = new Basket("left");
+        this.demoBasket.y = baseHeight/2;
+        this.demoPlayer.basket = this.demoBasket;
+        
+        // Tutorial steps
+        this.currentStep = 0;
+        this.tutorialSteps = [
+            {
+                instruction: "Use LEFT/RIGHT arrow keys to move",
+                setup: () => {},
+                update: () => {
+                    // Handle player movement in the demo
+                    if (keyIsDown(LEFT_ARROW)) {
+                        this.demoPlayer.dir = -1;
+                    } else if (keyIsDown(RIGHT_ARROW)) {
+                        this.demoPlayer.dir = 1;
+                    } else {
+                        this.demoPlayer.dir = 0;
+                    }
+                    this.demoPlayer.movePlayerWithCaughtGrass();
+                },
+                draw: () => {
+                    // Draw the player
+                    this.demoPlayer.drawPlayerWithCaughtGrass();
+                },
+                checkCompletion: () => {
+                    // Player has moved left or right
+                    return this.playerHasMoved;
+                }
+            },
+            {
+                instruction: "Catch the hay block from the sky",
+                setup: () => {
+                    // Add a falling grass block
+                    this.demoGrass = new Grass(random(200, baseWidth - 100), 10);
+                },
+                update: () => {
+                    // Handle player movement
+                    if (keyIsDown(LEFT_ARROW)) {
+                        this.demoPlayer.dir = -1;
+                    } else if (keyIsDown(RIGHT_ARROW)) {
+                        this.demoPlayer.dir = 1;
+                    } else {
+                        this.demoPlayer.dir = 0;
+                    }
+                    this.demoPlayer.movePlayerWithCaughtGrass();
+                    
+                    // Only move the grass if it exists
+                    if (this.demoGrass) {
+                        // Move the falling grass
+                        this.demoGrass.fall();
+                        
+                        // Check if grass is caught
+                        if (this.demoPlayer.checkGrassCaught(this.demoGrass)) {
+                            // If grass is caught, don't create a new one
+                            this.demoGrass = null;
+                        }
+                        
+                        // If grass falls off screen, create a new one
+                        if (this.demoGrass && this.demoGrass.y > baseHeight) {
+                            this.demoGrass = new Grass(random(200, baseWidth - 100), 10)
+                        }
+                    }
+                },
+                draw: () => {
+                    // Draw the falling grass if it exists
+                    if (this.demoGrass) {
+                        this.demoGrass.draw();
+                    }
+                    
+                    // Draw the player with stacked grass
+                    this.demoPlayer.drawPlayerWithCaughtGrass();
+                    
+                    // // Display stack count
+                    // fill(0);
+                    // textAlign(LEFT);
+                    // textSize(20);
+                    // text(`Stacked blocks: ${this.demoPlayer.stack.length}/5`, 20, 30);
+                },
+                checkCompletion: () => {
+                    // Player has stacked at least 1 block
+                    return this.demoPlayer.stack.length >= 1;
+                }
+            },
+            {
+                instruction: `Move to the basket \n press SPACE to empty hay to the basket`,
+                setup: () => {
+                    this.hasEmptiedToBasket = false;
+                },
+                update: () => {
+                    // Handle player movement
+                    if (keyIsDown(LEFT_ARROW)) {
+                        this.demoPlayer.dir = -1;
+                    } else if (keyIsDown(RIGHT_ARROW)) {
+                        this.demoPlayer.dir = 1;
+                    } else {
+                        this.demoPlayer.dir = 0;
+                    }
+                    this.demoPlayer.movePlayerWithCaughtGrass();
+                    
+                    // Check for space key to empty to basket
+                    if (keyIsDown(32)) { // 32 is the keyCode for SPACE
+                        this.demoPlayer.emptyToBasket();
+                        if (this.demoPlayer.stack.length === 0) {
+                            this.hasEmptiedToBasket = true;
+                        }
+                    }
+                },
+                draw: () => {
+                    // Draw the basket
+                    this.demoBasket.draw();
+                    
+                    // Draw the player with stacked grass
+                    this.demoPlayer.drawPlayerWithCaughtGrass();
+                },
+                checkCompletion: () => {
+                    // Player has emptied stack to basket
+                    return this.hasEmptiedToBasket;
+                }
+            },
+            {
+                instruction: "If you stack more than 5 hay blocks, you will lose them all!",
+                setup: () => {
+                    // Clear the player's stack
+                    this.demoPlayer.stack = [];
+                    
+                    // Add 5 grass blocks to the player's stack
+                    for (let i = 0; i < 5; i++) {
+                        let grass = new Grass(this.demoPlayer.x + this.demoPlayer.w/2 - 10, 0);
+                        grass.y = this.demoPlayer.y - (i+1) * grass.h;
+                        this.demoPlayer.stack.push(grass);
+                    }
+                    
+                    // Add one falling grass block to demonstrate exceeding the limit
+                    this.demoGrass = new Grass(random(200, baseWidth - 100), 10);
+                },
+
+                update: () => {
+                    // Handle player movement
+                    if (keyIsDown(LEFT_ARROW)) {
+                        this.demoPlayer.dir = -1;
+                    } else if (keyIsDown(RIGHT_ARROW)) {
+                        this.demoPlayer.dir = 1;
+                    } else {
+                        this.demoPlayer.dir = 0;
+                    }
+                    this.demoPlayer.movePlayerWithCaughtGrass();
+                     // Only move the grass if it exists
+                     if (this.demoGrass) {
+                        // Move the falling grass
+                        this.demoGrass.fall();
+                        
+                        // Check if grass is caught
+                        if (this.demoPlayer.checkGrassCaught(this.demoGrass)) {
+                            // If grass is caught, don't create a new one
+                            this.demoGrass = null;
+                        }
+                        
+                        // If grass falls off screen, create a new one
+                        if (this.demoGrass && this.demoGrass.y > baseHeight) {
+                            this.demoGrass = new Grass(random(200, baseWidth - 100), 10)
+                        }
+                    }
+                },
+                draw: () => {
+                    // Draw the player with stacked grass
+                    this.demoPlayer.drawPlayerWithCaughtGrass();
+                    
+                    // Draw falling grass if it exists
+                    if (this.demoGrass) {
+                        this.demoGrass.draw();
+                    }
+                    
+                    // Display stack count and message
+                    fill(0);
+                    textAlign(LEFT);
+                    textSize(20);
+                    text(`Stacked blocks: ${this.demoPlayer.stack.length}/5`, 20, 30);
+                    
+                    // If flashing, show explanation
+                    if (!this.demoGrass) {
+                        fill(255, 0, 0);
+                        textAlign(CENTER);
+                        textSize(24);
+                        text("Stack exceeded! All blocks dropped!", baseWidth/2, baseHeight/2);
+                    }
+                },
+                checkCompletion: () => {
+                    // Player has dropped their stack by exceeding 5 blocks
+                    return this.demoPlayer.stack.length === 0 && this.demoPlayer.flash.getFlashDuration() > 0;
+                }
+            },
+            {
+                instruction: "You're ready to play! Click 'Start' to begin.",
+                setup: () => {
+                    // No demo needed for final step
+                },
+                update: () => {
+                    // No updates needed
+                },
+                draw: () => {
+                    // No drawing needed
+                },
+                checkCompletion: () => {
+                    // Always complete
+                    return true;
+                }
+            }
         ];
+        
+        // Initialize the first step
+        this.initStep();
+        
+        // Track if player has moved
+        this.playerHasMoved = false;
+    }
+    
+    initStep() {
+        // Run the setup function for the current step
+        if (this.tutorialSteps[this.currentStep].setup) {
+            this.tutorialSteps[this.currentStep].setup();
+        }
+    }
+    
+    nextStep() {
+        // Move to the next tutorial step
+        if (this.currentStep < this.tutorialSteps.length - 1) {
+            this.currentStep++;
+            this.initStep();
+        }
     }
 
     display() {
         background(230);
                
-        // 显示标题
+        // Display title
         textAlign(CENTER, CENTER);
         textSize(32);
         fill(0);
-        text(this.title, baseWidth/2, baseHeight/4);
+        text(this.title, baseWidth/2, baseHeight/8);
 
-        // 显示说明文本
-        const instructionsStartY = baseHeight/2 - 60;
-        const lineHeight = 40;
-        textSize(20);
-        for (let i = 0; i < this.instructions.length; i++) {
-            text(this.instructions[i], baseWidth/2, instructionsStartY + (i * lineHeight));
+        // Display current step instruction
+        textSize(24);
+        fill(0);
+        text(this.tutorialSteps[this.currentStep].instruction, baseWidth/2, baseHeight/4);
+        
+        // Update and draw the current step
+        if (this.tutorialSteps[this.currentStep].update) {
+            this.tutorialSteps[this.currentStep].update();
         }
         
+        if (this.tutorialSteps[this.currentStep].draw) {
+            this.tutorialSteps[this.currentStep].draw();
+        }
+        
+        // Draw buttons
         for (let button of this.buttons){
             rectMode(CENTER);
 
@@ -63,12 +304,28 @@ class SingleHelpScreen extends Screen {
             } else {
                 fill(70, 70, 200);
             }
-            rect(button.x, button.y, this.buttonWidth, this.buttonHeight,10);
             
-            fill(0);
+            // Only show Next button if not on the last step
+            if (button.label === "Next Step" && this.currentStep >= this.tutorialSteps.length - 1) {
+                continue;
+            }
+            
+            rect(button.x, button.y, this.buttonWidth, this.buttonHeight, 10);
+            
+            fill(255);
             textSize(16);
             textAlign(CENTER, CENTER);
             text(button.label, button.x, button.y);
         }
+    }
+    
+    keyPressed() {
+        // Track if player has moved for the first step
+        if (this.currentStep === 0 && (keyCode === LEFT_ARROW || keyCode === RIGHT_ARROW)) {
+            this.playerHasMoved = true;
+        }
+        
+        // Call the parent keyPressed method
+        super.keyPressed();
     }
 }
