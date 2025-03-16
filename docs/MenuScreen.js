@@ -8,22 +8,28 @@ class MenuScreen extends Screen {
         
         this.buttons = [
             {
-                label: "Single player",
-                x : baseWidth / 2 - this.buttonWidth / 2, 
+                label: "Single Player",
+                x : baseWidth / 2, 
                 y : baseHeight / 3,
                 action: () => this.screenManager.changeScreen(this.screenManager.singleHelpScreen) //go to single help screen
             },
             {
                 label: "Co-op Mode",
-                x : baseWidth / 2 - this.buttonWidth / 2, 
+                x : baseWidth / 2, 
                 y : baseHeight / 2,
                 action: () => this.screenManager.changeScreen(this.screenManager.coopHelpScreen) //go to coop help screen
             },
             {
                 label: "PvP Mode",
-                x : baseWidth / 2 - this.buttonWidth / 2, 
+                x : baseWidth / 2, 
                 y : baseHeight / 3 * 2,
                 action: () => this.screenManager.changeScreen(this.screenManager.pvpHelpScreen) //go to pvp help screen
+            },
+            {
+                label: "Back",
+                x : baseWidth / 2, 
+                y : baseHeight * 5/6,
+                action: () => this.screenManager.changeScreen(this.screenManager.homeScreen) //go to settings screen
             }
         ];
     }
@@ -37,16 +43,29 @@ class MenuScreen extends Screen {
         textAlign(CENTER, CENTER);
         text("Select Game Mode", baseWidth / 2, baseHeight / 5);
 
-
         for (let button of this.buttons){
-            // 按钮背景
-            fill(100);
-            rect(button.x, button.y - this.buttonHeight/2, this.buttonWidth, this.buttonHeight);
+            rectMode(CENTER);
+
+            //button background
+            // Check if mouse is hovering over button
+            let isHovered = window.mouseXGame >= button.x - this.buttonWidth/2 
+                && window.mouseXGame <= button.x + this.buttonWidth/2 
+                && window.mouseYGame >= button.y - this.buttonHeight/2 
+                && window.mouseYGame <= button.y + this.buttonHeight/2;
+
+            if (isHovered) {
+                fill(100, 100, 255);
+            } else {
+                fill(70, 70, 200);
+            }
             
-            // 按钮文字
+            rect(button.x, button.y, this.buttonWidth, this.buttonHeight,10);
+            
+            // button text
             fill(255);
             textSize(20);
-            text(button.label, baseWidth / 2, button.y);
+            textAlign(CENTER, CENTER);
+            text(button.label, button.x, button.y);
         }
     }
 

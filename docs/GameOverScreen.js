@@ -11,7 +11,6 @@ class GameOverScreen extends Screen {
                 label: "Home",
                 x: baseWidth / 4 - this.buttonWidth/2,
                 y: baseHeight / 5 * 4,
-                color: "rgb(255, 0, 0)", 
                 action: () => {
                     this.gameScreen.clearStats();
                     this.screenManager.changeScreen(this.screenManager.homeScreen);
@@ -21,7 +20,6 @@ class GameOverScreen extends Screen {
                 label: "Restart",
                 x: baseWidth / 4 * 3 - this.buttonWidth/2,
                 y: baseHeight / 5 * 4,
-                color: "rgb(0, 200, 0)", 
                 action: () => {
                     this.gameScreen.restart();
                     this.screenManager.changeScreen(this.gameScreen);
@@ -60,12 +58,25 @@ class GameOverScreen extends Screen {
 
         // Display button options
         for (let button of this.buttons) {
-            fill(button.color);
-            rect(button.x, button.y - this.buttonHeight/2, this.buttonWidth, this.buttonHeight);
+            rectMode(CENTER);
+
+            // Check if mouse is hovering over button
+            let isHovered = window.mouseXGame >= button.x - this.buttonWidth/2 
+                && window.mouseXGame <= button.x + this.buttonWidth/2 
+                && window.mouseYGame >= button.y - this.buttonHeight/2 
+                && window.mouseYGame <= button.y + this.buttonHeight/2;
+            
+            if (isHovered) {
+                fill(100, 100, 255);
+            } else {
+                fill(70, 70, 200);
+            }
+            rect(button.x, button.y, this.buttonWidth, this.buttonHeight,10);
             
             fill(0);
             textSize(16);
-            text(button.label, button.x + this.buttonWidth/2, button.y);
+            textAlign(CENTER, CENTER);
+            text(button.label, button.x, button.y);
         }
     }
 

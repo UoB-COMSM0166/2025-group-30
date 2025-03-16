@@ -89,11 +89,7 @@ class Pvp extends Screen { // player with higher score in the set time wins
 
     updateGrass1() { //update the grass from this.grass1 based on if caught or missed   
         for (let i = this.grass1.length - 1; i >= 0; i--) {
-            if (this.player1.flash.flashDuration === 0 && this.screenManager.currentScreen === this) this.grass1[i].fall(); //stop grass fall if flashing is on or game is paused
-            
-            if (this.grass1[i].y > baseHeight) { //if miss a grass, player flashes
-                this.player1.flash.flashDuration = 30;
-            }              
+            if (this.player1.flash.flashDuration === 0 && this.screenManager.currentScreen === this) this.grass1[i].fall(); //stop grass fall if flashing is on or game is paused           
             
             if (this.grass1[i].y > baseHeight|| this.player1.checkGrassCaught(this.grass1[i])) {
                 this.grass1.splice(i, 1);  // Remove if off-screen or caught
@@ -103,11 +99,7 @@ class Pvp extends Screen { // player with higher score in the set time wins
 
     updateGrass2() { //update the grass from this.grass2 based on if caught or missed   
         for (let i = this.grass2.length - 1; i >= 0; i--) {
-            if (this.player2.flash.flashDuration === 0 && this.screenManager.currentScreen === this) this.grass2[i].fall(); //stop grass fall if flashing is on or game is paused
-            
-            if (this.grass2[i].y > baseHeight) { //if miss a grass, player flashes
-                this.player2.flash.flashDuration = 30;
-            }              
+            if (this.player2.flash.flashDuration === 0 && this.screenManager.currentScreen === this) this.grass2[i].fall(); //stop grass fall if flashing is on or game is paused           
             
             if (this.grass2[i].y > baseHeight|| this.player2.checkGrassCaught(this.grass2[i])) {
                 this.grass2.splice(i, 1);  // Remove if off-screen or caught

@@ -46,8 +46,8 @@ class Single extends Screen {
 
         // 设置一个较短的延迟来生成第一个草块
         setTimeout(() => {
-            this.grass.push(new Grass(random(200, baseWidth - 100), 10)); //grass drops start immediately 
-            
+            this.grass.push(new Grass(random(200, baseWidth - 100), 10));  // 第一个草块1秒后出现
+
             // 然后开始正常的草块生成间隔
             this.grassDropInterval = setInterval(() => {
                 if (this.player.flash.flashDuration === 0 && this.screenManager.currentScreen === this){ //grass drop continue if flashing is not on && game is not paused
@@ -55,7 +55,7 @@ class Single extends Screen {
                     console.log("start grass drop");
                 } 
             }, this.grassDropDelay);
-        }, 1000); // 第一个草块1秒后出现
+        }, 1000);
 
         this.startLevelTimer();    
     }
@@ -75,11 +75,7 @@ class Single extends Screen {
         for (let i = this.grass.length - 1; i >= 0; i--) {
             if (this.player.flash.flashDuration === 0 && this.screenManager.currentScreen === this) {
                 this.grass[i].fall();
-            } //stop grass fall if flashing is on or game is paused
-            
-            if (this.grass[i].y > baseHeight) { //if miss a grass, player flashes
-                this.player.flash.flashDuration = 30;
-            }              
+            } //stop grass fall if flashing is on or game is paused            
             
             if (this.grass[i].y > baseHeight || this.player.checkGrassCaught(this.grass[i])) {
                 this.grass.splice(i, 1);  // Remove if off-screen or caught

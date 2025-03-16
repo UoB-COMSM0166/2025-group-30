@@ -5,7 +5,6 @@ class HomeScreen extends Screen {
 
         textAlign(CENTER, CENTER);
         fill(0);
-        
         textSize(30);
         text("Welcome to Haystacking!", baseWidth / 2, baseHeight / 3);
         

@@ -81,15 +81,10 @@ class Coop extends Screen {
             if ((this.player1.flash.flashDuration === 0 || this.player2.flash.flashDuration === 0) && this.screenManager.currentScreen === this) {
                 this.grass[i].fall();
             } //stop grass fall if flashing is on or game is paused
-            
-            if (this.grass[i].y > baseHeight) { //if miss a grass, both playes flash
-                this.player1.flash.flashDuration = 30;
-                this.player2.flash.flashDuration = 30;
-            }   
 
-            if (this.player1.checkGrassCaught(this.grass[i])) this.grass.splice(i, 1); // check if player 1 catches the grass first
-            else if (this.player2.checkGrassCaught(this.grass[i])) this.grass.splice(i, 1); //then player 2
-            else if (this.grass[i].y > baseHeight) this.grass.splice(i, 1);  // Remove if off-screen or caught
+            if (this.player1.checkGrassCaught(this.grass[i])) {this.grass.splice(i, 1);} // check if player 1 catches the grass first
+            else if (this.player2.checkGrassCaught(this.grass[i])) {this.grass.splice(i, 1);} //then player 2
+            else if (this.grass[i].y > baseHeight) {this.grass.splice(i, 1);}  // Remove if off-screen or caught
         }
     }
 
