@@ -38,19 +38,13 @@ class ScreenManager {
     handleVisibilityChange() {
         if (document.hidden) {
             // Page is hidden (user switched tabs)
-            if (this.currentScreen === this.single 
-            && screenManager.single.levelTimerInterval !== null
-        ) {
-            screenManager.changeScreen(screenManager.single.pauseScreen);
-        } else if (screenManager.currentScreen === screenManager.pvp
-            && screenManager.pvp.levelTimerInterval !== null
-        ) {
-            screenManager.changeScreen(screenManager.pvp.pauseScreen);
-        } else if (screenManager.currentScreen === screenManager.coop
-            && screenManager.coop.levelTimerInterval !== null
-        ) {
-            screenManager.changeScreen(screenManager.coop.pauseScreen);
+            if (this.currentScreen === this.single && this.single.levelTimerInterval !== null) {
+                this.changeScreen(this.single.pauseScreen);
+            } else if (this.currentScreen === this.pvp && this.pvp.levelTimerInterval !== null) {
+                this.changeScreen(this.pvp.pauseScreen);
+            } else if (this.currentScreen === this.coop && this.coop.levelTimerInterval !== null) {
+                this.changeScreen(this.coop.pauseScreen);
+            }
         }
     }
-}
 }

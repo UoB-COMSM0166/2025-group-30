@@ -47,7 +47,7 @@ class Coop extends Screen {
 
     // --- initialising the game state ---
 
-    startGrassDrop() { //
+    startGrassDropAndLevelTimer() { //
         if (this.grassDropInterval) clearInterval(this.grassDropInterval);
   
         this.grass = []; //empty the grass piles
@@ -65,7 +65,7 @@ class Coop extends Screen {
         this.startLevelTimer();  
     }
 
-    stopGrassDrop() {
+    stopGrassDropAndLevelTimer() {
         if (this.grassDropInterval) {
             clearInterval(this.grassDropInterval);
             this.grassDropInterval = null;
@@ -102,7 +102,7 @@ class Coop extends Screen {
                 if (this.screenManager.currentScreen === this) this.timeLeft--; //time goes down for both player during flashing
             }
             else { //check when times run out
-                this.stopGrassDrop();
+                this.stopGrassDropAndLevelTimer();
                 if ((this.player1.score + this.player2.score) >= this.targetScores) this.screenManager.changeScreen(this.levelSuccessScreen); //move up a level    
                 else this.screenManager.changeScreen(this.gameOverScreen); //game over
             }
@@ -121,7 +121,7 @@ class Coop extends Screen {
         this.player1.reset();
         this.player2.reset();
         this.timeLeft = this.timer;
-        this.stopGrassDrop();     
+        this.stopGrassDropAndLevelTimer();     
     }
 
     resetToLevel1(){ //reset to level 1
@@ -135,7 +135,7 @@ class Coop extends Screen {
 
     restartFromCurrentLevel() { //restart from the current level
         this.clearStats();
-        this.startGrassDrop();
+        this.startGrassDropAndLevelTimer();
     }
 
     displayUI() {
