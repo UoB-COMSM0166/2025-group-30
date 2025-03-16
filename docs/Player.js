@@ -87,12 +87,6 @@ class Player {
             rect(grass.x, grass.y, grass.w, grass.h);
         } 
     }
-
-    // erasePlayerWithCaughtGrass() {
-    //     for (let grass of this.stack) {
-    //         fill()
-    //     }
-    // }
     
     checkGrassCaught(grass) { //return true if grass is caught, false otherwise
         // 如果是第一个方块，检查是否与木板接触

@@ -1,38 +1,32 @@
-class SingleHelpScreen extends Screen {
+class StepByStepHelpScreen extends Screen {
     constructor(screenManager) {
         super(screenManager);
 
+        this.buttonWidth = 120;
+        this.buttonHeight = 40;
+
         this.buttons = [
             {
-                label: "Back",
+                label: "Last Step",
                 x: baseWidth / 4, 
                 y: baseHeight / 6 * 5,
-                buttonWidth: 100,
-                buttonHeight: 40,
-                action: () => this.screenManager.changeScreen(this.screenManager.menuScreen)
-            },
-            {
-                label: "Start",
-                x: baseWidth / 4 * 3, 
-                y: baseHeight / 6 * 5,
-                buttonWidth: 100,
-                buttonHeight: 40,
-                action: () => {
-                    this.screenManager.single.resetToLevel1(); //reset single to level 1
-                    this.screenManager.changeScreen(this.screenManager.single); 
-                }
+                action: () => this.previousStep()
             },
             {
                 label: "Next Step",
-                x: baseWidth / 2, 
+                x: baseWidth / 4 * 3, 
                 y: baseHeight / 6 * 5,
-                buttonWidth: 100,
-                buttonHeight: 40,
+                action: () => this.nextStep()
+            },
+            { 
+                label: "Start", //only show on last step
+                x: baseWidth / 4 *3, 
+                y: baseHeight / 6 * 5,
                 action: () => this.nextStep()
             }
         ];
 
-        this.title = "Single Player Tutorial";
+        this.title = "Tutorial";
         
         this.demoPlayer = new Player("middle");
         this.demoPlayer.y = baseHeight/3 * 2; // Position higher for visibility
@@ -224,7 +218,7 @@ class SingleHelpScreen extends Screen {
                 }
             },
             {
-                instruction: "You're ready to play! Click 'Start' to begin.",
+                instruction: "You're ready to play! Click 'Start' to select play mode.",
                 setup: () => {
                     // No demo needed for final step
                 },
@@ -299,10 +293,10 @@ class SingleHelpScreen extends Screen {
             rectMode(CENTER);
 
             // Check if mouse is hovering over button
-            let isHovered = window.mouseXGame >= button.x - button.buttonWidth/2 
-                && window.mouseXGame <= button.x + button.buttonWidth/2 
-                && window.mouseYGame >= button.y - button.buttonHeight/2 
-                && window.mouseYGame <= button.y + button.buttonHeight/2;
+            let isHovered = window.mouseXGame >= button.x - this.buttonWidth/2 
+                && window.mouseXGame <= button.x + this.buttonWidth/2 
+                && window.mouseYGame >= button.y - this.buttonHeight/2 
+                && window.mouseYGame <= button.y + this.buttonHeight/2;
 
             if (isHovered) {
                 fill(100, 100, 255);
@@ -314,8 +308,18 @@ class SingleHelpScreen extends Screen {
             if (button.label === "Next Step" && this.currentStep >= this.tutorialSteps.length - 1) {
                 continue;
             }
+
+            // Only show Next button if not on the last step
+            if (button.label === "Last Step" && this.currentStep <= 0) {
+                continue;
+            }
+
+            // Only show Start button if on the last step
+            if (button.label === "Start" && this.currentStep !== this.tutorialSteps.length - 1) {
+                continue;
+            }
             
-            rect(button.x, button.y, button.buttonWidth, button.buttonHeight, 10);
+            rect(button.x, button.y, this.buttonWidth, this.buttonHeight, 10);
             
             fill(255);
             textSize(16);

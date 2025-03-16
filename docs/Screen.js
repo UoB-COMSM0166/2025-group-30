@@ -9,10 +9,10 @@ class Screen {
         if (!this.buttons) return;
         for (let button of this.buttons) {
             // 计算按钮的点击区域
-            let buttonTop = button.y - this.buttonHeight/2;
-            let buttonBottom = button.y + this.buttonHeight/2;
-            let buttonLeft = button.x - this.buttonWidth/2;
-            let buttonRight = button.x + this.buttonWidth/2;
+            let buttonTop = button.y - button.buttonHeight/2;
+            let buttonBottom = button.y + button.buttonHeight/2;
+            let buttonLeft = button.x - button.buttonWidth/2;
+            let buttonRight = button.x + button.buttonWidth/2;
 
             // 检查鼠标是否在按钮区域内
             if (window.mouseXGame > buttonLeft && 

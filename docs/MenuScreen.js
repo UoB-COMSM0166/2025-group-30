@@ -2,33 +2,38 @@ class MenuScreen extends Screen {
 
     constructor(screenManager) {
         super(screenManager);
-
-        this.buttonWidth = 200;
-        this.buttonHeight = 40;
         
         this.buttons = [
             {
                 label: "Single Player",
                 x : baseWidth / 2, 
                 y : baseHeight / 3,
+                buttonWidth: 200,
+                buttonHeight: 40,
                 action: () => this.screenManager.changeScreen(this.screenManager.singleHelpScreen) //go to single help screen
             },
             {
                 label: "Co-op Mode",
                 x : baseWidth / 2, 
                 y : baseHeight / 2,
+                buttonWidth: 200,
+                buttonHeight: 40,
                 action: () => this.screenManager.changeScreen(this.screenManager.coopHelpScreen) //go to coop help screen
             },
             {
                 label: "PvP Mode",
                 x : baseWidth / 2, 
                 y : baseHeight / 3 * 2,
+                buttonWidth: 200,
+                buttonHeight: 40,
                 action: () => this.screenManager.changeScreen(this.screenManager.pvpHelpScreen) //go to pvp help screen
             },
             {
                 label: "Back",
-                x : baseWidth / 2, 
+                x : baseWidth / 4, 
                 y : baseHeight * 5/6,
+                buttonWidth: 100,
+                buttonHeight: 40,
                 action: () => this.screenManager.changeScreen(this.screenManager.homeScreen) //go to settings screen
             }
         ];
@@ -48,10 +53,10 @@ class MenuScreen extends Screen {
 
             //button background
             // Check if mouse is hovering over button
-            let isHovered = window.mouseXGame >= button.x - this.buttonWidth/2 
-                && window.mouseXGame <= button.x + this.buttonWidth/2 
-                && window.mouseYGame >= button.y - this.buttonHeight/2 
-                && window.mouseYGame <= button.y + this.buttonHeight/2;
+            let isHovered = window.mouseXGame >= button.x - button.buttonWidth/2 
+                && window.mouseXGame <= button.x + button.buttonWidth/2 
+                && window.mouseYGame >= button.y - button.buttonHeight/2 
+                && window.mouseYGame <= button.y + button.buttonHeight/2;
 
             if (isHovered) {
                 fill(100, 100, 255);
@@ -59,7 +64,7 @@ class MenuScreen extends Screen {
                 fill(70, 70, 200);
             }
             
-            rect(button.x, button.y, this.buttonWidth, this.buttonHeight,10);
+            rect(button.x, button.y, button.buttonWidth, button.buttonHeight,10);
             
             // button text
             fill(255);
