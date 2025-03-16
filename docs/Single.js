@@ -38,7 +38,7 @@ class Single extends Screen {
     }
 
     // --- initialising the game state ---
-    startGrassDrop() {
+    startGrassDropAndLevelTimer() {
         
         if (this.grassDropInterval) {clearInterval(this.grassDropInterval);}
 
@@ -50,7 +50,10 @@ class Single extends Screen {
 
             // 然后开始正常的草块生成间隔
             this.grassDropInterval = setInterval(() => {
-                if (this.player.flash.getFlashDuration() === 0 && this.screenManager.currentScreen === this){ //grass drop continue if flashing is not on && game is not paused
+                //grass drop continue if flashing is not on && game is not paused
+                if (this.player.flash.getFlashDuration() === 0 
+                    && this.screenManager.currentScreen === this){ 
+                    
                     this.grass.push(new Grass(random(200, baseWidth- 100), 10));
                     console.log("start grass drop");
                 } 
@@ -60,7 +63,7 @@ class Single extends Screen {
         this.startLevelTimer();    
     }
 
-    stopGrassDrop() {
+    stopGrassDropAndLevelTimer() {
         if (this.grassDropInterval) {
             clearInterval(this.grassDropInterval);
             this.grassDropInterval = null;
@@ -97,7 +100,7 @@ class Single extends Screen {
                 if (this.player.flash.getFlashDuration() === 0 && this.screenManager.currentScreen === this) this.timeLeft--;
             }
             else { //check when times run out
-                this.stopGrassDrop();
+                this.stopGrassDropAndLevelTimer();
                 if (this.player.score >= this.targetScores) this.screenManager.changeScreen(this.levelSuccessScreen); //move up a level    
                 else this.screenManager.changeScreen(this.gameOverScreen); //game over
             }
@@ -115,7 +118,7 @@ class Single extends Screen {
     clearStats(){
         this.player.reset();
         this.timeLeft = this.timer;
-        this.stopGrassDrop();     
+        this.stopGrassDropAndLevelTimer();     
     }
 
     resetToLevel1(){ //reset to level 1
@@ -129,7 +132,7 @@ class Single extends Screen {
 
     restartFromCurrentLevel() { //restart from the current level
         this.clearStats();
-        this.startGrassDrop();
+        this.startGrassDropAndLevelTimer();
     }
 
     displayUI() {

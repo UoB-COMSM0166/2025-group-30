@@ -47,7 +47,7 @@ class Pvp extends Screen { // player with higher score in the set time wins
 
     // --- initialising the game state ---
 
-    startGrassDrop() { //
+    startGrassDropAndLevelTimer() { //
         if (this.grassDropInterval) clearInterval(this.grassDropInterval);
         // if (this.grassDropInterval2) clearInterval(this.grassDropInterval2);
         
@@ -72,7 +72,7 @@ class Pvp extends Screen { // player with higher score in the set time wins
         this.startLevelTimer();  
     }
 
-    stopGrassDrop() {
+    stopGrassDropAndLevelTimer() {
         if (this.grassDropInterval) {
             clearInterval(this.grassDropInterval);
             this.grassDropInterval = null;
@@ -120,7 +120,7 @@ class Pvp extends Screen { // player with higher score in the set time wins
                 if (this.screenManager.currentScreen === this) this.timeLeft--; //time goes down for both player even if one player is flashing
             }
             else { //check when times run out
-                this.stopGrassDrop();
+                this.stopGrassDropAndLevelTimer();
                 this.screenManager.changeScreen(this.pvpLevelUpScreen);
             }
         }, 1000);
@@ -138,7 +138,7 @@ class Pvp extends Screen { // player with higher score in the set time wins
         this.player1.reset();
         this.player2.reset();
         this.timeLeft = this.timer;
-        this.stopGrassDrop();     
+        this.stopGrassDropAndLevelTimer();     
     }
 
     resetToLevel1(){ //reset to level 1
@@ -151,7 +151,7 @@ class Pvp extends Screen { // player with higher score in the set time wins
 
     restartFromCurrentLevel() { //restart from the current level
         this.clearStats();
-        this.startGrassDrop();
+        this.startGrassDropAndLevelTimer();
     }
 
     displayUI() {

@@ -5,9 +5,9 @@ Class Breakdown
 display()
 <br>
 
-startGrassDrop() --> startLevelTimer()
+startGrassDropAndLevelTimer() --> startLevelTimer()
 
-stopGrassDrop() --> stopLevelTimer()
+stopGrassDropAndLevelTimer() --> stopLevelTimer()
 
 <br>
 
@@ -27,7 +27,7 @@ keyReleased()
 startNextLevel()
 
 <br>
-clearStats() --> stopGrassDrop() `//clear the current game stats`
+clearStats() --> stopGrassDropAndLevelTimer() `//clear the current game stats`
 
 restartFromCurrentLevel() `//restart from the current level`
 
