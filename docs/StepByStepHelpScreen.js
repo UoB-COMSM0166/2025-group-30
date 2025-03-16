@@ -122,7 +122,7 @@ class StepByStepHelpScreen extends Screen {
             { //step 2
                 instruction: `Move to the basket \n press SPACE to empty hay to the basket`,
                 setup: () => {
-                    if (this.demoPlayer.stack.length > 0){return;}
+                    if (this.demoPlayer.stack.length === 1){return;}
                     // put a grass block in the player's stack
                     this.demoGrass = new Grass();
                     this.demoGrass.x = this.demoPlayer.x + this.demoPlayer.w/2 - this.demoGrass.w/2;
