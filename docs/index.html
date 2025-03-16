@@ -9,11 +9,32 @@
       <script src="libraries/p5.sound.min.js"></script>     
   </head>
   <body>
-    <script src="player.js"></script>
-    <script src="grass.js"></script>
-    <script src="basket.js"></script>
-    <script src="game.js"></script>
-    <script src="ui.js"></script>
+    <script src="Player.js"></script>
+    <script src="Grass.js"></script>
+    <script src="Basket.js"></script>
+    <script src="Flash.js"></script>
+    
+    <script src="Page.js"></script>
+    <script src="Screen.js"></script>  <!-- load parent class first -->
+
+    <script src="HomeScreen.js"></script>
+    <script src="MenuScreen.js"></script>
+
+    <script src="SingleHelpScreen.js"></script>
+    <script src="CoopHelpScreen.js"></script>
+    <script src="PvpHelpScreen.js"></script>
+
+    <script src="Single.js"></script>
+    <script src="Pvp.js"></script>
+    <script src="Coop.js"></script>
+   
+    <script src="PauseScreen.js"></script>
+    <script src="LevelSuccessScreen.js"></script>
+    <script src="GameOverScreen.js"></script>
+    <script src="PvpLevelUpScreen.js"></script>
+
+    <script src="ScreenManager.js"></script> <!--load it last as it manages all the screens-->
+
     <script src="sketch.js"></script>
   </body>
 </html>
