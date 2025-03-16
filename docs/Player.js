@@ -25,12 +25,21 @@ class Player {
         this.basket = null; // 确保basket被正确初始化
 
         this.flash = new Flash(0); 
+
+        // 根据位置设置颜色
+        if (position === "left" || position === "pvpLeft") {
+            this.color = [255, 0, 0]; // 红色
+        } else if (position === "right" || position === "pvpRight") {
+            this.color = [0, 0, 255]; // 蓝色
+        } else {
+            this.color = [0, 0, 255]; // 默认蓝色
+        }
     }
 
     reset() {   
-        if (this.position === "middle") (baseWidth- this.w)/2;
-        else if (this.position === "left") this.x = (baseWidth- this.w)/4;
-        else if (this.position === "right") this.x = (baseWidth- this.w)/4*3;
+        if (this.position === "middle") this.x = (baseWidth- this.w)/2;
+        else if (this.position === "left" || this.position === "pvpLeft") this.x = (baseWidth- this.w)/4;
+        else if (this.position === "right" || this.position === "pvpRight") this.x = (baseWidth- this.w)/4*3;
         
         this.score = 0;
 
@@ -76,9 +85,9 @@ class Player {
         this.flash.update();
         if (!this.flash.playerIsVisible) return;//player with grass is not shown if flash is running 
 
-        // 显示蓝色木板
+        // 显示玩家颜色
         noStroke();
-        fill(0, 0, 255);
+        fill(this.color[0], this.color[1], this.color[2]);
         rect(this.x, this.y, this.w, this.h);
     
         //draw caught grass

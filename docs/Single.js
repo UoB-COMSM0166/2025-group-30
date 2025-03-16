@@ -6,6 +6,7 @@ class Single extends Screen {
         this.pauseScreen = new PauseScreen(this.screenManager, this);
         this.gameOverScreen = new GameOverScreen(this.screenManager,this);
         this.levelSuccessScreen = new LevelSuccessScreen(this.screenManager, this);
+        this.targetScoreScreen = new TargetScoreScreen(this.screenManager, this);
 
         this.player = new Player("middle");
         this.basket = new Basket("left");
@@ -116,9 +117,14 @@ class Single extends Screen {
     }
 
     clearStats(){
+        // 重置玩家状态
         this.player.reset();
+        // 重置时间
         this.timeLeft = this.timer;
-        this.stopGrassDropAndLevelTimer();     
+        // 停止所有计时器和草块生成
+        this.stopGrassDropAndLevelTimer();
+        // 清空草块数组
+        this.grass = [];
     }
 
     resetToLevel1(){ //reset to level 1
@@ -132,10 +138,12 @@ class Single extends Screen {
 
     restartFromCurrentLevel() { //restart from the current level
         this.clearStats();
-        this.startGrassDropAndLevelTimer();
+        this.screenManager.changeScreen(this.targetScoreScreen);
     }
 
     displayUI() {
+        // 更新篮子的分数
+        this.basket.updateScore(this.player.score, this.targetScores);
 
         fill(0);
         textSize(20);
@@ -144,19 +152,22 @@ class Single extends Screen {
         text(`Level ${this.level}`, baseWidth/ 2, 30);
         
         textAlign(LEFT);
-        text(`Score: ${this.player.score}`, 20, 30);
-        text(`Target: ${this.targetScores}`, 20, 60);
-        text(`Time: ${this.timeLeft}s`, 20, 90);
+        text(`Time: ${this.timeLeft}s`, 20, 30);
     }
     
     //--- Move to next level ---
     startNextLevel() { 
+        // 更新游戏状态
         this.level++;
-        this.targetScores+= 20;
+        this.targetScores += 20;
         this.timer += 30;
         this.grassDropDelay = max(500, this.grassDropDelay-1000);
-
-        this.restartFromCurrentLevel();
+        
+        // 重置游戏状态
+        this.clearStats();
+        
+        // 切换到目标分数屏幕
+        this.screenManager.changeScreen(this.targetScoreScreen);
     }
 
     keyPressed() { 

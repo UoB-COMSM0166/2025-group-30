@@ -16,7 +16,6 @@ class LevelSuccessScreen extends Screen {
                 buttonHeight: this.buttonHeight,
                 action: () => {
                     this.gameScreen.startNextLevel();
-                    this.screenManager.changeScreen(this.gameScreen);
                 }
             },
             {
@@ -38,35 +37,38 @@ class LevelSuccessScreen extends Screen {
         this.gameScreen.display();
         
         // 半透明背景
-        fill(0, 0, 0, 127);
+        fill(0, 0, 0, 180);
+        rectMode(CORNER);
         rect(0, 0, baseWidth, baseHeight);
 
-        // pop up window
-        const panelWidth = 300;
-        const panelHeight = 250;
+        // 绘制白色悬浮窗
         fill(255);
-        rect(baseWidth/ 2 - panelWidth/2, baseHeight/ 2 - panelHeight/2, panelWidth, panelHeight);  // Display box for message
-      
-        // text
+        rectMode(CENTER);
+        rect(baseWidth/2, baseHeight/2, 300, 250, 10);
+
+        // 显示关卡完成信息
         fill(0);
-        textSize(20);
+        textSize(30);
         textAlign(CENTER, CENTER);
-        text(`Level ${this.gameScreen.level} Complete!`, baseWidth/ 2, baseHeight/ 2 - 70);
+        text(`Level ${this.gameScreen.level} Complete!`, baseWidth/2, baseHeight/2 - 70);
        
-        textSize(16);
+        // 显示分数信息
+        textSize(24);
         if (this.gameScreen === this.screenManager.single){
-            text(`Score: ${this.gameScreen.player.score}`, baseWidth/ 2, baseHeight/ 2);
+            text(`Score: ${this.gameScreen.player.score}`, baseWidth/2, baseHeight/2 - 20);
         } else if (this.gameScreen === this.screenManager.coop){
-            text(`Score: ${this.gameScreen.player1.score + this.gameScreen.player2.score}`, baseWidth/ 2, baseHeight/ 2);
+            text(`Score: ${this.gameScreen.player1.score + this.gameScreen.player2.score}`, baseWidth/2, baseHeight/2 - 20);
         }
 
-        text(`Target: ${this.gameScreen.targetScores}`, baseWidth/ 2, baseHeight/ 2 + 20);
+        // 显示目标分数
+        textSize(24);
+        text(`Target: ${this.gameScreen.targetScores}`, baseWidth/2, baseHeight/2 + 20);
 
-        // Display buttons
+        // 显示按钮
         for (let button of this.buttons) {
             rectMode(CENTER);
 
-            // Check if mouse is hovering over button
+            // 检查鼠标是否悬停在按钮上
             let isHovered = window.mouseXGame >= button.x - button.buttonWidth/2 
                 && window.mouseXGame <= button.x + button.buttonWidth/2 
                 && window.mouseYGame >= button.y - button.buttonHeight/2 
@@ -77,13 +79,25 @@ class LevelSuccessScreen extends Screen {
             } else {
                 fill(70, 70, 200);
             }
-            rect(button.x, button.y, button.buttonWidth, button.buttonHeight,10);
+            rect(button.x, button.y, button.buttonWidth, button.buttonHeight, 10);
             
-            fill(0);
-            textSize(16);
+            fill(255);
+            textSize(20);
             textAlign(CENTER, CENTER);
             text(button.label, button.x, button.y);
         }
     }
 
+    mousePressed() {
+        // 检查是否点击了按钮
+        for (let button of this.buttons) {
+            if (window.mouseXGame >= button.x - button.buttonWidth/2 
+                && window.mouseXGame <= button.x + button.buttonWidth/2 
+                && window.mouseYGame >= button.y - button.buttonHeight/2 
+                && window.mouseYGame <= button.y + button.buttonHeight/2) {
+                button.action();
+                break;
+            }
+        }
+    }
 }

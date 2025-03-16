@@ -1,36 +1,36 @@
 class Coop extends Screen {
-    constructor(screenManager, level=1, targetScores=5, timer=15, grassDropDelay = 1500) {
+    constructor(screenManager, level=1, targetScores=5, timer=20, grassDropDelay=2000) {
         // --- basic settings ---
         super(screenManager);
 
         this.pauseScreen = new PauseScreen(this.screenManager, this);
         this.gameOverScreen = new GameOverScreen(this.screenManager,this);
         this.levelSuccessScreen = new LevelSuccessScreen(this.screenManager, this);
+        this.targetScoreScreen = new TargetScoreScreen(this.screenManager, this);
 
-        this.basket = new Basket("left");  
-        this.grass = []; //collection of falling grass 
-        
         this.player1 = new Player("left");
+        this.player2 = new Player("right");
+        this.basket = new Basket("left"); // 只使用一个篮子
         this.player1.basket = this.basket;
-
-        this.player2 = new Player("right");        
         this.player2.basket = this.basket;
+        
+        this.grass1 = []; //collection of falling grass
+        this.grass2 = []; //collection of falling grass
         
         // --- level related settings ---
         this.level = level;
         this.targetScores = targetScores;
-        this.timer = timer;          
+        this.timer = timer;       
         this.grassDropDelay = grassDropDelay; // in milliseconds
 
         this.timeLeft= timer;
         this.grassDropInterval = null; //manage how often a grass drops
         this.levelTimerInterval = null; //manage how often the timer goes down i.e. 1 second
-
     }
 
     display(){ 
         background(200); 
-        this.basket.draw(); 
+        this.basket.draw(); // 只绘制一个篮子
 
         if (this.screenManager.currentScreen === this){
             this.player1.movePlayerWithCaughtGrass();  
@@ -47,20 +47,26 @@ class Coop extends Screen {
 
     // --- initialising the game state ---
 
-    startGrassDropAndLevelTimer() { //
+    startGrassDropAndLevelTimer() {
         if (this.grassDropInterval) clearInterval(this.grassDropInterval);
   
-        this.grass = []; //empty the grass piles
+        this.grass1 = []; //empty the grass piles
+        this.grass2 = []; //empty the grass piles
 
-        this.grass.push(new Grass(random(200, baseWidth - 100), 10)); //grass drops start immediately 
-        
-        this.grassDropInterval = setInterval(() => {
-            if ((this.player1.flash.getFlashDuration() === 0 || this.player2.flash.getFlashDuration() === 0) && this.screenManager.currentScreen === this){ //grass drop continue if flashing for both player is not on && game is not paused
-                this.grass.push(new Grass(random(200, baseWidth - 100), 10));
-                console.log("start grass drop");
-            }           
-        }, this.grassDropDelay); //grass falls every 1.5 seconds          
-       
+        // 设置一个较短的延迟来生成第一个草块
+        setTimeout(() => {
+            // 在全屏范围内随机生成草堆
+            this.grass1.push(new Grass(random(200, baseWidth - 100), 10));
+            
+            // 然后开始正常的草块生成间隔
+            this.grassDropInterval = setInterval(() => {
+                if ((this.player1.flash.getFlashDuration() === 0 || this.player2.flash.getFlashDuration() === 0) && this.screenManager.currentScreen === this){ //grass drop continue if flashing for both player is not on && game is not paused
+                    // 在全屏范围内随机生成草堆
+                    this.grass1.push(new Grass(random(200, baseWidth - 100), 10));
+                    console.log("start grass drop");
+                }           
+            }, this.grassDropDelay); //grass falls every 2 seconds          
+        }, 1000);
 
         this.startLevelTimer();  
     }
@@ -77,20 +83,20 @@ class Coop extends Screen {
     // --- main game logic ----
 
     updateFallingGrass() { //update the grass from this.grass1 based on if caught or missed   
-        for (let i = this.grass.length - 1; i >= 0; i--) {
+        for (let i = this.grass1.length - 1; i >= 0; i--) {
             if ((this.player1.flash.getFlashDuration() === 0 || this.player2.flash.getFlashDuration() === 0) && this.screenManager.currentScreen === this) {
-                this.grass[i].fall();
+                this.grass1[i].fall();
             } //stop grass fall if flashing is on or game is paused
 
-            if (this.player1.checkGrassCaught(this.grass[i])) {this.grass.splice(i, 1);} // check if player 1 catches the grass first
-            else if (this.player2.checkGrassCaught(this.grass[i])) {this.grass.splice(i, 1);} //then player 2
-            else if (this.grass[i].y > baseHeight) {this.grass.splice(i, 1);}  // Remove if off-screen or caught
+            if (this.player1.checkGrassCaught(this.grass1[i]) || this.player2.checkGrassCaught(this.grass1[i]) || this.grass1[i].y > baseHeight) {
+                this.grass1.splice(i, 1);
+            }
         }
     }
 
     drawGrass(){ //draw the grass
-        for (let i = this.grass.length - 1; i >= 0; i--){
-            this.grass[i].draw();
+        for (let i = 0; i < this.grass1.length; i++){
+            this.grass1[i].draw();
         }
     }
 
@@ -121,24 +127,28 @@ class Coop extends Screen {
         this.player1.reset();
         this.player2.reset();
         this.timeLeft = this.timer;
-        this.stopGrassDropAndLevelTimer();     
+        this.stopGrassDropAndLevelTimer();
+        this.grass1 = [];
+        this.grass2 = [];
     }
 
     resetToLevel1(){ //reset to level 1
         this.level = 1;
         this.timer = 15;
         this.targetScores = 5;
-        this.grassDropDelay = 1500;
+        this.grassDropDelay = 1000; // 加快初始生成频率
 
         this.restartFromCurrentLevel();
     }
 
     restartFromCurrentLevel() { //restart from the current level
         this.clearStats();
-        this.startGrassDropAndLevelTimer();
+        this.screenManager.changeScreen(this.targetScoreScreen);
     }
 
     displayUI() {
+        // 更新篮子的分数
+        this.basket.updateScore(this.player1.score + this.player2.score, this.targetScores);
 
         fill(0);
         textSize(20);
@@ -147,19 +157,19 @@ class Coop extends Screen {
         text(`Level ${this.level}`, baseWidth / 2, 30);
         
         textAlign(LEFT);
-        text(`Score: ${this.player1.score + this.player2.score}`, 20, 30);
-        text(`Target: ${this.targetScores}`, 20, 60);
-        text(`Time: ${this.timeLeft}s`, 20, 90);
+        text(`Time: ${this.timeLeft}s`, 20, 30);
     }
     
     //--- Move to next level ---
     startNextLevel() { 
         this.level++;
-        this.targetScores+= 5;
+        this.targetScores += 5;
         this.timer += 15;
-        this.grassDropDelay = max(250, this.grassDropDelay-500);
-
-        this.restartFromCurrentLevel();
+        this.grassDropDelay = max(500, this.grassDropDelay-200); // 加快生成频率的减少速度
+        
+        this.clearStats();
+        
+        this.screenManager.changeScreen(this.targetScoreScreen);
     }
 
     keyPressed() { 
