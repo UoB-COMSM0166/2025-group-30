@@ -50,7 +50,7 @@ class Single extends Screen {
 
             // 然后开始正常的草块生成间隔
             this.grassDropInterval = setInterval(() => {
-                if (this.player.flash.flashDuration === 0 && this.screenManager.currentScreen === this){ //grass drop continue if flashing is not on && game is not paused
+                if (this.player.flash.getFlashDuration() === 0 && this.screenManager.currentScreen === this){ //grass drop continue if flashing is not on && game is not paused
                     this.grass.push(new Grass(random(200, baseWidth- 100), 10));
                     console.log("start grass drop");
                 } 
@@ -73,7 +73,7 @@ class Single extends Screen {
     // --- main game logic ----
     updateFallingGrass() { //update the grass from this.grass based on if caught or missed   
         for (let i = this.grass.length - 1; i >= 0; i--) {
-            if (this.player.flash.flashDuration === 0 && this.screenManager.currentScreen === this) {
+            if (this.player.flash.getFlashDuration() === 0 && this.screenManager.currentScreen === this) {
                 this.grass[i].fall();
             } //stop grass fall if flashing is on or game is paused            
             
@@ -94,7 +94,7 @@ class Single extends Screen {
         
         this.levelTimerInterval = setInterval(() => {
             if (this.timeLeft > 0) {
-                if (this.player.flash.flashDuration === 0 && this.screenManager.currentScreen === this) this.timeLeft--;
+                if (this.player.flash.getFlashDuration() === 0 && this.screenManager.currentScreen === this) this.timeLeft--;
             }
             else { //check when times run out
                 this.stopGrassDrop();

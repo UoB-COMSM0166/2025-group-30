@@ -16,8 +16,9 @@ class Flash {
 
     setFlashDuration(flashDuration) {
         this.flashDuration = flashDuration;
-        if (this.flashDuration > 0) {
-            this.playerIsVisible = false;
-        }
+    }
+
+    getFlashDuration() {
+        return this.flashDuration;
     }
 }

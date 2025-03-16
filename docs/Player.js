@@ -38,11 +38,11 @@ class Player {
         this.dir = 0;
 
         this.stack = []; 
-        this.flash.flashDuration = 0;
+        this.flash.setFlashDuration(0);
     }
 
     movePlayerWithCaughtGrass() {
-        if (this.flash.flashDuration > 0) {return;}
+        if (this.flash.getFlashDuration() > 0) {return;}
 
         const oldX = this.x;
 

@@ -55,7 +55,7 @@ class Coop extends Screen {
         this.grass.push(new Grass(random(200, baseWidth - 100), 10)); //grass drops start immediately 
         
         this.grassDropInterval = setInterval(() => {
-            if ((this.player1.flash.flashDuration === 0 || this.player2.flash.flashDuration === 0) && this.screenManager.currentScreen === this){ //grass drop continue if flashing for both player is not on && game is not paused
+            if ((this.player1.flash.getFlashDuration() === 0 || this.player2.flash.getFlashDuration() === 0) && this.screenManager.currentScreen === this){ //grass drop continue if flashing for both player is not on && game is not paused
                 this.grass.push(new Grass(random(200, baseWidth - 100), 10));
                 console.log("start grass drop");
             }           
@@ -78,7 +78,7 @@ class Coop extends Screen {
 
     updateFallingGrass() { //update the grass from this.grass1 based on if caught or missed   
         for (let i = this.grass.length - 1; i >= 0; i--) {
-            if ((this.player1.flash.flashDuration === 0 || this.player2.flash.flashDuration === 0) && this.screenManager.currentScreen === this) {
+            if ((this.player1.flash.getFlashDuration() === 0 || this.player2.flash.getFlashDuration() === 0) && this.screenManager.currentScreen === this) {
                 this.grass[i].fall();
             } //stop grass fall if flashing is on or game is paused
 
