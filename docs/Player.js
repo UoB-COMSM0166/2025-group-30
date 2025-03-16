@@ -42,7 +42,7 @@ class Player {
     }
 
     movePlayerWithCaughtGrass() {
-        if (this.flash.flashDuration > 0) return;
+        if (this.flash.flashDuration > 0) {return;}
 
         const oldX = this.x;
 
@@ -74,7 +74,7 @@ class Player {
 
     drawPlayerWithCaughtGrass() { //draw player with caught grass    
         this.flash.update();
-        if (!this.flash.showPlayer) return;//player with grass is not shown if flash is running 
+        if (!this.flash.playerIsVisible) return;//player with grass is not shown if flash is running 
 
         // 显示蓝色木板
         noStroke();
@@ -85,17 +85,16 @@ class Player {
         for (let grass of this.stack) {
             fill(0, 255, 0);
             rect(grass.x, grass.y, grass.w, grass.h);
-        }
-        
+        } 
     }
+
+    // erasePlayerWithCaughtGrass() {
+    //     for (let grass of this.stack) {
+    //         fill()
+    //     }
+    // }
     
     checkGrassCaught(grass) { //return true if grass is caught, false otherwise
-        if (this.stack.length > this.maxStack) { //can't have more than 5 grass on the platform
-            this.stack = [];
-            this.flash.flashDuration = 30; // trigger flash
-            return false;
-        }
-
         // 如果是第一个方块，检查是否与木板接触
         if (this.stack.length === 0) {
             // Calculate overlap with player platform
@@ -110,6 +109,12 @@ class Player {
                 
                 grass.y = this.y - grass.h;
                 this.stack.push(grass);
+                
+                // Check if adding this grass exceeds the maximum stack size
+                if (this.stack.length > this.maxStack) {
+                    this.stack = [];
+                    this.flash.setFlashDuration(30); // trigger flash immediately
+                }
                 return true;
             }
         } else {
@@ -128,11 +133,18 @@ class Player {
             if (overlapWidth >= minRequiredOverlap && isVerticalContact) {
                 grass.y = this.y - (this.stack.length + 1) * grass.h;
                 this.stack.push(grass);
+                
+                // Check if adding this grass exceeds the maximum stack size
+                if (this.stack.length > this.maxStack) {
+                    this.stack = [];
+                    this.flash.setFlashDuration(30); // trigger flash immediately
+                }
                 return true;
             }
         }       
-        return false;
+        return false;       
     }
+
 
     emptyToBasket() { //empty grass to the basket
         if (this.stack.length === 0) return;
@@ -142,5 +154,3 @@ class Player {
         }
     }
 }
-
-

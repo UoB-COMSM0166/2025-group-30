@@ -141,15 +141,15 @@ class Pvp extends Screen { // player with higher score in the set time wins
         this.stopGrassDrop();     
     }
 
-    reset(){ //reset to level 1
+    resetToLevel1(){ //reset to level 1
         this.level = 1;
         this.timer = 30;
         this.grassDropDelay = 2000;
 
-        this.restart();
+        this.restartFromCurrentLevel();
     }
 
-    restart() { //restart from the current level
+    restartFromCurrentLevel() { //restart from the current level
         this.clearStats();
         this.startGrassDrop();
     }
@@ -179,7 +179,7 @@ class Pvp extends Screen { // player with higher score in the set time wins
         this.timer += 30;
         this.grassDropDelay = max(500, this.grassDropDelay-500);
 
-        this.restart();
+        this.restartFromCurrentLevel();
     }
 
     keyPressed() { 

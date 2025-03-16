@@ -29,13 +29,13 @@ startNextLevel()
 <br>
 clearStats() --> stopGrassDrop() `//clear the current game stats`
 
-restart() `//restart from the current level`
+restartFromCurrentLevel() `//restart from the current level`
 
-reset() `//reset to level 1`
+resetToLevel1() `//reset to level 1`
 
 
 ## Player
-reset()
+resetToLevel1()
 
 move()
 

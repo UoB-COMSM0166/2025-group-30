@@ -122,7 +122,7 @@ class Page {
     }
     
     // 添加transformCoordinates方法，将屏幕坐标转换为游戏坐标
-    transformCoordinates(screenX, screenY) {
+    transformCoordinates(screenX, screenY) { //not used 
         // 转换为游戏内坐标系
         return {
             x: screenX / this.gameScale,

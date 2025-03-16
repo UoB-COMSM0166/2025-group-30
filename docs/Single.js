@@ -31,7 +31,7 @@ class Single extends Screen {
             this.player.movePlayerWithCaughtGrass();   
             this.updateFallingGrass();     
         }
-        this.drawGrass();
+        this.drawFallingGrass();
         this.player.drawPlayerWithCaughtGrass(); //show player with grass   
         
         this.displayUI();      
@@ -83,7 +83,7 @@ class Single extends Screen {
         }
     }
     
-    drawGrass(){ //draw the grass
+    drawFallingGrass(){ //draw the grass
         for (let i = this.grass.length - 1; i >= 0; i--) {
             this.grass[i].draw();}
     }
@@ -118,16 +118,16 @@ class Single extends Screen {
         this.stopGrassDrop();     
     }
 
-    reset(){ //reset to level 1
+    resetToLevel1(){ //reset to level 1
         this.level = 1;
         this.targetScores = 5;
         this.timer = 20;
         this.grassDropDelay = 2000;
 
-        this.restart();
+        this.restartFromCurrentLevel();
     }
 
-    restart() { //restart from the current level
+    restartFromCurrentLevel() { //restart from the current level
         this.clearStats();
         this.startGrassDrop();
     }
@@ -153,7 +153,7 @@ class Single extends Screen {
         this.timer += 30;
         this.grassDropDelay = max(500, this.grassDropDelay-1000);
 
-        this.restart();
+        this.restartFromCurrentLevel();
     }
 
     keyPressed() { 

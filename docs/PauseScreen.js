@@ -22,7 +22,7 @@ class PauseScreen extends Screen {
                 x: baseWidth/2,
                 y: baseHeight/2 + this.buttonHeight + this.buttonSpacing,
                 action: () => {
-                    this.gameScreen.restart();
+                    this.gameScreen.restartFromCurrentLevel();
                     this.screenManager.changeScreen(this.gameScreen);
                 }
             },

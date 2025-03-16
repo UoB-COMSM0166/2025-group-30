@@ -17,7 +17,7 @@ class SingleHelpScreen extends Screen {
                 x: baseWidth / 4 * 3, 
                 y: baseHeight / 5 * 4,
                 action: () => {
-                    this.screenManager.single.reset(); //reset single to level 1
+                    this.screenManager.single.resetToLevel1(); //reset single to level 1
                     this.screenManager.changeScreen(this.screenManager.single); 
                 }
             }

@@ -21,7 +21,7 @@ class GameOverScreen extends Screen {
                 x: baseWidth / 4 * 3 - this.buttonWidth/2,
                 y: baseHeight / 5 * 4,
                 action: () => {
-                    this.gameScreen.restart();
+                    this.gameScreen.restartFromCurrentLevel();
                     this.screenManager.changeScreen(this.gameScreen);
                 }
             }

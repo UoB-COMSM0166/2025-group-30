@@ -19,7 +19,7 @@ class CoopHelpScreen extends Screen {
                 x: baseWidth/4*3, 
                 y: baseHeight/5*4,
                 action: () => {
-                    this.screenManager.coop.reset(); //reset single to level 1
+                    this.screenManager.coop.resetToLevel1(); //reset single to level 1
                     this.screenManager.changeScreen(this.screenManager.coop); 
                 }
             }

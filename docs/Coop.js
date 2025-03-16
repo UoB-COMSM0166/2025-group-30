@@ -124,16 +124,16 @@ class Coop extends Screen {
         this.stopGrassDrop();     
     }
 
-    reset(){ //reset to level 1
+    resetToLevel1(){ //reset to level 1
         this.level = 1;
         this.timer = 15;
         this.targetScores = 5;
         this.grassDropDelay = 1500;
 
-        this.restart();
+        this.restartFromCurrentLevel();
     }
 
-    restart() { //restart from the current level
+    restartFromCurrentLevel() { //restart from the current level
         this.clearStats();
         this.startGrassDrop();
     }
@@ -159,7 +159,7 @@ class Coop extends Screen {
         this.timer += 15;
         this.grassDropDelay = max(250, this.grassDropDelay-500);
 
-        this.restart();
+        this.restartFromCurrentLevel();
     }
 
     keyPressed() { 
