@@ -56,41 +56,33 @@ class StepByStepHelpScreen extends Screen {
         this.currentStep = 0;
         this.tutorialSteps = [
             { //step 0
-                instruction: "Use LEFT/RIGHT arrow keys to move",
+                instruction: "Press ← or → keys to move",
                 setup: () => { this.demoPlayer.stack = [];},
                 update: () => {
                     // Handle player movement in the demo
-                    if (keyIsDown(LEFT_ARROW)) {
-                        this.demoPlayer.dir = -1;
-                    } else if (keyIsDown(RIGHT_ARROW)) {
-                        this.demoPlayer.dir = 1;
-                    } else {
-                        this.demoPlayer.dir = 0;
-                    }
-                    this.demoPlayer.movePlayerWithCaughtGrass();
+                    this.handlePlayerMovement();
                 },
                 draw: () => {
                     // Draw the player
                     this.demoPlayer.drawPlayerWithCaughtGrass();
+                },
+                checkCompletion: () => {
+                    if (keyCode === LEFT_ARROW || keyCode === RIGHT_ARROW) {
+                        return true;
+                    }
+                    return false;
                 }
             },
             { //step 1
-                instruction: "Catch the hay block from the sky",
+                instruction: "Move under the falling hay block to catch it",
                 setup: () => {
                     this.demoPlayer.stack = [];
                     // Add a falling grass block
                     this.demoGrass = new Grass(random(200, baseWidth - 100), 10);
                 },
                 update: () => {
-                    // Handle player movement
-                    if (keyIsDown(LEFT_ARROW)) {
-                        this.demoPlayer.dir = -1;
-                    } else if (keyIsDown(RIGHT_ARROW)) {
-                        this.demoPlayer.dir = 1;
-                    } else {
-                        this.demoPlayer.dir = 0;
-                    }
-                    this.demoPlayer.movePlayerWithCaughtGrass();
+                    // Handle player movement in the demo
+                    this.handlePlayerMovement();
                     
                     // Only move the grass if it exists
                     if (this.demoGrass) {
@@ -117,10 +109,16 @@ class StepByStepHelpScreen extends Screen {
                     
                     // Draw the player with stacked grass
                     this.demoPlayer.drawPlayerWithCaughtGrass();
+                },
+                checkCompletion: () => {
+                    if (this.demoPlayer.stack.length > 0) {
+                        return true;
+                    }
+                    return false;
                 }
             },
             { //step 2
-                instruction: `Move to the basket \n press SPACE to empty hay to the basket`,
+                instruction: "Press SPACE when near the basket to empty your stack",
                 setup: () => {
                     if (this.demoPlayer.stack.length === 1){return;}
                     // put a grass block in the player's stack
@@ -131,14 +129,7 @@ class StepByStepHelpScreen extends Screen {
                 },
                 update: () => {
                     // Handle player movement
-                    if (keyIsDown(LEFT_ARROW)) {
-                        this.demoPlayer.dir = -1;
-                    } else if (keyIsDown(RIGHT_ARROW)) {
-                        this.demoPlayer.dir = 1;
-                    } else {
-                        this.demoPlayer.dir = 0;
-                    }
-                    this.demoPlayer.movePlayerWithCaughtGrass();
+                    this.handlePlayerMovement();
                     
                     // Check for space key to empty to basket
                     if (keyIsDown(32)) { // 32 is the keyCode for SPACE
@@ -151,10 +142,16 @@ class StepByStepHelpScreen extends Screen {
                     
                     // Draw the player with stacked grass
                     this.demoPlayer.drawPlayerWithCaughtGrass();
+                },
+                checkCompletion: () => {
+                    if (this.demoPlayer.stack.length === 0) {
+                        return true;
+                    }
+                    return false;
                 }
             },
             { //step 3
-                instruction: "If you stack more than 5 hay blocks, you will lose them all!",
+                instruction: `Catch one more hay block to exceed the limit of 5`,
                 setup: () => {
                     // Clear the player's stack
                     this.demoPlayer.stack = [];
@@ -174,14 +171,7 @@ class StepByStepHelpScreen extends Screen {
 
                 update: () => {
                     // Handle player movement
-                    if (keyIsDown(LEFT_ARROW)) {
-                        this.demoPlayer.dir = -1;
-                    } else if (keyIsDown(RIGHT_ARROW)) {
-                        this.demoPlayer.dir = 1;
-                    } else {
-                        this.demoPlayer.dir = 0;
-                    }
-                    this.demoPlayer.movePlayerWithCaughtGrass();
+                    this.handlePlayerMovement();
                      // Only move the grass if it exists
                      if (this.demoGrass) {
                         // Move the falling grass
@@ -208,11 +198,9 @@ class StepByStepHelpScreen extends Screen {
                         this.demoGrass.draw();
                     }
                     
-                    // Display stack count and message
-                    fill(0);
+                    // Display message with emphasized limit
                     textAlign(LEFT);
-                    textSize(20);
-                    text(`Stacked blocks: ${this.demoPlayer.stack.length}/5`, 20, 30);
+            
                     
                     // If flashing, show explanation
                     if (!this.demoGrass) {
@@ -221,6 +209,12 @@ class StepByStepHelpScreen extends Screen {
                         textSize(24);
                         text("Stack exceeded! All blocks dropped!", baseWidth/2, baseHeight/2);
                     }
+                },
+                checkCompletion: () => {
+                    if (this.demoPlayer.flash.getFlashDuration >0) {
+                        return true;
+                    }
+                    return false;
                 }
             },
             { //step 4
@@ -233,12 +227,16 @@ class StepByStepHelpScreen extends Screen {
                 },
                 draw: () => {
                     // No drawing needed
+                },
+                checkCompletion: () => {
+                    return true;
                 }
             }
         ];
 
         // Initialize the first step
         this.tutorialSteps[this.currentStep].setup();
+   
     }
 
     previousStep() {
@@ -257,6 +255,7 @@ class StepByStepHelpScreen extends Screen {
         }
     }
 
+
     display() {
         background(230);
                
@@ -266,11 +265,16 @@ class StepByStepHelpScreen extends Screen {
         fill(0);
         text(this.title, baseWidth/2, baseHeight/8);
 
+        // Display step progress
+        textSize(16);
+        fill(100, 100, 100);
+        text(`Step ${this.currentStep + 1} of ${this.tutorialSteps.length}`, baseWidth/2, baseHeight/8 + 40);
+
         // Display current step instruction
-        textSize(24);
-        fill(0);
+        textSize(18);
+        fill(50, 50, 200);
         text(this.tutorialSteps[this.currentStep].instruction, baseWidth/2, baseHeight/4);
-        
+     
         // Update and draw the current step
         this.tutorialSteps[this.currentStep].update();
         this.tutorialSteps[this.currentStep].draw();
@@ -366,4 +370,20 @@ class StepByStepHelpScreen extends Screen {
             }
         }
     }
+    
+    // Helper function to handle player movement input
+    handlePlayerMovement() {
+        if (keyIsDown(LEFT_ARROW)) {
+            this.demoPlayer.dir = -1;
+        } else if (keyIsDown(RIGHT_ARROW)) {
+            this.demoPlayer.dir = 1;
+        } else {
+            this.demoPlayer.dir = 0;
+        }
+        this.demoPlayer.movePlayerWithCaughtGrass();
+    }
+
+    
+
 }
+    
