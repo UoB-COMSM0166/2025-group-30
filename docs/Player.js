@@ -60,8 +60,8 @@ class Player {
         }
 
         // 限制移动范围
-        if (this.position === "pvpLeft") this.x = constrain(this.x, 0, width/2 - this.w);
-        else if (this.position === "pvpRight") this.x = constrain(this.x, width/2, baseWidth- this.w);
+        if (this.position === "pvpLeft") this.x = constrain(this.x, 0, baseWidth/2- this.w);
+        else if (this.position === "pvpRight") this.x = constrain(this.x, baseWidth/2, baseWidth- this.w);
         else this.x = constrain(this.x, 0, baseWidth- this.w);
 
         // 计算x轴移动距离并更新堆叠的草的位置 caught grass moves with the player
