@@ -7,22 +7,39 @@ class StepByStepHelpScreen extends Screen {
 
         this.buttons = [
             {
-                label: "Last Step",
+                label: "Back", //only show on first step
                 x: baseWidth / 4, 
                 y: baseHeight / 6 * 5,
+                buttonWidth: this.buttonWidth,
+                buttonHeight: this.buttonHeight,
+                action: () => this.screenManager.changeScreen(this.screenManager.menuScreen)
+            },
+            {
+                label: "Previous",
+                x: baseWidth / 4, 
+                y: baseHeight / 6 * 5,
+                buttonWidth: this.buttonWidth,
+                buttonHeight: this.buttonHeight,
                 action: () => this.previousStep()
             },
             {
-                label: "Next Step",
+                label: "Next",
                 x: baseWidth / 4 * 3, 
                 y: baseHeight / 6 * 5,
+                buttonWidth: this.buttonWidth,
+                buttonHeight: this.buttonHeight,
                 action: () => this.nextStep()
             },
             { 
                 label: "Start", //only show on last step
                 x: baseWidth / 4 *3, 
                 y: baseHeight / 6 * 5,
-                action: () => this.nextStep()
+                buttonWidth: this.buttonWidth,
+                buttonHeight: this.buttonHeight,
+                action: () => {
+                    this.currentStep = 0;
+                    this.demoPlayer.stack = [];
+                    this.screenManager.changeScreen(this.screenManager.menuScreen)}
             }
         ];
 
@@ -38,9 +55,9 @@ class StepByStepHelpScreen extends Screen {
         // Tutorial steps
         this.currentStep = 0;
         this.tutorialSteps = [
-            {
+            { //step 0
                 instruction: "Use LEFT/RIGHT arrow keys to move",
-                setup: () => {},
+                setup: () => { this.demoPlayer.stack = [];},
                 update: () => {
                     // Handle player movement in the demo
                     if (keyIsDown(LEFT_ARROW)) {
@@ -55,15 +72,12 @@ class StepByStepHelpScreen extends Screen {
                 draw: () => {
                     // Draw the player
                     this.demoPlayer.drawPlayerWithCaughtGrass();
-                },
-                checkCompletion: () => {
-                    // Player has moved left or right
-                    return this.playerHasMoved;
                 }
             },
-            {
+            { //step 1
                 instruction: "Catch the hay block from the sky",
                 setup: () => {
+                    this.demoPlayer.stack = [];
                     // Add a falling grass block
                     this.demoGrass = new Grass(random(200, baseWidth - 100), 10);
                 },
@@ -103,16 +117,17 @@ class StepByStepHelpScreen extends Screen {
                     
                     // Draw the player with stacked grass
                     this.demoPlayer.drawPlayerWithCaughtGrass();
-                },
-                checkCompletion: () => {
-                    // Player has stacked at least 1 block
-                    return this.demoPlayer.stack.length >= 1;
                 }
             },
-            {
+            { //step 2
                 instruction: `Move to the basket \n press SPACE to empty hay to the basket`,
                 setup: () => {
-                    this.hasEmptiedToBasket = false;
+                    if (this.demoPlayer.stack.length === 1){return;}
+                    // put a grass block in the player's stack
+                    this.demoGrass = new Grass();
+                    this.demoGrass.x = this.demoPlayer.x + this.demoPlayer.w/2 - this.demoGrass.w/2;
+                    this.demoGrass.y = this.demoPlayer.y - this.demoGrass.h;
+                    this.demoPlayer.stack = [this.demoGrass]; 
                 },
                 update: () => {
                     // Handle player movement
@@ -128,9 +143,6 @@ class StepByStepHelpScreen extends Screen {
                     // Check for space key to empty to basket
                     if (keyIsDown(32)) { // 32 is the keyCode for SPACE
                         this.demoPlayer.emptyToBasket();
-                        if (this.demoPlayer.stack.length === 0) {
-                            this.hasEmptiedToBasket = true;
-                        }
                     }
                 },
                 draw: () => {
@@ -139,13 +151,9 @@ class StepByStepHelpScreen extends Screen {
                     
                     // Draw the player with stacked grass
                     this.demoPlayer.drawPlayerWithCaughtGrass();
-                },
-                checkCompletion: () => {
-                    // Player has emptied stack to basket
-                    return this.hasEmptiedToBasket;
                 }
             },
-            {
+            { //step 3
                 instruction: "If you stack more than 5 hay blocks, you will lose them all!",
                 setup: () => {
                     // Clear the player's stack
@@ -153,7 +161,9 @@ class StepByStepHelpScreen extends Screen {
                     
                     // Add 5 grass blocks to the player's stack
                     for (let i = 0; i < 5; i++) {
-                        let grass = new Grass(this.demoPlayer.x + this.demoPlayer.w/2 - 10, 0);
+                        let grass = new Grass();
+                        //create a staggered stack of grass blocks
+                        grass.x = random(this.demoPlayer.x + this.demoPlayer.w/4 - 20, this.demoPlayer.x + this.demoPlayer.w/4 + 20);
                         grass.y = this.demoPlayer.y - (i+1) * grass.h;
                         this.demoPlayer.stack.push(grass);
                     }
@@ -211,13 +221,9 @@ class StepByStepHelpScreen extends Screen {
                         textSize(24);
                         text("Stack exceeded! All blocks dropped!", baseWidth/2, baseHeight/2);
                     }
-                },
-                checkCompletion: () => {
-                    // Player has dropped their stack by exceeding 5 blocks
-                    return this.demoPlayer.stack.length === 0 && this.demoPlayer.flash.getFlashDuration() > 0;
                 }
             },
-            {
+            { //step 4
                 instruction: "You're ready to play! Click 'Start' to select play mode.",
                 setup: () => {
                     // No demo needed for final step
@@ -227,33 +233,19 @@ class StepByStepHelpScreen extends Screen {
                 },
                 draw: () => {
                     // No drawing needed
-                },
-                checkCompletion: () => {
-                    // Always complete
-                    return true;
                 }
             }
         ];
-        
+
         // Initialize the first step
-        this.initStep();
-        
-        // Track if player has moved
-        this.playerHasMoved = false;
-    }
-    
-    initStep() {
-        // Run the setup function for the current step
-        if (this.tutorialSteps[this.currentStep].setup) {
-            this.tutorialSteps[this.currentStep].setup();
-        }
+        this.tutorialSteps[this.currentStep].setup();
     }
 
     previousStep() {
         // Move to the previous tutorial step
         if (this.currentStep > 0) {
             this.currentStep--;
-            this.initStep();
+            this.tutorialSteps[this.currentStep].setup();
         }
     }
     
@@ -261,7 +253,7 @@ class StepByStepHelpScreen extends Screen {
         // Move to the next tutorial step
         if (this.currentStep < this.tutorialSteps.length - 1) {
             this.currentStep++;
-            this.initStep();
+            this.tutorialSteps[this.currentStep].setup();
         }
     }
 
@@ -280,13 +272,9 @@ class StepByStepHelpScreen extends Screen {
         text(this.tutorialSteps[this.currentStep].instruction, baseWidth/2, baseHeight/4);
         
         // Update and draw the current step
-        if (this.tutorialSteps[this.currentStep].update) {
-            this.tutorialSteps[this.currentStep].update();
-        }
+        this.tutorialSteps[this.currentStep].update();
+        this.tutorialSteps[this.currentStep].draw();
         
-        if (this.tutorialSteps[this.currentStep].draw) {
-            this.tutorialSteps[this.currentStep].draw();
-        }
         
         // Draw buttons
         for (let button of this.buttons){
@@ -305,17 +293,22 @@ class StepByStepHelpScreen extends Screen {
             }
             
             // Only show Next button if not on the last step
-            if (button.label === "Next Step" && this.currentStep >= this.tutorialSteps.length - 1) {
+            if (button.label === "Next" && this.currentStep >= this.tutorialSteps.length - 1) {
                 continue;
             }
 
-            // Only show Next button if not on the last step
-            if (button.label === "Last Step" && this.currentStep <= 0) {
+            // Only show Previous button if not on the first step
+            if (button.label === "Previous" && this.currentStep <= 0) {
                 continue;
             }
 
             // Only show Start button if on the last step
             if (button.label === "Start" && this.currentStep !== this.tutorialSteps.length - 1) {
+                continue;
+            }
+
+            // Only show Back button if on the first step
+            if (button.label === "Back" && this.currentStep !== 0) {
                 continue;
             }
             
@@ -336,5 +329,41 @@ class StepByStepHelpScreen extends Screen {
         
         // Call the parent keyPressed method
         super.keyPressed();
+    }
+    
+    // Override the mousePressed method to respect button visibility conditions
+    mousePressed() {
+        if (!this.buttons) return;
+        for (let button of this.buttons) {
+            // Skip buttons that shouldn't be visible based on current step
+            if (button.label === "Next" && this.currentStep >= this.tutorialSteps.length - 1) {
+                continue;
+            }
+            if (button.label === "Previous" && this.currentStep <= 0) {
+                continue;
+            }
+            if (button.label === "Start" && this.currentStep !== this.tutorialSteps.length - 1) {
+                continue;
+            }
+            if (button.label === "Back" && this.currentStep !== 0) {
+                continue;
+            }
+            
+            // Calculate button click area
+            let buttonTop = button.y - button.buttonHeight/2;
+            let buttonBottom = button.y + button.buttonHeight/2;
+            let buttonLeft = button.x - button.buttonWidth/2;
+            let buttonRight = button.x + button.buttonWidth/2;
+
+            // Check if mouse is in button area
+            if (window.mouseXGame > buttonLeft && 
+                window.mouseXGame < buttonRight && 
+                window.mouseYGame > buttonTop && 
+                window.mouseYGame < buttonBottom) {
+                
+                button.action();
+                return; // Prevent clicking multiple buttons
+            }
+        }
     }
 }

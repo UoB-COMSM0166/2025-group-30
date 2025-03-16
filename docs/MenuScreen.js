@@ -35,6 +35,14 @@ class MenuScreen extends Screen {
                 buttonWidth: 100,
                 buttonHeight: 40,
                 action: () => this.screenManager.changeScreen(this.screenManager.homeScreen) //go to settings screen
+            },
+            {
+                label: "Tutorial",
+                x : baseWidth / 4 * 3, 
+                y : baseHeight / 6 * 5,
+                buttonWidth: 100,
+                buttonHeight: 40,
+                action: () => this.screenManager.changeScreen(this.screenManager.stepByStepHelpScreen) //go to settings screen
             }
         ];
     }
