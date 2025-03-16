@@ -7,22 +7,38 @@ class StepByStepHelpScreen extends Screen {
 
         this.buttons = [
             {
-                label: "Last Step",
+                label: "Back", //only show on first step
                 x: baseWidth / 4, 
                 y: baseHeight / 6 * 5,
+                buttonWidth: this.buttonWidth,
+                buttonHeight: this.buttonHeight,
+                action: () => this.screenManager.changeScreen(this.screenManager.menuScreen)
+            },
+            {
+                label: "Previous",
+                x: baseWidth / 4, 
+                y: baseHeight / 6 * 5,
+                buttonWidth: this.buttonWidth,
+                buttonHeight: this.buttonHeight,
                 action: () => this.previousStep()
             },
             {
-                label: "Next Step",
+                label: "Next",
                 x: baseWidth / 4 * 3, 
                 y: baseHeight / 6 * 5,
+                buttonWidth: this.buttonWidth,
+                buttonHeight: this.buttonHeight,
                 action: () => this.nextStep()
             },
             { 
                 label: "Start", //only show on last step
                 x: baseWidth / 4 *3, 
                 y: baseHeight / 6 * 5,
-                action: () => this.nextStep()
+                buttonWidth: this.buttonWidth,
+                buttonHeight: this.buttonHeight,
+                action: () => {
+                    console.log("start");
+                    this.screenManager.changeScreen(this.screenManager.menuScreen)}
             }
         ];
 
@@ -305,17 +321,22 @@ class StepByStepHelpScreen extends Screen {
             }
             
             // Only show Next button if not on the last step
-            if (button.label === "Next Step" && this.currentStep >= this.tutorialSteps.length - 1) {
+            if (button.label === "Next" && this.currentStep >= this.tutorialSteps.length - 1) {
                 continue;
             }
 
-            // Only show Next button if not on the last step
-            if (button.label === "Last Step" && this.currentStep <= 0) {
+            // Only show Previous button if not on the first step
+            if (button.label === "Previous" && this.currentStep <= 0) {
                 continue;
             }
 
             // Only show Start button if on the last step
             if (button.label === "Start" && this.currentStep !== this.tutorialSteps.length - 1) {
+                continue;
+            }
+
+            // Only show Back button if on the first step
+            if (button.label === "Back" && this.currentStep !== 0) {
                 continue;
             }
             
@@ -336,5 +357,41 @@ class StepByStepHelpScreen extends Screen {
         
         // Call the parent keyPressed method
         super.keyPressed();
+    }
+    
+    // Override the mousePressed method to respect button visibility conditions
+    mousePressed() {
+        if (!this.buttons) return;
+        for (let button of this.buttons) {
+            // Skip buttons that shouldn't be visible based on current step
+            if (button.label === "Next" && this.currentStep >= this.tutorialSteps.length - 1) {
+                continue;
+            }
+            if (button.label === "Previous" && this.currentStep <= 0) {
+                continue;
+            }
+            if (button.label === "Start" && this.currentStep !== this.tutorialSteps.length - 1) {
+                continue;
+            }
+            if (button.label === "Back" && this.currentStep !== 0) {
+                continue;
+            }
+            
+            // Calculate button click area
+            let buttonTop = button.y - button.buttonHeight/2;
+            let buttonBottom = button.y + button.buttonHeight/2;
+            let buttonLeft = button.x - button.buttonWidth/2;
+            let buttonRight = button.x + button.buttonWidth/2;
+
+            // Check if mouse is in button area
+            if (window.mouseXGame > buttonLeft && 
+                window.mouseXGame < buttonRight && 
+                window.mouseYGame > buttonTop && 
+                window.mouseYGame < buttonBottom) {
+                
+                button.action();
+                return; // Prevent clicking multiple buttons
+            }
+        }
     }
 }

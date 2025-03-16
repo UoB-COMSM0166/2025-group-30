@@ -2,7 +2,8 @@ class ScreenManager {
     constructor() {
         this.homeScreen = new HomeScreen(this);      
         this.menuScreen = new MenuScreen(this);
-
+        
+        this.stepByStepHelpScreen = new StepByStepHelpScreen(this);
         this.singleHelpScreen = new SingleHelpScreen(this);
         this.coopHelpScreen = new CoopHelpScreen(this);
         this.pvpHelpScreen = new PvpHelpScreen(this);
