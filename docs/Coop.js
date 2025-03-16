@@ -144,6 +144,7 @@ class Coop extends Screen {
     restartFromCurrentLevel() { //restart from the current level
         this.clearStats();
         this.screenManager.changeScreen(this.targetScoreScreen);
+        this.startGrassDropAndLevelTimer(); 
     }
 
     displayUI() {

@@ -158,6 +158,10 @@ class Pvp extends Screen { // player with higher score in the set time wins
 
     restartFromCurrentLevel() { //restart from the current level
         this.clearStats();
+        // 清空草堆数组
+        this.grass1 = [];
+        this.grass2 = [];
+        // 重新开始草堆生成和计时器
         this.startGrassDropAndLevelTimer();
     }
 
