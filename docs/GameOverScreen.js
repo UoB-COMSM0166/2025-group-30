@@ -9,7 +9,7 @@ class GameOverScreen extends Screen {
         this.buttons = [
             {
                 label: "Home",
-                x: baseWidth / 4 - this.buttonWidth/2,
+                x: baseWidth / 4,
                 y: baseHeight / 5 * 4,
                 action: () => {
                     this.gameScreen.clearStats();
@@ -18,7 +18,7 @@ class GameOverScreen extends Screen {
             },
             {
                 label: "Restart",
-                x: baseWidth / 4 * 3 - this.buttonWidth/2,
+                x: baseWidth / 4 * 3,
                 y: baseHeight / 5 * 4,
                 action: () => {
                     this.gameScreen.restartFromCurrentLevel();
@@ -30,6 +30,7 @@ class GameOverScreen extends Screen {
 
     display() {
         this.gameScreen.display();
+        rectMode(CORNER);
         
         // 半透明背景
         fill(0, 0, 0, 127);
@@ -39,7 +40,7 @@ class GameOverScreen extends Screen {
         const panelWidth = 300;
         const panelHeight = 250;
         fill(255);
-        rect(baseWidth/ 2 - panelWidth/2, baseHeight/ 2 - panelHeight/2, panelWidth, panelHeight);
+        rect(baseWidth/ 2 - panelWidth/2, baseHeight/ 2 - panelHeight/2, panelWidth, panelHeight,10);
         
         // 文本内容
         fill(0);
