@@ -49,21 +49,22 @@ class Single extends Screen {
         setTimeout(() => {
             this.grass.push(new Grass(random(200, baseWidth - 100), 10));  // 第一个草块1秒后出现
 
-        this.grassDropInterval = setInterval(() => {
-            if (this.player.flash.getFlashDuration() === 0 && this.screenManager.currentScreen === this) {
-                let lastGrass = this.grass.length > 0 ? this.grass[this.grass.length - 1] : null;
-                let newGrassX = random(200, baseWidth - 100);
-    
-                // 确保新草块不会和上一个草块太接近（可调整 40 为合适的最小间距）
-                if (!lastGrass || abs(newGrassX - lastGrass.x) > 40) {
-                    this.grass.push(new Grass(newGrassX, 10));
-                    console.log("New grass generated");
-                }
-            }
-        }, this.grassDropDelay);
+            // 然后开始正常的草块生成间隔
+            this.grassDropInterval = setInterval(() => {
+                //grass drop continue if flashing is not on && game is not paused
+                if (this.player.flash.getFlashDuration() === 0 
+                    && this.screenManager.currentScreen === this){ 
+                        let newX = random(200, baseWidth - 100);
+                        console.log(`Grass generated at x=${newX}, time=${Date.now()}`);
+                    this.grass.push(new Grass(random(200, baseWidth- 100), 10));
+                    console.log("start grass drop");
+                } 
+            }, this.grassDropDelay);
         }, 1000);
+
         this.startLevelTimer();    
     }
+
 
     stopGrassDropAndLevelTimer() {
         if (this.grassDropInterval) {
@@ -95,7 +96,10 @@ class Single extends Screen {
 
     startLevelTimer() {
         console.log("start level timer");
-        if (this.levelTimerInterval) clearInterval(this.levelTimerInterval);
+        if (this.levelTimerInterval) {
+            clearInterval(this.levelTimerInterval);
+            this.grassDropInterval = null;
+        }
         
         this.levelTimerInterval = setInterval(() => {
             if (this.timeLeft > 0) {
