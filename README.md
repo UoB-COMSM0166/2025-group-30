@@ -14,7 +14,9 @@ Include a demo video of your game here (you don't have to wait until the end, yo
 
 ## Development Team
 
-Add a group photo here!
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/eb3712a0-9c24-4ab3-aac4-865b2566a9b3" width="500" >
+</div>
 
 <div align="center">
 
@@ -144,7 +146,7 @@ This will reduce technical difficulty, improve development efficiency, and ensur
 <p align="center"><strong>Onion model</strong></p>
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/5ef9c5c4-04e5-4d8f-b85d-7bf6b9ef1358">
+  <img src="https://github.com/user-attachments/assets/5ef9c5c4-04e5-4d8f-b85d-7bf6b9ef1358" width="500">
 </p>
 
 - Core layer: Group 30
@@ -168,7 +170,7 @@ Bystanders are potential users who may not directly participate in the game but 
 <p align="center"><strong>User-case diagram</strong></p>
 
 <p align="center">
-  <img width="915" alt="Image" src="https://github.com/user-attachments/assets/1f5c1da4-c239-4662-898a-9b46e998b081" />
+  <img width="925" alt="Image" src="https://github.com/user-attachments/assets/1f5c1da4-c239-4662-898a-9b46e998b081" />
 </p>
 
 1.Players
