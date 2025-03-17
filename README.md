@@ -91,7 +91,7 @@ During the conceptualization of the grass-catching game, we created a paper prot
 </div>
 
 
-#### Digita Paper Prototype tool
+#### Digital Paper Prototype tool
 
 To help players quickly get familiar with the game, we created a digital model based on the paper prototype. Hanying attempted to generate the digital model using her iPad, which allowed for a representation that more closely resembled the actual game compared to the paper prototype.
 
