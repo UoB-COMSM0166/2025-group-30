@@ -15,10 +15,6 @@ class TargetScoreScreen extends Screen {
             buttonHeight: this.buttonHeight,
             action: () => {
                 this.screenManager.changeScreen(this.gameScreen);
-                //if (!this.gameScreen.grassDropInterval) { 
-                   // this.gameScreen.startGrassDropAndLevelTimer();
-                //}
-                //this.gameScreen.startGrassDropAndLevelTimer(); 
                 this.gameScreen.restartFromCurrentLevel();
             }
         };
