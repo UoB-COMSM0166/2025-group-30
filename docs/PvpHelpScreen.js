@@ -19,6 +19,7 @@ class PvpHelpScreen extends Screen {
                 buttonHeight: 40,
                 action: () => {
                     this.screenManager.pvp.resetToLevel1(); //reset single to level 1
+                    this.screenManager.pvp.startGrassDropAndLevelTimer();
                     this.screenManager.changeScreen(this.screenManager.pvp); 
                 }
             }

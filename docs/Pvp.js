@@ -22,7 +22,9 @@ class Pvp extends Screen { // player with higher score in the set time wins
         this.grassDropDelay = grassDropDelay; // in milliseconds
 
         this.timeLeft= timer;
-        this.grassDropInterval = null; //manage how often a grass drops
+        this.grassDropInterval1 = null; //manage how often a grass drops for player 1
+        this.grassDropInterval2 = null; //manage how often a grass drops for player 2
+
         this.levelTimerInterval = null; //manage how often the timer goes down i.e. 1 second
 
     }
@@ -48,75 +50,63 @@ class Pvp extends Screen { // player with higher score in the set time wins
     // --- initialising the game state ---
 
     startGrassDropAndLevelTimer() { //
-        if (this.grassDropInterval) clearInterval(this.grassDropInterval);
-        
-        this.grass1 = []; //empty the grass piles
-        this.grass2 = [];
+        this.startGrassDrop();
+        this.startLevelTimer();  
+    }
+
+    startGrassDrop() {
+        this.startGrassDrop1();
+        this.startGrassDrop2();
+    }
+
+    startGrassDrop1() {
+        if (this.grassDropInterval1) clearInterval(this.grassDropInterval1);
 
         // 设置一个较短的延迟来生成第一个草块
         setTimeout(() => {
-            // 为玩家1生成草堆
-            this.grass1.push(new Grass(random(200, baseWidth/2 - 100), 10));
-            // 为玩家2生成草堆
-            this.grass2.push(new Grass(random(baseWidth/2, baseWidth-100), 10));
+            if (this.player1.flash.getFlashDuration() === 0 
+            && this.screenManager.currentScreen === this) {
+                this.grass1.push(new Grass(random(200, baseWidth/2 - 100), 10));
+            }
 
             // 然后开始正常的草块生成间隔
-            this.grassDropInterval = setInterval(() => {
+            this.grassDropInterval1 = setInterval(() => {
                 if (this.screenManager.currentScreen === this) {
                     // 按照固定频率生成草堆
                     if (this.player1.flash.getFlashDuration() === 0) {
                         this.grass1.push(new Grass(random(200, baseWidth/2 - 100), 10));
-                        console.log("start grass drop 1");
-                    }
-                    if (this.player2.flash.getFlashDuration() === 0) {
-                        this.grass2.push(new Grass(random(baseWidth/2, baseWidth-100), 10));
-                        console.log("start grass drop 2");
+                    } else {
+                        this.stopGrassDrop1();
+                        this.startGrassDrop1();
                     }
                 }         
             }, this.grassDropDelay);
         }, 1000);
-         
-        this.startLevelTimer();  
     }
 
-    stopGrassDropAndLevelTimer() {
-        if (this.grassDropInterval) {
-            clearInterval(this.grassDropInterval);
-            this.grassDropInterval = null;
-            console.log("stop grass drop for 1 and 2");
-        }
-        this.stopLevelTimer();
-    }
+    startGrassDrop2 () {
+        if (this.grassDropInterval2) clearInterval(this.grassDropInterval2);
 
-    // --- main game logic ----
-    updateFallingGrass() { //update the grass from this.grass based on if caught or missed   
-        this.updateGrass1();
-        this.updateGrass2();
-    }
-
-    updateGrass1() { //update the grass from this.grass1 based on if caught or missed   
-        for (let i = this.grass1.length - 1; i >= 0; i--) {
-            if (this.player1.flash.getFlashDuration() === 0 && this.screenManager.currentScreen === this) this.grass1[i].fall(); //stop grass fall if flashing is on or game is paused           
-            
-            if (this.grass1[i].y > baseHeight|| this.player1.checkGrassCaught(this.grass1[i])) {
-                this.grass1.splice(i, 1);  // Remove if off-screen or caught
+        // 设置一个较短的延迟来生成第一个草块
+        setTimeout(() => {
+            if (this.player2.flash.getFlashDuration() === 0 
+            && this.screenManager.currentScreen === this) {
+                this.grass2.push(new Grass(random(baseWidth/2, baseWidth-100), 10));
             }
-        }
-    }
 
-    updateGrass2() { //update the grass from this.grass2 based on if caught or missed   
-        for (let i = this.grass2.length - 1; i >= 0; i--) {
-            if (this.player2.flash.getFlashDuration() === 0 && this.screenManager.currentScreen === this) this.grass2[i].fall(); //stop grass fall if flashing is on or game is paused           
-            
-            if (this.grass2[i].y > baseHeight|| this.player2.checkGrassCaught(this.grass2[i])) {
-                this.grass2.splice(i, 1);  // Remove if off-screen or caught
-            }
-        }
-    }
-    
-    drawGrass(){ //draw the grass
-        for (let i = this.grass1.length - 1; i >= 0; i--) this.grass1[i].draw();
-        for (let i = this.grass2.length - 1; i >= 0; i--) this.grass2[i].draw();
+            // 然后开始正常的草块生成间隔
+            this.grassDropInterval2 = setInterval(() => {
+                if (this.screenManager.currentScreen === this) {
+                    // 按照固定频率生成草堆
+                    if (this.player2.flash.getFlashDuration() === 0) {
+                        this.grass2.push(new Grass(random(baseWidth/2, baseWidth-100), 10));
+                    } else {
+                        this.stopGrassDrop2();
+                        this.startGrassDrop2();
+                    }
+                }         
+            }, this.grassDropDelay);
+        }, 1000);
     }
 
     startLevelTimer() { 
@@ -133,19 +123,75 @@ class Pvp extends Screen { // player with higher score in the set time wins
         }, 1000);
     }
 
+   
+
+    // --- main game logic ----
+    updateFallingGrass() { //update the grass from this.grass based on if caught or missed   
+        this.updateGrass1();
+        this.updateGrass2();
+    }
+
+    updateGrass1() { //update the grass from this.grass1 based on if caught or missed   
+        for (let i = this.grass1.length - 1; i >= 0; i--) {
+            if (this.player1.flash.getFlashDuration() === 0 && this.screenManager.currentScreen === this) {
+                this.grass1[i].fall(); //stop grass fall if flashing is on or game is paused           
+            }
+            if (this.grass1[i].y > baseHeight|| this.player1.checkGrassCaught(this.grass1[i])) {
+                this.grass1.splice(i, 1);  // Remove if off-screen or caught
+            }
+        }
+    }
+
+    updateGrass2() { //update the grass from this.grass2 based on if caught or missed   
+        for (let i = this.grass2.length - 1; i >= 0; i--) {
+            if (this.player2.flash.getFlashDuration() === 0 && this.screenManager.currentScreen === this) {
+                this.grass2[i].fall(); //stop grass fall if flashing is on or game is paused           
+            }
+            if (this.grass2[i].y > baseHeight|| this.player2.checkGrassCaught(this.grass2[i])) {
+                this.grass2.splice(i, 1);  // Remove if off-screen or caught
+            }
+        }
+    }
+    
+    drawGrass(){ //draw the grass
+        for (let i = this.grass1.length - 1; i >= 0; i--) this.grass1[i].draw();
+        for (let i = this.grass2.length - 1; i >= 0; i--) this.grass2[i].draw();
+    }
+
+    
+    stopGrassDropAndLevelTimer() {
+        this.stopGrassDrop();
+        this.stopLevelTimer();
+    }
+        
+    stopGrassDrop() {
+        this.stopGrassDrop1();
+        this.stopGrassDrop2();
+    }
+
+    stopGrassDrop1() {
+        if (this.grassDropInterval1) clearInterval(this.grassDropInterval1);
+    }   
+
+    stopGrassDrop2() {
+        if (this.grassDropInterval2) clearInterval(this.grassDropInterval2);
+    }   
+    
+    
     stopLevelTimer() {      
         if (this.levelTimerInterval) {
             clearInterval(this.levelTimerInterval);
-            this.levelTimerInterval = null;
         }
         console.log("stop level timer for 1 and 2");
     }
 
-    clearStats(){
+    resetStats(){
         this.player1.reset();
         this.player2.reset();
         this.timeLeft = this.timer;
-        this.stopGrassDropAndLevelTimer();     
+        this.stopGrassDropAndLevelTimer();    
+        this.grass1 = []; //empty the grass piles
+        this.grass2 = []; 
     }
 
     resetToLevel1(){ //reset to level 1
@@ -153,16 +199,7 @@ class Pvp extends Screen { // player with higher score in the set time wins
         this.timer = 30;
         this.grassDropDelay = 1500; // 初始频率从2000ms改为1500ms
 
-        this.restartFromCurrentLevel();
-    }
-
-    restartFromCurrentLevel() { //restart from the current level
-        this.clearStats();
-        // 清空草堆数组
-        this.grass1 = [];
-        this.grass2 = [];
-        // 重新开始草堆生成和计时器
-        this.startGrassDropAndLevelTimer();
+        this.resetStats();
     }
 
     displayUI() {
@@ -185,12 +222,12 @@ class Pvp extends Screen { // player with higher score in the set time wins
     }
     
     //--- Move to next level ---
-    startNextLevel() { 
+    setNextLevel() { 
         this.level++;
         this.timer += 30;
         this.grassDropDelay = max(500, this.grassDropDelay-300); // 每关减少300ms，而不是500ms
 
-        this.restartFromCurrentLevel();
+        this.resetStats();
     }
 
     keyPressed() { 

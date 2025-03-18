@@ -14,7 +14,7 @@ class GameOverScreen extends Screen {
                 buttonWidth: this.buttonWidth,
                 buttonHeight: this.buttonHeight,
                 action: () => {
-                    this.gameScreen.clearStats();
+                    this.gameScreen.resetStats();
                     this.screenManager.changeScreen(this.screenManager.homeScreen);
                 }
             },
@@ -25,7 +25,8 @@ class GameOverScreen extends Screen {
                 buttonWidth: this.buttonWidth,
                 buttonHeight: this.buttonHeight,
                 action: () => {
-                    this.gameScreen.restartFromCurrentLevel();
+                    this.gameScreen.resetStats();
+                    this.gameScreen.startGrassDropAndLevelTimer();
                     this.screenManager.changeScreen(this.gameScreen);
                 }
             }

@@ -13,6 +13,8 @@ class PauseScreen extends Screen {
                 buttonWidth: 200,
                 buttonHeight: 50,
                 action: () => {
+                    this.gameScreen.stopGrassDrop();
+                    this.gameScreen.startGrassDrop();
                     this.screenManager.changeScreen(this.gameScreen);
                 }
             },
@@ -23,7 +25,8 @@ class PauseScreen extends Screen {
                 buttonWidth: 200,
                 buttonHeight: 50,
                 action: () => {
-                    this.gameScreen.restartFromCurrentLevel();
+                    this.gameScreen.resetStats();
+                    this.gameScreen.startGrassDropAndLevelTimer();
                     this.screenManager.changeScreen(this.gameScreen);
                 }
             },
@@ -34,7 +37,7 @@ class PauseScreen extends Screen {
                 buttonWidth: 200,
                 buttonHeight: 50,
                 action: () => {
-                    this.gameScreen.clearStats();
+                    this.gameScreen.resetStats();
                     this.screenManager.changeScreen(this.screenManager.homeScreen);
                 }
             }

@@ -15,7 +15,8 @@ class LevelSuccessScreen extends Screen {
                 buttonWidth: this.buttonWidth,
                 buttonHeight: this.buttonHeight,
                 action: () => {
-                    this.gameScreen.startNextLevel();
+                    this.gameScreen.setNextLevel();
+                    this.screenManager.changeScreen(this.gameScreen.targetScoreScreen); // startGrassDropAndLevelTimer will be called in targetScoreScreen
                 }
             },
             {
@@ -25,7 +26,7 @@ class LevelSuccessScreen extends Screen {
                 buttonWidth: this.buttonWidth,
                 buttonHeight: this.buttonHeight,
                 action: () => {
-                    this.gameScreen.clearStats();
+                    this.gameScreen.resetStats();
                     this.screenManager.changeScreen(this.screenManager.homeScreen);
                 }
             }

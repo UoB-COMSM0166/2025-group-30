@@ -24,18 +24,17 @@ keyPressed()
 keyReleased()
 
 <br>
-startNextLevel()
+setNextLevel()
 
 <br>
-clearStats() --> stopGrassDropAndLevelTimer() `//clear the current game stats`
+resetStats() --> stopGrassDropAndLevelTimer() `//reset the current game stats`
 
-restartFromCurrentLevel() `//restart from the current level`
 
 resetToLevel1() `//reset to level 1`
 
 
 ## Player
-resetToLevel1()
+reset()
 
 move()
 

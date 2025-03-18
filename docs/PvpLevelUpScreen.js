@@ -13,7 +13,8 @@ class PvpLevelUpScreen extends Screen {
                 x: baseWidth/ 4 * 3 ,
                 y: baseHeight/ 5 * 4,
                 action: () => {
-                    this.gameScreen.startNextLevel();
+                    this.gameScreen.setNextLevel();
+                    this.gameScreen.startGrassDropAndLevelTimer();
                     this.screenManager.changeScreen(this.gameScreen);
                 }
             },
@@ -22,7 +23,7 @@ class PvpLevelUpScreen extends Screen {
                 x: baseWidth/ 4,
                 y: baseHeight/ 5 * 4,
                 action: () => {
-                    this.gameScreen.clearStats();
+                    this.gameScreen.resetStats();
                     this.screenManager.changeScreen(this.screenManager.homeScreen);
                 }
             }

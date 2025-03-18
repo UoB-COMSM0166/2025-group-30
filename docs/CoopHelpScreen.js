@@ -19,6 +19,7 @@ class CoopHelpScreen extends Screen {
                 buttonHeight: 40,
                 action: () => {
                     this.screenManager.coop.resetToLevel1(); //reset coop to level 1
+                    this.screenManager.coop.startGrassDropAndLevelTimer();
                     this.screenManager.changeScreen(this.screenManager.coop.targetScoreScreen); 
                 }
             }
