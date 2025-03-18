@@ -49,36 +49,29 @@ class Coop extends Screen {
     startGrassDropAndLevelTimer() {
         console.log("Starting grass drop and level timer for coop mode...");
         
-        // 如果已经有草堆计时器在运行，先清除它并设为null
-        if (this.grassDropInterval) {
-            console.log("Coop: 清除已存在的草堆计时器");
-            clearInterval(this.grassDropInterval);
-            this.grassDropInterval = null;
-        }
+        // 先停止所有现有的计时器
+        this.stopGrassDropAndLevelTimer();
 
         this.grass = []; //empty the grass piles
 
         // 设置一个较短的延迟来生成第一个草块
         setTimeout(() => {
-            // 确保此时没有其他计时器在运行
+            // 在全屏范围内随机生成草堆
+            let firstX = random(200, baseWidth - 100);
+            this.grass.push(new Grass(firstX, 10));
+            console.log("First grass generated at x=" + firstX);
+            
+            // 确保grassDropInterval为null后再创建新的计时器
             if (this.grassDropInterval === null) {
-                // 生成第一个草块
-                let firstX = random(200, baseWidth - 100);
-                this.grass.push(new Grass(firstX, 10));
-                //console.log("Coop: 第一个草堆生成在位置 x=" + firstX);
-
-                // 创建新的草堆生成计时器
                 this.grassDropInterval = setInterval(() => {
-                    // 只有当至少一个玩家不在闪烁状态且游戏没有暂停时才生成新的草堆
-                    if ((this.player1.flash.getFlashDuration() === 0 || this.player2.flash.getFlashDuration() === 0) && this.screenManager.currentScreen === this) { 
+                    if ((this.player1.flash.getFlashDuration() === 0 || this.player2.flash.getFlashDuration() === 0) && this.screenManager.currentScreen === this){ 
+                        //grass drop continue if flashing for both player is not on && game is not paused
                         let newX = random(200, baseWidth - 100);
                         this.grass.push(new Grass(newX, 10));
-                        //console.log("Coop: 新草堆生成在位置 x=" + newX);
-                    }
-                }, this.grassDropDelay);
-                //console.log("Coop: 草堆生成间隔设置为 " + this.grassDropDelay + "ms");
-            } else {
-                //console.log("Coop: 已有草堆计时器在运行，跳过创建");
+                        console.log("New grass generated at x=" + newX);
+                    }           
+                }, this.grassDropDelay); //grass falls every 2 seconds   
+                console.log("Grass drop interval started with delay: " + this.grassDropDelay);       
             }
         }, 1000);
 
