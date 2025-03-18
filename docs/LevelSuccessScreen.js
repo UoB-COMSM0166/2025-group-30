@@ -87,17 +87,4 @@ class LevelSuccessScreen extends Screen {
             text(button.label, button.x, button.y);
         }
     }
-
-    mousePressed() {
-        // 检查是否点击了按钮
-        for (let button of this.buttons) {
-            if (window.mouseXGame >= button.x - button.buttonWidth/2 
-                && window.mouseXGame <= button.x + button.buttonWidth/2 
-                && window.mouseYGame >= button.y - button.buttonHeight/2 
-                && window.mouseYGame <= button.y + button.buttonHeight/2) {
-                button.action();
-                break;
-            }
-        }
-    }
 }

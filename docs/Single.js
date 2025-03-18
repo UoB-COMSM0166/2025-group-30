@@ -40,26 +40,40 @@ class Single extends Screen {
 
     // --- initialising the game state ---
     startGrassDropAndLevelTimer() {
+        console.log("Single: 开始草堆掉落和关卡计时器");
         
-        if (this.grassDropInterval) {clearInterval(this.grassDropInterval);}
+        // 如果已经有草堆计时器在运行，先清除它并设为null
+        if (this.grassDropInterval) {
+            console.log("Single: 清除已存在的草堆计时器");
+            clearInterval(this.grassDropInterval);
+            this.grassDropInterval = null;
+        }
 
         this.grass = []; //empty the grass piles
 
         // 设置一个较短的延迟来生成第一个草块
         setTimeout(() => {
-            this.grass.push(new Grass(random(200, baseWidth - 100), 10));  // 第一个草块1秒后出现
+            // 确保此时没有其他计时器在运行
+            if (this.grassDropInterval === null) {
+                // 生成第一个草块
+                let firstX = random(200, baseWidth - 100);
+                this.grass.push(new Grass(firstX, 10));
+                console.log("Single: 第一个草堆生成在位置 x=" + firstX);
 
-            // 然后开始正常的草块生成间隔
-            this.grassDropInterval = setInterval(() => {
-                //grass drop continue if flashing is not on && game is not paused
-                if (this.player.flash.getFlashDuration() === 0 
-                    && this.screenManager.currentScreen === this){ 
+                // 创建新的草堆生成计时器
+                this.grassDropInterval = setInterval(() => {
+                    // 只有当玩家不在闪烁状态且游戏没有暂停时才生成新的草堆
+                    if (this.player.flash.getFlashDuration() === 0 
+                        && this.screenManager.currentScreen === this) { 
                         let newX = random(200, baseWidth - 100);
-                        console.log(`Grass generated at x=${newX}, time=${Date.now()}`);
-                    this.grass.push(new Grass(random(200, baseWidth- 100), 10));
-                    console.log("start grass drop");
-                } 
-            }, this.grassDropDelay);
+                        this.grass.push(new Grass(newX, 10));
+                        console.log("Single: 新草堆生成在位置 x=" + newX);
+                    } 
+                }, this.grassDropDelay);
+                console.log("Single: 草堆生成间隔设置为 " + this.grassDropDelay + "ms");
+            } else {
+                console.log("Single: 已有草堆计时器在运行，跳过创建");
+            }
         }, 1000);
 
         this.startLevelTimer();    
@@ -96,10 +110,7 @@ class Single extends Screen {
 
     startLevelTimer() {
         console.log("start level timer");
-        if (this.levelTimerInterval) {
-            clearInterval(this.levelTimerInterval);
-            this.grassDropInterval = null;
-        }
+        if (this.levelTimerInterval) clearInterval(this.levelTimerInterval);
         
         this.levelTimerInterval = setInterval(() => {
             if (this.timeLeft > 0) {
@@ -141,10 +152,14 @@ class Single extends Screen {
         this.restartFromCurrentLevel();
     }
 
-    restartFromCurrentLevel() { //restart from the current level
+    restartFromCurrentLevel() { // restart from the current level
+        console.log("Single: 从当前关卡重新开始");
+        
+        // 清除统计信息和所有计时器
         this.clearStats();
-        this.screenManager.changeScreen(this.targetScoreScreen);
-        this.grass = [];
+        
+        // 直接启动新的计时器，因为clearStats已经调用了stopGrassDropAndLevelTimer
+        console.log("Single: 重新启动草堆掉落");
         this.startGrassDropAndLevelTimer();
     }
 
