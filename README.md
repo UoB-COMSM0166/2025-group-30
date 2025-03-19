@@ -119,27 +119,37 @@ Eventually, we decided to remove the physics engine and use a simple square gras
 **Requirement Analysis**
 
 1.User Requirements
+
 -Players: Should be able to control and stack square grass blocks smoothly.
+
 2.Technical Requirements
+
 -Client-side Development: Implement the game interface and handle user input.
+
 -Physics Simulation: Remove the external physics engine and use a simple square block stacking mechanism.
 
 **Technical Feasibility**
 Shape Stacking Mechanism
+
 Initial Plan
+
 -Use an external physics engine (e.g., Box2D, Matter.js) for simulating different shape interactions.
+
 -Requires complex physics calculations, including collision detection and gravity simulation.
 
 **Feasibility Evaluation**
 -Lack of experience in physics engine development makes debugging and optimization challenging.
+
 -Complex physics calculations may lead to high computational resource consumption, affecting game performance.
 Alternative Plan
+
 -Switch to simple square grass block stacking without relying on an external physics engine.
+
 -Use a rule-based stacking method where each block is placed according to predefined logic rather than dynamic physics calculations.
+
 -Implement basic rectangle overlap detection for collision handling to improve development efficiency.
 
-Based on the feasibility analysis, we have decided to adjust the game design by abandoning the complex physics engine integration and opting for a simple square grass block stacking mechanism. 
-This will reduce technical difficulty, improve development efficiency, and ensure game stability.
+Based on the feasibility analysis, we have decided to adjust the game design by abandoning the complex physics engine integration and opting for a simple square grass block stacking mechanism. This will reduce technical difficulty, improve development efficiency, and ensure game stability.
 
 ### Stakeholders Analysis 
 
@@ -149,7 +159,8 @@ This will reduce technical difficulty, improve development efficiency, and ensur
   <img src="https://github.com/user-attachments/assets/5ef9c5c4-04e5-4d8f-b85d-7bf6b9ef1358" width="500">
 </p>
 
-- Core layer: Group 30
+
+-Core layer: Group 30
 
 Group 30-2025 are the core creators of the game, responsible for its design, development, and implementation. They determine the quality, gameplay, and overall experience of the game. 
 
@@ -174,6 +185,7 @@ Bystanders are potential users who may not directly participate in the game but 
 </p>
 
 1.Players
+
 Players are the primary users of the game, interacting with the game system to achieve game objectives.
 Main Use Cases of players is:
 
@@ -184,6 +196,7 @@ Main Use Cases of players is:
 -Pause game: Pause the current game.
 
 2.Developers 
+
 Developers are responsible for maintaining and updating the game to ensure it runs smoothly.
 Main Use Cases of Developers is:
 
@@ -196,6 +209,7 @@ Main Use Cases of Developers is:
 -Monitor game: Monitor the game's performance to identify potential issues.
 
 3.Game system
+
 Game system manages the core logic and state of the game.
 
 -Update score: Update the score when players drop grass into the basket.
