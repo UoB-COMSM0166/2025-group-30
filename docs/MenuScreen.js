@@ -8,6 +8,10 @@ class MenuScreen extends Screen {
         this.backgroundColor = color(200); // 默认背景色
         this.loadBackgroundImage();
         
+        // 加载农民疑惑图片
+        this.farmerImage = null;
+        this.loadFarmerImage();
+        
         this.buttons = [
             {
                 label: "Single Player",
@@ -35,16 +39,16 @@ class MenuScreen extends Screen {
             },
             {
                 label: "Back",
-                x : baseWidth / 4, 
-                y : baseHeight * 5/6,
+                x : baseWidth / 5, 
+                y : baseHeight * 7/8,
                 buttonWidth: 100,
                 buttonHeight: 40,
                 action: () => this.screenManager.changeScreen(this.screenManager.homeScreen) //go to settings screen
             },
             {
                 label: "Tutorial",
-                x : baseWidth / 4 * 3, 
-                y : baseHeight / 6 * 5,
+                x : baseWidth / 5 * 4, 
+                y : baseHeight * 7/8,
                 buttonWidth: 100,
                 buttonHeight: 40,
                 action: () => this.screenManager.changeScreen(this.screenManager.stepByStepHelpScreen) //go to settings screen
@@ -54,7 +58,7 @@ class MenuScreen extends Screen {
 
     loadBackgroundImage() {
         // 加载背景图片
-        loadImage('../Assets/MenuScreen.png', img => {
+        loadImage('../Assets/MenuScreen.webp', img => {
             this.backgroundImage = img;
             
             // 获取图片左上角的颜色，用于背景
@@ -62,8 +66,13 @@ class MenuScreen extends Screen {
             if (this.backgroundImage.pixels && this.backgroundImage.pixels.length > 0) {
                 this.backgroundColor = this.backgroundImage.get(0, 0);
             }
-        }, () => {
-            // 图片加载失败的处理
+        });
+    }
+    
+    loadFarmerImage() {
+        // 加载农民疑惑GIF
+        loadImage('../Assets/农民疑惑.gif', img => {
+            this.farmerImage = img;
         });
     }
 
@@ -134,6 +143,61 @@ class MenuScreen extends Screen {
             textSize(20);
             textAlign(CENTER, CENTER);
             text(button.label, button.x, button.y);
+        }
+
+        // 绘制农民疑惑图片和指向Tutorial的虚线弯箭头
+        if (this.farmerImage) {
+            // 找到Tutorial按钮
+            const tutorialButton = this.buttons.find(button => button.label === "Tutorial");
+            if (tutorialButton) {
+                // 设置图片位置（Tutorial按钮右上角）
+                const imageSize = 120;
+                const imageX = tutorialButton.x + tutorialButton.buttonWidth/2 + imageSize/2;
+                const imageY = tutorialButton.y - tutorialButton.buttonHeight/2 - imageSize/2;
+                
+                // 先绘制箭头（放在底层）
+                push(); // 保存当前绘图状态
+                
+                // 设置虚线样式
+                stroke(255, 255, 255, 200);
+                strokeWeight(2);
+                drawingContext.setLineDash([5, 5]); // 设置虚线模式
+                
+                // 计算控制点 - 从图片中心指向按钮右上角
+                const startX = imageX;
+                const startY = imageY;
+                const endX = tutorialButton.x + tutorialButton.buttonWidth/2;
+                const endY = tutorialButton.y - tutorialButton.buttonHeight/2;
+                const ctrlX = (startX + endX) / 2 - 30; // 控制点X坐标（略微向左偏移）
+                const ctrlY = (startY + endY) / 2; // 控制点Y坐标（保持中间高度）
+                
+                // 绘制弯曲的虚线路径
+                noFill();
+                beginShape();
+                vertex(startX, startY);
+                quadraticVertex(ctrlX, ctrlY, endX, endY);
+                endShape();
+                
+                // 绘制箭头
+                const angle = atan2(endY - ctrlY, endX - ctrlX);
+                const arrowSize = 10;
+                
+                // 绘制实心箭头
+                fill(255, 255, 255, 200);
+                noStroke();
+                push();
+                translate(endX, endY);
+                rotate(angle);
+                triangle(0, 0, -arrowSize, -arrowSize/2, -arrowSize, arrowSize/2);
+                pop();
+                
+                // 重置虚线设置
+                drawingContext.setLineDash([]);
+                pop(); // 恢复绘图状态
+                
+                // 然后再绘制图片（放在顶层）
+                image(this.farmerImage, imageX - imageSize/2, imageY - imageSize/2, imageSize, imageSize);
+            }
         }
     }
 
