@@ -22,7 +22,7 @@ class SingleHelpScreen extends Screen {
                 buttonHeight: this.buttonHeight,
                 action: () => {
                     this.screenManager.single.resetToLevel1(); //reset single to level 1
-                    this.screenManager.changeScreen(this.screenManager.single); 
+                    this.screenManager.changeScreen(this.screenManager.single.targetScoreScreen); 
                 }
             }
         ];

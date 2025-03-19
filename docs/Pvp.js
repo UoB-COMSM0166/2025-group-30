@@ -1,5 +1,5 @@
 class Pvp extends Screen { // player with higher score in the set time wins
-    constructor(screenManager, level=1, timer=30, grassDropDelay=2000) {
+    constructor(screenManager, level=1, timer=30, grassDropDelay=1500) {
         // --- basic settings ---
         super(screenManager);
 
@@ -49,25 +49,32 @@ class Pvp extends Screen { // player with higher score in the set time wins
 
     startGrassDropAndLevelTimer() { //
         if (this.grassDropInterval) clearInterval(this.grassDropInterval);
-        // if (this.grassDropInterval2) clearInterval(this.grassDropInterval2);
         
         this.grass1 = []; //empty the grass piles
         this.grass2 = [];
 
-        //grass drops start immediately 
-        this.grass1.push(new Grass(random(200, baseWidth/2 - 100), 10));
-        this.grass2.push(new Grass(random(baseWidth/2, baseWidth-100), 10));
+        // 设置一个较短的延迟来生成第一个草块
+        setTimeout(() => {
+            // 为玩家1生成草堆
+            this.grass1.push(new Grass(random(200, baseWidth/2 - 100), 10));
+            // 为玩家2生成草堆
+            this.grass2.push(new Grass(random(baseWidth/2, baseWidth-100), 10));
 
-        this.grassDropInterval1 = setInterval(() => {
-            if (this.player1.flash.getFlashDuration() === 0 && this.screenManager.currentScreen === this){ //grass drop continue if flashing is not on && game is not paused
-                this.grass1.push(new Grass(random(200, baseWidth/2 - 100), 10));
-                console.log("start grass drop 1");
-            }   
-            if (this.player2.flash.getFlashDuration() === 0 && this.screenManager.currentScreen === this){ //grass drop continue if flashing is not on && game is not paused
-                this.grass2.push(new Grass(random(baseWidth/2, baseWidth-100), 10));
-                console.log("start grass drop 1");
-            }         
-        }, this.grassDropDelay); //grass falls every 2 seconds 
+            // 然后开始正常的草块生成间隔
+            this.grassDropInterval = setInterval(() => {
+                if (this.screenManager.currentScreen === this) {
+                    // 按照固定频率生成草堆
+                    if (this.player1.flash.getFlashDuration() === 0) {
+                        this.grass1.push(new Grass(random(200, baseWidth/2 - 100), 10));
+                        console.log("start grass drop 1");
+                    }
+                    if (this.player2.flash.getFlashDuration() === 0) {
+                        this.grass2.push(new Grass(random(baseWidth/2, baseWidth-100), 10));
+                        console.log("start grass drop 2");
+                    }
+                }         
+            }, this.grassDropDelay);
+        }, 1000);
          
         this.startLevelTimer();  
     }
@@ -144,17 +151,25 @@ class Pvp extends Screen { // player with higher score in the set time wins
     resetToLevel1(){ //reset to level 1
         this.level = 1;
         this.timer = 30;
-        this.grassDropDelay = 2000;
+        this.grassDropDelay = 1500; // 初始频率从2000ms改为1500ms
 
         this.restartFromCurrentLevel();
     }
 
     restartFromCurrentLevel() { //restart from the current level
         this.clearStats();
+        // 清空草堆数组
+        this.grass1 = [];
+        this.grass2 = [];
+        // 重新开始草堆生成和计时器
         this.startGrassDropAndLevelTimer();
     }
 
     displayUI() {
+        // 更新两个篮子的分数，只显示当前得分
+        this.basket1.updateScore(this.player1.score, 0);
+        this.basket2.updateScore(this.player2.score, 0);
+
         stroke(0);
         line(baseWidth/ 2, 0, baseWidth/ 2, baseHeight);
         noStroke();
@@ -163,21 +178,17 @@ class Pvp extends Screen { // player with higher score in the set time wins
         textSize(20);
         
         textAlign(CENTER);
-        text(`Level ${this.level}`, baseWidth/ 2, 30);
-        text(`Time: ${this.timeLeft}s`, baseWidth/ 2, 60);
+        text(`Level ${this.level}`, baseWidth / 2, 30);
         
         textAlign(LEFT);
-        text(`Score: ${this.player1.score}`, 20, 30);
-
-        textAlign(RIGHT);
-        text(`Score: ${this.player2.score}`, baseWidth- 20, 30);
+        text(`Time: ${this.timeLeft}s`, 20, 30);
     }
     
     //--- Move to next level ---
     startNextLevel() { 
         this.level++;
         this.timer += 30;
-        this.grassDropDelay = max(500, this.grassDropDelay-500);
+        this.grassDropDelay = max(500, this.grassDropDelay-300); // 每关减少300ms，而不是500ms
 
         this.restartFromCurrentLevel();
     }
