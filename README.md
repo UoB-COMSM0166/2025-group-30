@@ -40,11 +40,11 @@ Include a demo video of your game here (you don't have to wait until the end, yo
 - Describe your game, what is based on, what makes it novel? 
 
 Our **Haystacking** game is an innovative stacking-based casual challenge inspired by the classic game **Grass Catching**. 
-Set during the harvest season on a farm, players must control their character’s movement left and right to catch falling 
+Set during the harvest season on a farm, players must control their character's movement left and right to catch falling 
 haystacks and collect as much hay as possible within a limited time to reach the goal.
 
 #### **Game Objective**
-The game challenges players’ balancing and strategic skills while simulating the intensity of farm harvesting. 
+The game challenges players' balancing and strategic skills while simulating the intensity of farm harvesting. 
 Players must constantly adjust their position and respond flexibly to randomly falling hay. If too much hay 
 accumulates, movement speed will slow down, making it harder to catch additional falling hay. Therefore, 
 players need to empty the collection bucket at the right time to maintain stability.
@@ -57,16 +57,15 @@ the target. As haystack accumulation increases, movement speed gradually slows d
 of the game more challenging and strategic.
 
 #### **Game Significance**
-The game tests players’ reflexes, spatial awareness, and strategic planning skills while creating a relaxed 
+The game tests players' reflexes, spatial awareness, and strategic planning skills while creating a relaxed 
 yet challenging farm-harvesting atmosphere. With simple and intuitive controls, **Haystacking** offers both excitement and tension. Whether playing solo or competing with friends, this game delivers a uniquely entertaining experience!
 
 #### Table 1: Game Elements
 | Category  | Image  | Description  |
 |-----------|--------|--------------|
-| **Collection Basket** | ![Basket](image/basket.png) | The basket where players store the collected hay. Players need to transfer the caught hay into the basket to tally their score. |
-| **Player** | ![Player](image/player.png) | The character controlled by the player, moving left and right to catch falling hay. |
-| **Lifting Basket** | ![Lifting Basket](image/lifting_basket.png) | A secondary basket used for catching hay before transferring it to the main collection basket. |
-| **Falling Hay** | ![Falling Hay](image/falling_hay.png) | The hay stacks that fall from the sky. Players must catch them efficiently to reach the target before time runs out. |
+| **Player & lifting basket** | <img src="Assets/farmer.png" width="50" style="vertical-align: middle;"> | The character controlled by the player, moving left and right to catch falling hay. |
+| **collection Basket** | <img src="Assets/lifting_basket.png" width="50" style="vertical-align: middle;"> | A secondary basket used for catching hay before transferring it to the main collection basket. |
+| **Falling Hay** | <img src="Assets/hay.png" width="50" style="vertical-align: middle;"> | The hay stacks that fall from the sky. Players must catch them efficiently to reach the target before time runs out. |
 
 ### Requirements 
 
@@ -256,7 +255,7 @@ Game system manages the core logic and state of the game.
   <tr>
     <td>Hardcore Player</td>
     <td>Character Progression</td>
-    <td>As a hardcore player, I want to upgrade my character’s equipment so that I can compete at higher difficulty levels.</td>
+    <td>As a hardcore player, I want to upgrade my character's equipment so that I can compete at higher difficulty levels.</td>
     <td>Characters should be able to purchase gear using in-game currency or rewards, enhancing their abilities.</td>
   </tr>
   <tr>
@@ -269,7 +268,7 @@ Game system manages the core logic and state of the game.
     <td></td>
     <td></td>
     <td>As a hardcore player, I want to compare scores with my friends so that I can compete with them.</td>
-    <td>The game should include a friends’ leaderboard to compare scores easily.</td>
+    <td>The game should include a friends' leaderboard to compare scores easily.</td>
   </tr>
   <tr>
     <td></td>
