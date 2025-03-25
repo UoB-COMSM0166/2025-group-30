@@ -14,6 +14,8 @@ class HomeScreen extends Screen {
         this.textYOffset = 0;      // 文本Y轴偏移（用于浮现效果）
         this.textFloatSpeed = 0.3; // 浮现速度
         this.textFloatAmount = 5;  // 浮现幅度（像素）
+        // 标题图片浮动效果与文本保持一致
+        this.titleYOffset = 0;     // 标题Y轴偏移
         
         this.loadBackgroundVideo();
         this.loadTitleImage();
@@ -71,6 +73,8 @@ class HomeScreen extends Screen {
         
         // 更新浮现动画 - 使文本上下浮动
         this.textYOffset = Math.sin(frameCount * this.textFloatSpeed * 0.05) * this.textFloatAmount;
+        // 更新标题浮动效果 - 使用相同的浮动速度和幅度
+        this.titleYOffset = this.textYOffset;
         
         // 更新文本颜色的透明度
         this.textColor = color(70, 90, 100, this.textAlpha);
@@ -122,11 +126,11 @@ class HomeScreen extends Screen {
             const titleScale = titleWidth / this.titleImage.width;
             titleHeight = this.titleImage.height * titleScale;
             
-            // 在顶部居中显示标题
+            // 在顶部居中显示标题，应用浮动效果
             image(
                 this.titleImage, 
                 (baseWidth - titleWidth) / 2, // 水平居中
-                30, // 顶部距离
+                30 + this.titleYOffset, // 顶部距离 + 浮动效果
                 titleWidth, 
                 titleHeight
             );
