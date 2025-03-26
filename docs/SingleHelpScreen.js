@@ -6,9 +6,9 @@ class SingleHelpScreen extends Screen {
         this.buttonHeight = 40;
 
         // Load the arrow button images
-        this.rightArrowImg = loadImage('assets/right-arrow-button.png');
-        this.leftArrowImg = loadImage('assets/left-arrow-button.png');
-        this.spaceButtonImg = loadImage('assets/space-button.png');
+        this.rightArrowImg = loadImage('assets/right-arrow-button.webp');
+        this.leftArrowImg = loadImage('assets/left-arrow-button.webp');
+        this.spaceButtonImg = loadImage('assets/space-button.webp');
         
         
 

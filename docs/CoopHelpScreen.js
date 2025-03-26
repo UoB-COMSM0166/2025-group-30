@@ -6,13 +6,13 @@ class CoopHelpScreen extends Screen {
         this.buttonHeight = 40;
 
         // Load the arrow button images
-        this.rightArrowImg = loadImage('assets/right-arrow-button.png');
-        this.leftArrowImg = loadImage('assets/left-arrow-button.png');
-        this.enterButtonImg = loadImage('assets/enter-button.png');
+        this.rightArrowImg = loadImage('assets/right-arrow-button.webp');
+        this.leftArrowImg = loadImage('assets/left-arrow-button.webp');
+        this.enterButtonImg = loadImage('assets/enter-button.webp');
 
-        this.aButtonImg = loadImage('assets/a-button.png');
-        this.dButtonImg = loadImage('assets/d-button.png');
-        this.spaceButtonImg = loadImage('assets/space-button.png');
+        this.aButtonImg = loadImage('assets/a-button.webp');
+        this.dButtonImg = loadImage('assets/d-button.webp');
+        this.spaceButtonImg = loadImage('assets/space-button.webp');
 
         this.buttons = [
             {
@@ -100,7 +100,7 @@ class CoopHelpScreen extends Screen {
         strokeWeight(1);
         noStroke();
 
-        
+
         for (let button of this.buttons){
             rectMode(CENTER);
 
