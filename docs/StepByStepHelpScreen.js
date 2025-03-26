@@ -131,7 +131,7 @@ class StepByStepHelpScreen extends Screen {
                    }
                },
                draw: () => {
-                   // Draw the falling grass if it exists
+                   // Draw the falling grass if it exists                  
                    if (this.demoGrass) {
                        this.demoGrass.draw();
                    }
@@ -293,7 +293,7 @@ class StepByStepHelpScreen extends Screen {
     // 加载背景图片方法
     loadBackgroundImage() {
         // 加载背景图片
-        loadImage('../Assets/background3.webp', img => {
+        loadImage('assets/barn.webp', img => {
             this.backgroundImage = img;
             
             // 获取图片左上角的颜色，用于背景
@@ -307,7 +307,7 @@ class StepByStepHelpScreen extends Screen {
     // 加载警告图标方法
     loadWarningIcon() {
         // 加载警告图标
-        loadImage('../Assets/warning.gif', img => {
+        loadImage('assets/warning.gif', img => {
             this.warningIcon = img;
         });
     }

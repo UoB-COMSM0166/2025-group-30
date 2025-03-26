@@ -11,6 +11,7 @@ class Basket {
     }
 
     draw() {
+        rectMode(CORNER);
         fill(165, 42, 42);
         rect(this.x, this.y, this.w, this.h);
     }

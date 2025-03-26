@@ -72,7 +72,8 @@ class Player {
         }
     }
 
-    drawPlayerWithCaughtGrass() { //draw player with caught grass    
+    drawPlayerWithCaughtGrass() { //draw player with caught grass  
+        rectMode(CORNER);  
         this.flash.update();
         if (!this.flash.playerIsVisible) return;//player with grass is not shown if flash is running 
 

@@ -15,7 +15,7 @@ class Grass {
         stroke(0);
         fill(0, 255, 0);
         
-        rectMode(LEFT);
+        rectMode(CORNER);
         rect(this.x, this.y, this.w, this.h);
         noStroke();
     }
