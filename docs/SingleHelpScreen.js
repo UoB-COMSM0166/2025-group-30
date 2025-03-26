@@ -9,6 +9,8 @@ class SingleHelpScreen extends Screen {
         this.rightArrowImg = loadImage('assets/right-arrow-button.png');
         this.leftArrowImg = loadImage('assets/left-arrow-button.png');
         this.spaceButtonImg = loadImage('assets/space-button.png');
+        
+        
 
         this.buttons = [
             {
@@ -32,7 +34,6 @@ class SingleHelpScreen extends Screen {
             }
         ];
 
-        //this.title = "Single Player Instructions";
         this.instructions = "Maximum 5 hay blocks at a time";
     }
 
@@ -55,8 +56,6 @@ class SingleHelpScreen extends Screen {
         text("PUT DOWN HAY", baseWidth/2, baseHeight/2 + 100 + spaceButtonSize/3);
 
     
-
-        // 显示说明文本
         textAlign(CENTER, CENTER);
         const instructionsStartY = baseHeight/2 - 60;
         textSize(22);

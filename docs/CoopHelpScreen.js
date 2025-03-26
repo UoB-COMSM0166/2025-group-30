@@ -2,52 +2,104 @@ class CoopHelpScreen extends Screen {
     constructor(screenManager) {
         super(screenManager);
 
+        this.buttonWidth = 120;
+        this.buttonHeight = 40;
+
+        // Load the arrow button images
+        this.rightArrowImg = loadImage('assets/right-arrow-button.png');
+        this.leftArrowImg = loadImage('assets/left-arrow-button.png');
+        this.enterButtonImg = loadImage('assets/enter-button.png');
+
+        this.aButtonImg = loadImage('assets/a-button.png');
+        this.dButtonImg = loadImage('assets/d-button.png');
+        this.spaceButtonImg = loadImage('assets/space-button.png');
+
         this.buttons = [
             {
                 label: "Back",
-                x: baseWidth / 4 , 
-                y: baseHeight / 5 * 4,
-                buttonWidth: 100,
-                buttonHeight: 40,
+               x: baseWidth / 6, 
+                y: baseHeight / 8 * 7,
+                buttonWidth: this.buttonWidth,
+                buttonHeight: this.buttonHeight,
                 action: () => this.screenManager.changeScreen(this.screenManager.menuScreen)
             },
             {
                 label: "Start",
-                x: baseWidth/4*3, 
-                y: baseHeight/5*4,
-                buttonWidth: 100,
-                buttonHeight: 40,
+                x: baseWidth / 6 * 5, 
+                y: baseHeight / 8 * 7,
+                buttonWidth: this.buttonWidth,
+                buttonHeight: this.buttonHeight,
                 action: () => {
                     this.screenManager.coop.resetToLevel1(); //reset single to level 1
                     this.screenManager.changeScreen(this.screenManager.coop); 
                 }
             }
         ];
-        this.title = "PvP Mode Instructions";
-        this.instructions = [
-            "Player 1: Use A/D keys to move, Player 2: Use LEFT/RIGHT",
-            "Player 1: Press SPACE to place hay, Player 2: Press ENTER",
-            "Compete to collect more hay blocks",
-            "The player with higher score at the end wins"
-        ];
+        this.instructions = "Maximum 5 hay blocks at a time";
     }
 
     display() {
         background(230);
-        textAlign(CENTER, CENTER);
 
-        // 显示标题
-        textSize(32);
+        const arrowSize = 40;
+        const enterButtonSize = 60;
+        const spaceButtonSize = 80;
+
+        imageMode(CENTER);
+        image(this.aButtonImg, baseWidth/8  , baseHeight/6, arrowSize, arrowSize);
+        image(this.dButtonImg, baseWidth/8 * 3, baseHeight/6, arrowSize, arrowSize);
+        image(this.spaceButtonImg, baseWidth/4, 200, spaceButtonSize, spaceButtonSize);
+
+        image(this.leftArrowImg, baseWidth/8 * 5  , baseHeight/6, arrowSize, arrowSize);
+        image(this.rightArrowImg, baseWidth/8 * 7, baseHeight/6, arrowSize, arrowSize);
+        image(this.enterButtonImg, baseWidth/4 *3, 200, enterButtonSize, enterButtonSize);
+
+        textSize(16);
         fill(0);
-        text(this.title, baseWidth/2, baseHeight/4);
+        textAlign(CENTER, TOP);
+        text("MOVE LEFT", baseWidth/8  , baseHeight/6 + arrowSize/3*2);
+        text("MOVE RIGHT", baseWidth/8 * 3, baseHeight/6 + arrowSize / 3*2);
+        text("PUT DOWN HAY", baseWidth/4, 200 + spaceButtonSize/3);
+        
+        text("MOVE LEFT", baseWidth/8 * 5  , baseHeight/6 + arrowSize/3*2);
+        text("MOVE RIGHT", baseWidth/8 * 7, baseHeight/6 + arrowSize / 3*2);
+        text("PUT DOWN HAY", baseWidth/4 *3, 200 + spaceButtonSize/3);
+        
 
-        // 显示说明文本
-        const instructionsStartY = baseHeight/2 - 60;
-        const lineHeight = 40;
-        textSize(20);
-        for (let i = 0; i < this.instructions.length; i++) {
-            text(this.instructions[i], baseWidth/2, instructionsStartY + (i * lineHeight));
+        textAlign(CENTER, CENTER);
+        const instructionsStartY = baseHeight/2 + 60;
+        textSize(22);
+        text(this.instructions, baseWidth/4, instructionsStartY);
+
+        // Draw a visual representation of the maximum stack
+        const blockWidth = 40;
+        const blockHeight = 30;
+        const stackX = baseWidth/2;
+        const stackBaseY = baseHeight/6 * 5;
+        
+        // Draw player platform
+        fill(100, 100, 255);
+        rectMode(CENTER);
+        rect(stackX, stackBaseY -5, 80, 20);
+        
+        // Draw stack of 5 hay blocks
+        fill(255, 255, 0);
+        for (let i = 0; i < 5; i++) {
+            rect(stackX, stackBaseY -(i+1) * blockHeight, blockWidth, blockHeight);
         }
+        
+        // Draw a red X over a 6th block to indicate the limit
+        fill(255, 0, 0, 150);
+        rect(stackX, stackBaseY - 6 * blockHeight, blockWidth, blockHeight);
+        stroke(255, 0, 0);
+        strokeWeight(3);
+        line(stackX - blockWidth/2, stackBaseY - 6 * blockHeight - blockHeight/2, 
+             stackX + blockWidth/2, stackBaseY - 6 * blockHeight + blockHeight/2);
+        line(stackX - blockWidth/2, stackBaseY - 6 * blockHeight + blockHeight/2, 
+             stackX + blockWidth/2, stackBaseY - 6 * blockHeight - blockHeight/2);
+        strokeWeight(1);
+        noStroke();
+
         
         for (let button of this.buttons){
             rectMode(CENTER);
