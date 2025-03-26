@@ -6,7 +6,7 @@ class StepByStepHelpScreen extends Screen {
         this.backgroundImage = null;
         this.backgroundColor = color(230); // 默认背景色
         this.loadBackgroundImage(); // 加载背景图片
-
+        // 添加按钮相关变量
         this.buttonWidth = 120;
         this.buttonHeight = 40;
 
@@ -14,8 +14,8 @@ class StepByStepHelpScreen extends Screen {
         this.titleFinalSize = 34;      // 标题最终字体大小
         this.titleCurrentSize = 0;     // 标题当前字体大小（初始为0）
         this.titleAnimationActive = true; // 标题动画是否激活
-        this.animationStartTime = null;  // 动画开始时间
-        this.animationDuration = 1500;   // 动画持续时间（1.5秒）
+        this.titleAnimationStartTime = null;  // 标题动画开始时间
+        this.titleAnimationDuration = 1500;   // 标题动画持续时间（1.5秒）
         
         // 添加进度文本浮动动画相关变量
         this.progressTextYOffset = 30;         // 进度文本初始Y偏移量
@@ -78,215 +78,187 @@ class StepByStepHelpScreen extends Screen {
         this.demoBasket.y = baseHeight/2;
         this.demoPlayer.basket = this.demoBasket;
         
-        // Tutorial steps
-        this.currentStep = 0;
-        this.tutorialSteps = [
-            { //step 0
-                instruction: "Press ← or → keys to move",
-                setup: () => { 
-                    // 重置player的基本位置
-                    this.demoPlayer.x = baseWidth / 2;
-                    this.demoPlayer.dir = 0;
-                    this.demoPlayer.stack = [];
-                },
-                update: () => {
-                    // Handle player movement in the demo
-                    this.handlePlayerMovement();
-                },
-                draw: () => {
-                    // Draw the player
-                    this.demoPlayer.drawPlayerWithCaughtGrass();
-                },
-                checkCompletion: () => {
-                    if (keyCode === LEFT_ARROW || keyCode === RIGHT_ARROW) {
-                        return true;
-                    }
-                    return false;
-                }
-            },
-            { //step 1
-                instruction: "Move under the falling hay block to catch it",
-                setup: () => {
-                    // 重置player的基本位置
-                    this.demoPlayer.x = baseWidth / 2;
-                    this.demoPlayer.dir = 0;
-                    this.demoPlayer.stack = [];
-                    
-                    // Add a falling grass block
-                    this.demoGrass = new Grass(random(200, baseWidth - 100), 10);
-                },
-                update: () => {
-                    // Handle player movement in the demo
-                    this.handlePlayerMovement();
-                    
+       // Tutorial steps
+       this.currentStep = 0;
+       this.tutorialSteps = [
+           { //step 1
+               instruction: "Press ← or → keys to move",
+               setup: () => { this.demoPlayer.stack = [];},
+               update: () => {
+                   // Handle player movement in the demo
+                   this.handlePlayerMovement();
+               },
+               draw: () => {
+                   // Draw the player
+                   this.demoPlayer.drawPlayerWithCaughtGrass();
+               },
+               checkCompletion: () => {
+                   if (keyCode === LEFT_ARROW || keyCode === RIGHT_ARROW) {
+                       return true;
+                   }
+                   return false;
+               }
+           },
+           { //step 2
+               instruction: "Move under the falling hay block to catch it",
+               setup: () => {
+                   this.demoPlayer.stack = [];
+                   // Add a falling grass block
+                   this.demoGrass = new Grass(random(200, baseWidth - 100), 10);
+               },
+               update: () => {
+                   // Handle player movement in the demo
+                   this.handlePlayerMovement();
+                   
+                   // Only move the grass if it exists
+                   if (this.demoGrass) {
+                       // Move the falling grass
+                       this.demoGrass.fall();
+                       
+                       // Check if grass is caught
+                       if (this.demoPlayer.checkGrassCaught(this.demoGrass)) {
+                           // If grass is caught, don't create a new one
+                           this.demoGrass = null;
+                       }
+                       
+                       // If grass falls off screen, create a new one
+                       if (this.demoGrass && this.demoGrass.y > baseHeight) {
+                           this.demoGrass = new Grass(random(200, baseWidth - 100), 10)
+                       }
+                   }
+               },
+               draw: () => {
+                   // Draw the falling grass if it exists
+                   if (this.demoGrass) {
+                       this.demoGrass.draw();
+                   }
+                   
+                   // Draw the player with stacked grass
+                   this.demoPlayer.drawPlayerWithCaughtGrass();
+               },
+               checkCompletion: () => {
+                   if (this.demoPlayer.stack.length > 0) {
+                       return true;
+                   }
+                   return false;
+               }
+           },
+           { //step 3
+               instruction: "Press SPACE when near the basket to empty your stack",
+               setup: () => {
+                   if (this.demoPlayer.stack.length === 1){return;}
+                   // put a grass block in the player's stack
+                   this.demoGrass = new Grass();
+                   this.demoGrass.x = this.demoPlayer.x + this.demoPlayer.w/2 - this.demoGrass.w/2;
+                   this.demoGrass.y = this.demoPlayer.y - this.demoGrass.h;
+                   this.demoPlayer.stack = [this.demoGrass]; 
+               },
+               update: () => {
+                   // Handle player movement
+                   this.handlePlayerMovement();
+                   
+                   // Check for space key to empty to basket
+                   if (keyIsDown(32)) { // 32 is the keyCode for SPACE
+                       this.demoPlayer.emptyToBasket();
+                   }
+               },
+               draw: () => {
+                   // Draw the basket
+                   this.demoBasket.draw();
+                   
+                   // Draw the player with stacked grass
+                   this.demoPlayer.drawPlayerWithCaughtGrass();
+               },
+               checkCompletion: () => {
+                   if (this.demoPlayer.stack.length === 0) {
+                       return true;
+                   }
+                   return false;
+               }
+           },
+           { //step 4
+               instruction: `Catch one more hay block to exceed the limit of 5`,
+               setup: () => {
+                   // Clear the player's stack
+                   this.demoPlayer.stack = [];
+                   
+                   // Add 5 grass blocks to the player's stack
+                   for (let i = 0; i < 5; i++) {
+                       let grass = new Grass();
+                       //create a staggered stack of grass blocks
+                       grass.x = random(this.demoPlayer.x + this.demoPlayer.w/4 - 20, this.demoPlayer.x + this.demoPlayer.w/4 + 20);
+                       grass.y = this.demoPlayer.y - (i+1) * grass.h;
+                       this.demoPlayer.stack.push(grass);
+                   }
+                   
+                   // Add one falling grass block to demonstrate exceeding the limit
+                   this.demoGrass = new Grass(random(200, baseWidth - 100), 10);
+               },
+
+               update: () => {
+                   // Handle player movement
+                   this.handlePlayerMovement();
                     // Only move the grass if it exists
                     if (this.demoGrass) {
-                        // Move the falling grass
-                        this.demoGrass.fall();
-                        
-                        // Check if grass is caught
-                        if (this.demoPlayer.checkGrassCaught(this.demoGrass)) {
-                            // If grass is caught, don't create a new one
-                            this.demoGrass = null;
-                        }
-                        
-                        // If grass falls off screen, create a new one
-                        if (this.demoGrass && this.demoGrass.y > baseHeight) {
-                            this.demoGrass = new Grass(random(200, baseWidth - 100), 10)
-                        }
-                    }
-                },
-                draw: () => {
-                    // Draw the falling grass if it exists
-                    if (this.demoGrass) {
-                        this.demoGrass.draw();
-                    }
-                    
-                    // Draw the player with stacked grass
-                    this.demoPlayer.drawPlayerWithCaughtGrass();
-                },
-                checkCompletion: () => {
-                    if (this.demoPlayer.stack.length > 0) {
-                        return true;
-                    }
-                    return false;
-                }
-            },
-            { //step 2
-                instruction: "Press SPACE when near the basket to empty your stack",
-                setup: () => {
-                    // 重置player的基本位置
-                    this.demoPlayer.x = baseWidth / 2;
-                    this.demoPlayer.dir = 0;
-                    
-                    // 确保basket位置正确
-                    this.demoBasket.x = baseWidth / 4;
-                    this.demoBasket.y = baseHeight / 2;
-                    
-                    if (this.demoPlayer.stack.length === 1){return;}
-                    // put a grass block in the player's stack
-                    this.demoGrass = new Grass();
-                    this.demoGrass.x = this.demoPlayer.x + this.demoPlayer.w/2 - this.demoGrass.w/2;
-                    this.demoGrass.y = this.demoPlayer.y - this.demoGrass.h;
-                    this.demoPlayer.stack = [this.demoGrass]; 
-                },
-                update: () => {
-                    // Handle player movement
-                    this.handlePlayerMovement();
-                    
-                    // Check for space key to empty to basket
-                    if (keyIsDown(32)) { // 32 is the keyCode for SPACE
-                        this.demoPlayer.emptyToBasket();
-                    }
-                },
-                draw: () => {
-                    // Draw the basket
-                    this.demoBasket.draw();
-                    
-                    // Draw the player with stacked grass
-                    this.demoPlayer.drawPlayerWithCaughtGrass();
-                },
-                checkCompletion: () => {
-                    if (this.demoPlayer.stack.length === 0) {
-                        return true;
-                    }
-                    return false;
-                }
-            },
-            { //step 3
-                instruction: `Catch one more hay block to exceed the limit of 5`,
-                setup: () => {
-                    // 重置player的基本位置
-                    this.demoPlayer.x = baseWidth / 2;
-                    this.demoPlayer.dir = 0;
-                    
-                    // Clear the player's stack
-                    this.demoPlayer.stack = [];
-                    
-                    // Add 5 grass blocks to the player's stack
-                    for (let i = 0; i < 5; i++) {
-                        let grass = new Grass();
-                        //create a staggered stack of grass blocks
-                        grass.x = random(this.demoPlayer.x + this.demoPlayer.w/4 - 20, this.demoPlayer.x + this.demoPlayer.w/4 + 20);
-                        grass.y = this.demoPlayer.y - (i+1) * grass.h;
-                        this.demoPlayer.stack.push(grass);
-                    }
-                    
-                    // Add one falling grass block to demonstrate exceeding the limit
-                    this.demoGrass = new Grass(random(200, baseWidth - 100), 10);
-                },
-
-                update: () => {
-                    // Handle player movement
-                    this.handlePlayerMovement();
-                     // Only move the grass if it exists
-                     if (this.demoGrass) {
-                        // Move the falling grass
-                        this.demoGrass.fall();
-                        
-                        // Check if grass is caught
-                        if (this.demoPlayer.checkGrassCaught(this.demoGrass)) {
-                            // If grass is caught, don't create a new one
-                            this.demoGrass = null;
-                        }
-                        
-                        // If grass falls off screen, create a new one
-                        if (this.demoGrass && this.demoGrass.y > baseHeight) {
-                            this.demoGrass = new Grass(random(200, baseWidth - 100), 10)
-                        }
-                    }
-                },
-                draw: () => {
-                    // Draw the player with stacked grass
-                    this.demoPlayer.drawPlayerWithCaughtGrass();
-                    
-                    // Draw falling grass if it exists
-                    if (this.demoGrass) {
-                        this.demoGrass.draw();
-                    }
-                    
-                    // Display message with emphasized limit
-                    textAlign(LEFT);
-            
-                    
-                    // If flashing, show explanation
-                    if (!this.demoGrass) {
-                        fill(255, 0, 0);
-                        textAlign(CENTER);
-                        textSize(24);
-                        text("Stack exceeded! All blocks dropped!", baseWidth/2, baseHeight/2);
-                    }
-                },
-                checkCompletion: () => {
-                    if (this.demoPlayer.flash.getFlashDuration >0) {
-                        return true;
-                    }
-                    return false;
-                }
-            },
-            { //step 4
-                instruction: "You're ready to play! Click 'Start' to select play mode.",
-                setup: () => {
-                    // 重置player的基本位置
-                    this.demoPlayer.x = baseWidth / 2;
-                    this.demoPlayer.dir = 0;
-                    this.demoPlayer.stack = [];
-                    
-                    // 确保basket位置正确
-                    this.demoBasket.x = baseWidth / 4;
-                    this.demoBasket.y = baseHeight / 2;
-                },
-                update: () => {
-                    // No updates needed
-                },
-                draw: () => {
-                    // No drawing needed
-                },
-                checkCompletion: () => {
-                    return true;
-                }
-            }
-        ];
+                       // Move the falling grass
+                       this.demoGrass.fall();
+                       
+                       // Check if grass is caught
+                       if (this.demoPlayer.checkGrassCaught(this.demoGrass)) {
+                           // If grass is caught, don't create a new one
+                           this.demoGrass = null;
+                       }
+                       
+                       // If grass falls off screen, create a new one
+                       if (this.demoGrass && this.demoGrass.y > baseHeight) {
+                           this.demoGrass = new Grass(random(200, baseWidth - 100), 10)
+                       }
+                   }
+               },
+               draw: () => {
+                   // Draw the player with stacked grass
+                   this.demoPlayer.drawPlayerWithCaughtGrass();
+                   
+                   // Draw falling grass if it exists
+                   if (this.demoGrass) {
+                       this.demoGrass.draw();
+                   }
+                   
+                   // Display message with emphasized limit
+                   textAlign(LEFT);
+           
+                   
+                   // If flashing, show explanation
+                   if (!this.demoGrass) {
+                       fill(255, 0, 0);
+                       textAlign(CENTER);
+                       textSize(24);
+                       text("Stack exceeded! All blocks dropped!", baseWidth/2, baseHeight/2);
+                   }
+               },
+               checkCompletion: () => {
+                   if (this.demoPlayer.flash.getFlashDuration >0) {
+                       return true;
+                   }
+                   return false;
+               }
+           },
+           { //step 4
+               instruction: "You're ready to play! Click 'Start' to select play mode.",
+               setup: () => {
+                   // No demo needed for final step
+               },
+               update: () => {
+                   // No updates needed
+               },
+               draw: () => {
+                   // No drawing needed
+               },
+               checkCompletion: () => {
+                   return true;
+               }
+           }
+       ];
 
         // Initialize the first step
         this.tutorialSteps[this.currentStep].setup();
@@ -311,14 +283,14 @@ class StepByStepHelpScreen extends Screen {
     updateTitleAnimation() {
         if (this.titleAnimationActive) {
             // 初始化动画开始时间
-            if (this.animationStartTime === null) {
-                this.animationStartTime = millis();
+            if (this.titleAnimationStartTime === null) {
+                this.titleAnimationStartTime = millis();
             }
             
             // 计算当前动画进度（0-1之间）
             const currentTime = millis();
-            const elapsedTime = currentTime - this.animationStartTime;
-            const progress = constrain(elapsedTime / this.animationDuration, 0, 1);
+            const elapsedTime = currentTime - this.titleAnimationStartTime;
+            const progress = constrain(elapsedTime / this.titleAnimationDuration, 0, 1);
             
             // 使用缓动函数使动画更自然
             const easedProgress = 1 - Math.pow(1 - progress, 3); // 缓出效果
@@ -639,7 +611,7 @@ class StepByStepHelpScreen extends Screen {
     resetAnimation() {
         // 重置标题动画
         this.titleAnimationActive = true;
-        this.animationStartTime = null;
+        this.titleAnimationStartTime = null;
         this.titleCurrentSize = 0;
         
         // 重置进度文本动画
@@ -700,6 +672,22 @@ class StepByStepHelpScreen extends Screen {
         
         // 重新关联player和basket
         this.demoPlayer.basket = this.demoBasket;
+    }
+
+    // 更新当前步骤逻辑（与动画状态无关）
+    updateCurrentStep() {
+        // 只有当所有文本动画都完成后，才更新步骤逻辑
+        if (!this.titleAnimationActive && !this.progressAnimationActive && !this.instructionAnimationActive) {
+            this.tutorialSteps[this.currentStep].update();
+        }
+    }
+    
+    // 渲染当前步骤内容（与动画状态无关）
+    renderCurrentStep() {
+        // 只有当所有文本动画都完成后，才渲染步骤内容
+        if (!this.titleAnimationActive && !this.progressAnimationActive && !this.instructionAnimationActive) {
+            this.tutorialSteps[this.currentStep].draw();
+        }
     }
 }
 
