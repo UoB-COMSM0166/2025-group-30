@@ -388,9 +388,12 @@ Game system manages the core logic and state of the game.
     <td>2.67</td>
   </tr>
 </table>
-
+The heuristic evaluation revealed several usability issues, with the most critical being inconsistent gameplay speed across platforms and unclear mode selection flow. Problems such as missing score comparison and time visibility for both players significantly affect the user experience. Addressing high-severity issues first will improve playability and user satisfaction.
 - One quantitative evaluation (of your choice) 
-
+We collected and analyzed SUS questionnaire data from 12 users for both Level 1 and Level 2, calculating their total SUS scores. We then used the Wilcoxon Signed-Rank Test to examine whether there was a statistically significant difference in usability scores between the two levels. Click [here](sus.md) to see the raw data.
+<div align="center">
+  <img src="SUS evaluation.png" width="533">
+</div>
 - Description of how code was tested. 
 
 ### Process 
