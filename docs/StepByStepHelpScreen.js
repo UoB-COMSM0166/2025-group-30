@@ -626,9 +626,6 @@ class StepByStepHelpScreen extends Screen {
         this.instructionTextYOffset = 30;
         this.instructionOpacity = 0;
         
-        // 重置player和basket位置
-        this.resetPlayerAndBasketPositions();
-        
         // 重新初始化当前步骤
         this.currentStep = 0;
         this.tutorialSteps[this.currentStep].setup();
@@ -654,26 +651,8 @@ class StepByStepHelpScreen extends Screen {
         this.instructionAnimationStartTime = null;
         this.instructionTextYOffset = 30;
         this.instructionOpacity = 0;
-        
-        // 确保重置player和basket的位置
-        this.resetPlayerAndBasketPositions();
     }
     
-    // 添加一个方法来重置player和basket的位置
-    resetPlayerAndBasketPositions() {
-        // 重置player的位置
-        this.demoPlayer.x = baseWidth / 2; // 水平居中
-        this.demoPlayer.y = baseHeight/3 * 2; // 设置为初始高度位置
-        this.demoPlayer.dir = 0; // 确保player没有移动
-        
-        // 重置basket的位置
-        this.demoBasket.x = baseWidth / 4; // 左侧位置
-        this.demoBasket.y = baseHeight / 2;
-        
-        // 重新关联player和basket
-        this.demoPlayer.basket = this.demoBasket;
-    }
-
     // 更新当前步骤逻辑（与动画状态无关）
     updateCurrentStep() {
         // 只有当所有文本动画都完成后，才更新步骤逻辑
