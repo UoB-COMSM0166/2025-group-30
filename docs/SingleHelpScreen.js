@@ -5,19 +5,26 @@ class SingleHelpScreen extends Screen {
         this.buttonWidth = 120;
         this.buttonHeight = 40;
 
+        // Load the arrow button images
+        this.rightArrowImg = loadImage('assets/right-arrow-button.webp');
+        this.leftArrowImg = loadImage('assets/left-arrow-button.webp');
+        this.spaceButtonImg = loadImage('assets/space-button.webp');
+        
+        
+
         this.buttons = [
             {
                 label: "Back",
-                x: baseWidth / 4, 
-                y: baseHeight / 5 * 4,
+                x: baseWidth / 6, 
+                y: baseHeight / 8 * 7,
                 buttonWidth: this.buttonWidth,
                 buttonHeight: this.buttonHeight,
                 action: () => this.screenManager.changeScreen(this.screenManager.menuScreen)
             },
             {
                 label: "Start",
-                x: baseWidth / 4 * 3, 
-                y: baseHeight / 5 * 4,
+                x: baseWidth / 6 * 5, 
+                y: baseHeight / 8 * 7,
                 buttonWidth: this.buttonWidth,
                 buttonHeight: this.buttonHeight,
                 action: () => {
@@ -27,32 +34,64 @@ class SingleHelpScreen extends Screen {
             }
         ];
 
-        this.title = "Single Player Instructions";
-        this.instructions = [
-            "Use LEFT/RIGHT arrow keys to move",
-            "Press SPACE to place hay in the basket",
-            "You can stack up to 5 hay blocks",
-            "Don't let hay blocks fall to the ground"
-        ];
+        this.instructions = "Maximum 5 hay blocks at a time";
     }
 
-    display() {
+    display() { 
         background(230);
-               
-        // 显示标题
-        textAlign(CENTER, CENTER);
-        textSize(32);
-        fill(0);
-        text(this.title, baseWidth/2, baseHeight/4);
 
-        // 显示说明文本
-        const instructionsStartY = baseHeight/2 - 60;
-        const lineHeight = 40;
+        const arrowSize = 60;
+        const spaceButtonSize = 120;
+        
+        imageMode(CENTER);
+        image(this.leftArrowImg, baseWidth/4  , baseHeight/6, arrowSize, arrowSize);
+        image(this.rightArrowImg, baseWidth/4 * 3, baseHeight/6, arrowSize, arrowSize);
+        image(this.spaceButtonImg, baseWidth/2, baseHeight/2 + 100, spaceButtonSize, spaceButtonSize);
+        
         textSize(20);
-        for (let i = 0; i < this.instructions.length; i++) {
-            text(this.instructions[i], baseWidth/2, instructionsStartY + (i * lineHeight));
+        fill(0);
+        textAlign(CENTER, TOP);
+        text("MOVE LEFT", baseWidth/4  , baseHeight/6 + arrowSize/3*2);
+        text("MOVE RIGHT", baseWidth/4 * 3, baseHeight/6 + arrowSize / 3*2);
+        text("PUT DOWN HAY", baseWidth/2, baseHeight/2 + 100 + spaceButtonSize/3);
+
+    
+        textAlign(CENTER, CENTER);
+        const instructionsStartY = baseHeight/2 - 60;
+        textSize(22);
+        text(this.instructions, baseWidth/2, instructionsStartY);
+        
+        // Draw a visual representation of the maximum stack
+        const blockWidth = 40;
+        const blockHeight = 30;
+        const stackX = baseWidth/4 *3;
+        const stackBaseY = baseHeight/2 + 100;
+        
+        // Draw player platform
+        fill(100, 100, 255);
+        rectMode(CENTER);
+        rect(stackX, stackBaseY -5, 80, 20);
+        
+        // Draw stack of 5 hay blocks
+        fill(255, 255, 0);
+        for (let i = 0; i < 5; i++) {
+            rect(stackX, stackBaseY -(i+1) * blockHeight, blockWidth, blockHeight);
         }
         
+        // Draw a red X over a 6th block to indicate the limit
+        fill(255, 0, 0, 150);
+        rect(stackX, stackBaseY - 6 * blockHeight, blockWidth, blockHeight);
+        stroke(255, 0, 0);
+        strokeWeight(3);
+        line(stackX - blockWidth/2, stackBaseY - 6 * blockHeight - blockHeight/2, 
+             stackX + blockWidth/2, stackBaseY - 6 * blockHeight + blockHeight/2);
+        line(stackX - blockWidth/2, stackBaseY - 6 * blockHeight + blockHeight/2, 
+             stackX + blockWidth/2, stackBaseY - 6 * blockHeight - blockHeight/2);
+        strokeWeight(1);
+        noStroke();
+        
+       
+
         for (let button of this.buttons){
             rectMode(CENTER);
 
