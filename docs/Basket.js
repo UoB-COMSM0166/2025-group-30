@@ -8,6 +8,7 @@ class Basket {
         this.h = 150;
         this.score = 0;
         this.targetScore = 0;
+        this.basketImage = loadImage("assets/basket.webp");
     }
 
     draw() {
@@ -23,10 +24,7 @@ class Basket {
             tint(grayValue, grayValue, grayValue);
         }
 
-        // 绘制带颜色的篮子图片
-        if (Basket.basketImage) {
-            image(Basket.basketImage, this.x, this.y, this.w, this.h);
-        }
+        image(this.basketImage, this.x, this.y, this.w, this.h);
         
         pop(); // 恢复绘图状态
 
