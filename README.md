@@ -5,7 +5,7 @@
 
 Link to your game [PLAY HERE](https://uob-comsm0166.github.io/2025-group-30/) 
 
-Your game lives in the [/docs](/docs) folder, and is published using Github pages to the link above.
+Your game lives in the [docs](/docs) folder, and is published using Github pages to the link above.
 
 Include a demo video of your game here (you don't have to wait until the end, you can insert a work in progress video)
 [🎬 Click here to watch the demo video](https://github.com/UoB-COMSM0166/2025-group-30/blob/nemo/videos/demo%20video.MP4)
@@ -389,11 +389,16 @@ Game system manages the core logic and state of the game.
   </tr>
 </table>
 The heuristic evaluation revealed several usability issues, with the most critical being inconsistent gameplay speed across platforms and unclear mode selection flow. Problems such as missing score comparison and time visibility for both players significantly affect the user experience. Addressing high-severity issues first will improve playability and user satisfaction.
+
 - One quantitative evaluation (of your choice) 
+
+#### SUS evaluation
 We collected and analyzed SUS questionnaire data from 12 users for both Level 1 and Level 2, calculating their total SUS scores. We then used the Wilcoxon Signed-Rank Test to examine whether there was a statistically significant difference in usability scores between the two levels. Click [here](sus.md) to see the raw data.
 <div align="center">
   <img src="SUS evaluation.png" width="533">
 </div>
+The results of the Wilcoxon Signed-Rank Test for the System Usability Scale (SUS) scores show no statistically significant difference between the two difficulty levels (W = 10.5, p = 0.5461). Although individual user scores vary slightly, both the easy and hard levels received generally high SUS scores. This suggests that users found the game to be consistently usable across both difficulty settings.
+
 - Description of how code was tested. 
 
 ### Process 

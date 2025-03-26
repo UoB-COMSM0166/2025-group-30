@@ -1,7 +1,5 @@
 ## Quantitative evaluation: System Usability Scale (SUS) Analysis
 
-[Back to README](README.md)
-
 We collected and analyzed SUS questionnaire data from 12 users for both Level 1 and Level 2, calculating their total SUS scores. We then used the Wilcoxon Signed-Rank Test to examine whether there was a statistically significant difference in usability scores between the two levels.
 
 ### SUS Total Scores (Per User):
@@ -33,3 +31,5 @@ We collected and analyzed SUS questionnaire data from 12 users for both Level 1 
 
 - W statistic: 10.5
 - p-value: 0.5461
+
+[Back to README](README.md)
