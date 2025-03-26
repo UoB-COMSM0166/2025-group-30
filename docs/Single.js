@@ -25,7 +25,6 @@ class Single extends Screen {
     }
 
     display(){ 
-        background(200); 
         this.basket.draw(); 
 
         if (this.screenManager.currentScreen === this){
@@ -167,14 +166,19 @@ class Single extends Screen {
         // 更新篮子的分数
         this.basket.updateScore(this.player.score, this.targetScores);
 
-        fill(0);
+        fill(255);
         textSize(20);
+        stroke(0);
+        strokeWeight(2);
+        textStyle(BOLD);
 
         textAlign(CENTER);
         text(`Level ${this.level}`, baseWidth/ 2, 30);
         
         textAlign(LEFT);
         text(`Time: ${this.timeLeft}s`, 20, 30);
+        noStroke();
+        textStyle(NORMAL);
     }
     
     //--- Move to next level ---

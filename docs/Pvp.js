@@ -28,7 +28,6 @@ class Pvp extends Screen { // player with higher score in the set time wins
     }
 
     display(){ 
-        background(200); 
         this.basket1.draw(); 
         this.basket2.draw(); 
 
@@ -174,14 +173,19 @@ class Pvp extends Screen { // player with higher score in the set time wins
         line(baseWidth/ 2, 0, baseWidth/ 2, baseHeight);
         noStroke();
 
-        fill(0);
+        fill(255);
         textSize(20);
+        stroke(0);
+        strokeWeight(2);
+        textStyle(BOLD);
         
         textAlign(CENTER);
         text(`Level ${this.level}`, baseWidth / 2, 30);
         
         textAlign(LEFT);
         text(`Time: ${this.timeLeft}s`, 20, 30);
+        noStroke();
+        textStyle(NORMAL);
     }
     
     //--- Move to next level ---
