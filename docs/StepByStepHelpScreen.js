@@ -4,7 +4,7 @@ class StepByStepHelpScreen extends Screen {
 
         // 添加背景图片和颜色变量
         this.backgroundImage = null;
-        this.backgroundColor = color(230); // 默认背景色
+        this.backgroundColor = color(222, 234, 235); // 默认背景色
         this.loadBackgroundImage(); // 加载背景图片
         // 添加警告图标
         this.warningIcon = null;
@@ -293,21 +293,15 @@ class StepByStepHelpScreen extends Screen {
     // 加载背景图片方法
     loadBackgroundImage() {
         // 加载背景图片
-        loadImage('assets/barn.webp', img => {
+        loadImage('./assets/Tutorial-background.webp', img => {
             this.backgroundImage = img;
-            
-            // 获取图片左上角的颜色，用于背景
-            this.backgroundImage.loadPixels();
-            if (this.backgroundImage.pixels && this.backgroundImage.pixels.length > 0) {
-                this.backgroundColor = this.backgroundImage.get(0, 0);
-            }
         });
     }
 
     // 加载警告图标方法
     loadWarningIcon() {
         // 加载警告图标
-        loadImage('assets/warning.gif', img => {
+        loadImage('./assets/warning.gif', img => {
             this.warningIcon = img;
         });
     }
@@ -441,7 +435,7 @@ class StepByStepHelpScreen extends Screen {
 
 
     display() {
-        // 设置背景色 - 使用图片左上角的颜色
+        // 设置背景色 - 使用构造函数中设置的默认颜色
         background(this.backgroundColor);
 
         // 显示背景图片，底部对齐
@@ -481,8 +475,8 @@ class StepByStepHelpScreen extends Screen {
             textStyle(BOLD);
             text(this.title, baseWidth/2 + 1.5, baseHeight/8 + 1.5); // 减小阴影偏移
             
-            // 再绘制白色文本
-            fill(255, 255, 255);
+            // 再绘制墨灰色文本
+            fill(51, 51, 51);
             text(this.title, baseWidth/2, baseHeight/8);
         }
         
@@ -519,6 +513,26 @@ class StepByStepHelpScreen extends Screen {
             textStyle(NORMAL);
         }
      
+        // 绘制从指令文本底部到按钮上方的半透明白色背景框
+        noStroke();
+        fill(255, 255, 255, 178); // 透明度70%的白色 (255 * 0.7 = 178)
+        rectMode(CENTER);
+        
+        // 计算指令文本底部位置（指令文本位置加上一些垂直间距）
+        let instructionBottomY = baseHeight/4 + 30; // 指令文本位置加上一些垂直间距
+        
+        // 计算按钮上方位置
+        let buttonTopY = baseHeight / 6 * 5 - this.buttonHeight/2 - 30; // 按钮上方预留一些间距
+        
+        // 计算矩形高度
+        let rectHeight = buttonTopY - instructionBottomY;
+        
+        // 计算矩形中心点
+        let rectCenterY = instructionBottomY + rectHeight/2;
+        
+        // 绘制矩形
+        rect(baseWidth/2, rectCenterY, baseWidth, rectHeight);
+        
         // 只有当所有动画完成后才更新和绘制教程步骤内容
         if (!this.titleAnimationActive && !this.progressAnimationActive && !this.instructionAnimationActive) {
             // Update and draw the current step

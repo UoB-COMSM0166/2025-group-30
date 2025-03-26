@@ -25,7 +25,7 @@ class HomeScreen extends Screen {
         try {
             // 创建视频元素
             this.backgroundVideo = createVideo(
-                '../Assets/HomeScreen.mp4',
+                './assets/HomeScreen.mp4',
                 // 视频加载成功的回调
                 () => {
                     this.videoLoaded = true;
@@ -50,7 +50,7 @@ class HomeScreen extends Screen {
     
     loadTitleImage() {
         // 加载标题图片
-        loadImage('../Assets/title.webp', img => {
+        loadImage('./assets/title.webp', img => {
             this.titleImage = img;
             this.titleLoaded = true;
         });

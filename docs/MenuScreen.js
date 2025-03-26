@@ -65,7 +65,7 @@ class MenuScreen extends Screen {
 
     loadBackgroundImage() {
         // 加载背景图片
-        loadImage('../Assets/menuScreen.webp', img => {
+        loadImage('./assets/MenuScreen.webp', img => {
             this.backgroundImage = img;
             
             // 获取图片左上角的颜色，用于背景
@@ -78,7 +78,7 @@ class MenuScreen extends Screen {
     
     loadFarmerImage() {
         // 加载农民疑惑GIF
-        loadImage('../Assets/农民疑惑.gif', img => {
+        loadImage('./assets/Farmer Confused.gif', img => {
             this.farmerImage = img;
         });
     }
