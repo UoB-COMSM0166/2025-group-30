@@ -6,6 +6,9 @@ class StepByStepHelpScreen extends Screen {
         this.backgroundImage = null;
         this.backgroundColor = color(230); // 默认背景色
         this.loadBackgroundImage(); // 加载背景图片
+        // 添加警告图标
+        this.warningIcon = null;
+        this.loadWarningIcon(); // 加载警告图标
         // 添加按钮相关变量
         this.buttonWidth = 120;
         this.buttonHeight = 40;
@@ -230,10 +233,32 @@ class StepByStepHelpScreen extends Screen {
                    
                    // If flashing, show explanation
                    if (!this.demoGrass) {
-                       fill(255, 0, 0);
+                       // 绘制白色透明背景框
+                       rectMode(CENTER);
+                       noStroke();
+                       fill(255, 255, 255, 180); // 白色半透明
+                       rect(baseWidth/2, baseHeight/2, 500, 60, 15); // 圆角矩形，高度调大
+                       
+                       // 设置文本为金黄色
+                       fill(255, 215, 0); // 金黄色
                        textAlign(CENTER);
                        textSize(24);
-                       text("Stack exceeded! All blocks dropped!", baseWidth/2, baseHeight/2);
+                       
+                       // 如果警告图标已加载，则显示图标和文本
+                       if (this.warningIcon) {
+                           // 放大图标尺寸
+                           const iconSize = 50;
+                           
+                           // 绘制图标在背景框左侧
+                           image(this.warningIcon, baseWidth/2 - 230, baseHeight/2 - iconSize/2, iconSize, iconSize);
+                           
+                           // 绘制文本，位于图标右侧
+                           textAlign(LEFT);
+                           text("Stack exceeded! All blocks dropped!", baseWidth/2 - 170, baseHeight/2 + 8);
+                       } else {
+                           // 如果图标尚未加载，只显示文本
+                           text("Stack exceeded! All blocks dropped!", baseWidth/2, baseHeight/2);
+                       }
                    }
                },
                checkCompletion: () => {
@@ -276,6 +301,14 @@ class StepByStepHelpScreen extends Screen {
             if (this.backgroundImage.pixels && this.backgroundImage.pixels.length > 0) {
                 this.backgroundColor = this.backgroundImage.get(0, 0);
             }
+        });
+    }
+
+    // 加载警告图标方法
+    loadWarningIcon() {
+        // 加载警告图标
+        loadImage('../Assets/warning.gif', img => {
+            this.warningIcon = img;
         });
     }
 
@@ -459,7 +492,7 @@ class StepByStepHelpScreen extends Screen {
 
         // 显示进度文本，无论标题动画是否完成
         textSize(16);
-        fill(95, 140, 96, this.progressOpacity); // 应用进度文本动画透明度
+        fill(123, 164, 79, this.progressOpacity); // 修改为新的RGB颜色：123, 164, 79
         text(`Step ${this.currentStep + 1} of ${this.tutorialSteps.length}`, 
             baseWidth/2, 
             baseHeight/8 + 40 + this.progressTextYOffset); // 应用进度文本Y轴偏移
@@ -478,7 +511,7 @@ class StepByStepHelpScreen extends Screen {
 
             // Display current step instruction - 使用更加协调的颜色，应用浮动效果
             textSize(18);
-            fill(45, 84, 75, this.instructionOpacity); // 应用指令动画透明度
+            fill(91, 132, 60, this.instructionOpacity); // 修改为新的RGB颜色：91, 132, 60
             textStyle(ITALIC);
             text(this.tutorialSteps[this.currentStep].instruction, 
                 baseWidth/2, 
