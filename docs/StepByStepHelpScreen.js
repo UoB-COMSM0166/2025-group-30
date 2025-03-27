@@ -288,6 +288,8 @@ class StepByStepHelpScreen extends Screen {
         // Initialize the first step
         this.tutorialSteps[this.currentStep].setup();
    
+        // 初始化ScreenManager覆盖
+        this.initScreenManagerOverride();
     }
 
     // 加载背景图片方法
@@ -715,18 +717,28 @@ class StepByStepHelpScreen extends Screen {
             this.tutorialSteps[this.currentStep].draw();
         }
     }
-}
 
-// 覆盖原有的changeScreen方法以捕获从Menu到Tutorial的转换
-const originalChangeScreen = ScreenManager.prototype.changeScreen;
-ScreenManager.prototype.changeScreen = function(newScreen) {
-    // 检查是否从Menu跳转到Tutorial
-    if (this.currentScreen === this.menuScreen && newScreen === this.stepByStepHelpScreen) {
-        // 重置Tutorial动画
-        this.stepByStepHelpScreen.resetAnimation();
+    // 初始化ScreenManager覆盖
+    initScreenManagerOverride() {
+        // 获取ScreenManager的引用
+        if (this.screenManager && this.screenManager.constructor) {
+            // 保存构造函数的引用
+            const ScreenManagerClass = this.screenManager.constructor;
+            
+            // 保存原始的changeScreen方法
+            const originalChangeScreen = ScreenManagerClass.prototype.changeScreen;
+            
+            // 覆盖changeScreen方法
+            ScreenManagerClass.prototype.changeScreen = function(newScreen) {
+                // 检查是否从Menu跳转到Tutorial
+                if (this.currentScreen === this.menuScreen && newScreen === this.stepByStepHelpScreen) {
+                    // 重置Tutorial动画
+                    this.stepByStepHelpScreen.resetAnimation();
+                }
+                
+                // 调用原始方法
+                originalChangeScreen.call(this, newScreen);
+            };
+        }
     }
-    
-    // 调用原始方法
-    originalChangeScreen.call(this, newScreen);
-};
-    
+}
