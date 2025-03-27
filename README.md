@@ -40,11 +40,11 @@ Include a demo video of your game here (you don't have to wait until the end, yo
 - Describe your game, what is based on, what makes it novel? 
 
 Our **Haystacking** game is an innovative stacking-based casual challenge inspired by the classic game **Grass Catching**. 
-Set during the harvest season on a farm, players must control their character’s movement left and right to catch falling 
+Set during the harvest season on a farm, players must control their character's movement left and right to catch falling 
 haystacks and collect as much hay as possible within a limited time to reach the goal.
 
 #### **Game Objective**
-The game challenges players’ balancing and strategic skills while simulating the intensity of farm harvesting. 
+The game challenges players' balancing and strategic skills while simulating the intensity of farm harvesting. 
 Players must constantly adjust their position and respond flexibly to randomly falling hay. If too much hay 
 accumulates, movement speed will slow down, making it harder to catch additional falling hay. Therefore, 
 players need to empty the collection bucket at the right time to maintain stability.
@@ -57,7 +57,7 @@ the target. As haystack accumulation increases, movement speed gradually slows d
 of the game more challenging and strategic.
 
 #### **Game Significance**
-The game tests players’ reflexes, spatial awareness, and strategic planning skills while creating a relaxed 
+The game tests players' reflexes, spatial awareness, and strategic planning skills while creating a relaxed 
 yet challenging farm-harvesting atmosphere. With simple and intuitive controls, **Haystacking** offers both excitement and tension. Whether playing solo or competing with friends, this game delivers a uniquely entertaining experience!
 
 #### Table 1: Game Elements
@@ -68,157 +68,88 @@ yet challenging farm-harvesting atmosphere. With simple and intuitive controls, 
 | **Lifting Basket** | ![Lifting Basket](image/lifting_basket.png) | A secondary basket used for catching hay before transferring it to the main collection basket. |
 | **Falling Hay** | ![Falling Hay](image/falling_hay.png) | The hay stacks that fall from the sky. Players must catch them efficiently to reach the target before time runs out. |
 
-### Requirements 
+### Requirements Analysis
 
-- 15% ~750 words
-- Use case diagrams, user stories. Early stages design. Ideation process. How did you decide as a team what to develop? 
+#### 1. User Requirements
+- Players should be able to control and stack square grass blocks smoothly
 
-#### Inspiration
+#### 2. Technical Requirements
+- Client-side Development: Implement the game interface and handle user input
+- Physics Simulation: Remove the external physics engine and use a simple square block stacking mechanism
 
-In the first week of our game project, we held a team meeting to discuss various game ideas based on our understanding of different game concepts. We evaluated each idea based on familiarity, innovation, and feasibility, ultimately brainstorming five potential game concepts. After thorough discussion, we conducted a vote, and the Grass Catching Game emerged as the final winner.
+#### Technical Feasibility Study
 
-The inspiration for our grass-catching game comes from Mole's World. Unlike the grass-catching mechanics in Mole's World, where the grass follows a parabolic trajectory, our game adopts a vertical free-fall motion, emphasizing players' reaction speed and precise judgment. Additionally, the grass may have different falling speeds and shapes, allowing for difficulty adjustments that present players with more challenging grass-catching tasks.
+##### Initial Plan
+- Use an external physics engine (e.g., Box2D, Matter.js) for simulating different shape interactions
+- Requires complex physics calculations, including collision detection and gravity simulation
 
-#### Prototype
+##### Feasibility Evaluation
+- Lack of experience in physics engine development makes debugging and optimization challenging
+- Complex physics calculations may lead to high computational resource consumption, affecting game performance
 
-During the conceptualization of the grass-catching game, we created a paper prototype to help visualize and test early game mechanics, including the way the grass falls, as well as the player's movement and interactions. Based on our initial discussions, we refined the game flow and mechanics, adding new elements to enhance the game's fun and challenge. To provide players with a clearer understanding of the game, we created a video based on the paper prototype, offering an intuitive demonstration of the gameplay.
-
-
-<div style="text-align: center;">
-  <strong>Paper Prototype of Grass-Catching Game</strong>
-</div>
-
-<div style="text-align: center;">
-  <video src="https://github.com/user-attachments/assets/2bc9ad40-728b-4c61-b258-6c2530942f93" controls width="600"></video>
-</div>
-
-
-#### Digital Paper Prototype tool
-
-To help players quickly get familiar with the game, we created a digital model based on the paper prototype. Hanying attempted to generate the digital model using her iPad, which allowed for a representation that more closely resembled the actual game compared to the paper prototype.
-
-<p align="center"><b>Digital·Paper·Prototype·Tool</b></p>
-
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/dfb59e37-652d-4112-a203-70f36f721ae3" width="500">
-</p>
-
-<p align="center"><b>Failed</b></p>
-
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/a21f37c9-d280-421e-a664-1148eeae3f51" width="500">
-</p>
-
-**Project overview**
-
-The project aims to develop a simple 2D mini-game where players stack square grass blocks.
-Initially, we considered using different shapes for stacking as the core gameplay mechanism and planned to integrate an external physics engine for realistic physics simulation. 
-However, after preliminary research and technical assessment, we found that our current skill level poses certain limitations in implementing this approach. Therefore, we reassessed the feasibility.
-Eventually, we decided to remove the physics engine and use a simple square grass block stacking mechanism to reduce technical complexity.
-
-**Requirement Analysis**
-
-1.User Requirements
-
--Players: Should be able to control and stack square grass blocks smoothly.
-
-2.Technical Requirements
-
--Client-side Development: Implement the game interface and handle user input.
-
--Physics Simulation: Remove the external physics engine and use a simple square block stacking mechanism.
-
-**Technical Feasibility**
-Shape Stacking Mechanism
-
-Initial Plan
-
--Use an external physics engine (e.g., Box2D, Matter.js) for simulating different shape interactions.
-
--Requires complex physics calculations, including collision detection and gravity simulation.
-
-**Feasibility Evaluation**
--Lack of experience in physics engine development makes debugging and optimization challenging.
-
--Complex physics calculations may lead to high computational resource consumption, affecting game performance.
-Alternative Plan
-
--Switch to simple square grass block stacking without relying on an external physics engine.
-
--Use a rule-based stacking method where each block is placed according to predefined logic rather than dynamic physics calculations.
-
--Implement basic rectangle overlap detection for collision handling to improve development efficiency.
+##### Alternative Plan
+- Switch to simple square grass block stacking without relying on an external physics engine
+- Use a rule-based stacking method where each block is placed according to predefined logic
+- Implement basic rectangle overlap detection for collision handling to improve development efficiency
 
 Based on the feasibility analysis, we have decided to adjust the game design by abandoning the complex physics engine integration and opting for a simple square grass block stacking mechanism. This will reduce technical difficulty, improve development efficiency, and ensure game stability.
 
 ### Stakeholders Analysis 
 
-<p align="center"><strong>Onion model</strong></p>
+<p align="center"><strong>Onion Model</strong></p>
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/5ef9c5c4-04e5-4d8f-b85d-7bf6b9ef1358" width="500">
 </p>
 
+#### Core Layer: Group 30
+Group 30-2025 are the core creators of the game, responsible for its design, development, and implementation. They determine the quality, gameplay, and overall experience of the game.
 
--Core layer: Group 30
+#### Internal Layer: Players and Lecturers
+- **Players**: The end-users of the game, including:
+  - New Players
+  - Old Players
+  - Casual Players
+  - Competitive Players
+- **Lecturers**: The evaluators of the assignment, responsible for assessing the quality of the game and whether it meets course requirements
 
-Group 30-2025 are the core creators of the game, responsible for its design, development, and implementation. They determine the quality, gameplay, and overall experience of the game. 
-
--Internal layer:players and lecturers
-
-Players are the end-users of the game, including different types:New Players,Old Players,Casual Players,Competitive Players.
-
-Lecturers are the evaluators of the assignment, responsible for assessing the quality of the game and whether it meets the course requirements.
-
--Competition Layer:other teams
-
+#### Competition Layer: Other Teams
 Other teams are competitors in the assignment, and their performance may influence the evaluation by lecturers and bystanders.
 
--External Layer:Border audience (Potential players)
-
+#### External Layer: Broader Audience
 Bystanders are potential users who may not directly participate in the game but could be attracted to become new players.
 
-<p align="center"><strong>User-case diagram</strong></p>
+<p align="center"><strong>Use Case Diagram</strong></p>
 
 <p align="center">
   <img width="925" alt="Image" src="https://github.com/user-attachments/assets/1f5c1da4-c239-4662-898a-9b46e998b081" />
 </p>
 
-1.Players
+#### 1. Players
+Players are the primary users of the game, interacting with the game system to achieve objectives.
 
-Players are the primary users of the game, interacting with the game system to achieve game objectives.
-Main Use Cases of players is:
+Main Use Cases:
+- Choose game mode: Select between single-player or multi-player mode
+- Play game: Control character movement, catch grass, and drop grass into the basket
+- Pause game: Pause the current game
 
--Choose game mode: Select between single-player or multi-player mode.If player 1 choose multiplayer mode, then player 2 will exist.
-
--Play game: Control character movement, catch grass, and drop grass into the basket.
-
--Pause game: Pause the current game.
-
-2.Developers 
-
+#### 2. Developers
 Developers are responsible for maintaining and updating the game to ensure it runs smoothly.
-Main Use Cases of Developers is:
 
--Debug game: Fix errors in the game.
+Main Use Cases:
+- Debug game: Fix errors in the game
+- Update game: Add new features or optimize existing ones
+- Test game: Test the game to ensure stability
+- Monitor game: Monitor the game's performance to identify potential issues
 
--Update game: Add new features or optimize existing ones.
-
--Test game: Test the game to ensure stability.
-
--Monitor game: Monitor the game's performance to identify potential issues.
-
-3.Game system
-
+#### 3. Game System
 Game system manages the core logic and state of the game.
 
--Update score: Update the score when players drop grass into the basket.
-
--Decrease lives: Reduce lives when players fail.
-
--Level up: Increase game difficulty when players reach a certain score.
-
--Game over: End the game when lives reach zero.
+Main Functions:
+- Update score: Update the score when players drop grass into the basket
+- Decrease lives: Reduce lives when players fail
+- Level up: Increase game difficulty when players reach a certain score
+- Game over: End the game when lives reach zero
 
 #### User Stories and Epics
 
@@ -256,7 +187,7 @@ Game system manages the core logic and state of the game.
   <tr>
     <td>Hardcore Player</td>
     <td>Character Progression</td>
-    <td>As a hardcore player, I want to upgrade my character’s equipment so that I can compete at higher difficulty levels.</td>
+    <td>As a hardcore player, I want to upgrade my character's equipment so that I can compete at higher difficulty levels.</td>
     <td>Characters should be able to purchase gear using in-game currency or rewards, enhancing their abilities.</td>
   </tr>
   <tr>
@@ -269,7 +200,7 @@ Game system manages the core logic and state of the game.
     <td></td>
     <td></td>
     <td>As a hardcore player, I want to compare scores with my friends so that I can compete with them.</td>
-    <td>The game should include a friends’ leaderboard to compare scores easily.</td>
+    <td>The game should include a friends' leaderboard to compare scores easily.</td>
   </tr>
   <tr>
     <td></td>
