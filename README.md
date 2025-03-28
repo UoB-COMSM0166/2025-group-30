@@ -222,79 +222,81 @@ Game system manages the core logic and state of the game.
 #### User Stories and Epics
 
 <table>
-  <tr>
-    <th style="width: 12%;">User Type</th>
-    <th style="width: 15%;">Epic</th>
-    <th style="width: 35%;">User Story</th>
-    <th style="width: 38%;">Acceptance Criteria</th>
-  </tr>
-  <tr>
-    <td>Casual Player</td>
-    <td>Beginner-Friendly Experience</td>
-    <td>As a casual player, I want the game controls to be simple and intuitive so that I can quickly learn and enjoy the game.</td>
-    <td>The game should have minimal controls and simple rules to ensure ease of learning.</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td></td>
-    <td>As a casual player, I want a clear tutorial when I first enter the game so that I can quickly learn how to play.</td>
-    <td>A tutorial should appear the first time a player enters the game, explaining basic controls and mechanics.</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td></td>
-    <td>As a casual player, I want a pause and resume function so that I can play at my own pace.</td>
-    <td>Players should be able to pause the game by clicking the "Pause" button and resume from where they left off using the "Continue" button.</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>Replayability</td>
-    <td>As a casual player, I want to replay levels to improve my skills and gain a sense of achievement.</td>
-    <td>The game should allow players to replay the same level multiple times without restrictions.</td>
-  </tr>
-  <tr>
-    <td>Hardcore Player</td>
-    <td>Character Progression</td>
-    <td>As a hardcore player, I want to upgrade my character's equipment so that I can compete at higher difficulty levels.</td>
-    <td>Characters should be able to purchase gear using in-game currency or rewards, enhancing their abilities.</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>Ranking System</td>
-    <td>As a hardcore player, I want to see global rankings so that I can compete with other players for high scores.</td>
-    <td>The main menu should display a leaderboard showing the top 10 players.</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td></td>
-    <td>As a hardcore player, I want to compare scores with my friends so that I can compete with them.</td>
-    <td>The game should include a friends' leaderboard to compare scores easily.</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>Game Challenge</td>
-    <td>As a hardcore player, I want the game to become more challenging over time so that it remains engaging.</td>
-    <td>The game should introduce new obstacles or increase speed as the game progresses to enhance difficulty.</td>
-  </tr>
-  <tr>
-    <td>Social Player</td>
-    <td>Multiplayer Mode</td>
-    <td>As a social player, I want to compete or cooperate with my friends so that we can play together.</td>
-    <td>The game should offer both competitive and cooperative two-player modes, with rankings displayed after matches.</td>
-  </tr>
-  <tr>
-    <td>Creative Player</td>
-    <td>Character Customization</td>
-    <td>As a creative player, I want to customize my character so that I can personalize my gaming experience.</td>
-    <td>The character customization menu should offer various appearance options and allow players to save their selections.</td>
-  </tr>
-  <tr>
-    <td>Detail-Oriented Player</td>
-    <td>Realistic Physics</td>
-    <td>As a detail-oriented player, I want realistic physics for stacking objects and accurate sound effects when catching items.</td>
-    <td>Objects should follow physics rules, smoothly falling and settling on surfaces while triggering appropriate sound effects.</td>
-  </tr>
+<tr>
+  <th style="width: 12%;">User Type</th>
+  <th style="width: 15%;">Epic</th>
+  <th style="width: 35%;">User Story</th>
+  <th style="width: 38%;">Acceptance Criteria</th>
+</tr>
+
+<tr>
+  <td>Casual Player</td>
+  <td>Beginner-Friendly Experience</td>
+  <td>As a casual player, I want the game controls to be simple and intuitive so that I can quickly learn and enjoy the game.</td>
+  <td>Given I am playing the game, when I use the controls, then they should be minimal and easy to understand.</td>
+</tr>
+<tr>
+  <td></td>
+  <td></td>
+  <td>As a casual player, I want a clear tutorial when I first enter the game so that I can quickly learn how to play.</td>
+  <td>Given it is my first time entering the game, when I start playing, then a tutorial should appear explaining the basic controls and rules.</td>
+</tr>
+<tr>
+  <td></td>
+  <td></td>
+  <td>As a casual player, I want a pause and resume function so that I can play at my own pace.</td>
+  <td>Given I am in a game session, when I click the pause button, then I should be presented with options to pause, resume, or restart.</td>
+</tr>
+<tr>
+  <td></td>
+  <td>Replayability</td>
+  <td>As a casual player, I want to replay levels to improve my skills and gain a sense of achievement.</td>
+  <td>Given I complete a level, when I choose to replay, then I should be able to restart the same level without restrictions.</td>
+</tr>
+<tr>
+  <td>Hardcore Player</td>
+  <td>Character Progression</td>
+  <td>As a hardcore player, I want to upgrade my character’s equipment so that I can compete at higher difficulty levels.</td>
+  <td>Given I have in-game currency or rewards, when I visit the store, then I should be able to buy gear to enhance my character.</td>
+</tr>
+<tr>
+  <td></td>
+  <td>Ranking System</td>
+  <td>As a hardcore player, I want to see global rankings so that I can compete with other players for high scores.</td>
+  <td>Given I am on the main menu, when I open the leaderboard, then I should see the top 10 players’ scores.</td>
+</tr>
+<tr>
+  <td></td>
+  <td></td>
+  <td>As a hardcore player, I want to compare scores with my friends so that I can compete with them.</td>
+  <td>Given I have friends added in-game, when I view the friends leaderboard, then I should see their scores to compare with mine.</td>
+</tr>
+<tr>
+  <td></td>
+  <td>Game Challenge</td>
+  <td>As a hardcore player, I want the game to become more challenging over time so that it remains engaging.</td>
+  <td>Given the game progresses, when I reach higher levels, then the game should introduce faster speeds or new obstacles.</td>
+</tr>
+<tr>
+  <td>Social Player</td>
+  <td>Multiplayer Mode</td>
+  <td>As a social player, I want to compete or cooperate with my friends so that we can play together.</td>
+  <td>Given I enter multiplayer mode, when I choose competitive or co-op, then the game should support both modes and show rankings after matches.</td>
+</tr>
+<tr>
+  <td>Creative Player</td>
+  <td>Character Customization</td>
+  <td>As a creative player, I want to customize my character so that I can personalize my gaming experience.</td>
+  <td>Given I open the customization menu, when I select different options, then I should be able to save and use them in-game.</td>
+</tr>
+<tr>
+  <td>Detail-Oriented Player</td>
+  <td>Realistic Physics</td>
+  <td>As a detail-oriented player, I want realistic physics for stacking objects and accurate sound effects when catching items.</td>
+  <td>Given I am stacking hay or catching it, when physics interactions occur, then they should follow real-world rules and trigger appropriate sound effects.</td>
+</tr>
 </table>
+
   
 ### Design
 
