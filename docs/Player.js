@@ -151,7 +151,17 @@ class Player {
 
     emptyToBasket() { //empty grass to the basket
         if (this.stack.length === 0) return;
-        if (this.x <= this.basket.x + this.basket.w) {
+        
+        // 计算玩家与篮子的距离
+        let playerCenter = this.x + this.w/2;
+        let basketCenter = this.basket.x + this.basket.w/2;
+        let distance = abs(playerCenter - basketCenter);
+        
+        // 设置最大放草距离
+        let maxDistance = 150; // 可以根据需要调整这个值
+        
+        // 检查玩家是否在合理范围内
+        if (distance <= maxDistance) {
             this.score += this.stack.length;
             this.stack = [];
         }

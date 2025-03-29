@@ -21,8 +21,7 @@ class TargetScoreScreen extends Screen {
     }
 
     display() {
-        // 显示游戏画面作为背景
-        background(200);
+        image(this.gameScreen.backgroundImage, 0, 0, baseWidth, baseHeight);
         
         // 根据游戏模式绘制不同的玩家
         if (this.gameScreen === this.screenManager.single) {
