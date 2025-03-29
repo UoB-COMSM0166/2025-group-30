@@ -18,10 +18,10 @@ class Page {
         this.setPageSize();
         this.setPadding();
         this.setCanvas();
-        
+
         // 确保在初始化时调用一次setupMouseCoordinates
         this.setupMouseCoordinates();
-        
+
         // 添加窗口大小变化的事件监听
         window.addEventListener('resize', this.handleResize.bind(this));
     }
@@ -97,13 +97,13 @@ class Page {
             y: y * this.gameScale + this.yPadding + this.margin
         };
     }
-    
+
     // 应用坐标变换
     applyTransformation() {
         // 设置缩放
         scale(this.gameScale);
     }
-    
+
     // 设置鼠标坐标转换，在mousePressed等函数调用前使用
     setupMouseCoordinates() {
         // 确保mouseX和mouseY在canvas范围内
@@ -111,16 +111,16 @@ class Page {
             // 计算鼠标在canvas中的相对位置
             let mx = mouseX;
             let my = mouseY;
-            
+
             // 如果鼠标在canvas内，转换为游戏坐标
             if (mx >= 0 && mx <= width && my >= 0 && my <= height) {
                 // 将坐标赋给全局变量，方便其他类使用
-                window.mouseXGame =  mx / this.gameScale;
+                window.mouseXGame = mx / this.gameScale;
                 window.mouseYGame = my / this.gameScale;
             }
         }
     }
-    
+
     // 添加transformCoordinates方法，将屏幕坐标转换为游戏坐标
     transformCoordinates(screenX, screenY) { //not used 
         // 转换为游戏内坐标系
