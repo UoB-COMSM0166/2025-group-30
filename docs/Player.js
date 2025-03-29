@@ -3,13 +3,13 @@ class Player {
         this.position = position; //used only for pvp mode
 
         this.w = 100;
-        this.h = 20;
+        this.h = 150;
 
         if (position === "middle") this.x = (baseWidth - this.w) / 2;
         else if (position === "left" || position === "pvpLeft") this.x = (baseWidth - this.w) / 4;
         else if (position === "right" || position === "pvpRight") this.x = (baseWidth - this.w) / 4 * 3;
 
-        this.y = baseHeight - 50; //stay the same
+        this.y = baseHeight - 150; //stay the same
         this.score = 0;
 
         this.velocity = 0;
@@ -20,7 +20,6 @@ class Player {
         this.dir = 0;
 
         this.stack = [];  //visible caught grass
-        this.yGap = 3;
         this.maxStack = 5;
 
         this.basket = null; // 确保basket被正确初始化
@@ -35,6 +34,9 @@ class Player {
         } else {
             this.color = [0, 0, 255]; // 默认蓝色
         }
+
+        this.player1Image = null;
+        this.loadPlayer1Image();
     }
 
     reset() {
@@ -86,20 +88,18 @@ class Player {
         this.flash.update();
         if (!this.flash.playerIsVisible) return;//player with grass is not shown if flash is running 
 
-        // 显示玩家颜色
-        noStroke();
-        fill(this.color[0], this.color[1], this.color[2]);
-        rect(this.x, this.y, this.w, this.h);
-
         //draw caught grass
         for (let grass of this.stack) {
             grass.draw();
-            // fill(0, 255, 0);
-            // rect(grass.x, grass.y, grass.w, grass.h);
         }
+
+        // draw player image
+        image(this.player1Image, this.x, this.y, this.w, this.h);
     }
 
     checkGrassCaught(grass) { //return true if grass is caught, false otherwise
+        const yGap = 3; // Use consistent gap for all grass blocks
+
         // 如果是第一个方块，检查是否与木板接触
         if (this.stack.length === 0) {
             // Calculate overlap with player platform
@@ -109,10 +109,11 @@ class Player {
             const minRequiredOverlap = 0.2 * grass.w; // 20% of grass width
 
             if (grass.y + grass.h >= this.y &&
-                grass.y + grass.h <= this.y + 2 && // if the falling grass is 2 pixel below the player platform, it cannot be caught
+                grass.y + grass.h <= this.y + yGap + 2 && // if the falling grass is within the gap range
                 overlapWidth >= minRequiredOverlap) {
 
-                grass.y = this.y - grass.h + this.yGap;
+                // Smoothly position the grass
+                grass.y = this.y - grass.h + yGap;
                 this.stack.push(grass);
 
                 // Check if adding this grass exceeds the maximum stack size
@@ -134,11 +135,11 @@ class Player {
 
             // if the falling grass is within the gap range of the top grass
             const isVerticalContact = ((grass.y + grass.h) >= topGrass.y) &&
-                ((grass.y + grass.h) <= topGrass.y + this.yGap + 2);
+                ((grass.y + grass.h) <= topGrass.y + yGap + 2);
 
             if (overlapWidth >= minRequiredOverlap && isVerticalContact) {
                 // Position the new grass block directly on top of the previous one with the gap
-                grass.y = topGrass.y - grass.h + this.yGap;
+                grass.y = topGrass.y - grass.h + yGap;
                 this.stack.push(grass);
 
                 // Check if adding this grass exceeds the maximum stack size
@@ -169,5 +170,9 @@ class Player {
             this.score += this.stack.length;
             this.stack = [];
         }
+    }
+
+    loadPlayer1Image() {
+        this.player1Image = loadImage("assets/player1-crop.webp");
     }
 }
