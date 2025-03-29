@@ -2,14 +2,8 @@ let screenManager;
 let page;
 const baseWidth = 800;
 const baseHeight = 600;
-let bgImage;
-
-function preload() {
-    bgImage = loadImage('./assets/barn.webp'); 
-}
 
 function setup() {
-    createCanvas(baseWidth, baseHeight);
     page = new Page();
     window.page = page;
     screenManager = new ScreenManager();
@@ -17,20 +11,12 @@ function setup() {
     // Add visibility change event listener
     document.addEventListener('visibilitychange', () => screenManager.handleVisibilityChange());
 
-    // 预加载篮子图片
-    Basket.basketImage = loadImage('assets/basket.webp');
 }
 
 function draw() {
     push();
 
     page.applyTransformation();
-
-    // 设置背景图片模式为覆盖整个画布
-    imageMode(CORNER);
-    if (bgImage) {
-        image(bgImage, 0, 0, baseWidth, baseHeight); // 使用 baseWidth 和 baseHeight
-    }
 
     screenManager.display();   
 

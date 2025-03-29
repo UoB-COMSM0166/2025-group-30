@@ -2,6 +2,7 @@ class Coop extends Screen {
     constructor(screenManager, level=1, targetScores=5, timer=20, grassDropDelay=2000) {
         // --- basic settings ---
         super(screenManager);
+        this.backgroundImage = loadImage("assets/barn.webp");
 
         this.pauseScreen = new PauseScreen(this.screenManager, this);
         this.gameOverScreen = new GameOverScreen(this.screenManager,this);
@@ -28,6 +29,8 @@ class Coop extends Screen {
     }
 
     display(){ 
+        image(this.backgroundImage, 0, 0, baseWidth, baseHeight);
+        
         this.basket.draw(); // 只绘制一个篮子
 
         if (this.screenManager.currentScreen === this){

@@ -2,6 +2,7 @@ class Pvp extends Screen { // player with higher score in the set time wins
     constructor(screenManager, level=1, timer=30, grassDropDelay=1500) {
         // --- basic settings ---
         super(screenManager);
+        this.backgroundImage = loadImage("assets/barn.webp");
 
         this.pauseScreen = new PauseScreen(this.screenManager, this);
         this.pvpLevelUpScreen = new PvpLevelUpScreen(this.screenManager,this);
@@ -28,6 +29,7 @@ class Pvp extends Screen { // player with higher score in the set time wins
     }
 
     display(){ 
+        image(this.backgroundImage, 0, 0, baseWidth, baseHeight);
         this.basket1.draw(); 
         this.basket2.draw(); 
 

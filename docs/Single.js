@@ -3,6 +3,8 @@ class Single extends Screen {
         // --- basic settings ---
         super(screenManager);
 
+        this.backgroundImage = loadImage("assets/barn.webp");
+
         this.pauseScreen = new PauseScreen(this.screenManager, this);
         this.gameOverScreen = new GameOverScreen(this.screenManager,this);
         this.levelSuccessScreen = new LevelSuccessScreen(this.screenManager, this);
@@ -25,6 +27,7 @@ class Single extends Screen {
     }
 
     display(){ 
+        image(this.backgroundImage, 0, 0, baseWidth, baseHeight);
         this.basket.draw(); 
 
         if (this.screenManager.currentScreen === this){
