@@ -126,7 +126,6 @@ class Coop extends Screen {
             clearInterval(this.levelTimerInterval);
             this.levelTimerInterval = null;
         }
-        ("stop level timer for 1 and 2");
     }
 
     clearStats() {
@@ -135,7 +134,6 @@ class Coop extends Screen {
         this.timeLeft = this.timer;
         this.stopGrassDropAndLevelTimer();
         this.grass = [];
-        //this.grass2 = [];
     }
 
     resetToLevel1() { //reset to level 1

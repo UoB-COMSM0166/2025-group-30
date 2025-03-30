@@ -142,6 +142,8 @@ class Pvp extends Screen { // player with higher score in the set time wins
         this.player2.reset();
         this.timeLeft = this.timer;
         this.stopGrassDropAndLevelTimer();
+        this.grass1 = [];
+        this.grass2 = [];
     }
 
     resetToLevel1() { //reset to level 1
@@ -154,10 +156,6 @@ class Pvp extends Screen { // player with higher score in the set time wins
 
     restartFromCurrentLevel() { //restart from the current level
         this.clearStats();
-        // 清空草堆数组
-        this.grass1 = [];
-        this.grass2 = [];
-        // 重新开始草堆生成和计时器
         this.startGrassDropAndLevelTimer();
     }
 
@@ -191,7 +189,10 @@ class Pvp extends Screen { // player with higher score in the set time wins
         this.timer += 30;
         this.grassDropDelay = max(500, this.grassDropDelay - 300); // 每关减少300ms，而不是500ms
 
-        this.restartFromCurrentLevel();
+        this.clearStats();
+
+        // 切换到目标分数屏幕
+        this.screenManager.changeScreen(this.targetScoreScreen);
     }
 
     keyPressed() {
