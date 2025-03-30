@@ -173,6 +173,6 @@ class Player {
     }
 
     loadPlayer1Image() {
-        this.player1Image = loadImage("assets/player1-crop.webp");
+        this.player1Image = loadImage("assets/player1.webp");
     }
 }
