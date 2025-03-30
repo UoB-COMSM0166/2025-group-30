@@ -2,7 +2,6 @@ class Basket {
     constructor(position = "left") {
         this.position = position;
         this.x = (position === "left") ? 10 : baseWidth - 160;
-        console.log(baseWidth);
         this.y = baseHeight - 150;
         this.w = 150;
         this.h = 150;
@@ -13,10 +12,10 @@ class Basket {
 
     draw() {
         push(); // 保存当前绘图状态
-        
+
         // 根据得分设置颜色
         if (this.targetScore === 0) {
-            tint(255); 
+            tint(255);
         } else {
             let progress = min(this.score / this.targetScore, 1);
             // 从灰色(128,128,128)变化到原色(255,255,255)
@@ -25,7 +24,7 @@ class Basket {
         }
 
         image(this.basketImage, this.x, this.y, this.w, this.h);
-        
+
         pop(); // 恢复绘图状态
 
         // 显示分数
@@ -36,16 +35,16 @@ class Basket {
         textStyle(BOLD);
         textAlign(CENTER);
         if (this.targetScore === 0) {
-            text(`${this.score}`, this.x + this.w/2, this.y - 10);
+            text(`${this.score}`, this.x + this.w / 2, this.y - 10);
         } else if (this.score >= this.targetScore) {
-            text("Target Achieved!", this.x + this.w/2 +5, this.y - 35);
-            text(`${this.score}/${this.targetScore}`, this.x + this.w/2, this.y - 10);
+            text("Target Achieved!", this.x + this.w / 2 + 5, this.y - 35);
+            text(`${this.score}/${this.targetScore}`, this.x + this.w / 2, this.y - 10);
         } else {
-            text(`${this.score}/${this.targetScore}`, this.x + this.w/2, this.y - 10);
+            text(`${this.score}/${this.targetScore}`, this.x + this.w / 2, this.y - 10);
         }
         noStroke();
         textStyle(NORMAL);
-        
+
     }
 
     updateScore(score, targetScore) {
