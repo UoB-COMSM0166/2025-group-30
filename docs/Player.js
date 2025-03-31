@@ -97,7 +97,7 @@ class Player {
         image(this.player1Image, this.x, this.y, this.w, this.h);
     }
 
-    checkGrassCaught(grass) { //return true if grass is caught, false otherwise
+    catches(grass) { //return true if grass is caught, false otherwise
         const yGap = 3; // Use consistent gap for all grass blocks
 
         // 如果是第一个方块，检查是否与木板接触

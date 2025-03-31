@@ -4,7 +4,7 @@ class Shovel {
         this.y = y;
         this.w = 50;
         this.h = 50;
-        this.speed = 3;
+        this.speed = 4;
         this.image = null;
         this.loadImage();
     }

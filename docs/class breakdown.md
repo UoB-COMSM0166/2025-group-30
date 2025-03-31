@@ -41,6 +41,6 @@ move()
 
 show()
 
-checkGrassCaught(grass) `//return true or false`
+catches(grass) `//return true or false`
 
 emptyToBasket() `//empty grass to basket`

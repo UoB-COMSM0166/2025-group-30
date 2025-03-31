@@ -2,7 +2,8 @@ class Pvp extends Screen { // player with higher score in the set time wins
     constructor(screenManager, level = 1) {
         // --- basic settings ---
         super(screenManager);
-        this.backgroundImage = loadImage("assets/barn.webp");
+        this.backgroundImage = null;
+        this.loadBackgroundImage();
 
         // --- level related settings ---
         this.level = new Level(Level.GAME_MODES.PVP, level);
@@ -14,15 +15,17 @@ class Pvp extends Screen { // player with higher score in the set time wins
         this.basket1 = new Basket("left");
         this.player1.basket = this.basket1;
         this.grass1 = []; //collection of falling grass
+        this.shovels1 = [];
 
         this.player2 = new Player("pvpRight");
         this.basket2 = new Basket("right");
         this.player2.basket = this.basket2;
         this.grass2 = []; //collection of falling grass
-
+        this.shovels2 = [];
 
         this.grassDropInterval = null; //manage how often a grass drops
         this.levelTimerInterval = null; //manage how often the timer goes down i.e. 1 second
+        this.shovelDropInterval = null;
     }
 
     display() {
@@ -34,9 +37,11 @@ class Pvp extends Screen { // player with higher score in the set time wins
             this.player1.movePlayerWithCaughtGrass();
             this.player2.movePlayerWithCaughtGrass();
             this.updateFallingGrass();
+            this.updateShovels();
         }
 
         this.drawFallingGrass();
+        this.drawShovels();
         this.player1.drawPlayerWithCaughtGrass(); //show player with grass 
         this.player2.drawPlayerWithCaughtGrass();
 
@@ -45,23 +50,18 @@ class Pvp extends Screen { // player with higher score in the set time wins
 
     // --- initialising the game state ---
 
-    startGrassDropAndLevelTimer() { //
+    startGrassDrop() {
         if (this.grassDropInterval) clearInterval(this.grassDropInterval);
 
         this.grass1 = []; //empty the grass piles
         this.grass2 = [];
 
-        // 设置一个较短的延迟来生成第一个草块
         setTimeout(() => {
-            // 为玩家1生成草堆
             this.grass1.push(new Grass(random(200, baseWidth / 2 - 100), 10));
-            // 为玩家2生成草堆
             this.grass2.push(new Grass(random(baseWidth / 2, baseWidth - 100), 10));
 
-            // 然后开始正常的草块生成间隔
             this.grassDropInterval = setInterval(() => {
                 if (this.screenManager.currentScreen === this) {
-                    // 按照固定频率生成草堆
                     if (this.player1.flash.getFlashDuration() === 0) {
                         this.grass1.push(new Grass(random(200, baseWidth / 2 - 100), 10));
                     }
@@ -71,16 +71,39 @@ class Pvp extends Screen { // player with higher score in the set time wins
                 }
             }, this.level.grassDropDelay);
         }, 1000);
-
-        this.startLevelTimer();
     }
 
-    stopGrassDropAndLevelTimer() {
+    stopGrassDrop() {
         if (this.grassDropInterval) {
             clearInterval(this.grassDropInterval);
             this.grassDropInterval = null;
         }
-        this.stopLevelTimer();
+    }
+
+    startShovelDrop() {
+        if (this.level.level === 1) return; //shovels starts from level 2
+        if (this.shovelDropInterval) clearInterval(this.shovelDropInterval);
+
+        this.shovels1 = [];
+        this.shovels2 = [];
+
+        this.grassDropInterval = setInterval(() => {
+            if (this.screenManager.currentScreen === this) {
+                if (this.player1.flash.getFlashDuration() === 0) {
+                    this.shovels1.push(new Shovel(random(200, baseWidth / 2 - 100), 10));
+                }
+                if (this.player2.flash.getFlashDuration() === 0) {
+                    this.shovels2.push(new Shovel(random(baseWidth / 2, baseWidth - 100), 10));
+                }
+            }
+        }, this.level.shovelDropDelay);
+    }
+
+    stopShovelDrop() {
+        if (this.shovelDropInterval) {
+            clearInterval(this.shovelDropInterval);
+            this.shovelDropInterval = null;
+        }
     }
 
     // --- main game logic ----
@@ -91,9 +114,13 @@ class Pvp extends Screen { // player with higher score in the set time wins
 
     updateGrass1() { //update the grass from this.grass1 based on if caught or missed   
         for (let i = this.grass1.length - 1; i >= 0; i--) {
-            if (this.player1.flash.getFlashDuration() === 0 && this.screenManager.currentScreen === this) this.grass1[i].fall(); //stop grass fall if flashing is on or game is paused           
+            const currentGrass = this.grass1[i];
+            if (this.player1.flash.getFlashDuration() === 0) {
+                currentGrass.fall();
+            } //stop grass fall if flashing is on or game is paused           
 
-            if (this.grass1[i].y > baseHeight || this.player1.checkGrassCaught(this.grass1[i])) {
+            if (currentGrass.isOffscreen() ||
+                this.player1.catches(currentGrass)) {
                 this.grass1.splice(i, 1);  // Remove if off-screen or caught
             }
         }
@@ -101,9 +128,12 @@ class Pvp extends Screen { // player with higher score in the set time wins
 
     updateGrass2() { //update the grass from this.grass2 based on if caught or missed   
         for (let i = this.grass2.length - 1; i >= 0; i--) {
-            if (this.player2.flash.getFlashDuration() === 0 && this.screenManager.currentScreen === this) this.grass2[i].fall(); //stop grass fall if flashing is on or game is paused           
-
-            if (this.grass2[i].y > baseHeight || this.player2.checkGrassCaught(this.grass2[i])) {
+            const currentGrass = this.grass2[i];
+            if (this.player2.flash.getFlashDuration() === 0) {
+                currentGrass.fall(); //stop grass fall if flashing is on or game is paused           
+            }
+            if (currentGrass.isOffscreen() ||
+                this.player2.catches(currentGrass)) {
                 this.grass2.splice(i, 1);  // Remove if off-screen or caught
             }
         }
@@ -114,14 +144,71 @@ class Pvp extends Screen { // player with higher score in the set time wins
         for (let i = this.grass2.length - 1; i >= 0; i--) this.grass2[i].draw();
     }
 
+    updateShovels() {
+        this.updateShovels1();
+        this.updateShovels2();
+    }
+
+    updateShovels1() {
+        if (this.level.level === 1) {
+            return;
+        }
+        for (let i = this.shovels1.length - 1; i >= 0; i--) {
+            const currentShovel = this.shovels1[i];
+            if (this.player1.flash.getFlashDuration() === 0) {
+                currentShovel.fall();
+            } //stop shovel fall if flashing is on or game is paused    
+
+            if (currentShovel.hits(this.player1)) {
+                this.player1.stack = []; //empty the stack
+                this.player1.flash.setFlashDuration(30); //trigger flash immediately
+                this.shovels1.splice(i, 1);
+                continue;
+            }
+
+            if (currentShovel.isOffscreen()) {
+                this.shovels1.splice(i, 1);
+            }
+        }
+    }
+
+    updateShovels2() {
+        if (this.level.level === 1) {
+            return;
+        }
+        for (let i = this.shovels2.length - 1; i >= 0; i--) {
+            const currentShovel = this.shovels2[i];
+            if (this.player2.flash.getFlashDuration() === 0) {
+                currentShovel.fall();
+            } //stop shovel fall if flashing is on or game is paused    
+
+            if (currentShovel.hits(this.player2)) {
+                this.player2.stack = []; //empty the stack
+                this.player2.flash.setFlashDuration(30); //trigger flash immediately
+                this.shovels2.splice(i, 1);
+            } else if (currentShovel.isOffscreen()) {
+                this.shovels2.splice(i, 1);
+            }
+        }
+    }
+
+    drawShovels() {
+        this.shovels1.forEach(shovel => shovel.draw());
+        this.shovels2.forEach(shovel => shovel.draw());
+    }
+
     startLevelTimer() {
         if (this.levelTimerInterval) clearInterval(this.levelTimerInterval);
         this.levelTimerInterval = setInterval(() => {
             if (this.level.timeLeft > 0) {
-                if (this.screenManager.currentScreen === this) this.level.timeLeft--; //time goes down for both player even if one player is flashing
+                if (this.screenManager.currentScreen === this) {
+                    this.level.timeLeft--; //time goes down for both player even if one player is flashing
+                }
             }
             else { //check when times run out
-                this.stopGrassDropAndLevelTimer();
+                this.stopGrassDrop();
+                this.stopLevelTimer();
+                this.stopShovelDrop();
                 this.screenManager.changeScreen(this.pvpLevelUpScreen);
             }
         }, 1000);
@@ -138,19 +225,25 @@ class Pvp extends Screen { // player with higher score in the set time wins
         this.player1.reset();
         this.player2.reset();
         this.level.resetTimeLeft();
-        this.stopGrassDropAndLevelTimer();
         this.grass1 = [];
         this.grass2 = [];
+        this.shovels1 = [];
+        this.shovels2 = [];
+        this.stopGrassDrop();
+        this.stopShovelDrop();
+        this.stopLevelTimer();
     }
 
-    restartFromLevel1() { //reset to level 1
+    restartFromLevel1() {
         this.level.resetToLevel1();
         this.restartFromCurrentLevel();
     }
 
-    restartFromCurrentLevel() { //restart from the current level
+    restartFromCurrentLevel() {
         this.clearStats();
-        this.startGrassDropAndLevelTimer();
+        this.startGrassDrop();
+        this.startShovelDrop();
+        this.startLevelTimer();
     }
 
     displayUI() {
@@ -181,7 +274,7 @@ class Pvp extends Screen { // player with higher score in the set time wins
     startNextLevel() {
         this.level.startNextLevel();
         this.clearStats();
-        this.screenManager.changeScreen(this.targetScoreScreen);
+        this.restartFromCurrentLevel(); //no target score screen in pvp
     }
 
     keyPressed() {
@@ -201,5 +294,9 @@ class Pvp extends Screen { // player with higher score in the set time wins
     keyReleased() {
         if (keyCode === 68 || keyCode === 65) this.player1.dir = 0;
         if (keyCode === LEFT_ARROW || keyCode === RIGHT_ARROW) this.player2.dir = 0;
+    }
+
+    loadBackgroundImage() {
+        this.backgroundImage = loadImage("assets/barn.webp");
     }
 }
