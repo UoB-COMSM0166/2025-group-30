@@ -1,8 +1,11 @@
 class Pvp extends Screen { // player with higher score in the set time wins
-    constructor(screenManager, level = 1, timer = 30, grassDropDelay = 1500) {
+    constructor(screenManager, level = 1) {
         // --- basic settings ---
         super(screenManager);
         this.backgroundImage = loadImage("assets/barn.webp");
+
+        // --- level related settings ---
+        this.level = new Level(Level.GAME_MODES.PVP, level);
 
         this.pauseScreen = new PauseScreen(this.screenManager, this);
         this.pvpLevelUpScreen = new PvpLevelUpScreen(this.screenManager, this);
@@ -17,15 +20,9 @@ class Pvp extends Screen { // player with higher score in the set time wins
         this.player2.basket = this.basket2;
         this.grass2 = []; //collection of falling grass
 
-        // --- level related settings ---
-        this.level = level;
-        this.timer = timer;
-        this.grassDropDelay = grassDropDelay; // in milliseconds
 
-        this.timeLeft = timer;
         this.grassDropInterval = null; //manage how often a grass drops
         this.levelTimerInterval = null; //manage how often the timer goes down i.e. 1 second
-
     }
 
     display() {
@@ -39,7 +36,7 @@ class Pvp extends Screen { // player with higher score in the set time wins
             this.updateFallingGrass();
         }
 
-        this.drawGrass();
+        this.drawFallingGrass();
         this.player1.drawPlayerWithCaughtGrass(); //show player with grass 
         this.player2.drawPlayerWithCaughtGrass();
 
@@ -72,7 +69,7 @@ class Pvp extends Screen { // player with higher score in the set time wins
                         this.grass2.push(new Grass(random(baseWidth / 2, baseWidth - 100), 10));
                     }
                 }
-            }, this.grassDropDelay);
+            }, this.level.grassDropDelay);
         }, 1000);
 
         this.startLevelTimer();
@@ -112,7 +109,7 @@ class Pvp extends Screen { // player with higher score in the set time wins
         }
     }
 
-    drawGrass() { //draw the grass
+    drawFallingGrass() { //draw the grass
         for (let i = this.grass1.length - 1; i >= 0; i--) this.grass1[i].draw();
         for (let i = this.grass2.length - 1; i >= 0; i--) this.grass2[i].draw();
     }
@@ -120,8 +117,8 @@ class Pvp extends Screen { // player with higher score in the set time wins
     startLevelTimer() {
         if (this.levelTimerInterval) clearInterval(this.levelTimerInterval);
         this.levelTimerInterval = setInterval(() => {
-            if (this.timeLeft > 0) {
-                if (this.screenManager.currentScreen === this) this.timeLeft--; //time goes down for both player even if one player is flashing
+            if (this.level.timeLeft > 0) {
+                if (this.screenManager.currentScreen === this) this.level.timeLeft--; //time goes down for both player even if one player is flashing
             }
             else { //check when times run out
                 this.stopGrassDropAndLevelTimer();
@@ -140,17 +137,14 @@ class Pvp extends Screen { // player with higher score in the set time wins
     clearStats() {
         this.player1.reset();
         this.player2.reset();
-        this.timeLeft = this.timer;
+        this.level.resetTimeLeft();
         this.stopGrassDropAndLevelTimer();
         this.grass1 = [];
         this.grass2 = [];
     }
 
-    resetToLevel1() { //reset to level 1
-        this.level = 1;
-        this.timer = 30;
-        this.grassDropDelay = 1500; // 初始频率从2000ms改为1500ms
-
+    restartFromLevel1() { //reset to level 1
+        this.level.resetToLevel1();
         this.restartFromCurrentLevel();
     }
 
@@ -175,23 +169,18 @@ class Pvp extends Screen { // player with higher score in the set time wins
         textStyle(BOLD);
 
         textAlign(CENTER);
-        text(`Level ${this.level}`, baseWidth / 2, 30);
+        text(`Level ${this.level.level}`, baseWidth / 2, 30);
 
         textAlign(LEFT);
-        text(`Time: ${this.timeLeft}s`, 20, 30);
+        text(`Time: ${this.level.timeLeft}s`, 20, 30);
         noStroke();
         textStyle(NORMAL);
     }
 
     //--- Move to next level ---
     startNextLevel() {
-        this.level++;
-        this.timer += 30;
-        this.grassDropDelay = max(500, this.grassDropDelay - 300); // 每关减少300ms，而不是500ms
-
+        this.level.startNextLevel();
         this.clearStats();
-
-        // 切换到目标分数屏幕
         this.screenManager.changeScreen(this.targetScoreScreen);
     }
 
