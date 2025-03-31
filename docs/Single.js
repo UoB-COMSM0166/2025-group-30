@@ -20,24 +20,30 @@ class Single extends Screen {
         this.grass = []; //collection of falling grass
         this.grassDropInterval = null; //manage how often a grass drops
         this.levelTimerInterval = null; //manage how often the timer goes down i.e. 1 second
+
+        this.shovels = [];
+        this.shovelDropInterval = null;
     }
 
     display() {
         image(this.backgroundImage, 0, 0, baseWidth, baseHeight);
         this.basket.draw();
 
-        if (this.screenManager.currentScreen === this) {
+        if (this.screenManager.currentScreen === this) { //stop updating when paused
             this.player.movePlayerWithCaughtGrass();
             this.updateFallingGrass();
+            this.updateShovels();
         }
         this.drawFallingGrass();
+        this.drawShovels();
         this.player.drawPlayerWithCaughtGrass(); //show player with grass   
 
         this.displayUI();
     }
 
     // --- initialising the game state ---
-    startGrassDropAndLevelTimer() {
+
+    startGrassDrop() {
         if (this.grassDropInterval) {
             clearInterval(this.grassDropInterval);
             this.grassDropInterval = null;
@@ -59,22 +65,45 @@ class Single extends Screen {
                 }, this.level.grassDropDelay);
             }
         }, 1000);
-
-        this.startLevelTimer();
     }
 
-    stopGrassDropAndLevelTimer() {
+    stopGrassDrop() {
         if (this.grassDropInterval) {
             clearInterval(this.grassDropInterval);
             this.grassDropInterval = null;
         }
-        this.stopLevelTimer();
+    }
+
+    startShovelDrop() {
+        if (this.level.level === 1) return; //shovels starts from level 2
+        if (this.shovelDropInterval) {
+            clearInterval(this.shovelDropInterval);
+            this.shovelDropInterval = null;
+        }
+
+        this.shovels = []; //empty the shovel piles   
+
+        this.shovelDropInterval = setInterval(() => {
+            if (this.player.flash.getFlashDuration() === 0
+                && this.screenManager.currentScreen === this) {
+                let newX = random(200, baseWidth - 100);
+                this.shovels.push(new Shovel(newX, 10));
+            }
+        }, this.level.shovelDropDelay);
+    }
+
+
+    stopShovelDrop() {
+        if (this.shovelDropInterval) {
+            clearInterval(this.shovelDropInterval);
+            this.shovelDropInterval = null;
+        }
     }
 
     // --- main game logic ----
     updateFallingGrass() { //update the grass from this.grass based on if caught or missed   
         for (let i = this.grass.length - 1; i >= 0; i--) {
-            if (this.player.flash.getFlashDuration() === 0 && this.screenManager.currentScreen === this) {
+            if (this.player.flash.getFlashDuration() === 0) {
                 this.grass[i].fall();
             } //stop grass fall if flashing is on or game is paused            
 
@@ -90,6 +119,32 @@ class Single extends Screen {
         }
     }
 
+    updateShovels() {
+        if (this.level.level >= 1) {
+            for (let i = this.shovels.length - 1; i >= 0; i--) {
+                if (this.player.flash.getFlashDuration() === 0) {
+                    this.shovels[i].fall();
+                } //stop shovel fall if flashing is on or game is paused    
+
+                if (this.shovels[i].hits(this.player)) {
+                    this.player.stack = []; //empty the stack
+                    this.player.flash.setFlashDuration(30); //trigger flash immediately
+                    this.shovels.splice(i, 1);
+                    continue;
+                }
+
+                if (this.shovels[i].isOffscreen()) {
+                    this.shovels.splice(i, 1);
+                }
+            }
+        }
+    }
+
+
+    drawShovels() {
+        this.shovels.forEach(shovel => shovel.draw());
+    }
+
     startLevelTimer() {
         if (this.levelTimerInterval) clearInterval(this.levelTimerInterval);
 
@@ -98,7 +153,9 @@ class Single extends Screen {
                 if (this.player.flash.getFlashDuration() === 0 && this.screenManager.currentScreen === this) this.level.timeLeft--;
             }
             else { //check when times run out
-                this.stopGrassDropAndLevelTimer();
+                this.stopGrassDrop();
+                this.stopLevelTimer();
+                this.stopShovelDrop();
                 if (this.player.score >= this.level.targetScores) this.screenManager.changeScreen(this.levelSuccessScreen); //move up a level    
                 else this.screenManager.changeScreen(this.gameOverScreen); //game over
             }
@@ -115,8 +172,11 @@ class Single extends Screen {
     clearStats() {
         this.player.reset();
         this.level.resetTimeLeft();
-        this.stopGrassDropAndLevelTimer();
         this.grass = [];
+        this.shovels = [];
+        this.stopGrassDrop();
+        this.stopShovelDrop();
+        this.stopLevelTimer();
     }
 
     restartFromLevel1() {
@@ -126,7 +186,9 @@ class Single extends Screen {
 
     restartFromCurrentLevel() { // restart from the current level
         this.clearStats();
-        this.startGrassDropAndLevelTimer();
+        this.startGrassDrop();
+        this.startShovelDrop();
+        this.startLevelTimer();
     }
 
     displayUI() {
