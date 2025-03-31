@@ -2,7 +2,6 @@ class TargetScoreScreen extends Screen {
     constructor(screenManager, gameScreen) {
         super(screenManager);
         this.gameScreen = gameScreen;
-        this.targetScores = this.gameScreen.level.targetScores;
 
         // 按钮设置
         this.buttonWidth = 120;
@@ -56,7 +55,7 @@ class TargetScoreScreen extends Screen {
         // 显示目标分数值
         textSize(35);
         fill(0);  // 使用黑色显示分数
-        text(this.targetScores.toString(), baseWidth / 2, baseHeight / 2 + 10);
+        text(this.gameScreen.level.targetScores, baseWidth / 2, baseHeight / 2 + 10);
 
         // 显示确认按钮
         rectMode(CENTER);
