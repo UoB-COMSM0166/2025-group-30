@@ -14,8 +14,7 @@ class Player {
 
         this.velocity = 0;
         this.maxSpeed = 10;
-        this.minSpeed = 5;
-        this.acceleration = 2;
+        this.acceleration = 0.8;
         this.decelerationFactor = 0.8;
         this.dir = 0;
 
@@ -25,15 +24,6 @@ class Player {
         this.basket = null; // 确保basket被正确初始化
 
         this.flash = new Flash(0);
-
-        // 根据位置设置颜色
-        if (position === "left" || position === "pvpLeft") {
-            this.color = [255, 0, 0]; // 红色
-        } else if (position === "right" || position === "pvpRight") {
-            this.color = [0, 0, 255]; // 蓝色
-        } else {
-            this.color = [0, 0, 255]; // 默认蓝色
-        }
 
         this.player1Image = null;
         this.loadPlayer1Image();
@@ -114,6 +104,7 @@ class Player {
 
                 // Smoothly position the grass
                 grass.y = this.y - grass.h + yGap;
+                grass.setPerfectStack(false); // the first grass is not a perfect stack
                 this.stack.push(grass);
 
                 // Check if adding this grass exceeds the maximum stack size
@@ -140,6 +131,7 @@ class Player {
             if (overlapWidth >= minRequiredOverlap && isVerticalContact) {
                 // Position the new grass block directly on top of the previous one with the gap
                 grass.y = topGrass.y - grass.h + yGap;
+                this.checkPerfectStack(); //check if the new grass is a perfect stack
                 this.stack.push(grass);
 
                 // Check if adding this grass exceeds the maximum stack size
@@ -153,6 +145,33 @@ class Player {
         return false;
     }
 
+    checkPerfectStack() {
+        if (this.stack.length < 2) return false;
+
+        const minOverlapPercentage = 0.8; // 80% overlap required for "perfect" alignment
+
+        const currentGrass = this.stack[this.stack.length - 1];
+        const grassBelow = this.stack[this.stack.length - 2];
+
+        if (currentGrass.perfectStack != null) { //grass is checked
+            return false;
+        }
+
+        // Calculate overlap
+        const overlapLeft = Math.max(currentGrass.x, grassBelow.x);
+        const overlapRight = Math.min(currentGrass.x + currentGrass.w, grassBelow.x + grassBelow.w);
+        const overlapWidth = Math.max(0, overlapRight - overlapLeft);
+
+        // Calculate overlap percentage relative to grass width
+        const overlapPercentage = overlapWidth / currentGrass.w;
+
+        if (overlapPercentage < minOverlapPercentage) {
+            currentGrass.setPerfectStack(false);
+            return false;
+        }
+        currentGrass.setPerfectStack(true);
+        return true;
+    }
 
     emptyToBasket() { //empty grass to the basket
         if (this.stack.length === 0) return;

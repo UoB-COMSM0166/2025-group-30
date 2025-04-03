@@ -23,6 +23,8 @@ class Single extends Screen {
         this.grassDropInterval = null; //manage how often a grass drops
         this.levelTimerInterval = null; //manage how often the timer goes down i.e. 1 second        
         this.shovelDropInterval = null;
+
+        this.particles = []; // Add particle array to handle the effects of perfect stack
     }
 
     display() {
@@ -33,10 +35,13 @@ class Single extends Screen {
             this.player.movePlayerWithCaughtGrass();
             this.updateFallingGrass();
             this.updateShovels();
+            this.checkPerfectStack();
+            this.updateParticles();
         }
         this.drawFallingGrass();
         this.drawShovels();
         this.player.drawPlayerWithCaughtGrass(); //show player with grass   
+        this.drawParticles();
 
         this.displayUI();
     }
@@ -115,6 +120,32 @@ class Single extends Screen {
         }
     }
 
+    checkPerfectStack() {
+        if (this.player.checkPerfectStack()) {
+            console.log("Perfect stack");
+            this.level.addTime(2);
+            this.createPerfectStackEffects();
+        }
+    }
+
+    createPerfectStackEffects() {
+        // Get the position of the perfect stack
+        const currentGrass = this.player.stack[this.player.stack.length - 1];
+        const x = currentGrass.x + currentGrass.w / 2;
+        const y = currentGrass.y + currentGrass.h / 2;
+
+        // Create sparkles
+        for (let i = 0; i < 10; i++) {
+            this.particles.push(new Particle(x, y, 'sparkle'));
+        }
+
+        // Create "Perfect Stack!" text
+        this.particles.push(new Particle(x, y - 30, 'text'));
+
+        // Create "+2s" bonus text
+        this.particles.push(new Particle(x, y - 60, 'bonus'));
+    }
+
     drawFallingGrass() { //draw the grass
         for (let i = this.grass.length - 1; i >= 0; i--) {
             this.grass[i].draw();
@@ -141,9 +172,21 @@ class Single extends Screen {
         }
     }
 
-
     drawShovels() {
         this.shovels.forEach(shovel => shovel.draw());
+    }
+
+    updateParticles() {
+        for (let i = this.particles.length - 1; i >= 0; i--) {
+            this.particles[i].update();
+            if (this.particles[i].isDead()) {
+                this.particles.splice(i, 1);
+            }
+        }
+    }
+
+    drawParticles() {
+        this.particles.forEach(particle => particle.draw());
     }
 
     startLevelTimer() {
@@ -178,6 +221,7 @@ class Single extends Screen {
         this.level.resetTimeLeft();
         this.grass = [];
         this.shovels = [];
+        this.particles = []; // Clear particles
         this.stopGrassDrop();
         this.stopShovelDrop();
         this.stopLevelTimer();
