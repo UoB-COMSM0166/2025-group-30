@@ -95,4 +95,8 @@ class Level {
         this.shovelDropDelay = settings.initialShovelDropDelay;
         this.resetTimeLeft();
     }
+
+    addTime(seconds) {
+        this.timeLeft += seconds;
+    }
 } 
