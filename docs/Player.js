@@ -169,9 +169,7 @@ class Player {
             currentGrass.setPerfectStack(false);
             return false;
         }
-
         currentGrass.setPerfectStack(true);
-        currentGrass.perfectStack = true;
         return true;
     }
 
