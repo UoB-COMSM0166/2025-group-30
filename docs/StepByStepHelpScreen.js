@@ -18,13 +18,13 @@ class StepByStepHelpScreen extends Screen {
         this.titleCurrentSize = 0;     // 标题当前字体大小（初始为0）
         this.titleAnimationActive = true; // 标题动画是否激活
         this.titleAnimationStartTime = null;  // 标题动画开始时间
-        this.titleAnimationDuration = 1500;   // 标题动画持续时间（1.5秒）
+        this.titleAnimationDuration = 1000;   // 标题动画持续时间（1秒）
 
         // Replace separate progress and instruction animation variables with combined text animation variables
         this.textYOffset = 30;         // Text initial Y offset
         this.textAnimationActive = true;   // Text animation active state
         this.textAnimationStartTime = null; // Text animation start time
-        this.textAnimationDuration = 800;  // Text animation duration (0.8s)
+        this.textAnimationDuration = 500;  // Text animation duration (0.8s)
         this.textOpacity = 0;              // Text opacity
 
         this.buttons = [
