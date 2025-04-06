@@ -144,10 +144,11 @@ class StepByStepHelpScreen extends Screen {
                 instruction: "Press SPACE when near the basket to empty your stack",
                 setup: () => {
                     if (this.demoPlayer.stack.length === 1) { return; }
+                    const yGap = 3; // Use consistent gap for all grass blocks
                     // put a grass block in the player's stack
                     this.demoGrass = new Grass();
                     this.demoGrass.x = this.demoPlayer.x + this.demoPlayer.w / 2 - this.demoGrass.w / 2;
-                    this.demoGrass.y = this.demoPlayer.y - this.demoGrass.h;
+                    this.demoGrass.y = this.demoPlayer.y - this.demoGrass.h + yGap;
                     this.demoPlayer.stack = [this.demoGrass];
                 },
                 update: () => {
@@ -157,6 +158,7 @@ class StepByStepHelpScreen extends Screen {
                     // Check for space key to empty to basket
                     if (keyIsDown(32)) { // 32 is the keyCode for SPACE
                         this.demoPlayer.emptyToBasket();
+                        this.demoBasket.score = this.demoPlayer.score;
                     }
                 },
                 draw: () => {
@@ -178,13 +180,14 @@ class StepByStepHelpScreen extends Screen {
                 setup: () => {
                     // Clear the player's stack
                     this.demoPlayer.stack = [];
+                    const yGap = 3; // Use consistent gap for all grass blocks
 
                     // Add 5 grass blocks to the player's stack
                     for (let i = 0; i < 5; i++) {
                         let grass = new Grass();
                         //create a staggered stack of grass blocks
                         grass.x = random(this.demoPlayer.x + this.demoPlayer.w / 4 - 20, this.demoPlayer.x + this.demoPlayer.w / 4 + 20);
-                        grass.y = this.demoPlayer.y - (i + 1) * grass.h;
+                        grass.y = this.demoPlayer.y - (i + 1) * (grass.h - yGap);
                         this.demoPlayer.stack.push(grass);
                     }
 
