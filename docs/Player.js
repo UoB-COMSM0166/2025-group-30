@@ -14,8 +14,9 @@ class Player {
 
         this.velocity = 0;
         this.maxSpeed = 10;
-        this.acceleration = 0.8;
+        this.acceleration = 0.85;
         this.decelerationFactor = 0.8;
+        this.speedReductionPerGrass = 0.1; // 每接到一个草减速的系数
         this.dir = 0;
 
         this.stack = [];  //visible caught grass
@@ -48,13 +49,17 @@ class Player {
 
         const oldX = this.x;
 
+        // 根据当前草的堆叠数量计算实际的最大速度
+        let currentMaxSpeed = this.maxSpeed * (1 - this.stack.length * this.speedReductionPerGrass);
+        currentMaxSpeed = Math.max(currentMaxSpeed, this.maxSpeed * 0.3); // 设置最小速度为最大速度的30%
+
         if (this.dir !== 0) {
             if (Math.sign(this.dir) !== Math.sign(this.velocity)  //player changes direction
                 && abs(this.velocity) > 0.1) {
                 this.velocity = this.dir * (this.acceleration + abs(this.velocity) * 0.5);
             } else { //continue moving in the same direction
                 this.velocity += this.dir * this.acceleration;
-                this.velocity = constrain(this.velocity, -this.maxSpeed, this.maxSpeed);
+                this.velocity = constrain(this.velocity, -currentMaxSpeed, currentMaxSpeed);
             }
         } else {
             this.velocity *= this.decelerationFactor;
@@ -148,7 +153,7 @@ class Player {
     checkPerfectStack() {
         if (this.stack.length < 2) return false;
 
-        const minOverlapPercentage = 0.8; // 80% overlap required for "perfect" alignment
+        const minOverlapPercentage = 0.9; // 90% overlap required for "perfect" alignment
 
         const currentGrass = this.stack[this.stack.length - 1];
         const grassBelow = this.stack[this.stack.length - 2];
