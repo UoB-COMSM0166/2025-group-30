@@ -10,13 +10,16 @@ function setup() {
 
     // Add visibility change event listener
     document.addEventListener('visibilitychange', () => screenManager.handleVisibilityChange());
+
 }
 
 function draw() {
     push();
+
     page.applyTransformation();
 
-    screenManager.display();
+    screenManager.display();   
+
     pop();
 }
 
@@ -45,8 +48,6 @@ function windowResized() {
     // 这里只需要确保mouseXGame和mouseYGame得到更新
     page.setupMouseCoordinates();
 }
-
-
 
 
 

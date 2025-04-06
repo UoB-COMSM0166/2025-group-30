@@ -61,7 +61,7 @@ class StepByStepHelpScreen extends Screen {
                 action: () => {
                     this.currentStep = 0;
                     this.demoPlayer.stack = [];
-                    this.screenManager.changeScreen(this.screenManager.menuScreen)
+                    this.screenManager.changeScreen(this.screenManager.menuScreen);
                 }
             }
         ];
@@ -113,14 +113,14 @@ class StepByStepHelpScreen extends Screen {
                         this.demoGrass.fall();
 
                         // Check if grass is caught
-                        if (this.demoPlayer.checkGrassCaught(this.demoGrass)) {
+                        if (this.demoPlayer.catches(this.demoGrass)) {
                             // If grass is caught, don't create a new one
                             this.demoGrass = null;
                         }
 
                         // If grass falls off screen, create a new one
                         if (this.demoGrass && this.demoGrass.y > baseHeight) {
-                            this.demoGrass = new Grass(random(200, baseWidth - 100), 10)
+                            this.demoGrass = new Grass(random(200, baseWidth - 100), 10);
                         }
                     }
                 },
@@ -201,14 +201,14 @@ class StepByStepHelpScreen extends Screen {
                         this.demoGrass.fall();
 
                         // Check if grass is caught
-                        if (this.demoPlayer.checkGrassCaught(this.demoGrass)) {
+                        if (this.demoPlayer.catches(this.demoGrass)) {
                             // If grass is caught, don't create a new one
                             this.demoGrass = null;
                         }
 
                         // If grass falls off screen, create a new one
                         if (this.demoGrass && this.demoGrass.y > baseHeight) {
-                            this.demoGrass = new Grass(random(200, baseWidth - 100), 10)
+                            this.demoGrass = new Grass(random(200, baseWidth - 100), 10);
                         }
                     }
                 },
@@ -223,7 +223,6 @@ class StepByStepHelpScreen extends Screen {
 
                     // Display message with emphasized limit
                     textAlign(LEFT);
-
 
                     // If flashing, show explanation
                     if (!this.demoGrass) {
@@ -262,7 +261,7 @@ class StepByStepHelpScreen extends Screen {
                     return false;
                 }
             },
-            { //step 4
+            { //step 5
                 instruction: "You're ready to play! Click 'Start' to select play mode.",
                 setup: () => {
                     // No demo needed for final step
@@ -390,7 +389,6 @@ class StepByStepHelpScreen extends Screen {
             this.resetTextAnimations();
         }
     }
-
 
     display() {
         // 设置背景色 - 使用构造函数中设置的默认颜色

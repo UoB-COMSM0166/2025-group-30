@@ -1,18 +1,54 @@
 class Basket {
-    constructor(position = "left") { //ifLeft is only applicable to pvp mode
+    constructor(position = "left") {
         this.position = position;
-
-        if (this.position === "left") this.x = 10;
-        else if (this.position === "right") this.x = baseWidth - 60;
-        this.y = baseHeight- 100;
-
-        this.w = 50;
-        this.h = 100;
+        this.x = (position === "left") ? 10 : baseWidth - 160;
+        this.y = baseHeight - 150;
+        this.w = 150;
+        this.h = 150;
+        this.score = 0;
+        this.targetScore = 0;
+        this.basketImage = loadImage("assets/basket.webp");
     }
 
     draw() {
-        rectMode(CORNER);
-        fill(165, 42, 42);
-        rect(this.x, this.y, this.w, this.h);
+        push(); // 保存当前绘图状态
+
+        // 根据得分设置颜色
+        if (this.targetScore === 0) {
+            tint(255);
+        } else {
+            let progress = min(this.score / this.targetScore, 1);
+            // 从灰色(128,128,128)变化到原色(255,255,255)
+            let grayValue = lerp(128, 255, progress);
+            tint(grayValue, grayValue, grayValue);
+        }
+
+        image(this.basketImage, this.x, this.y, this.w, this.h);
+
+        pop(); // 恢复绘图状态
+
+        // 显示分数
+        fill(255);
+        textSize(20);
+        stroke(0);
+        strokeWeight(2);
+        textStyle(BOLD);
+        textAlign(CENTER);
+        if (this.targetScore === 0) {
+            text(`${this.score}`, this.x + this.w / 2, this.y - 10);
+        } else if (this.score >= this.targetScore) {
+            text("Target Achieved!", this.x + this.w / 2 + 5, this.y - 35);
+            text(`${this.score}/${this.targetScore}`, this.x + this.w / 2, this.y - 10);
+        } else {
+            text(`${this.score}/${this.targetScore}`, this.x + this.w / 2, this.y - 10);
+        }
+        noStroke();
+        textStyle(NORMAL);
+
+    }
+
+    updateScore(score, targetScore) {
+        this.score = score;
+        this.targetScore = targetScore;
     }
 }
