@@ -8,18 +8,18 @@ class Level {
     static DEFAULT_SETTINGS = {
         [Level.GAME_MODES.SINGLE]: {
             initialTargetScores: 5,
-            targetScoresIncrement: 20,
+            targetScoresIncrement: 5,
 
-            initialTimer: 20,
-            timerIncrement: 30,
+            initialTimer: 10,
+            timerIncrement: 5,
 
-            initialGrassDropDelay: 2000,
-            grassDropDelayDecrement: 500,
-            minGrassDropDelay: 500,
+            initialGrassDropDelay: 2000, //2 seconds
+            grassDropDelayDecrement: 300,
+            minGrassDropDelay: 1000,
 
-            initialShovelDropDelay: 3500, //not used in level 1
-            shovelDropDelayDecrement: 500,
-            minShovelDropDelay: 2000
+            initialShovelDropDelay: 8000, //not used in level 1, 8 seconds
+            shovelDropDelayDecrement: 800,
+            minShovelDropDelay: 5000
         },
         [Level.GAME_MODES.COOP]: {
             initialTargetScores: 5,
@@ -94,5 +94,9 @@ class Level {
         this.grassDropDelay = settings.initialGrassDropDelay;
         this.shovelDropDelay = settings.initialShovelDropDelay;
         this.resetTimeLeft();
+    }
+
+    addTime(seconds) {
+        this.timeLeft += seconds;
     }
 } 

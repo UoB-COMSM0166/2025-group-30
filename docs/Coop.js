@@ -25,6 +25,9 @@ class Coop extends Screen {
         this.grassDropInterval = null; //manage how often a grass drops
         this.levelTimerInterval = null; //manage how often the timer goes down i.e. 1 second
         this.shovelDropInterval = null;
+
+        this.particles1 = []; // Add particle array to handle the effects of perfect stack
+        this.particles2 = []; // Add particle array to handle the effects of perfect stack
     }
 
     display() {
@@ -36,13 +39,15 @@ class Coop extends Screen {
             this.player2.movePlayerWithCaughtGrass();
             this.updateFallingGrass();
             this.updateShovels();
+            this.checkPerfectStack();
+            this.updateParticles();
         }
 
-        this.drawGrass();
+        this.drawFallingGrass();
         this.drawShovels();
         this.player1.drawPlayerWithCaughtGrass(); //show player with grass 
         this.player2.drawPlayerWithCaughtGrass();
-
+        this.drawParticles();
         this.displayUI();
     }
 
@@ -123,10 +128,41 @@ class Coop extends Screen {
         }
     }
 
-    drawGrass() { //draw the grass
+    drawFallingGrass() {
         for (let i = 0; i < this.grass.length; i++) {
             this.grass[i].draw();
         }
+    }
+
+    checkPerfectStack() {
+        if (this.player1.checkPerfectStack()) {
+            console.log("Perfect stack");
+            this.level.addTime(2);
+            this.createPerfectStackEffects(this.player1, this.particles1);
+        }
+        if (this.player2.checkPerfectStack()) {
+            console.log("Perfect stack");
+            this.level.addTime(2);
+            this.createPerfectStackEffects(this.player2, this.particles2);
+        }
+    }
+
+    createPerfectStackEffects(player, particles) {
+        // Get the position of the perfect stack
+        const currentGrass = player.stack[player.stack.length - 1];
+        const x = currentGrass.x + currentGrass.w / 2;
+        const y = currentGrass.y + currentGrass.h / 2;
+
+        // Create sparkles
+        for (let i = 0; i < 10; i++) {
+            particles.push(new Particle(x, y, 'sparkle'));
+        }
+
+        // Create "Perfect Stack!" text
+        particles.push(new Particle(x, y - 30, 'text'));
+
+        // Create "+2s" bonus text
+        particles.push(new Particle(x, y - 60, 'bonus'));
     }
 
     updateShovels() {
@@ -163,6 +199,26 @@ class Coop extends Screen {
 
     drawShovels() {
         this.shovels.forEach(shovel => shovel.draw());
+    }
+
+    updateParticles() {
+        for (let i = this.particles1.length - 1; i >= 0; i--) {
+            this.particles1[i].update();
+            if (this.particles1[i].isDead()) {
+                this.particles1.splice(i, 1);
+            }
+        }
+        for (let i = this.particles2.length - 1; i >= 0; i--) {
+            this.particles2[i].update();
+            if (this.particles2[i].isDead()) {
+                this.particles2.splice(i, 1);
+            }
+        }
+    }
+
+    drawParticles() {
+        this.particles1.forEach(particle => particle.draw());
+        this.particles2.forEach(particle => particle.draw());
     }
 
     startLevelTimer() {
