@@ -36,36 +36,22 @@ Include a demo video of your game here (you don't have to wait until the end, yo
 
 ### Introduction
 
-- 5% ~250 words 
-- Describe your game, what is based on, what makes it novel? 
+Our game is a casual stacking challenge inspired by a classic mini-game from the popular title *Mole Manor*. Drawing from its gameplay, we set the game’s backdrop during the harvest season on a farm. Players must control their character’s left and right movements to catch falling haystacks and place them into a basket within a limited time in order to reach the collection goal and advance to the next level.
 
-Our **Haystacking** game is an innovative stacking-based casual challenge inspired by the classic game **Grass Catching**. 
-Set during the harvest season on a farm, players must control their character's movement left and right to catch falling 
-haystacks and collect as much hay as possible within a limited time to reach the goal.
+To increase the game’s difficulty and reflect real-world limitations on how much a person can carry, each player can catch a maximum of five haystacks at a time. If this limit is exceeded, the character will stumble and drop all collected hay. This mechanic not only adds tension but also introduces strategic decision-making—players must carefully balance between collecting more hay and emptying their basket in time.
 
-#### **Game Objective**
-The game challenges players' balancing and strategic skills while simulating the intensity of farm harvesting. 
-Players must constantly adjust their position and respond flexibly to randomly falling hay. If too much hay 
-accumulates, movement speed will slow down, making it harder to catch additional falling hay. Therefore, 
-players need to empty the collection bucket at the right time to maintain stability.
+As hay accumulates, the character’s movement speed gradually slows down, requiring players to choose the right moment to clear their collection bucket and maintain agility. Building on the original gameplay, the game introduces more challenging elements: in single-player mode, players must dodge falling shovels and buckets while collecting stars for extra lives. In two-player mode, players can either collaborate to achieve a shared goal or compete to see who finishes first. These design features enrich the gameplay and deliver a fun, fast-paced, yet relaxing farm harvest experience.
 
-#### **Game Mechanics**
-Building upon **Grass Catching**, **Haystacking** introduces increased difficulty and strategic depth. In 
-single-player mode, players must avoid falling shovels and buckets while collecting stars to gain extra lives. 
-In two-player mode, players can either cooperate to reach a shared goal or compete to be the first to achieve 
-the target. As haystack accumulation increases, movement speed gradually slows down, making the later stages 
-of the game more challenging and strategic.
-
-#### **Game Significance**
-The game tests players' reflexes, spatial awareness, and strategic planning skills while creating a relaxed 
-yet challenging farm-harvesting atmosphere. With simple and intuitive controls, **Haystacking** offers both excitement and tension. Whether playing solo or competing with friends, this game delivers a uniquely entertaining experience!
-
+The following table shows the main elements of the game:
 #### Table 1: Game Elements
 | Category  | Image  | Description  |
 |-----------|--------|--------------|
 | **Player & lifting basket** | <img src="Assets/farmer.png" width="50" style="vertical-align: middle;"> | The character controlled by the player, moving left and right to catch falling hay. |
 | **collection Basket** | <img src="Assets/lifting_basket.png" width="50" style="vertical-align: middle;"> | A secondary basket used for catching hay before transferring it to the main collection basket. |
 | **Falling Hay** | <img src="Assets/hay.png" width="50" style="vertical-align: middle;"> | The hay stacks that fall from the sky. Players must catch them efficiently to reach the target before time runs out. |
+
+- 5% ~250 words 
+- Describe your game, what is based on, what makes it novel? 
 
 ### Requirements 
 
@@ -310,12 +296,10 @@ Game system manages the core logic and state of the game.
 - Describe implementation of your game, in particular highlighting the three areas of challenge in developing your game. 
 
 ### Evaluation
-
-- 15% ~750 words
-
-- One qualitative evaluation (your choice) 
+To ensure a balance between functionality and usability during the game development process, we chose to combine both qualitative and quantitative evaluation methods. Qualitative analysis helped us identify issues within the game, while quantitative evaluation provided insights into user perceptions, guiding us to iteratively improve the design.
+#### Qualitative Evaluation - Heuristic Evaluation
+ For the qualitative method, we adopted Heuristic Evaluation, a practical and widely used approach that examines the interface based on Nielsen’s ten usability principles. By systematically reviewing each screen of our game, we identified several usability issues, including unclear navigation flow, inconsistent system feedback, limited user control, and lack of clarity in competitive scoring. Each issue was evaluated across three dimensions—Frequency, Impact, and Persistence—to calculate a severity score and prioritize the most critical problems.The results are shown in the following table:
 #### Heuristic Evaluation Table
-
 <table>
   <tr>
     <th style="width: 15%;">Interface</th>
@@ -390,17 +374,24 @@ Game system manages the core logic and state of the game.
     <td>2.67</td>
   </tr>
 </table>
-The heuristic evaluation revealed several usability issues, with the most critical being inconsistent gameplay speed across platforms and unclear mode selection flow. Problems such as missing score comparison and time visibility for both players significantly affect the user experience. Addressing high-severity issues first will improve playability and user satisfaction.
-
-- One quantitative evaluation (of your choice) 
+Based on the severity scores in the evaluation table, we will prioritize addressing high-severity issues, such as speed inconsistency across platforms and insufficient time display in multiplayer mode.    next development focus will be on enhancing the user experience by improving UI feedback, adding return and help buttons, and introducing a store system for character/tool customization. Through these improvements, we aim to create a smoother, more intuitive, and more engaging gameplay experience.
 
 #### SUS evaluation
-We collected and analyzed SUS questionnaire data from 12 users for both Level 1 and Level 2, calculating their total SUS scores. We then used the Wilcoxon Signed-Rank Test to examine whether there was a statistically significant difference in usability scores between the two levels. Click [here](sus.md) to see the raw data.
+We collected and analyzed SUS questionnaire data from 12 users for both Level 1 and Level 2, calculating their total SUS scores. We then used the Wilcoxon Signed-Rank Test to examine whether there was a statistically significant difference in usability scores between the two levels. Click [here](sus.md) to see the raw data.The following figure is a bar chart of the average score of each player and the average score of the two levels based on our original survey data.
 <div align="center">
   <img src="SUS evaluation.png" width="533">
 </div>
+
+<div align="center">
+  <img src="averageScore.png" width="533">
+</div>
 The results of the Wilcoxon Signed-Rank Test for the System Usability Scale (SUS) scores show no statistically significant difference between the two difficulty levels (W = 10.5, p = 0.5461). Although individual user scores vary slightly, both the easy and hard levels received generally high SUS scores. This suggests that users found the game to be consistently usable across both difficulty settings.
 
+
+- 15% ~750 words
+
+- One qualitative evaluation (your choice) 
+- One quantitative evaluation (of your choice) 
 - Description of how code was tested. 
 
 ### Process 
