@@ -29,11 +29,15 @@ Add a group photo here!
 
 ### Requirements 
 
+#### Ideation Process
+
+During the first week of the project, we held a team meeting to discuss the types of games we were interested in, what made them appealing, and how we could implement our creative ideas. After in-depth discussion and brainstorming, we came up with five potential game concepts. We then evaluated each one based on feasibility and playability, and ultimately selected the grass-catching game as our final project choice.
+
+
 #### Inspiration
 
-In the first week of our game project, we held a team meeting to discuss various game ideas based on our understanding of different game concepts. We evaluated each idea based on familiarity, innovation, and feasibility, ultimately brainstorming five potential game concepts. After thorough discussion, we conducted a vote, and the Grass Catching Game emerged as the final winner.
+Our creative inspiration came from a classic mini-game in Mole Manor. While preserving the core mechanics of the original game, we introduced several innovative modifications. First, we changed the direction in which the grass falls—from a diagonal trajectory to a vertical drop. This adjustment enhances players’ sensitivity to speed and positioning, effectively improving their reaction times. Second, we added a two-player mode, allowing friends to play together. This not only increases the level of interaction but also adds to the fun, creating a more engaging gameplay experience.
 
-The inspiration for our grass-catching game comes from Mole's World. Unlike the grass-catching mechanics in Mole's World, where the grass follows a parabolic trajectory, our game adopts a vertical free-fall motion, emphasizing players' reaction speed and precise judgment. Additionally, the grass may have different falling speeds and shapes, allowing for difficulty adjustments that present players with more challenging grass-catching tasks.
 
 #### Prototype
 
