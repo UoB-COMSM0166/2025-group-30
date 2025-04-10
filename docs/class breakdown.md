@@ -29,18 +29,18 @@ startNextLevel()
 <br>
 clearStats() --> stopGrassDropAndLevelTimer() `//clear the current game stats`
 
-restartFromCurrentLevel() `//restart from the current level`
+restartFromCurrentLevel() 
 
-resetToLevel1() `//reset to level 1`
+restartFromLevel1() 
 
 
 ## Player
-resetToLevel1()
+reset()
 
 move()
 
 show()
 
-checkGrassCaught(grass) `//return true or false`
+catches(grass) `//return true or false`
 
 emptyToBasket() `//empty grass to basket`

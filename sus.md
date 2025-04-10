@@ -47,6 +47,7 @@ The following two tables are the data we obtained by finding 12 players to try o
 
 ### SUS Total Scores (Per User):
 Based on each player's score for each question, we calculated each player's level 1 and level 2 scores according to the SUS score calculation rules and calculated the average score for each level. The results are shown in the following table:
+
 <div align="center">
 
 | User | Level 1 | Level 2 |

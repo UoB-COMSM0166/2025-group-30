@@ -36,6 +36,7 @@ Include a demo video of your game here (you don't have to wait until the end, yo
 
 ### Introduction
 
+
 Our game is a casual stacking challenge inspired by a classic mini-game from the popular title *Mole Manor*. Drawing from its gameplay, we set the game’s backdrop during the harvest season on a farm. Players must control their character’s left and right movements to catch falling haystacks and place them into a basket within a limited time in order to reach the collection goal and advance to the next level.
 
 To increase the game’s difficulty and reflect real-world limitations on how much a person can carry, each player can catch a maximum of five haystacks at a time. If this limit is exceeded, the character will stumble and drop all collected hay. This mechanic not only adds tension but also introduces strategic decision-making—players must carefully balance between collecting more hay and emptying their basket in time.
@@ -54,7 +55,6 @@ The following table shows the main elements of the game:
 - Describe your game, what is based on, what makes it novel? 
 
 ### Requirements 
-
 - 15% ~750 words
 - Use case diagrams, user stories. Early stages design. Ideation process. How did you decide as a team what to develop? 
 
@@ -103,107 +103,86 @@ Eventually, we decided to remove the physics engine and use a simple square gras
 
 **Requirement Analysis**
 
-1.User Requirements
+#### 1. User Requirements
+- Players should be able to control and stack square grass blocks smoothly
 
--Players: Should be able to control and stack square grass blocks smoothly.
+#### 2. Technical Requirements
+- Client-side Development: Implement the game interface and handle user input
+- Physics Simulation: Remove the external physics engine and use a simple square block stacking mechanism
 
-2.Technical Requirements
+#### Technical Feasibility Study
 
--Client-side Development: Implement the game interface and handle user input.
+##### Initial Plan
+- Use an external physics engine (e.g., Box2D, Matter.js) for simulating different shape interactions
+- Requires complex physics calculations, including collision detection and gravity simulation
 
--Physics Simulation: Remove the external physics engine and use a simple square block stacking mechanism.
+##### Feasibility Evaluation
+- Lack of experience in physics engine development makes debugging and optimization challenging
+- Complex physics calculations may lead to high computational resource consumption, affecting game performance
 
-**Technical Feasibility**
-Shape Stacking Mechanism
-
-Initial Plan
-
--Use an external physics engine (e.g., Box2D, Matter.js) for simulating different shape interactions.
-
--Requires complex physics calculations, including collision detection and gravity simulation.
-
-**Feasibility Evaluation**
--Lack of experience in physics engine development makes debugging and optimization challenging.
-
--Complex physics calculations may lead to high computational resource consumption, affecting game performance.
-Alternative Plan
-
--Switch to simple square grass block stacking without relying on an external physics engine.
-
--Use a rule-based stacking method where each block is placed according to predefined logic rather than dynamic physics calculations.
-
--Implement basic rectangle overlap detection for collision handling to improve development efficiency.
+##### Alternative Plan
+- Switch to simple square grass block stacking without relying on an external physics engine
+- Use a rule-based stacking method where each block is placed according to predefined logic
+- Implement basic rectangle overlap detection for collision handling to improve development efficiency
 
 Based on the feasibility analysis, we have decided to adjust the game design by abandoning the complex physics engine integration and opting for a simple square grass block stacking mechanism. This will reduce technical difficulty, improve development efficiency, and ensure game stability.
 
 ### Stakeholders Analysis 
 
-<p align="center"><strong>Onion model</strong></p>
+<p align="center"><strong>Onion Model</strong></p>
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/5ef9c5c4-04e5-4d8f-b85d-7bf6b9ef1358" width="500">
 </p>
 
+#### Core Layer: Group 30
+Group 30-2025 are the core creators of the game, responsible for its design, development, and implementation. They determine the quality, gameplay, and overall experience of the game.
 
--Core layer: Group 30
+#### Internal Layer: Players and Lecturers
+- **Players**: The end-users of the game, including:
+  - New Players
+  - Old Players
+  - Casual Players
+  - Competitive Players
+- **Lecturers**: The evaluators of the assignment, responsible for assessing the quality of the game and whether it meets course requirements
 
-Group 30-2025 are the core creators of the game, responsible for its design, development, and implementation. They determine the quality, gameplay, and overall experience of the game. 
-
--Internal layer:players and lecturers
-
-Players are the end-users of the game, including different types:New Players,Old Players,Casual Players,Competitive Players.
-
-Lecturers are the evaluators of the assignment, responsible for assessing the quality of the game and whether it meets the course requirements.
-
--Competition Layer:other teams
-
+#### Competition Layer: Other Teams
 Other teams are competitors in the assignment, and their performance may influence the evaluation by lecturers and bystanders.
 
--External Layer:Border audience (Potential players)
-
+#### External Layer: Broader Audience
 Bystanders are potential users who may not directly participate in the game but could be attracted to become new players.
 
-<p align="center"><strong>User-case diagram</strong></p>
+<p align="center"><strong>Use Case Diagram</strong></p>
 
 <p align="center">
   <img width="925" alt="Image" src="https://github.com/user-attachments/assets/1f5c1da4-c239-4662-898a-9b46e998b081" />
 </p>
 
-1.Players
+#### 1. Players
+Players are the primary users of the game, interacting with the game system to achieve objectives.
 
-Players are the primary users of the game, interacting with the game system to achieve game objectives.
-Main Use Cases of players is:
+Main Use Cases:
+- Choose game mode: Select between single-player or multi-player mode
+- Play game: Control character movement, catch grass, and drop grass into the basket
+- Pause game: Pause the current game
 
--Choose game mode: Select between single-player or multi-player mode.If player 1 choose multiplayer mode, then player 2 will exist.
-
--Play game: Control character movement, catch grass, and drop grass into the basket.
-
--Pause game: Pause the current game.
-
-2.Developers 
-
+#### 2. Developers
 Developers are responsible for maintaining and updating the game to ensure it runs smoothly.
-Main Use Cases of Developers is:
 
--Debug game: Fix errors in the game.
+Main Use Cases:
+- Debug game: Fix errors in the game
+- Update game: Add new features or optimize existing ones
+- Test game: Test the game to ensure stability
+- Monitor game: Monitor the game's performance to identify potential issues
 
--Update game: Add new features or optimize existing ones.
-
--Test game: Test the game to ensure stability.
-
--Monitor game: Monitor the game's performance to identify potential issues.
-
-3.Game system
-
+#### 3. Game System
 Game system manages the core logic and state of the game.
 
--Update score: Update the score when players drop grass into the basket.
-
--Decrease lives: Reduce lives when players fail.
-
--Level up: Increase game difficulty when players reach a certain score.
-
--Game over: End the game when lives reach zero.
+Main Functions:
+- Update score: Update the score when players drop grass into the basket
+- Decrease lives: Reduce lives when players fail
+- Level up: Increase game difficulty when players reach a certain score
+- Game over: End the game when lives reach zero
 
 #### User Stories and Epics
 
@@ -374,6 +353,7 @@ To ensure a balance between functionality and usability during the game developm
     <td>2.67</td>
   </tr>
 </table>
+
 Based on the severity scores in the evaluation table, we will prioritize addressing high-severity issues, such as speed inconsistency across platforms and insufficient time display in multiplayer mode.    next development focus will be on enhancing the user experience by improving UI feedback, adding return and help buttons, and introducing a store system for character/tool customization. Through these improvements, we aim to create a smoother, more intuitive, and more engaging gameplay experience.
 
 #### SUS evaluation
