@@ -56,20 +56,23 @@ The following table shows the main elements of the game:
 
 ### Requirements 
 
-#### Ideation Process
+### Game Idea Brainstorming Overview
 
-During the first week of the project, we held a team meeting to discuss the types of games we were interested in, what made them appealing, and how we could implement our creative ideas. After in-depth discussion and brainstorming, we came up with five potential game concepts. We then evaluated each one based on feasibility and playability, and ultimately selected the grass-catching game as our final project choice.
+As part of our early ideation process, our team participated in a collaborative brainstorming session to generate and explore a variety of game concepts. We studied a wide range of existing games, focusing on their core mechanics, player engagement strategies, and potential for creative development. Our goal was to identify gameplay elements that are not only fun and challenging, but also flexible enough to allow for innovation and adaptation.
 
+The table below summarizes our findings. For each game, we described its core concept and proposed potential extensions or twists to make the gameplay more unique, engaging, or suitable for different audiences and platforms.
 
-#### Inspiration
+| Game Genre             | Game Inspiration      | Game Description                                                                                                                             | Creative Expansion Ideas                                                                                                                           |
+|------------------------|------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
+| Puzzle Game            | Car Park Puzzle        | A logic-based game where players must move surrounding vehicles forward or backward to clear a path for their own car to exit the parking lot. | - Dynamically generate car layouts based on difficulty <br> - Add cars facing different directions <br> - Bus station mode: match passengers with buses <br> - Real-world elements like crosswalks, truck unloading zones |
+| Cooperative Puzzle Platformer | Fireboy & Watergirl | Two players work together to navigate levels by controlling Fireboy and Watergirl, each immune to their respective element. Touching the wrong element or falling results in failure. | - New elements like electricity/ice/wind <br> - Attribute swapping mechanics <br> - Time-limited challenges and multiple endings <br> - Unlockable skills and collectibles |
+| Casual Reaction Game   | Flappy Bird            | Players tap to keep a bird in the air and avoid pipes. Each successful pass earns one point. The game restarts upon failure.                   | - Moving or rotating obstacles <br> - Power-up system: shields, speed boosts <br> - Multiplayer co-op or versus mode <br> - Timed bonus collection mode |
+| Multiplayer Cooperative Puzzle | Pico Park             | Players collect keys and open gates while navigating obstacles together. Movement is limited to up, down, left, and right. Supports 2–8 players. | - Random events triggered by pressure plates <br> - Fog to limit visibility <br> - Assign unique skills to each player (fly, climb, lift) <br> - Add immersive story mode |
+| Strategy + Reflex Mini Game | Grass Catching         | Players catch falling grass. The more they collect, the slower they move, increasing challenge and requiring strategic movement and timing.    | - Cooperative or versus mode <br> - Special grass types (e.g. poison, explosive) <br> - Weather effects influencing falling patterns <br> - Speed boost or weight-reducing power-ups |
 
-Our creative inspiration came from a classic mini-game in Mole Manor. While preserving the core mechanics of the original game, we introduced several innovative modifications. First, we changed the direction in which the grass falls—from a diagonal trajectory to a vertical drop. This adjustment enhances players’ sensitivity to speed and positioning, effectively improving their reaction times. Second, we added a two-player mode, allowing friends to play together. This not only increases the level of interaction but also adds to the fun, creating a more engaging gameplay experience.
+### Game Delection Process
 
-
-#### Prototype
-
-During the conceptualization of the grass-catching game, we created a paper prototype to help visualize and test early game mechanics, including the way the grass falls, as well as the player's movement and interactions. Based on our initial discussions, we refined the game flow and mechanics, adding new elements to enhance the game's fun and challenge. To provide players with a clearer understanding of the game, we created a video based on the paper prototype, offering an intuitive demonstration of the gameplay.
-
+As part of our game development planning, our team initially brainstormed and analyzed five different game inspirations. After careful discussion and evaluation, we shortlisted two candidates for prototyping:Fireboy & Watergirl and Grass Catching.
 
 <div style="text-align: center;">
   <strong>Paper Prototype of Grass-Catching Game</strong>
@@ -78,6 +81,16 @@ During the conceptualization of the grass-catching game, we created a paper prot
 <div style="text-align: center;">
   <video src="https://github.com/user-attachments/assets/2bc9ad40-728b-4c61-b258-6c2530942f93" controls width="600"></video>
 </div>
+
+<div style="text-align: center;">
+  <strong>Paper Prototype of Fireboy & Watergirl Game</strong>
+</div>
+
+<div style="text-align: center;">
+  <video src="https://github.com/user-attachments/assets/15159520-670e-4dd5-a12c-df1f558a09c6" controls width="600"></video>
+</div>
+
+
 
 
 #### Digital Paper Prototype tool
