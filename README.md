@@ -56,7 +56,7 @@ The following table shows the main elements of the game:
 
 ### Requirements 
 
-### Game Idea Brainstorming Overview
+#### Game Idea Brainstorming Overview
 
 As part of our early ideation process, our team participated in a collaborative brainstorming session to generate and explore a variety of game concepts. We studied a wide range of existing games, focusing on their core mechanics, player engagement strategies, and potential for creative development. Our goal was to identify gameplay elements that are not only fun and challenging, but also flexible enough to allow for innovation and adaptation.
 
@@ -70,38 +70,46 @@ The table below summarizes our findings. For each game, we described its core co
 | Multiplayer Cooperative Puzzle | Pico Park             | Players collect keys and open gates while navigating obstacles together. Movement is limited to up, down, left, and right. Supports 2–8 players. | - Random events triggered by pressure plates <br> - Fog to limit visibility <br> - Assign unique skills to each player (fly, climb, lift) <br> - Add immersive story mode |
 | Strategy + Reflex Mini Game | Grass Catching         | Players catch falling grass. The more they collect, the slower they move, increasing challenge and requiring strategic movement and timing.    | - Cooperative or versus mode <br> - Special grass types (e.g. poison, explosive) <br> - Weather effects influencing falling patterns <br> - Speed boost or weight-reducing power-ups |
 
-### Game Delection Process
+#### Game Delection Process
 
 As part of our game development planning, our team initially brainstormed and analyzed five different game inspirations. After careful discussion and evaluation, we shortlisted two candidates for prototyping:Fireboy & Watergirl and Grass Catching.
 
-<div style="text-align: center;">
-  <strong>Paper Prototype of Grass-Catching Game</strong>
+To better understand and experience the game mechanics, we created paper prototypes for both games. By interacting with the prototypes directly, we were able to simulate the core gameplay and interaction flow, design basic maps and character movement paths, observe players’ intuitive understanding and reactions, and evaluate whether the gameplay was engaging and expandable.
+
+The following are our paper prototypes for Fireboy & Watergirl and Grass Catching.
+
+<div style="display: flex; justify-content: center; gap: 40px; align-items: flex-start; flex-wrap: wrap;">
+
+  <div style="text-align: center;">
+    <strong>Paper Prototype of Grass-Catching Game</strong><br>
+    <video src="https://github.com/user-attachments/assets/2bc9ad40-728b-4c61-b258-6c2530942f93" controls width="300"></video>
+  </div>
+
+  <div style="text-align: center;">
+    <strong>Paper Prototype of Fireboy & Watergirl Game</strong><br>
+    <video src="https://github.com/user-attachments/assets/15159520-670e-4dd5-a12c-df1f558a09c6" controls width="300"></video>
+  </div>
+
 </div>
 
-<div style="text-align: center;">
-  <video src="https://github.com/user-attachments/assets/2bc9ad40-728b-4c61-b258-6c2530942f93" controls width="600"></video>
-</div>
+#### Final Decision
+After multiple rounds of testing and team feedback, we ultimately selected Grass Catching as the core game for our project. This decision was based on several key factors: the gameplay mechanics are simple yet offer meaningful challenge, making the game easy to implement while allowing for depth through the addition of items, constraints, and variations.
 
-<div style="text-align: center;">
-  <strong>Paper Prototype of Fireboy & Watergirl Game</strong>
-</div>
-
-<div style="text-align: center;">
-  <video src="https://github.com/user-attachments/assets/15159520-670e-4dd5-a12c-df1f558a09c6" controls width="600"></video>
-</div>
-
-
-
+It also features high replayability—players slow down as they collect more grass, creating a naturally increasing difficulty curve well-suited for score-based challenges. Furthermore, the concept has great potential for creative expansion, such as adding multiplayer modes, weather effects, special types of grass, and animated visual effects. Finally, its intuitive gameplay makes it highly accessible and easy to promote, appealing to a wide range of players and suitable for release on web or mobile platforms.
 
 #### Digital Paper Prototype tool
 
 To help players quickly get familiar with the game, we created a digital model based on the paper prototype. Hanying attempted to generate the digital model using her iPad, which allowed for a representation that more closely resembled the actual game compared to the paper prototype.
 
-<p align="center"><b>Digital·Paper·Prototype·Tool</b></p>
+This animation shows the player successfully catching the grass and placing it into the barrel.
+
+<p align="center"><b>Digital Paper Prototype Tool</b></p>
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/dfb59e37-652d-4112-a203-70f36f721ae3" width="500">
 </p>
+
+This animation shows the player failing to catch the grass and losing one life as a result.
 
 <p align="center"><b>Failed</b></p>
 
