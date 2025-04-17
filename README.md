@@ -78,19 +78,20 @@ To better understand and experience the game mechanics, we created paper prototy
 
 The following are our paper prototypes for Fireboy & Watergirl and Grass Catching.
 
-<div style="display: flex; justify-content: center; gap: 40px; align-items: flex-start; flex-wrap: wrap;">
+<div style="display: flex; justify-content: center; align-items: flex-start; gap: 20px; flex-wrap: nowrap;">
 
-  <div style="text-align: center;">
+  <div style="flex: 1 1 0; min-width: 0; text-align: center;">
     <strong>Paper Prototype of Grass-Catching Game</strong><br>
-    <video src="https://github.com/user-attachments/assets/2bc9ad40-728b-4c61-b258-6c2530942f93" controls width="300"></video>
+    <video src="https://github.com/user-attachments/assets/2bc9ad40-728b-4c61-b258-6c2530942f93" controls style="width: 100%; max-width: 480px; height: auto;"></video>
   </div>
 
-  <div style="text-align: center;">
+  <div style="flex: 1 1 0; min-width: 0; text-align: center;">
     <strong>Paper Prototype of Fireboy & Watergirl Game</strong><br>
-    <video src="https://github.com/user-attachments/assets/15159520-670e-4dd5-a12c-df1f558a09c6" controls width="300"></video>
+    <video src="https://github.com/user-attachments/assets/15159520-670e-4dd5-a12c-df1f558a09c6" controls style="width: 100%; max-width: 480px; height: auto;"></video>
   </div>
 
 </div>
+
 
 #### Final Decision
 After multiple rounds of testing and team feedback, we ultimately selected Grass Catching as the core game for our project. This decision was based on several key factors: the gameplay mechanics are simple yet offer meaningful challenge, making the game easy to implement while allowing for depth through the addition of items, constraints, and variations.
@@ -103,7 +104,7 @@ To help players quickly get familiar with the game, we created a digital model b
 
 This animation shows the player successfully catching the grass and placing it into the barrel.
 
-<p align="center"><b>Digital Paper Prototype Tool</b></p>
+<p align="center"><b>Success</b></p>
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/dfb59e37-652d-4112-a203-70f36f721ae3" width="500">
