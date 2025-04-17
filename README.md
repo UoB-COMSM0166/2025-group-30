@@ -78,22 +78,21 @@ To better understand and experience the game mechanics, we created paper prototy
 
 The following are our paper prototypes for Fireboy & Watergirl and Grass Catching.
 
-<div style="display: flex; flex-wrap: nowrap; justify-content: space-between; align-items: flex-start;">
+<div style="display: flex; justify-content: center; gap: 30px; flex-wrap: nowrap;">
 
-  <div style="width: 50%; box-sizing: border-box; padding: 10px; text-align: center;">
+  <div style="text-align: center;">
     <strong>Paper Prototype of Grass-Catching Game</strong><br>
     <video src="https://github.com/user-attachments/assets/2bc9ad40-728b-4c61-b258-6c2530942f93"
-           controls style="width: 100%; height: auto;"></video>
+           controls width="360" height="240" style="object-fit: cover;"></video>
   </div>
 
-  <div style="width: 50%; box-sizing: border-box; padding: 10px; text-align: center;">
+  <div style="text-align: center;">
     <strong>Paper Prototype of Fireboy & Watergirl Game</strong><br>
     <video src="https://github.com/user-attachments/assets/15159520-670e-4dd5-a12c-df1f558a09c6"
-           controls style="width: 100%; height: auto;"></video>
+           controls width="360" height="240" style="object-fit: cover;"></video>
   </div>
 
 </div>
-
 
 
 #### Final Decision
