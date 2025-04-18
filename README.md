@@ -122,40 +122,10 @@ This animation shows the player failing to catch the grass and losing one life a
   <img src="https://github.com/user-attachments/assets/a21f37c9-d280-421e-a664-1148eeae3f51" width="500">
 </p>
 
-**Project overview**
-
-The project aims to develop a simple 2D mini-game where players stack square grass blocks.
-Initially, we considered using different shapes for stacking as the core gameplay mechanism and planned to integrate an external physics engine for realistic physics simulation. 
-However, after preliminary research and technical assessment, we found that our current skill level poses certain limitations in implementing this approach. Therefore, we reassessed the feasibility.
-Eventually, we decided to remove the physics engine and use a simple square grass block stacking mechanism to reduce technical complexity.
-
-**Requirement Analysis**
-
-#### 1. User Requirements
-- Players should be able to control and stack square grass blocks smoothly
-
-#### 2. Technical Requirements
-- Client-side Development: Implement the game interface and handle user input
-- Physics Simulation: Remove the external physics engine and use a simple square block stacking mechanism
-
-#### Technical Feasibility Study
-
-##### Initial Plan
-- Use an external physics engine (e.g., Box2D, Matter.js) for simulating different shape interactions
-- Requires complex physics calculations, including collision detection and gravity simulation
-
-##### Feasibility Evaluation
-- Lack of experience in physics engine development makes debugging and optimization challenging
-- Complex physics calculations may lead to high computational resource consumption, affecting game performance
-
-##### Alternative Plan
-- Switch to simple square grass block stacking without relying on an external physics engine
-- Use a rule-based stacking method where each block is placed according to predefined logic
-- Implement basic rectangle overlap detection for collision handling to improve development efficiency
-
-Based on the feasibility analysis, we have decided to adjust the game design by abandoning the complex physics engine integration and opting for a simple square grass block stacking mechanism. This will reduce technical difficulty, improve development efficiency, and ensure game stability.
 
 ### Stakeholders Analysis 
+
+Following the establishment of the initial idea for our game, conducting a stakeholder analysis is a critical step. By identifying key parties such as developers, players, and other developer teams, and clarifying their roles and needs, our team can more effectively allocate resources, enhance both the technical feasibility and the overall user experience of the game.
 
 <p align="center"><strong>Onion Model</strong></p>
 
@@ -163,8 +133,9 @@ Based on the feasibility analysis, we have decided to adjust the game design by 
   <img src="https://github.com/user-attachments/assets/5ef9c5c4-04e5-4d8f-b85d-7bf6b9ef1358" width="500">
 </p>
 
+
 #### Core Layer: Group 30
-Group 30-2025 are the core creators of the game, responsible for its design, development, and implementation. They determine the quality, gameplay, and overall experience of the game.
+Group 30-2025 are the core developer of the game, responsible for its design, development, and implementation. They determine the quality, gameplay, and overall experience of the game.
 
 #### Internal Layer: Players and Lecturers
 - **Players**: The end-users of the game, including:
@@ -180,7 +151,42 @@ Other teams are competitors in the assignment, and their performance may influen
 #### External Layer: Broader Audience
 Bystanders are potential users who may not directly participate in the game but could be attracted to become new players.
 
-<p align="center"><strong>Use Case Diagram</strong></p>
+
+
+**Feasibility Study**
+
+Based on the stakeholder analysis, we proceeded to evaluate the feasibility of the project.
+The feasibility study primarily focused on the technical aspects, including the development environment, available tools, and team skills.
+
+##### Initial Plan
+Initially, we considered implementing stacking mechanics using various shapes as the core gameplay feature. This approach would require:
+
+- Integration of an external physics engine (e.g., Box2D, Matter.js) to simulate realistic physical interactions
+
+- Implementation of complex physics logic such as collision detection and gravity effects
+
+##### Feasibility Evaluation
+
+However, after evaluating the technical feasibility, we identified several challenges:
+
+- Our team lacks experience in integrating and configuring physics engines 
+
+- Limited familiarity with real-time physics would significantly increase the debugging and optimization workload
+
+- A poorly implemented physics system would negatively impact gameplay quality and user experience
+
+##### Alternative Plan
+
+In this case, we decided to simplify the design by:
+
+- Switching to simple square grass block stacking without relying on an external physics engine
+- Using a rule-based stacking method where each block is placed according to predefined logic
+- Implementing basic rectangle overlap detection for collision handling to improve development efficiency
+
+Originally, one of the key technical challenges was determining how to position irregularly shaped grass blocks in a physically accurate and visually satisfying way.
+With the new simplified plan, the focus shifts to how to perfectly and completely align square grass blocks on top of one another, which significantly reduces complexity while preserving core gameplay value.
+
+<p align="center"><strong>User Case Diagram</strong></p>
 
 <p align="center">
   <img width="925" alt="Image" src="https://github.com/user-attachments/assets/1f5c1da4-c239-4662-898a-9b46e998b081" />
