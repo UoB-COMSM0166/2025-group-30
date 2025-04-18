@@ -12,7 +12,8 @@ Include a demo video of your game here (you don't have to wait until the end, yo
 
 ## Table of Contents
 
-## Development Team
+
+## Team
 
 <div align="center">
   <img src="https://github.com/user-attachments/assets/eb3712a0-9c24-4ab3-aac4-865b2566a9b3" width="500" >
@@ -206,7 +207,9 @@ Game system manages the core logic and state of the game.
 -Game over: End the game when lives reach zero.
 
 #### User Stories and Epics
+At the early stage of the project, we created initial user stories based on the behavior patterns and expectations of different types of players (such as casual players, hardcore players, social players, etc.), in order to ensure that the core gameplay of HayStacking would meet the diverse needs of its target users.
 
+In the later development phase, we further refined and expanded these user stories by incorporating a sustainability perspective, particularly drawing from the five dimensions defined in the SusAF framework: Individual, Social, Environmental, Economic, and Technical. This allowed us to evaluate the potential impacts of the game from a more holistic standpoint. The following table presents the finalized user stories along with their corresponding acceptance criteria.
 <table>
 <tr>
   <th style="width: 12%;">User Type</th>
@@ -215,6 +218,12 @@ Game system manages the core logic and state of the game.
   <th style="width: 38%;">Acceptance Criteria</th>
 </tr>
 
+<tr>
+  <td>Developer</td>
+  <td>Modular Architecture</td>
+  <td>As a developer, I want the game logic to be modular so that it is easy to maintain and expand later.</td>
+  <td>Given I am updating the game, when I modify a gameplay function, then it should not affect unrelated systems or cause bugs.</td>
+</tr>
 <tr>
   <td>Casual Player</td>
   <td>Beginner-Friendly Experience</td>
@@ -244,12 +253,6 @@ Game system manages the core logic and state of the game.
   <td>Character Progression</td>
   <td>As a hardcore player, I want to upgrade my character’s equipment so that I can compete at higher difficulty levels.</td>
   <td>Given I have in-game currency or rewards, when I visit the store, then I should be able to buy gear to enhance my character.</td>
-</tr>
-<tr>
-  <td></td>
-  <td>Ranking System</td>
-  <td>As a hardcore player, I want to see global rankings so that I can compete with other players for high scores.</td>
-  <td>Given I am on the main menu, when I open the leaderboard, then I should see the top 10 players’ scores.</td>
 </tr>
 <tr>
   <td></td>
@@ -395,6 +398,61 @@ The results of the Wilcoxon Signed-Rank Test for the System Usability Scale (SUS
 - Description of how code was tested. 
 
 ### Process 
+## 📌 Process --version2
+
+In this project, our team adopted the **Scrum** framework, a core methodology in Agile development, to organize teamwork and manage task progression. This approach ensured our project followed a structured workflow while staying aligned with the weekly teaching schedule.
+
+---
+
+### 🗂 Project Management and Task Allocation
+
+We used **GitHub’s Kanban Board** to visualize project tasks and track progress. Each week, based on the course schedule, we set **Sprint goals** and assigned tasks to team members. Tasks were categorized into three stages:
+
+- 🟡 **To Do**
+- 🔵 **In Progress**
+- 🟢 **Done**
+
+Responsibilities such as asset creation, audio collection, and documentation were distributed organically among team members, reflecting our self-organizing working style. This helped us clearly monitor each task’s status and streamline our workflow.
+
+---
+
+### 🔀 Version Control and Code Management
+
+We used **Git** for version control. Each member worked on their own **feature branch**. After completing their work, they submitted a **Pull Request** for code review. Only after approval would the code be merged into the `main` branch.  
+This ensured code quality and minimized the risk of conflicts.
+
+---
+
+### 👥 Team Meetings and Collaboration
+
+We held **meetings every week** to:
+
+- ✅ Review current progress
+- ✅ Analyze completed tasks
+- ✅ Discuss existing issues
+- ✅ Distribute new tasks
+
+After each meeting, we updated the **Kanban board** to reflect progress and task updates, keeping everyone aligned. Even for bug fixing or visual polish tasks, the team collaborated without rigid role assignments.
+
+---
+
+### 💬 Communication Tools
+
+We used **WhatsApp** for quick daily communication and **Teams** for formal discussions and screen sharing.  
+This setup supported efficient, consistent collaboration, even during remote work.
+
+---
+
+### 🌱 Agile Practices and Flexibility
+
+While our work followed a Sprint-based structure, internal task distribution remained flexible. Members took initiative to work on tasks based on their interests and expertise.  
+Tasks such as tutorial UI, sound design, asset preparation, and even bug fixing were shared among the team in a collaborative and adaptive way. This self-organizing model allowed us to stay responsive, communicate openly, and maintain consistent progress.
+
+---
+
+### ✅ Summary
+
+By combining **Scrum methodology**, **Kanban-based task tracking**, and **frequent team communication**, we enhanced our development efficiency, maintained progress, and built a strong, collaborative work environment.
 
 - 15% ~750 words
 
