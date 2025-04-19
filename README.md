@@ -1,7 +1,20 @@
 # 2025-group-30
 2025 COMSM0166 group 30
 
-## Your Game
+## Table of Contents
+- [Game](#game)
+- [Team](#team)
+- [Introduction](#introduction)
+- [Requirements](#requirements)
+- [Design](#design)
+- [Implementation](#implementation)
+- [Evaluation](#evaluation)
+- [Sustainability](#sustainability)
+- [Process](#process)
+- [Conclusion](#conclusion)
+- [Contribution Statement](#contribution-statement)
+
+## Game
 
 Link to your game [PLAY HERE](https://uob-comsm0166.github.io/2025-group-30/) 
 
@@ -9,9 +22,6 @@ Your game lives in the [docs](/docs) folder, and is published using Github pages
 
 Include a demo video of your game here (you don't have to wait until the end, you can insert a work in progress video)
 [🎬 Click here to watch the demo video](https://github.com/UoB-COMSM0166/2025-group-30/blob/nemo/videos/demo%20video.MP4)
-
-## Table of Contents
-
 
 ## Team
 
@@ -32,10 +42,7 @@ Include a demo video of your game here (you don't have to wait until the end, yo
 
 </div>
 
-
-## Project Report
-
-### Introduction
+## Introduction
 
 
 Our game is a casual stacking challenge inspired by a classic mini-game from the popular title *Mole Manor*. Drawing from its gameplay, we set the game’s backdrop during the harvest season on a farm. Players must control their character’s left and right movements to catch falling haystacks and place them into a basket within a limited time in order to reach the collection goal and advance to the next level.
@@ -48,24 +55,24 @@ The following table shows the main elements of the game:
 #### Table 1: Game Elements
 | Category  | Image  | Description  |
 |-----------|--------|--------------|
-| **Player & lifting basket** | <img src="Assets/farmer.png" width="50" style="vertical-align: middle;"> | The character controlled by the player, moving left and right to catch falling hay. |
-| **collection Basket** | <img src="Assets/lifting_basket.png" width="50" style="vertical-align: middle;"> | A secondary basket used for catching hay before transferring it to the main collection basket. |
-| **Falling Hay** | <img src="Assets/hay.png" width="50" style="vertical-align: middle;"> | The hay stacks that fall from the sky. Players must catch them efficiently to reach the target before time runs out. |
+| **Player & lifting basket** | <img src="docs/assets/player1.webp" width="50" style="vertical-align: middle;"> | The character controlled by the player, moving left and right to catch falling hay. |
+| **collection Basket** | <img src="docs/assets/basket.webp" width="50" style="vertical-align: middle;"> | A secondary basket used for catching hay before transferring it to the main collection basket. |
+| **Falling Hay** | <img src="docs/assets/hay.webp" width="50" style="vertical-align: middle;"> | The hay stacks that fall from the sky. Players must catch them efficiently to reach the target before time runs out. |
 
 - 5% ~250 words 
 - Describe your game, what is based on, what makes it novel? 
 
-### Requirements 
+## Requirements 
 - 15% ~750 words
 - Use case diagrams, user stories. Early stages design. Ideation process. How did you decide as a team what to develop? 
 
-#### Inspiration
+### Inspiration
 
 In the first week of our game project, we held a team meeting to discuss various game ideas based on our understanding of different game concepts. We evaluated each idea based on familiarity, innovation, and feasibility, ultimately brainstorming five potential game concepts. After thorough discussion, we conducted a vote, and the Grass Catching Game emerged as the final winner.
 
 The inspiration for our grass-catching game comes from Mole's World. Unlike the grass-catching mechanics in Mole's World, where the grass follows a parabolic trajectory, our game adopts a vertical free-fall motion, emphasizing players' reaction speed and precise judgment. Additionally, the grass may have different falling speeds and shapes, allowing for difficulty adjustments that present players with more challenging grass-catching tasks.
 
-#### Prototype
+### Prototype
 
 During the conceptualization of the grass-catching game, we created a paper prototype to help visualize and test early game mechanics, including the way the grass falls, as well as the player's movement and interactions. Based on our initial discussions, we refined the game flow and mechanics, adding new elements to enhance the game's fun and challenge. To provide players with a clearer understanding of the game, we created a video based on the paper prototype, offering an intuitive demonstration of the gameplay.
 
@@ -79,7 +86,7 @@ During the conceptualization of the grass-catching game, we created a paper prot
 </div>
 
 
-#### Digital Paper Prototype tool
+### Digital Paper Prototype tool
 
 To help players quickly get familiar with the game, we created a digital model based on the paper prototype. Hanying attempted to generate the digital model using her iPad, which allowed for a representation that more closely resembled the actual game compared to the paper prototype.
 
@@ -102,90 +109,7 @@ Initially, we considered using different shapes for stacking as the core gamepla
 However, after preliminary research and technical assessment, we found that our current skill level poses certain limitations in implementing this approach. Therefore, we reassessed the feasibility.
 Eventually, we decided to remove the physics engine and use a simple square grass block stacking mechanism to reduce technical complexity.
 
-**Requirement Analysis**
-
-#### 1. User Requirements
-- Players should be able to control and stack square grass blocks smoothly
-
-#### 2. Technical Requirements
-- Client-side Development: Implement the game interface and handle user input
-- Physics Simulation: Remove the external physics engine and use a simple square block stacking mechanism
-
-#### Technical Feasibility Study
-
-##### Initial Plan
-- Use an external physics engine (e.g., Box2D, Matter.js) for simulating different shape interactions
-- Requires complex physics calculations, including collision detection and gravity simulation
-
-##### Feasibility Evaluation
-- Lack of experience in physics engine development makes debugging and optimization challenging
-- Complex physics calculations may lead to high computational resource consumption, affecting game performance
-
-##### Alternative Plan
-- Switch to simple square grass block stacking without relying on an external physics engine
-- Use a rule-based stacking method where each block is placed according to predefined logic
-- Implement basic rectangle overlap detection for collision handling to improve development efficiency
-
-Based on the feasibility analysis, we have decided to adjust the game design by abandoning the complex physics engine integration and opting for a simple square grass block stacking mechanism. This will reduce technical difficulty, improve development efficiency, and ensure game stability.
-
-### Stakeholders Analysis 
-
-<p align="center"><strong>Onion Model</strong></p>
-
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/5ef9c5c4-04e5-4d8f-b85d-7bf6b9ef1358" width="500">
-</p>
-
-#### Core Layer: Group 30
-Group 30-2025 are the core creators of the game, responsible for its design, development, and implementation. They determine the quality, gameplay, and overall experience of the game.
-
-#### Internal Layer: Players and Lecturers
-- **Players**: The end-users of the game, including:
-  - New Players
-  - Old Players
-  - Casual Players
-  - Competitive Players
-- **Lecturers**: The evaluators of the assignment, responsible for assessing the quality of the game and whether it meets course requirements
-
-#### Competition Layer: Other Teams
-Other teams are competitors in the assignment, and their performance may influence the evaluation by lecturers and bystanders.
-
-#### External Layer: Broader Audience
-Bystanders are potential users who may not directly participate in the game but could be attracted to become new players.
-
-<p align="center"><strong>Use Case Diagram</strong></p>
-
-<p align="center">
-  <img width="925" alt="Image" src="https://github.com/user-attachments/assets/1f5c1da4-c239-4662-898a-9b46e998b081" />
-</p>
-
-#### 1. Players
-Players are the primary users of the game, interacting with the game system to achieve objectives.
-
-Main Use Cases:
-- Choose game mode: Select between single-player or multi-player mode
-- Play game: Control character movement, catch grass, and drop grass into the basket
-- Pause game: Pause the current game
-
-#### 2. Developers
-Developers are responsible for maintaining and updating the game to ensure it runs smoothly.
-
-Main Use Cases:
-- Debug game: Fix errors in the game
-- Update game: Add new features or optimize existing ones
-- Test game: Test the game to ensure stability
-- Monitor game: Monitor the game's performance to identify potential issues
-
-#### 3. Game System
-Game system manages the core logic and state of the game.
-
-Main Functions:
-- Update score: Update the score when players drop grass into the basket
-- Decrease lives: Reduce lives when players fail
-- Level up: Increase game difficulty when players reach a certain score
-- Game over: End the game when lives reach zero
-
-#### User Stories and Epics
+### User Stories and Epics
 At the early stage of the project, we created initial user stories based on the behavior patterns and expectations of different types of players (such as casual players, hardcore players, social players, etc.), in order to ensure that the core gameplay of HayStacking would meet the diverse needs of its target users.
 
 In the later development phase, we further refined and expanded these user stories by incorporating a sustainability perspective, particularly drawing from the five dimensions defined in the SusAF framework: Individual, Social, Environmental, Economic, and Technical. This allowed us to evaluate the potential impacts of the game from a more holistic standpoint. The following table presents the finalized user stories along with their corresponding acceptance criteria.
@@ -265,21 +189,103 @@ In the later development phase, we further refined and expanded these user stori
 </tr>
 </table>
 
+**Requirement Analysis**
+
+#### 1. User Requirements
+- Players should be able to control and stack square grass blocks smoothly
+
+#### 2. Technical Requirements
+- Client-side Development: Implement the game interface and handle user input
+- Physics Simulation: Remove the external physics engine and use a simple square block stacking mechanism
+
+#### Technical Feasibility Study
+
+##### Initial Plan
+- Use an external physics engine (e.g., Box2D, Matter.js) for simulating different shape interactions
+- Requires complex physics calculations, including collision detection and gravity simulation
+
+##### Feasibility Evaluation
+- Lack of experience in physics engine development makes debugging and optimization challenging
+- Complex physics calculations may lead to high computational resource consumption, affecting game performance
+
+##### Alternative Plan
+- Switch to simple square grass block stacking without relying on an external physics engine
+- Use a rule-based stacking method where each block is placed according to predefined logic
+- Implement basic rectangle overlap detection for collision handling to improve development efficiency
+
+Based on the feasibility analysis, we have decided to adjust the game design by abandoning the complex physics engine integration and opting for a simple square grass block stacking mechanism. This will reduce technical difficulty, improve development efficiency, and ensure game stability.
+
+### Stakeholders Analysis 
+
+<p align="center"><strong>Onion Model</strong></p>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/5ef9c5c4-04e5-4d8f-b85d-7bf6b9ef1358" width="500">
+</p>
+
+#### Core Layer: Group 30
+Group 30-2025 are the core creators of the game, responsible for its design, development, and implementation. They determine the quality, gameplay, and overall experience of the game.
+
+#### Internal Layer: Players and Lecturers
+- **Players**: The end-users of the game, including:
+  - New Players
+  - Old Players
+  - Casual Players
+  - Competitive Players
+- **Lecturers**: The evaluators of the assignment, responsible for assessing the quality of the game and whether it meets course requirements
+
+### Competition Layer: Other Teams
+Other teams are competitors in the assignment, and their performance may influence the evaluation by lecturers and bystanders.
+
+### External Layer: Broader Audience
+Bystanders are potential users who may not directly participate in the game but could be attracted to become new players.
+
+<p align="center"><strong>Use Case Diagram</strong></p>
+
+<p align="center">
+  <img width="925" alt="Image" src="https://github.com/user-attachments/assets/1f5c1da4-c239-4662-898a-9b46e998b081" />
+</p>
+
+### 1. Players
+Players are the primary users of the game, interacting with the game system to achieve objectives.
+
+Main Use Cases:
+- Choose game mode: Select between single-player or multi-player mode
+- Play game: Control character movement, catch grass, and drop grass into the basket
+- Pause game: Pause the current game
+
+### 2. Developers
+Developers are responsible for maintaining and updating the game to ensure it runs smoothly.
+
+Main Use Cases:
+- Debug game: Fix errors in the game
+- Update game: Add new features or optimize existing ones
+- Test game: Test the game to ensure stability
+- Monitor game: Monitor the game's performance to identify potential issues
+
+### 3. Game System
+Game system manages the core logic and state of the game.
+
+Main Functions:
+- Update score: Update the score when players drop grass into the basket
+- Decrease lives: Reduce lives when players fail
+- Level up: Increase game difficulty when players reach a certain score
+- Game over: End the game when lives reach zero
   
-### Design
+## Design
 
 - 15% ~750 words 
 - System architecture. Class diagrams, behavioural diagrams. 
 
-### Implementation
+## Implementation
 
 - 15% ~750 words
 
 - Describe implementation of your game, in particular highlighting the three areas of challenge in developing your game. 
 
-### Evaluation
+## Evaluation
 To ensure a balance between functionality and usability during the game development process, we chose to combine both qualitative and quantitative evaluation methods. Qualitative analysis helped us identify issues within the game, while quantitative evaluation provided insights into user perceptions, guiding us to iteratively improve the design.
-#### Qualitative Evaluation - Heuristic Evaluation
+### Qualitative Evaluation - Heuristic Evaluation
  For the qualitative method, we adopted Heuristic Evaluation, a practical and widely used approach that examines the interface based on Nielsen’s ten usability principles. By systematically reviewing each screen of our game, we identified several usability issues, including unclear navigation flow, inconsistent system feedback, limited user control, and lack of clarity in competitive scoring. Each issue was evaluated across three dimensions—Frequency, Impact, and Persistence—to calculate a severity score and prioritize the most critical problems.The results are shown in the following table:
 #### Heuristic Evaluation Table
 <table>
@@ -359,7 +365,7 @@ To ensure a balance between functionality and usability during the game developm
 
 Based on the severity scores in the evaluation table, we will prioritize addressing high-severity issues, such as speed inconsistency across platforms and insufficient time display in multiplayer mode.    next development focus will be on enhancing the user experience by improving UI feedback, adding return and help buttons, and introducing a store system for character/tool customization. Through these improvements, we aim to create a smoother, more intuitive, and more engaging gameplay experience.
 
-#### SUS evaluation
+### Quantitative Evaluation - SUS evaluation
 We collected and analyzed SUS questionnaire data from 12 users for both Level 1 and Level 2, calculating their total SUS scores. We then used the Wilcoxon Signed-Rank Test to examine whether there was a statistically significant difference in usability scores between the two levels. Click [here](sus.md) to see the raw data.
 <div align="center">
   <img src="SUS evaluation.png" width="533">
@@ -377,8 +383,10 @@ The results of the Wilcoxon Signed-Rank Test for the System Usability Scale (SUS
 - One quantitative evaluation (of your choice) 
 - Description of how code was tested. 
 
-### Process 
-## 📌 Process --version2
+## Sustainability
+
+
+## Process
 
 In this project, our team adopted the **Scrum** framework, a core methodology in Agile development, to organize teamwork and manage task progression. This approach ensured our project followed a structured workflow while staying aligned with the weekly teaching schedule.
 
@@ -438,17 +446,25 @@ By combining **Scrum methodology**, **Kanban-based task tracking**, and **freque
 
 - Teamwork. How did you work together, what tools did you use. Did you have team roles? Reflection on how you worked together. 
 
-### Conclusion
+## Conclusion
 
 - 10% ~500 words
 
 - Reflect on project as a whole. Lessons learned. Reflect on challenges. Future work. 
 
-### Contribution Statement
+## Contribution Statement
+| Name |Contribution |
+|------------|----------|
+| Lingchen Li |  |
+| Lei Gao |  |
+| Hanying Bian |  |
+| Shiyu Dou |  |
+| Zhuoyan Qiu |  |
+| Liyang Li |  |
 
 - Provide a table of everyone's contribution, which may be used to weight individual grades. We expect that the contribution will be split evenly across team-members in most cases. Let us know as soon as possible if there are any issues with teamwork as soon as they are apparent. 
 
-### Additional Marks
+## Additional Marks
 
 You can delete this section in your own repo, it's just here for information. in addition to the marks above, we will be marking you on the following two points:
 
