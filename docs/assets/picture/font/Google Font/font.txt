@@ -1,0 +1,16 @@
+方法1：
+1.1下载你喜欢的字体后（TTF）文件
+1.2放入你的assets目录，并在preload()中加载它（与导入背景图）是一样的操作
+
+方法2：
+2.1 Embed code in the <head> of your html
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Chewy&display=swap" rel="stylesheet">
+2.2 Bangers: CSS class
+.bangers-regular {
+  font-family: "Bangers", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+每个字体有对应的代码

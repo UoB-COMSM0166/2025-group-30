@@ -66,35 +66,64 @@ The following table shows the main elements of the game:
 - 15% ~750 words
 - Use case diagrams, user stories. Early stages design. Ideation process. How did you decide as a team what to develop? 
 
-### Inspiration
+### Game Idea Brainstorming Overview
 
-In the first week of our game project, we held a team meeting to discuss various game ideas based on our understanding of different game concepts. We evaluated each idea based on familiarity, innovation, and feasibility, ultimately brainstorming five potential game concepts. After thorough discussion, we conducted a vote, and the Grass Catching Game emerged as the final winner.
+As part of our early ideation process, our team participated in a collaborative brainstorming session to generate and explore a variety of game concepts. We studied a wide range of existing games, focusing on their core mechanics, player engagement strategies, and potential for creative development. Our goal was to identify gameplay elements that are not only fun and challenging, but also flexible enough to allow for innovation and adaptation.
 
-The inspiration for our grass-catching game comes from Mole's World. Unlike the grass-catching mechanics in Mole's World, where the grass follows a parabolic trajectory, our game adopts a vertical free-fall motion, emphasizing players' reaction speed and precise judgment. Additionally, the grass may have different falling speeds and shapes, allowing for difficulty adjustments that present players with more challenging grass-catching tasks.
+The table below summarizes our findings. For each game, we described its core concept and proposed potential extensions or twists to make the gameplay more unique, engaging, or suitable for different audiences and platforms.
 
-### Prototype
+| Game Genre             | Game Inspiration      | Game Description                                                                                                                             | Creative Expansion Ideas                                                                                                                           |
+|------------------------|------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
+| Puzzle Game            | Car Park Puzzle        | A logic-based game where players must move surrounding vehicles forward or backward to clear a path for their own car to exit the parking lot. | - Dynamically generate car layouts based on difficulty <br> - Add cars facing different directions <br> - Bus station mode: match passengers with buses <br> - Real-world elements like crosswalks, truck unloading zones |
+| Cooperative Puzzle Platformer | Fireboy & Watergirl | Two players work together to navigate levels by controlling Fireboy and Watergirl, each immune to their respective element. Touching the wrong element or falling results in failure. | - New elements like electricity/ice/wind <br> - Attribute swapping mechanics <br> - Time-limited challenges and multiple endings <br> - Unlockable skills and collectibles |
+| Casual Reaction Game   | Flappy Bird            | Players tap to keep a bird in the air and avoid pipes. Each successful pass earns one point. The game restarts upon failure.                   | - Moving or rotating obstacles <br> - Power-up system: shields, speed boosts <br> - Multiplayer co-op or versus mode <br> - Timed bonus collection mode |
+| Multiplayer Cooperative Puzzle | Pico Park             | Players collect keys and open gates while navigating obstacles together. Movement is limited to up, down, left, and right. Supports 2–8 players. | - Random events triggered by pressure plates <br> - Fog to limit visibility <br> - Assign unique skills to each player (fly, climb, lift) <br> - Add immersive story mode |
+| Strategy + Reflex Mini Game | Grass Catching         | Players catch falling grass. The more they collect, the slower they move, increasing challenge and requiring strategic movement and timing.    | - Cooperative or versus mode <br> - Special grass types (e.g. poison, explosive) <br> - Weather effects influencing falling patterns <br> - Speed boost or weight-reducing power-ups |
 
-During the conceptualization of the grass-catching game, we created a paper prototype to help visualize and test early game mechanics, including the way the grass falls, as well as the player's movement and interactions. Based on our initial discussions, we refined the game flow and mechanics, adding new elements to enhance the game's fun and challenge. To provide players with a clearer understanding of the game, we created a video based on the paper prototype, offering an intuitive demonstration of the gameplay.
+#### Game Delection Process
 
+As part of our game development planning, our team initially brainstormed and analyzed five different game inspirations. After careful discussion and evaluation, we shortlisted two candidates for prototyping:Fireboy & Watergirl and Grass Catching.
 
-<div style="text-align: center;">
-  <strong>Paper Prototype of Grass-Catching Game</strong>
+To better understand and experience the game mechanics, we created paper prototypes for both games. By interacting with the prototypes directly, we were able to simulate the core gameplay and interaction flow, design basic maps and character movement paths, observe players’ intuitive understanding and reactions, and evaluate whether the gameplay was engaging and expandable.
+
+The following are our paper prototypes for Fireboy & Watergirl and Grass Catching.
+
+<div style="display: flex; justify-content: center; gap: 30px;">
+
+  <div style="text-align: center;">
+    <strong>Paper Prototype of Grass-Catching Game</strong><br>
+    <video src="https://github.com/user-attachments/assets/2bc9ad40-728b-4c61-b258-6c2530942f93"
+           controls
+           style="width: 360px; height: 240px; object-fit: cover; background: black;"></video>
+  </div>
+
+  <div style="text-align: center;">
+    <strong>Paper Prototype of Fireboy & Watergirl Game</strong><br>
+    <video src="https://github.com/user-attachments/assets/15159520-670e-4dd5-a12c-df1f558a09c6"
+           controls
+           style="width: 360px; height: 240px; object-fit: cover; background: black;"></video>
+  </div>
+
 </div>
 
-<div style="text-align: center;">
-  <video src="https://github.com/user-attachments/assets/2bc9ad40-728b-4c61-b258-6c2530942f93" controls width="600"></video>
-</div>
+### Final Decision
+After multiple rounds of testing and team feedback, we ultimately selected Grass Catching as the core game for our project. This decision was based on several key factors: the gameplay mechanics are simple yet offer meaningful challenge, making the game easy to implement while allowing for depth through the addition of items, constraints, and variations.
 
+It also features high replayability—players slow down as they collect more grass, creating a naturally increasing difficulty curve well-suited for score-based challenges. Furthermore, the concept has great potential for creative expansion, such as adding multiplayer modes, weather effects, special types of grass, and animated visual effects. Finally, its intuitive gameplay makes it highly accessible and easy to promote, appealing to a wide range of players and suitable for release on web or mobile platforms.
 
 ### Digital Paper Prototype tool
 
 To help players quickly get familiar with the game, we created a digital model based on the paper prototype. Hanying attempted to generate the digital model using her iPad, which allowed for a representation that more closely resembled the actual game compared to the paper prototype.
 
-<p align="center"><b>Digital·Paper·Prototype·Tool</b></p>
+This animation shows the player successfully catching the grass and placing it into the barrel.
+
+<p align="center"><b>Success</b></p>
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/dfb59e37-652d-4112-a203-70f36f721ae3" width="500">
 </p>
+
+This animation shows the player failing to catch the grass and losing one life as a result.
 
 <p align="center"><b>Failed</b></p>
 
