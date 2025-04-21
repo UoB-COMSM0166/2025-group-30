@@ -1,24 +1,10 @@
-class Shovel {
+class Shovel extends FallingObject {
     constructor(x, y) {
-        this.x = x;
-        this.y = y;
-        this.w = 50;
-        this.h = 50;
-        this.speed = 4;
-        this.image = null;
-        this.loadImage();
+        super(x, y, 50, 50, 4);
     }
 
     loadImage() {
         this.image = loadImage('assets/shovel.webp');
-    }
-
-    fall() {
-        this.y += this.speed;
-    }
-
-    draw() {
-        image(this.image, this.x, this.y, this.w, this.h);
     }
 
     hits(player) {
@@ -67,9 +53,5 @@ class Shovel {
         }
 
         return false;
-    }
-
-    isOffscreen() {
-        return this.y > height;
     }
 } 
