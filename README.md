@@ -89,29 +89,19 @@ To better understand and experience the game mechanics, we created paper prototy
 The following are our paper prototypes for Fireboy & Watergirl and Grass Catching.
 
 <div align="center">
-  <table style="border-collapse: collapse; width: 100%; max-width: 1200px;">
+  <table style="width: 100%; border-collapse: collapse;">
     <tr>
-      <th style="padding: 10px; width: 50%; text-align: center;"><strong>Paper Prototype of Grass-Catching Game</strong></th>
-      <th style="padding: 10px; width: 50%; text-align: center;"><strong>Paper Prototype of Fireboy & Watergirl Game</strong></th>
-    </tr>
-    <tr>
-      <td style="padding: 10px; text-align: center;">
-        <div style="width: 500px; height: 281px; margin: 0 auto;">
-          <video src="https://github.com/user-attachments/assets/2bc9ad40-728b-4c61-b258-6c2530942f93"
-                 controls
-                 width="500"
-                 height="281"
-                 style="width: 500px; height: 281px;"></video>
-        </div>
+      <td style="width: 50%; padding: 20px; border: 1px solid #ddd;">
+        <p style="text-align: center; margin-bottom: 10px;"><strong>Paper Prototype of Grass-Catching Game</strong></p>
+        <video src="https://github.com/user-attachments/assets/2bc9ad40-728b-4c61-b258-6c2530942f93"
+               controls
+               style="display: block; width: 100%; max-width: 600px; margin: 0 auto; border-radius: 8px;"></video>
       </td>
-      <td style="padding: 10px; text-align: center;">
-        <div style="width: 500px; height: 281px; margin: 0 auto;">
-          <video src="https://github.com/user-attachments/assets/15159520-670e-4dd5-a12c-df1f558a09c6"
-                 controls
-                 width="500"
-                 height="281"
-                 style="width: 500px; height: 281px;"></video>
-        </div>
+      <td style="width: 50%; padding: 20px; border: 1px solid #ddd;">
+        <p style="text-align: center; margin-bottom: 10px;"><strong>Paper Prototype of Fireboy & Watergirl Game</strong></p>
+        <video src="https://github.com/user-attachments/assets/15159520-670e-4dd5-a12c-df1f558a09c6"
+               controls
+               style="display: block; width: 100%; max-width: 600px; margin: 0 auto; border-radius: 8px;"></video>
       </td>
     </tr>
   </table>
