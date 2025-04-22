@@ -143,6 +143,14 @@ class StepByStepHelpScreen extends Screen {
             { //step 3
                 instruction: "Press SPACE when near the basket to empty your stack",
                 setup: () => {
+                    // 重置篮子分数
+                    this.demoBasket.score = 0;
+                    this.demoPlayer.score = 0;
+                    
+                    // 重置玩家位置到中间
+                    this.demoPlayer.x = (baseWidth - this.demoPlayer.w) / 2;
+                    this.demoPlayer.dir = 0; // 重置移动方向
+                    
                     if (this.demoPlayer.stack.length === 1) { return; }
                     const yGap = 3; // Use consistent gap for all grass blocks
                     // put a grass block in the player's stack
