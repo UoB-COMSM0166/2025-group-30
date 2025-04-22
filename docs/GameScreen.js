@@ -94,6 +94,11 @@ class GameScreen extends Screen {
             } //stop shovel fall if flashing is on or game is paused    
 
             if (currentItem.hits(player)) {
+                if (currentItem instanceof SpeedBoot) {
+                    player.speedBoot = currentItem;
+                } else if (currentItem instanceof ProteinShaker) {
+                    player.proteinShaker = currentItem;
+                }
                 currentItem.applyEffect(player, this);
                 specialItemsArray.splice(i, 1);
             } else if (currentItem.isOffscreen()) {
@@ -194,6 +199,17 @@ class GameScreen extends Screen {
         noStroke();
         textStyle(NORMAL);
 
+        // 只在游戏进行中显示特殊物品计时
+        if (this.screenManager.currentScreen === this && this.level.timeLeft > 0) {
+            // Display special item timers for each player
+            if (this.player) {
+                this.displaySpecialItemTimers(this.player);
+            } else if (this.player1 && this.player2) {
+                this.displaySpecialItemTimers(this.player1);
+                this.displaySpecialItemTimers(this.player2);
+            }
+        }
+
         // Call the game mode specific UI update
         this.updateScoreDisplay();
     }
@@ -247,5 +263,29 @@ class GameScreen extends Screen {
         } while (!isSafePosition);
 
         return newX;
+    }
+
+    displaySpecialItemTimers(player) {
+        // 只在有速度buff时显示
+        if (player.speedBoot && player.speedBoot.isBoosted) {
+            const remainingTime = player.speedBoot.getRemainingTime();
+            if (remainingTime > 0) {
+                fill(0, 200, 255); // 蓝色
+                textSize(20);
+                textAlign(CENTER);
+                text(`${remainingTime.toFixed(1)}s`, player.basket.x+player.basket.w, player.basket.y + 20);
+            }
+        }
+
+        // 只在有力量buff时显示
+        if (player.proteinShaker && player.proteinShaker.isBoosted) {
+            const remainingTime = player.proteinShaker.getRemainingTime();
+            if (remainingTime > 0) {
+                fill(255, 0, 0); // 红色
+                textSize(20);
+                textAlign(CENTER);
+                text(`${remainingTime.toFixed(1)}s`, player.basket.x+player.basket.w, player.basket.y + 50);
+            }
+        }
     }
 } 

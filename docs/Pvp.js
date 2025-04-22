@@ -92,13 +92,15 @@ class Pvp extends GameScreen { // player with higher score in the set time wins
                 specialItemsArray.push(new ProteinShaker(newX, 10));
                 break;
             case 5:
-                //Randomly choose which special item to drop
-                if (random() < 0.33) { // 33% chance for shovel
+                // 铲子独立掉落
+                if (random() < 0.5) { // 50% 概率掉铲子
                     specialItemsArray.push(new Shovel(newX, 10));
-                } else if (random() < 0.66) { // 33% chance for protein shaker
-                    specialItemsArray.push(new ProteinShaker(newX, 10));
-                } else { // 33% chance for speed boot
-                    specialItemsArray.push(new SpeedBoot(newX, 10));
+                }
+                // 另外两种物品随机掉
+                if (random() < 0.5) { // 50% 概率掉蛋白粉
+                    specialItemsArray.push(new ProteinShaker(newX + 50, 10));
+                } else { // 50% 概率掉速度靴
+                    specialItemsArray.push(new SpeedBoot(newX + 50, 10));
                 }
         }
     }

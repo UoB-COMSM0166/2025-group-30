@@ -5,6 +5,7 @@ class ProteinShaker extends SpecialItem {
         super(x, y, 50, 50, 3);
         this.boostDuration = 10000;  // 10 seconds duration
         this.isBoosted = false;
+        this.startTime = 0;
     }
 
     loadImage() {
@@ -46,6 +47,8 @@ class ProteinShaker extends SpecialItem {
         player.maxStack = 10;
         player.speedReductionPerGrass = 0;  // No speed reduction during boost
         this.isBoosted = true;
+        this.startTime = millis(); // 记录开始时间
+        player.proteinShaker = this; // 设置对玩家的引用
         ProteinShaker.activeEffects++;  // Increment active effects counter
 
         // Create strength trail particles
@@ -86,6 +89,7 @@ class ProteinShaker extends SpecialItem {
         // Reset values and stop particles after duration
         setTimeout(() => {
             this.isBoosted = false;
+            player.proteinShaker = null; // 清除引用
             ProteinShaker.activeEffects--;  // Decrement active effects counter
 
             // Only reset values if this was the last active effect
@@ -96,5 +100,11 @@ class ProteinShaker extends SpecialItem {
 
             clearInterval(interval);
         }, this.boostDuration);
+    }
+
+    getRemainingTime() {
+        if (!this.isBoosted) return 0;
+        const elapsed = millis() - this.startTime;
+        return max(0, (this.boostDuration - elapsed) / 1000); // 转换为秒
     }
 } 

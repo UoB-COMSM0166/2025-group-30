@@ -28,6 +28,9 @@ class Player {
 
         this.playerImage = null;
         this.loadPlayerImage();
+
+        this.speedBoot = null;
+        this.proteinShaker = null;
     }
 
     reset() {

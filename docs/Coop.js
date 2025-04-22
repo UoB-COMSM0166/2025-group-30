@@ -5,6 +5,7 @@ class Coop extends GameScreen {
         this.gameOverScreen = new GameOverScreen(this.screenManager, this);
         this.levelSuccessScreen = new LevelSuccessScreen(this.screenManager, this);
         this.targetScoreScreen = new TargetScoreScreen(this.screenManager, this);
+        this.accomplishScreen = new AccomplishScreen(this.screenManager, this);
 
         this.player1 = new Player("left");
         this.player2 = new Player("right");
@@ -88,13 +89,15 @@ class Coop extends GameScreen {
                         this.specialItems.push(new ProteinShaker(newX, 10));
                         break;
                     case 5:
-                        //Randomly choose which special item to drop
-                        if (random() < 0.33) { // 33% chance for shovel
+                        // 铲子独立掉落
+                        if (random() < 0.5) { // 50% 概率掉铲子
                             this.specialItems.push(new Shovel(newX, 10));
-                        } else if (random() < 0.66) { // 33% chance for protein shaker
-                            this.specialItems.push(new ProteinShaker(newX, 10));
-                        } else { // 33% chance for speed boot
-                            this.specialItems.push(new SpeedBoot(newX, 10));
+                        }
+                        // 另外两种物品随机掉
+                        if (random() < 0.5) { // 50% 概率掉蛋白粉
+                            this.specialItems.push(new ProteinShaker(newX + 50, 10));
+                        } else { // 50% 概率掉速度靴
+                            this.specialItems.push(new SpeedBoot(newX + 50, 10));
                         }
                 }
             }
@@ -182,9 +185,13 @@ class Coop extends GameScreen {
                 this.stopSpecialItemDrop();
                 this.stopLevelTimer();
                 if ((this.player1.score + this.player2.score) >= this.level.targetScores) {
-                    this.screenManager.changeScreen(this.levelSuccessScreen); //move up a level    
+                    if (this.level.level >= 5) {
+                        this.screenManager.changeScreen(this.accomplishScreen);
+                    } else {
+                        this.screenManager.changeScreen(this.levelSuccessScreen);
+                    }
                 } else {
-                    this.screenManager.changeScreen(this.gameOverScreen); //game over
+                    this.screenManager.changeScreen(this.gameOverScreen);
                 }
             }
         }, 1000);
@@ -214,9 +221,13 @@ class Coop extends GameScreen {
 
     //--- Move to next level ---
     startNextLevel() {
-        this.level.startNextLevel();
-        this.clearStats();
-        this.screenManager.changeScreen(this.targetScoreScreen);
+        if (this.level.level >= 5) {
+            this.screenManager.changeScreen(this.accomplishScreen);
+        } else {
+            this.level.startNextLevel();
+            this.clearStats();
+            this.screenManager.changeScreen(this.targetScoreScreen);
+        }
     }
 
     keyPressed() {

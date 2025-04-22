@@ -1,10 +1,10 @@
 class SpeedBoot extends SpecialItem {
     constructor(x, y) {
         super(x, y, 50, 50, 3);
-        this.speedBoostMultiplier = 1.5;  // 50% speed increase
+        this.speedBoostMultiplier = 1.2;  // 20% speed increase
         this.boostDuration = 5000;  // 5 seconds duration
         this.isBoosted = false;
-        this.maxBoostSpeed = 15;  // Maximum speed limit during boost
+        this.startTime = 0;
     }
 
     loadImage() {
@@ -36,14 +36,12 @@ class SpeedBoot extends SpecialItem {
             game
         );
 
-        // Store original values
-        const originalVelocity = player.velocity;
-        const originalMaxSpeed = player.maxSpeed;
-
-        // Apply speed boost with limit
+        // 直接乘以1.2
         player.velocity *= this.speedBoostMultiplier;
-        player.maxSpeed = min(player.maxSpeed * this.speedBoostMultiplier, this.maxBoostSpeed);
+        player.maxSpeed *= this.speedBoostMultiplier;
         this.isBoosted = true;
+        this.startTime = millis(); // 记录开始时间
+        player.speedBoot = this; // 设置对玩家的引用
 
         // Create speed trail particles
         const interval = setInterval(() => {
@@ -82,10 +80,17 @@ class SpeedBoot extends SpecialItem {
 
         // Reset values and stop particles after duration
         setTimeout(() => {
-            player.velocity = originalVelocity;
-            player.maxSpeed = originalMaxSpeed;
+            player.velocity /= this.speedBoostMultiplier;
+            player.maxSpeed /= this.speedBoostMultiplier;
             this.isBoosted = false;
+            player.speedBoot = null; // 清除引用
             clearInterval(interval);
         }, this.boostDuration);
+    }
+
+    getRemainingTime() {
+        if (!this.isBoosted) return 0;
+        const elapsed = millis() - this.startTime;
+        return max(0, (this.boostDuration - elapsed) / 1000); // 转换为秒
     }
 } 
