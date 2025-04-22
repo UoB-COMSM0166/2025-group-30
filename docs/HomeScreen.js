@@ -9,10 +9,14 @@ class HomeScreen extends Screen {
         text("Welcome to Haystacking!", baseWidth / 2, baseHeight / 3);
 
         textSize(20);
-        text("Double click to start", baseWidth / 2, baseHeight / 2);
+        text("Double click or press any key to start", baseWidth / 2, baseHeight / 2);
     }
 
     doubleClicked() {
+        this.screenManager.changeScreen(this.screenManager.menuScreen);
+    }
+
+    keyPressed() {
         this.screenManager.changeScreen(this.screenManager.menuScreen);
     }
 }
