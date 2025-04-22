@@ -30,32 +30,32 @@ class StepByStepHelpScreen extends Screen {
         this.buttons = [
             {
                 label: "Back", //only show on first step
-                x: baseWidth / 4,
-                y: baseHeight / 6 * 5,
+                x: baseWidth / 8,
+                y: baseHeight / 8,
                 buttonWidth: this.buttonWidth,
                 buttonHeight: this.buttonHeight,
                 action: () => this.screenManager.changeScreen(this.screenManager.menuScreen)
             },
             {
                 label: "Previous",
-                x: baseWidth / 4,
-                y: baseHeight / 6 * 5,
+                x: baseWidth / 8,
+                y: baseHeight / 8,
                 buttonWidth: this.buttonWidth,
                 buttonHeight: this.buttonHeight,
                 action: () => this.previousStep()
             },
             {
                 label: "Next",
-                x: baseWidth / 4 * 3,
-                y: baseHeight / 6 * 5,
+                x: baseWidth * 7/8,
+                y: baseHeight / 8,
                 buttonWidth: this.buttonWidth,
                 buttonHeight: this.buttonHeight,
                 action: () => this.nextStep()
             },
             {
                 label: "Start", //only show on last step
-                x: baseWidth / 4 * 3,
-                y: baseHeight / 6 * 5,
+                x: baseWidth * 7/8,
+                y: baseHeight / 8,
                 buttonWidth: this.buttonWidth,
                 buttonHeight: this.buttonHeight,
                 action: () => {
@@ -457,26 +457,6 @@ class StepByStepHelpScreen extends Screen {
             baseWidth / 2,
             baseHeight / 4 + this.textYOffset);
         textStyle(NORMAL);
-
-        // 绘制从指令文本底部到按钮上方的半透明白色背景框
-        noStroke();
-        fill(255, 255, 255, 178); // 透明度70%的白色 (255 * 0.7 = 178)
-        rectMode(CENTER);
-
-        // 计算指令文本底部位置（指令文本位置加上一些垂直间距）
-        let instructionBottomY = baseHeight / 4 + 30; // 指令文本位置加上一些垂直间距
-
-        // 计算按钮上方位置
-        let buttonTopY = baseHeight / 6 * 5 - this.buttonHeight / 2 - 30; // 按钮上方预留一些间距
-
-        // 计算矩形高度
-        let rectHeight = buttonTopY - instructionBottomY;
-
-        // 计算矩形中心点
-        let rectCenterY = instructionBottomY + rectHeight / 2;
-
-        // 绘制矩形
-        rect(baseWidth / 2, rectCenterY, baseWidth, rectHeight);
 
         // 只有当所有动画完成后才更新和绘制教程步骤内容
         if (!this.titleAnimationActive && !this.textAnimationActive) {
