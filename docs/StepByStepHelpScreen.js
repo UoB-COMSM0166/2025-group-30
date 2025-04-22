@@ -69,10 +69,10 @@ class StepByStepHelpScreen extends Screen {
         this.title = "Tutorial";
 
         this.demoPlayer = new Player("middle");
-        this.demoPlayer.y = baseHeight / 3 * 2; // Position higher for visibility
+        this.demoPlayer.y = baseHeight - 150; // 调整到与实际游戏相同的高度
 
         this.demoBasket = new Basket("left");
-        this.demoBasket.y = baseHeight / 2;
+        this.demoBasket.y = baseHeight - this.demoBasket.h; // 使篮子底部与界面底部对齐
         this.demoPlayer.basket = this.demoBasket;
 
         // Tutorial steps
