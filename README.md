@@ -266,10 +266,10 @@ Group 30-2025 are the core developer of the game, responsible for its design, de
   - Competitive Players
 - **Lecturers**: The evaluators of the assignment, responsible for assessing the quality of the game and whether it meets course requirements
 
-### Competition Layer: Other Teams
+#### Competition Layer: Other Teams
 Other teams are competitors in the assignment, and their performance may influence the evaluation by lecturers and bystanders.
 
-### External Layer: Broader Audience
+#### External Layer: Broader Audience
 Bystanders are potential users who may not directly participate in the game but could be attracted to become new players.
 
 
@@ -307,37 +307,74 @@ In this case, we decided to simplify the design by:
 Originally, one of the key technical challenges was determining how to position irregularly shaped grass blocks in a physically accurate and visually satisfying way.
 With the new simplified plan, the focus shifts to how to perfectly and completely align square grass blocks on top of one another, which significantly reduces complexity while preserving core gameplay value.
 
-<p align="center"><strong>User Case Diagram</strong></p>
+### Use Case Breakdown
+
+After finalizing the requirements and completing the feasibility analysis, we proceeded with the use case explanation.Here is the use-case diagram.
+<p align="center"><strong>Use-Case Diagram</strong></p>
 
 <p align="center">
-  <img width="925" alt="Image" src="https://github.com/user-attachments/assets/1f5c1da4-c239-4662-898a-9b46e998b081" />
+  <img width="680" alt="Image" src="https://github.com/user-attachments/assets/94a3733e-0182-400e-b6be-4c40585cdcee" />
 </p>
 
-### 1. Players
-Players are the primary users of the game, interacting with the game system to achieve objectives.
 
-Main Use Cases:
-- Choose game mode: Select between single-player or multi-player mode
-- Play game: Control character movement, catch grass, and drop grass into the basket
-- Pause game: Pause the current game
+## 1. Players
 
-### 2. Developers
-Developers are responsible for maintaining and updating the game to ensure it runs smoothly.
+Players are the primary users of the game, directly interacting with the game system to progress through various levels, manage resources, and achieve in-game goals.
 
-Main Use Cases:
-- Debug game: Fix errors in the game
-- Update game: Add new features or optimize existing ones
-- Test game: Test the game to ensure stability
-- Monitor game: Monitor the game's performance to identify potential issues
+### Main Use Cases for Players:
 
-### 3. Game System
-Game system manages the core logic and state of the game.
+- **Choose game mode**  
+  Players select between:
+  - **Single-player mode**
+  - **Multi-player mode** (including **PvP mode** and **Co-op mode**)
 
-Main Functions:
-- Update score: Update the score when players drop grass into the basket
-- Decrease lives: Reduce lives when players fail
-- Level up: Increase game difficulty when players reach a certain score
-- Game over: End the game when lives reach zero
+- **Play game**  
+  Core gameplay activities include:
+  - **Move character**: Control the in-game avatar.
+  - **Catch grass**: Collect grass items within the game world.
+  - **Drop grass into the basket**: Deposit the collected grass, likely contributing to the player's score or progression.
+
+- **Pause game**  
+  Players can temporarily suspend the game session.
+
+- **Resume game**  
+  Players can continue the game after pausing.
+
+- **Start tutorial**  
+  An optional flow that allows players to learn game mechanics before engaging in the full game.
+
+- **View game over screen**  
+  Triggered when the player fails or completes the game, showing final results.
+
+---
+
+## 2. Game System
+
+The **Game System** manages the underlying logic, rules, and state transitions within the game. It ensures that player actions have consequences and that the game progresses according to its design.
+
+### Main Functions of the Game System:
+
+- **Update score**  
+  Increases the player's score when they successfully drop grass into the basket.
+
+- **Level up**  
+  Increases game difficulty or transitions the player to a higher level when specific conditions are met (e.g., reaching a target score).
+
+- **Game over**  
+  Ends the game session when the player's lives reach zero, triggering the **view game over screen**.
+
+---
+
+## Relationships (Use Case Diagram Specific)
+
+- **Includes (`<<include>>`)**:
+  - **Catch grass** is included in **Drop grass into the basket**.
+  - **PvP mode** and **Co-op mode** are included in **Multi-player mode**.
+  - **Restart from current level** and **Restart from level 1** are included in **Single-player mode**.
+
+- **Extends (`<<extend>>`)**:
+  - **View game over screen** extends **Play game** (only triggered when the game ends).
+
   
 ## Design
 
