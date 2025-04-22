@@ -88,24 +88,24 @@ To better understand and experience the game mechanics, we created paper prototy
 
 The following are our paper prototypes for Fireboy & Watergirl and Grass Catching.
 
-<div align="center">
-  <table style="width: 100%; border-collapse: collapse;">
-    <tr>
-      <td style="width: 50%; padding: 20px; border: 1px solid #ddd;">
-        <p style="text-align: center; margin-bottom: 10px;"><strong>Paper Prototype of Grass-Catching Game</strong></p>
-        <video src="https://github.com/user-attachments/assets/2bc9ad40-728b-4c61-b258-6c2530942f93"
-               controls
-               style="display: block; width: 100%; max-width: 600px; margin: 0 auto; border-radius: 8px;"></video>
-      </td>
-      <td style="width: 50%; padding: 20px; border: 1px solid #ddd;">
-        <p style="text-align: center; margin-bottom: 10px;"><strong>Paper Prototype of Fireboy & Watergirl Game</strong></p>
-        <video src="https://github.com/user-attachments/assets/15159520-670e-4dd5-a12c-df1f558a09c6"
-               controls
-               style="display: block; width: 100%; max-width: 600px; margin: 0 auto; border-radius: 8px;"></video>
-      </td>
-    </tr>
-  </table>
-</div>
+
+<p align="center">
+  <a href="https://youtu.be/6SfeQobZ4WU">
+    <img src="https://img.youtube.com/vi/6SfeQobZ4WU/0.jpg" alt="Grass-Catching Game Prototype" width="600">
+  </a>
+</p>
+
+<h3 align="center">Paper Prototype of Fireboy & Watergirl Game</h3>
+<p align="center">
+  🎮 <a href="https://youtu.be/9hA80qlHzBE">Watch Video Demo</a>
+</p>
+
+<p align="center">
+  <a href="https://youtu.be/9hA80qlHzBE">
+    <img src="https://img.youtube.com/vi/9hA80qlHzBE/0.jpg" alt="Fireboy & Watergirl Game Prototype" width="600">
+  </a>
+</p>
+
 
 ### Final Decision
 After multiple rounds of testing and team feedback, we ultimately selected Grass Catching as the core game for our project. This decision was based on several key factors: the gameplay mechanics are simple yet offer meaningful challenge, making the game easy to implement while allowing for depth through the addition of items, constraints, and variations.
