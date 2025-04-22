@@ -50,6 +50,51 @@ class Pvp extends Screen { // player with higher score in the set time wins
 
     // --- initialising the game state ---
 
+    findSafePosition(minDistance, side) {
+        let newX;
+        let isSafePosition;
+        let attempts = 0;
+        const maxAttempts = 10;
+
+        do {
+            // Determine x range based on side
+            if (side === 'left') {
+                newX = random(200, baseWidth / 2 - 100);
+            } else {
+                newX = random(baseWidth / 2, baseWidth - 100);
+            }
+
+            isSafePosition = true;
+
+            // Check distance from all existing grass on the same side
+            const grassArray = side === 'left' ? this.grass1 : this.grass2;
+            for (let grass of grassArray) {
+                if (abs(grass.x - newX) < minDistance) {
+                    isSafePosition = false;
+                    break;
+                }
+            }
+
+            // Check distance from all special items on the same side
+            const itemsArray = side === 'left' ? this.specialItems1 : this.specialItems2;
+            for (let item of itemsArray) {
+                if (abs(item.x - newX) < minDistance) {
+                    isSafePosition = false;
+                    break;
+                }
+            }
+
+            attempts++;
+            if (attempts >= maxAttempts) {
+                // If we can't find a safe position after max attempts, 
+                // just return the last generated position
+                return newX;
+            }
+        } while (!isSafePosition);
+
+        return newX;
+    }
+
     startGrassDrop() {
         if (this.grassDropInterval) clearInterval(this.grassDropInterval);
 
@@ -57,16 +102,16 @@ class Pvp extends Screen { // player with higher score in the set time wins
         this.grass2 = [];
 
         setTimeout(() => {
-            this.grass1.push(new Grass(random(200, baseWidth / 2 - 100), 10));
-            this.grass2.push(new Grass(random(baseWidth / 2, baseWidth - 100), 10));
+            this.grass1.push(new Grass(this.findSafePosition(100, 'left'), 10));
+            this.grass2.push(new Grass(this.findSafePosition(100, 'right'), 10));
 
             this.grassDropInterval = setInterval(() => {
                 if (this.screenManager.currentScreen === this) {
                     if (this.player1.flash.getFlashDuration() === 0) {
-                        this.grass1.push(new Grass(random(200, baseWidth / 2 - 100), 10));
+                        this.grass1.push(new Grass(this.findSafePosition(100, 'left'), 10));
                     }
                     if (this.player2.flash.getFlashDuration() === 0) {
-                        this.grass2.push(new Grass(random(baseWidth / 2, baseWidth - 100), 10));
+                        this.grass2.push(new Grass(this.findSafePosition(100, 'right'), 10));
                     }
                 }
             }, this.level.grassDropDelay);

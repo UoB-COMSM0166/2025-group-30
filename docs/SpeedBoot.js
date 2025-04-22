@@ -1,20 +1,20 @@
-class ProteinShaker extends SpecialItem {
-    static activeEffects = 0;  // Static counter for active effects
-
+class SpeedBoot extends SpecialItem {
     constructor(x, y) {
         super(x, y, 50, 50, 3);
-        this.boostDuration = 10000;  // 10 seconds duration
+        this.speedBoostMultiplier = 1.5;  // 50% speed increase
+        this.boostDuration = 5000;  // 5 seconds duration
         this.isBoosted = false;
+        this.maxBoostSpeed = 15;  // Maximum speed limit during boost
     }
 
     loadImage() {
-        this.image = loadImage('assets/protein-shaker.webp');
+        this.image = loadImage('assets/speed-boot.webp');
     }
 
-    createBurstEffect(x, y, game, player) {
+    createBurstEffect(x, y, game) {
         // Create burst particles
         for (let i = 0; i < 20; i++) {
-            const particle = new Particle(x, y, 'strength_burst');
+            const particle = new Particle(x, y, 'speed_burst');
             const angle = random(TWO_PI);
             const speed = random(3, 6);
 
@@ -23,14 +23,9 @@ class ProteinShaker extends SpecialItem {
             game.particles.push(particle);
         }
 
-        // Create strength boost text
-        const textParticle = new Particle(x, y - 30, 'strength_boost');
+        // Create speed boost text
+        const textParticle = new Particle(x, y - 30, 'speed_boost');
         game.particles.push(textParticle);
-
-        // Create additional text showing the new stack limit
-        const limitText = new Particle(x, y - 60, 'stack_limit');
-        limitText.text = `Unlimited Maximum Stack`;
-        game.particles.push(limitText);
     }
 
     applyEffect(player, game) {
@@ -38,17 +33,19 @@ class ProteinShaker extends SpecialItem {
         this.createBurstEffect(
             player.x + player.w / 2,
             player.y + player.h / 4 - player.stack.length * 40, // Adjusted to account for stack height
-            game,
-            player
+            game
         );
 
-        // Apply stack size boost and remove speed reduction
-        player.maxStack = 10;
-        player.speedReductionPerGrass = 0;  // No speed reduction during boost
-        this.isBoosted = true;
-        ProteinShaker.activeEffects++;  // Increment active effects counter
+        // Store original values
+        const originalVelocity = player.velocity;
+        const originalMaxSpeed = player.maxSpeed;
 
-        // Create strength trail particles
+        // Apply speed boost with limit
+        player.velocity *= this.speedBoostMultiplier;
+        player.maxSpeed = min(player.maxSpeed * this.speedBoostMultiplier, this.maxBoostSpeed);
+        this.isBoosted = true;
+
+        // Create speed trail particles
         const interval = setInterval(() => {
             if (this.isBoosted) {
                 // Create particles at player's position
@@ -59,7 +56,7 @@ class ProteinShaker extends SpecialItem {
                 const particleCount = player.dir !== 0 ? 5 : 2;
 
                 for (let i = 0; i < particleCount; i++) {
-                    const particle = new Particle(x, y, 'strength_trail');
+                    const particle = new Particle(x, y, 'speed_trail');
 
                     // Adjust particle properties based on movement direction
                     if (player.dir !== 0) {
@@ -70,12 +67,12 @@ class ProteinShaker extends SpecialItem {
                         particle.life = 20; // Shorter life for trail effect
                     }
 
-                    // Red-white color gradient based on movement
+                    // Blue-white color gradient based on speed
                     const speedFactor = abs(player.dir);
                     particle.color = color(
-                        255,  // More red
-                        200 - speedFactor * 50,  // Less white when moving faster
-                        200 - speedFactor * 50
+                        150 + speedFactor * 50,  // More blue when moving faster
+                        200 + speedFactor * 30,  // More white when moving faster
+                        255
                     );
 
                     game.particles.push(particle);
@@ -85,15 +82,9 @@ class ProteinShaker extends SpecialItem {
 
         // Reset values and stop particles after duration
         setTimeout(() => {
+            player.velocity = originalVelocity;
+            player.maxSpeed = originalMaxSpeed;
             this.isBoosted = false;
-            ProteinShaker.activeEffects--;  // Decrement active effects counter
-
-            // Only reset values if this was the last active effect
-            if (ProteinShaker.activeEffects === 0) {
-                player.maxStack = 5;
-                player.speedReductionPerGrass = 0.1;
-            }
-
             clearInterval(interval);
         }, this.boostDuration);
     }

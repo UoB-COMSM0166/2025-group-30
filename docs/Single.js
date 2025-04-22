@@ -18,11 +18,11 @@ class Single extends Screen {
         this.player.basket = this.basket;
 
         this.grass = []; //collection of falling grass
-        this.shovels = [];
+        this.specialItems = []; //collection of special items (shovels, protein shakers, etc.)
 
         this.grassDropInterval = null; //manage how often a grass drops
         this.levelTimerInterval = null; //manage how often the timer goes down i.e. 1 second        
-        this.shovelDropInterval = null;
+        this.specialItemDropInterval = null;
 
         this.particles = []; // Add particle array to handle the effects of perfect stack
     }
@@ -34,14 +34,14 @@ class Single extends Screen {
         if (this.screenManager.currentScreen === this) { //stop updating when paused
             this.player.movePlayerWithCaughtGrass();
             this.updateFallingGrass();
-            this.updateShovels();
+            this.updateSpecialItems();
             this.checkPerfectStack();
             this.updateParticles();
         }
         this.drawFallingGrass();
-        this.drawShovels();
-        this.player.drawPlayerWithCaughtGrass(); //show player with grass   
+        this.drawSpecialItems();
         this.drawParticles();
+        this.player.drawPlayerWithCaughtGrass(); //show player with grass   
 
         this.displayUI();
     }
@@ -58,13 +58,13 @@ class Single extends Screen {
 
         setTimeout(() => {
             if (this.grassDropInterval === null) {
-                let firstX = random(200, baseWidth - 100);
+                let firstX = this.findSafePosition(100);
                 this.grass.push(new Grass(firstX, 10));
 
                 this.grassDropInterval = setInterval(() => {
                     if (this.player.flash.getFlashDuration() === 0
                         && this.screenManager.currentScreen === this) {
-                        let newX = random(200, baseWidth - 100);
+                        let newX = this.findSafePosition(100);
                         this.grass.push(new Grass(newX, 10));
                     }
                 }, this.level.grassDropDelay);
@@ -79,29 +79,50 @@ class Single extends Screen {
         }
     }
 
-    startShovelDrop() {
-        if (this.level.level === 1) return; //shovels starts from level 2
-        if (this.shovelDropInterval) {
-            clearInterval(this.shovelDropInterval);
-            this.shovelDropInterval = null;
+    startSpecialItemDrop() {
+        //if (this.level.level === 1) return; //special items start from level 2
+        if (this.specialItemDropInterval) {
+            clearInterval(this.specialItemDropInterval);
+            this.specialItemDropInterval = null;
         }
 
-        this.shovels = []; //empty the shovel piles   
+        this.specialItems = []; //empty the special items array   
 
-        this.shovelDropInterval = setInterval(() => {
+        this.specialItemDropInterval = setInterval(() => {
             if (this.player.flash.getFlashDuration() === 0
                 && this.screenManager.currentScreen === this) {
-                let newX = random(200, baseWidth - 100);
-                this.shovels.push(new Shovel(newX, 10));
+
+                const minDistance = 100; // Minimum distance between grass and special items
+                const newX = this.findSafePosition(minDistance);
+
+                switch (this.level.level) {
+                    case 2:
+                        this.specialItems.push(new Shovel(newX, 10));
+                        break;
+                    case 3:
+                        this.specialItems.push(new SpeedBoot(newX, 10));
+                        break;
+                    case 4:
+                        this.specialItems.push(new ProteinShaker(newX, 10));
+                        break;
+                    case 5:
+                        //Randomly choose which special item to drop
+                        if (random() < 0.33) { // 33% chance for shovel
+                            this.specialItems.push(new Shovel(newX, 10));
+                        } else if (random() < 0.66) { // 33% chance for protein shaker
+                            this.specialItems.push(new ProteinShaker(newX, 10));
+                        } else { // 33% chance for speed boot
+                            this.specialItems.push(new SpeedBoot(newX, 10));
+                        }
+                }
             }
-        }, this.level.shovelDropDelay);
+        }, this.level.specialItemDropDelay);
     }
 
-
-    stopShovelDrop() {
-        if (this.shovelDropInterval) {
-            clearInterval(this.shovelDropInterval);
-            this.shovelDropInterval = null;
+    stopSpecialItemDrop() {
+        if (this.specialItemDropInterval) {
+            clearInterval(this.specialItemDropInterval);
+            this.specialItemDropInterval = null;
         }
     }
 
@@ -122,7 +143,6 @@ class Single extends Screen {
 
     checkPerfectStack() {
         if (this.player.checkPerfectStack()) {
-            console.log("Perfect stack");
             this.level.addTime(2);
             this.createPerfectStackEffects();
         }
@@ -139,11 +159,11 @@ class Single extends Screen {
             this.particles.push(new Particle(x, y, 'sparkle'));
         }
 
-        // Create "Perfect Stack!" text
-        this.particles.push(new Particle(x, y - 30, 'text'));
+        // Create "Perfect Stack!" text 
+        this.particles.push(new Particle(x, y - 30, 'perfect_stack'));
 
         // Create "+2s" bonus text
-        this.particles.push(new Particle(x, y - 60, 'bonus'));
+        this.particles.push(new Particle(x, y - 60, 'bonus_time'));
     }
 
     drawFallingGrass() { //draw the grass
@@ -152,28 +172,27 @@ class Single extends Screen {
         }
     }
 
-    updateShovels() {
-        if (this.level.level === 1) {
-            return;
-        }
-        for (let i = this.shovels.length - 1; i >= 0; i--) {
-            const currentShovel = this.shovels[i];
+    updateSpecialItems() {
+        //if (this.level.level === 1) {
+        //     return;
+        // }
+        for (let i = this.specialItems.length - 1; i >= 0; i--) {
+            const currentItem = this.specialItems[i];
             if (this.player.flash.getFlashDuration() === 0) {
-                currentShovel.fall();
-            } //stop shovel fall if flashing is on or game is paused    
+                currentItem.fall();
+            } //stop item fall if flashing is on or game is paused    
 
-            if (currentShovel.hits(this.player)) {
-                this.player.stack = []; //empty the stack
-                this.player.flash.setFlashDuration(30); //trigger flash immediately
-                this.shovels.splice(i, 1);
-            } else if (currentShovel.isOffscreen()) {
-                this.shovels.splice(i, 1);
+            if (currentItem.hits(this.player)) {
+                currentItem.applyEffect(this.player, this);
+                this.specialItems.splice(i, 1);
+            } else if (currentItem.isOffscreen()) {
+                this.specialItems.splice(i, 1);
             }
         }
     }
 
-    drawShovels() {
-        this.shovels.forEach(shovel => shovel.draw());
+    drawSpecialItems() {
+        this.specialItems.forEach(item => item.draw());
     }
 
     updateParticles() {
@@ -199,7 +218,7 @@ class Single extends Screen {
             else { //check when times run out
                 this.stopGrassDrop();
                 this.stopLevelTimer();
-                this.stopShovelDrop();
+                this.stopSpecialItemDrop();
                 if (this.player.score >= this.level.targetScores) {
                     this.screenManager.changeScreen(this.levelSuccessScreen); //move up a level    
                 } else {
@@ -220,10 +239,10 @@ class Single extends Screen {
         this.player.reset();
         this.level.resetTimeLeft();
         this.grass = [];
-        this.shovels = [];
+        this.specialItems = [];
         this.particles = []; // Clear particles
         this.stopGrassDrop();
-        this.stopShovelDrop();
+        this.stopSpecialItemDrop();
         this.stopLevelTimer();
     }
 
@@ -235,7 +254,7 @@ class Single extends Screen {
     restartFromCurrentLevel() { // restart from the current level
         this.clearStats();
         this.startGrassDrop();
-        this.startShovelDrop();
+        this.startSpecialItemDrop();
         this.startLevelTimer();
     }
 
@@ -278,5 +297,42 @@ class Single extends Screen {
 
     loadBackgroundImage() {
         this.backgroundImage = loadImage("assets/barn.webp");
+    }
+
+    findSafePosition(minDistance) {
+        let newX;
+        let isSafePosition;
+        let attempts = 0;
+        const maxAttempts = 10;
+
+        do {
+            newX = random(200, baseWidth - 100);
+            isSafePosition = true;
+
+            // Check distance from all existing grass
+            for (let grass of this.grass) {
+                if (abs(grass.x - newX) < minDistance) {
+                    isSafePosition = false;
+                    break;
+                }
+            }
+
+            // Check distance from all special items
+            for (let item of this.specialItems) {
+                if (abs(item.x - newX) < minDistance) {
+                    isSafePosition = false;
+                    break;
+                }
+            }
+
+            attempts++;
+            if (attempts >= maxAttempts) {
+                // If we can't find a safe position after max attempts, 
+                // just return the last generated position
+                return newX;
+            }
+        } while (!isSafePosition);
+
+        return newX;
     }
 }

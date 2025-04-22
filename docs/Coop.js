@@ -53,6 +53,43 @@ class Coop extends Screen {
 
     // --- initialising the game state ---
 
+    findSafePosition(minDistance) {
+        let newX;
+        let isSafePosition;
+        let attempts = 0;
+        const maxAttempts = 10;
+
+        do {
+            newX = random(200, baseWidth - 100);
+            isSafePosition = true;
+
+            // Check distance from all existing grass
+            for (let grass of this.grass) {
+                if (abs(grass.x - newX) < minDistance) {
+                    isSafePosition = false;
+                    break;
+                }
+            }
+
+            // Check distance from all special items
+            for (let item of this.specialItems) {
+                if (abs(item.x - newX) < minDistance) {
+                    isSafePosition = false;
+                    break;
+                }
+            }
+
+            attempts++;
+            if (attempts >= maxAttempts) {
+                // If we can't find a safe position after max attempts, 
+                // just return the last generated position
+                return newX;
+            }
+        } while (!isSafePosition);
+
+        return newX;
+    }
+
     startGrassDrop() {
         if (this.grassDropInterval) {
             clearInterval(this.grassDropInterval);
@@ -63,14 +100,14 @@ class Coop extends Screen {
 
         setTimeout(() => {
             if (this.grassDropInterval === null) {
-                let firstX = random(200, baseWidth - 100);
+                let firstX = this.findSafePosition(100);
                 this.grass.push(new Grass(firstX, 10));
 
                 this.grassDropInterval = setInterval(() => {
                     if ((this.player1.flash.getFlashDuration() === 0 ||
                         this.player2.flash.getFlashDuration() === 0) &&
                         this.screenManager.currentScreen === this) {
-                        let newX = random(200, baseWidth - 100);
+                        let newX = this.findSafePosition(100);
                         this.grass.push(new Grass(newX, 10));
                     }
                 }, this.level.grassDropDelay);
