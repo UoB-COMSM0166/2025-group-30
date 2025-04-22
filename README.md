@@ -45,11 +45,11 @@ Include a demo video of your game here (you don't have to wait until the end, yo
 ## Introduction
 
 
-Our game is a casual stacking challenge inspired by a classic mini-game from the popular title *Mole Manor*. Drawing from its gameplay, we set the game’s backdrop during the harvest season on a farm. Players must control their character’s left and right movements to catch falling haystacks and place them into a basket within a limited time in order to reach the collection goal and advance to the next level.
+Our game is a casual stacking challenge inspired by a classic mini-game from the popular title *Mole Manor*. Drawing from its gameplay, we set the game's backdrop during the harvest season on a farm. Players must control their character's left and right movements to catch falling haystacks and place them into a basket within a limited time in order to reach the collection goal and advance to the next level.
 
-To increase the game’s difficulty and reflect real-world limitations on how much a person can carry, each player can catch a maximum of five haystacks at a time. If this limit is exceeded, the character will stumble and drop all collected hay. This mechanic not only adds tension but also introduces strategic decision-making—players must carefully balance between collecting more hay and emptying their basket in time.
+To increase the game's difficulty and reflect real-world limitations on how much a person can carry, each player can catch a maximum of five haystacks at a time. If this limit is exceeded, the character will stumble and drop all collected hay. This mechanic not only adds tension but also introduces strategic decision-making—players must carefully balance between collecting more hay and emptying their basket in time.
 
-As hay accumulates, the character’s movement speed gradually slows down, requiring players to choose the right moment to clear their collection bucket and maintain agility. Building on the original gameplay, the game introduces more challenging elements: in single-player mode, players must dodge falling shovels and buckets while collecting stars for extra lives. In two-player mode, players can either collaborate to achieve a shared goal or compete to see who finishes first. These design features enrich the gameplay and deliver a fun, fast-paced, yet relaxing farm harvest experience.
+As hay accumulates, the character's movement speed gradually slows down, requiring players to choose the right moment to clear their collection bucket and maintain agility. Building on the original gameplay, the game introduces more challenging elements: in single-player mode, players must dodge falling shovels and buckets while collecting stars for extra lives. In two-player mode, players can either collaborate to achieve a shared goal or compete to see who finishes first. These design features enrich the gameplay and deliver a fun, fast-paced, yet relaxing farm harvest experience.
 
 The following table shows the main elements of the game:
 #### Table 1: Game Elements
@@ -84,26 +84,29 @@ The table below summarizes our findings. For each game, we described its core co
 
 As part of our game development planning, our team initially brainstormed and analyzed five different game inspirations. After careful discussion and evaluation, we shortlisted two candidates for prototyping:Fireboy & Watergirl and Grass Catching.
 
-To better understand and experience the game mechanics, we created paper prototypes for both games. By interacting with the prototypes directly, we were able to simulate the core gameplay and interaction flow, design basic maps and character movement paths, observe players’ intuitive understanding and reactions, and evaluate whether the gameplay was engaging and expandable.
+To better understand and experience the game mechanics, we created paper prototypes for both games. By interacting with the prototypes directly, we were able to simulate the core gameplay and interaction flow, design basic maps and character movement paths, observe players' intuitive understanding and reactions, and evaluate whether the gameplay was engaging and expandable.
 
 The following are our paper prototypes for Fireboy & Watergirl and Grass Catching.
 
-<div style="display: flex; justify-content: center; gap: 30px;">
-
-  <div style="text-align: center;">
-    <strong>Paper Prototype of Grass-Catching Game</strong><br>
-    <video src="https://github.com/user-attachments/assets/2bc9ad40-728b-4c61-b258-6c2530942f93"
-           controls
-           style="width: 360px; height: 240px; object-fit: cover; background: black;"></video>
-  </div>
-
-  <div style="text-align: center;">
-    <strong>Paper Prototype of Fireboy & Watergirl Game</strong><br>
-    <video src="https://github.com/user-attachments/assets/15159520-670e-4dd5-a12c-df1f558a09c6"
-           controls
-           style="width: 360px; height: 240px; object-fit: cover; background: black;"></video>
-  </div>
-
+<div align="center">
+  <table>
+    <tr>
+      <th><strong>Paper Prototype of Grass-Catching Game</strong></th>
+      <th><strong>Paper Prototype of Fireboy & Watergirl Game</strong></th>
+    </tr>
+    <tr>
+      <td>
+        <video src="https://github.com/user-attachments/assets/2bc9ad40-728b-4c61-b258-6c2530942f93"
+               controls
+               style="width: 360px; height: 240px; object-fit: cover;"></video>
+      </td>
+      <td>
+        <video src="https://github.com/user-attachments/assets/15159520-670e-4dd5-a12c-df1f558a09c6"
+               controls
+               style="width: 360px; height: 240px; object-fit: cover;"></video>
+      </td>
+    </tr>
+  </table>
 </div>
 
 ### Final Decision
@@ -183,7 +186,7 @@ In the later development phase, we further refined and expanded these user stori
 <tr>
   <td>Hardcore Player</td>
   <td>Character Progression</td>
-  <td>As a hardcore player, I want to upgrade my character’s equipment so that I can compete at higher difficulty levels.</td>
+  <td>As a hardcore player, I want to upgrade my character's equipment so that I can compete at higher difficulty levels.</td>
   <td>Given I have in-game currency or rewards, when I visit the store, then I should be able to buy gear to enhance my character.</td>
 </tr>
 <tr>
@@ -315,7 +318,7 @@ Main Functions:
 ## Evaluation
 To ensure a balance between functionality and usability during the game development process, we chose to combine both qualitative and quantitative evaluation methods. Qualitative analysis helped us identify issues within the game, while quantitative evaluation provided insights into user perceptions, guiding us to iteratively improve the design.
 ### Qualitative Evaluation - Heuristic Evaluation
- For the qualitative method, we adopted Heuristic Evaluation, a practical and widely used approach that examines the interface based on Nielsen’s ten usability principles. By systematically reviewing each screen of our game, we identified several usability issues, including unclear navigation flow, inconsistent system feedback, limited user control, and lack of clarity in competitive scoring. Each issue was evaluated across three dimensions—Frequency, Impact, and Persistence—to calculate a severity score and prioritize the most critical problems.The results are shown in the following table:
+ For the qualitative method, we adopted Heuristic Evaluation, a practical and widely used approach that examines the interface based on Nielsen's ten usability principles. By systematically reviewing each screen of our game, we identified several usability issues, including unclear navigation flow, inconsistent system feedback, limited user control, and lack of clarity in competitive scoring. Each issue was evaluated across three dimensions—Frequency, Impact, and Persistence—to calculate a severity score and prioritize the most critical problems.The results are shown in the following table:
 #### Heuristic Evaluation Table
 <table>
   <tr>
@@ -423,13 +426,13 @@ In this project, our team adopted the **Scrum** framework, a core methodology in
 
 ### 🗂 Project Management and Task Allocation
 
-We used **GitHub’s Kanban Board** to visualize project tasks and track progress. Each week, based on the course schedule, we set **Sprint goals** and assigned tasks to team members. Tasks were categorized into three stages:
+We used **GitHub's Kanban Board** to visualize project tasks and track progress. Each week, based on the course schedule, we set **Sprint goals** and assigned tasks to team members. Tasks were categorized into three stages:
 
 - 🟡 **To Do**
 - 🔵 **In Progress**
 - 🟢 **Done**
 
-Responsibilities such as asset creation, audio collection, and documentation were distributed organically among team members, reflecting our self-organizing working style. This helped us clearly monitor each task’s status and streamline our workflow.
+Responsibilities such as asset creation, audio collection, and documentation were distributed organically among team members, reflecting our self-organizing working style. This helped us clearly monitor each task's status and streamline our workflow.
 
 ---
 
