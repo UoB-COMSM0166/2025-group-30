@@ -31,6 +31,7 @@ class Player {
 
         this.speedBoot = null;
         this.proteinShaker = null;
+
     }
 
     reset() {
@@ -45,6 +46,9 @@ class Player {
 
         this.stack = [];
         this.flash.setFlashDuration(0);
+
+        this.speedBoot = null;
+        this.proteinShaker = null;
     }
 
     movePlayerWithCaughtGrass() {

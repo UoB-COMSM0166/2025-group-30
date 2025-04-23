@@ -64,16 +64,4 @@ class AccomplishScreen extends Screen {
             text(button.label, button.x, button.y);
         }
     }
-
-    mousePressed() {
-        for (let button of this.buttons) {
-            if (window.mouseXGame >= button.x - button.buttonWidth / 2
-                && window.mouseXGame <= button.x + button.buttonWidth / 2
-                && window.mouseYGame >= button.y - button.buttonHeight / 2
-                && window.mouseYGame <= button.y + button.buttonHeight / 2) {
-                button.action();
-                break;
-            }
-        }
-    }
 } 
