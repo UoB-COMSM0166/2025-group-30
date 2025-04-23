@@ -31,14 +31,14 @@ Include a demo video of your game here (you don't have to wait until the end, yo
 
 <div align="center">
 
-| Name | Email | GitHub username |
-|------------|------------------------------------|----------------|
-| Lingchen Li | [yf24777@bristol.ac.uk](mailto:yf24777@bristol.ac.uk) | lingchen2333 |
-| Lei Gao | [yt24392@bristol.ac.uk](mailto:yt24392@bristol.ac.uk) | Muilka |
-| Hanying Bian | [oo24343@bristol.ac.uk](mailto:oo24343@bristol.ac.uk) | Hanying-Bian |
-| Shiyu Dou | [hl24597@bristol.ac.uk](mailto:hl24597@bristol.ac.uk) | hl24597 |
-| Zhuoyan Qiu | [rp24358@bristol.ac.uk](mailto:rp24358@bristol.ac.uk) | 1003-qzy |
-| Liyang Li | [gq24742@bristol.ac.uk](mailto:gq24742@bristol.ac.uk) | Misaki-1 |
+| Name         | Email                                                 | GitHub username |
+| ------------ | ----------------------------------------------------- | --------------- |
+| Lingchen Li  | [yf24777@bristol.ac.uk](mailto:yf24777@bristol.ac.uk) | lingchen2333    |
+| Lei Gao      | [yt24392@bristol.ac.uk](mailto:yt24392@bristol.ac.uk) | Muilka          |
+| Hanying Bian | [oo24343@bristol.ac.uk](mailto:oo24343@bristol.ac.uk) | Hanying-Bian    |
+| Shiyu Dou    | [hl24597@bristol.ac.uk](mailto:hl24597@bristol.ac.uk) | hl24597         |
+| Zhuoyan Qiu  | [rp24358@bristol.ac.uk](mailto:rp24358@bristol.ac.uk) | 1003-qzy        |
+| Liyang Li    | [gq24742@bristol.ac.uk](mailto:gq24742@bristol.ac.uk) | Misaki-1        |
 
 </div>
 
@@ -53,11 +53,11 @@ As hay accumulates, the character’s movement speed gradually slows down, requi
 
 The following table shows the main elements of the game:
 #### Table 1: Game Elements
-| Category  | Image  | Description  |
-|-----------|--------|--------------|
-| **Player & lifting basket** | <img src="docs/assets/player1.webp" width="50" style="vertical-align: middle;"> | The character controlled by the player, moving left and right to catch falling hay. |
-| **collection Basket** | <img src="docs/assets/basket.webp" width="50" style="vertical-align: middle;"> | A secondary basket used for catching hay before transferring it to the main collection basket. |
-| **Falling Hay** | <img src="docs/assets/hay.webp" width="50" style="vertical-align: middle;"> | The hay stacks that fall from the sky. Players must catch them efficiently to reach the target before time runs out. |
+| Category                    | Image                                                                           | Description                                                                                                          |
+| --------------------------- | ------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| **Player & lifting basket** | <img src="docs/assets/player1.webp" width="50" style="vertical-align: middle;"> | The character controlled by the player, moving left and right to catch falling hay.                                  |
+| **collection Basket**       | <img src="docs/assets/basket.webp" width="50" style="vertical-align: middle;">  | A secondary basket used for catching hay before transferring it to the main collection basket.                       |
+| **Falling Hay**             | <img src="docs/assets/hay.webp" width="50" style="vertical-align: middle;">     | The hay stacks that fall from the sky. Players must catch them efficiently to reach the target before time runs out. |
 
 - 5% ~250 words 
 - Describe your game, what is based on, what makes it novel? 
@@ -72,13 +72,13 @@ As part of our early ideation process, our team participated in a collaborative 
 
 The table below summarizes our findings. For each game, we described its core concept and proposed potential extensions or twists to make the gameplay more unique, engaging, or suitable for different audiences and platforms.
 
-| Game Genre             | Game Inspiration      | Game Description                                                                                                                             | Creative Expansion Ideas                                                                                                                           |
-|------------------------|------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
-| Puzzle Game            | Car Park Puzzle        | A logic-based game where players must move surrounding vehicles forward or backward to clear a path for their own car to exit the parking lot. | - Dynamically generate car layouts based on difficulty <br> - Add cars facing different directions <br> - Bus station mode: match passengers with buses <br> - Real-world elements like crosswalks, truck unloading zones |
-| Cooperative Puzzle Platformer | Fireboy & Watergirl | Two players work together to navigate levels by controlling Fireboy and Watergirl, each immune to their respective element. Touching the wrong element or falling results in failure. | - New elements like electricity/ice/wind <br> - Attribute swapping mechanics <br> - Time-limited challenges and multiple endings <br> - Unlockable skills and collectibles |
-| Casual Reaction Game   | Flappy Bird            | Players tap to keep a bird in the air and avoid pipes. Each successful pass earns one point. The game restarts upon failure.                   | - Moving or rotating obstacles <br> - Power-up system: shields, speed boosts <br> - Multiplayer co-op or versus mode <br> - Timed bonus collection mode |
-| Multiplayer Cooperative Puzzle | Pico Park             | Players collect keys and open gates while navigating obstacles together. Movement is limited to up, down, left, and right. Supports 2–8 players. | - Random events triggered by pressure plates <br> - Fog to limit visibility <br> - Assign unique skills to each player (fly, climb, lift) <br> - Add immersive story mode |
-| Strategy + Reflex Mini Game | Grass Catching         | Players catch falling grass. The more they collect, the slower they move, increasing challenge and requiring strategic movement and timing.    | - Cooperative or versus mode <br> - Special grass types (e.g. poison, explosive) <br> - Weather effects influencing falling patterns <br> - Speed boost or weight-reducing power-ups |
+| Game Genre                     | Game Inspiration    | Game Description                                                                                                                                                                      | Creative Expansion Ideas                                                                                                                                                                                                  |
+| ------------------------------ | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Puzzle Game                    | Car Park Puzzle     | A logic-based game where players must move surrounding vehicles forward or backward to clear a path for their own car to exit the parking lot.                                        | - Dynamically generate car layouts based on difficulty <br> - Add cars facing different directions <br> - Bus station mode: match passengers with buses <br> - Real-world elements like crosswalks, truck unloading zones |
+| Cooperative Puzzle Platformer  | Fireboy & Watergirl | Two players work together to navigate levels by controlling Fireboy and Watergirl, each immune to their respective element. Touching the wrong element or falling results in failure. | - New elements like electricity/ice/wind <br> - Attribute swapping mechanics <br> - Time-limited challenges and multiple endings <br> - Unlockable skills and collectibles                                                |
+| Casual Reaction Game           | Flappy Bird         | Players tap to keep a bird in the air and avoid pipes. Each successful pass earns one point. The game restarts upon failure.                                                          | - Moving or rotating obstacles <br> - Power-up system: shields, speed boosts <br> - Multiplayer co-op or versus mode <br> - Timed bonus collection mode                                                                   |
+| Multiplayer Cooperative Puzzle | Pico Park           | Players collect keys and open gates while navigating obstacles together. Movement is limited to up, down, left, and right. Supports 2–8 players.                                      | - Random events triggered by pressure plates <br> - Fog to limit visibility <br> - Assign unique skills to each player (fly, climb, lift) <br> - Add immersive story mode                                                 |
+| Strategy + Reflex Mini Game    | Grass Catching      | Players catch falling grass. The more they collect, the slower they move, increasing challenge and requiring strategic movement and timing.                                           | - Cooperative or versus mode <br> - Special grass types (e.g. poison, explosive) <br> - Weather effects influencing falling patterns <br> - Speed boost or weight-reducing power-ups                                      |
 
 #### Game Delection Process
 
@@ -387,6 +387,13 @@ The **Game System** manages the underlying logic, rules, and state transitions w
 
 - Describe implementation of your game, in particular highlighting the three areas of challenge in developing your game. 
 
+### Challenges
+A key gameplay mechanic in Haystacking involves dropping haystacks and other items (e.g., shovels, speed boot) at regular intervals. To implement this, we initially used `setInterval()` function to call object drop every few seconds.
+
+However, we ran into a timing issue when implementing pause and resume functionality. If the player paused and resumed the game multiple times, objects would begin dropping too frequently — sometimes multiple items would fall at once. After debugging, we realized that every time the game was resumed, a new interval was being created without clearing the previous one, leading to multiple concurrent timers calling object drop.
+
+To solve this, we updated the code to ensure that only one interval exists at any time. We used `clearInterval()` and set the reference to null before starting a new interval, which added a guard to prevent multiple intervals from stacking. This change allowed us to reliably manage the start and stop behavior of the object drops. It also made the codebase more maintainable and predictable when adding new features related to item timing or difficulty scaling.
+
 ## Evaluation
 To ensure a balance between functionality and usability during the game development process, we chose to combine both qualitative and quantitative evaluation methods. Qualitative analysis helped us identify issues within the game, while quantitative evaluation provided insights into user perceptions, guiding us to iteratively improve the design.
 ### Qualitative Evaluation - Heuristic Evaluation
@@ -650,14 +657,14 @@ By combining **Scrum methodology**, **Kanban-based task tracking**, and **freque
 - Reflect on project as a whole. Lessons learned. Reflect on challenges. Future work. 
 
 ## Contribution Statement
-| Name |Contribution |
-|------------|----------|
-| Lingchen Li |  |
-| Lei Gao |  |
-| Hanying Bian |  |
-| Shiyu Dou |  |
-| Zhuoyan Qiu |  |
-| Liyang Li |  |
+| Name         | Contribution |
+| ------------ | ------------ |
+| Lingchen Li  |              |
+| Lei Gao      |              |
+| Hanying Bian |              |
+| Shiyu Dou    |              |
+| Zhuoyan Qiu  |              |
+| Liyang Li    |              |
 
 - Provide a table of everyone's contribution, which may be used to weight individual grades. We expect that the contribution will be split evenly across team-members in most cases. Let us know as soon as possible if there are any issues with teamwork as soon as they are apparent. 
 
