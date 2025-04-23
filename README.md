@@ -489,6 +489,95 @@ The results of the Wilcoxon Signed-Rank Test for the System Usability Scale (SUS
 
 ## Sustainability
 
+### Introducing Green Software Design Principles
+
+In today's digital era where environmental awareness and technological advancement go hand in hand, software is not only expected to deliver functionality, but also to operate sustainably. As high-frequency and long-session digital media, games involve complex graphics rendering, logical processing, and user-driven interactions—all of which contribute to device energy consumption and environmental impact.
+
+To align with green software development, we referenced the Green Software Patterns proposed by the Green Software Foundation. These patterns guide the development process from multiple angles—such as performance, resource efficiency, user behavior, and architectural structure—to achieve sustainable and energy-efficient game design.
+
+### Identifying Green Logic Chains from Real-World Issues
+
+During the early discussion phase of our project, we analyzed key sustainability challenges based on the operational characteristics of our game. These challenges span multiple dimensions:
+
+Excessive graphics rendering causes overheating and power drain.
+
+Multiplayer experiences require multiple devices, resulting in low hardware utilization.
+
+Repetitive asset design leads to resource waste and maintenance overhead.
+
+Lack of modular structure increases redundant code and reduces energy efficiency.
+
+Building upon these identified issues, we abstracted green logic chains based on green design principles and integrated them into our game development workflow.
+
+### Green Logic Chains and Deductive Paths
+
+- UI and Visual Design
+
+Keywords: Graphics load, rendering efficiency, minimal visual complexityProblem Source: Complex visuals and frequent animations overload the GPU/CPUDeduction Logic: Reduce visual complexity → Lower image processing → Save energyImplementation:
+Use pixel-style, low-resolution assets
+Keep sessions short and load only necessary assets using lazy loading
+Avoid complex animations and optimize render rate
+
+- Asset Reuse
+
+Keywords: Repetitive content, resource redundancy, storage overheadProblem Source: Designing new assets for each level leads to wasteDeduction Logic: Modularize assets → Enable reuse → Reduce development and loading costImplementation:
+Reuse grass, barrels, and character sprites across levels
+Manage assets uniformly to reduce redundant storage and image loading cost
+
+- Shared Optimization
+
+Keywords: Device burden, social interaction, shared hardwareProblem Source: Multiplayer play demands multiple devicesDeduction Logic: Support same-device multiplayer → Improve utilization → Reduce hardware energy useImplementation:
+Enable two-player collaboration and turn-based modes
+Encourage all gameplay to occur on a single shared device
+
+- Code Optimization
+
+Keywords: Structural redundancy, execution efficiency, maintainabilityProblem Source: Mixed logic and redundant structures lead to low system efficiencyDeduction Logic: Modular structure → Reduce repetition → Improve performance and lower energy useImplementation:
+Clearly divided functions like dropGrass() and checkCatch()
+Decoupled structure to avoid unnecessary refreshes or duplicate checks
+
+### Visualization of Sustainability Impact Pathways
+
+To better visualize the sustainability logic in Hay-stacking, we mapped our design decisions to the five dimensions of the SusAF model—Individual, Social, Technical, Environmental, and Economic—following the Immediate → Enabling → Structural logic. Each design pattern contributes not only to immediate efficiency, but also to long-term structural sustainability.
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/dcf6ef86-3c7f-488f-917f-530946ea2709" width="600">
+</p>
+
+
+As shown in the figure:
+
+In the technical dimension, resource redundancy is reduced through asset compression, streamlined logic structures, and modular code.
+
+In the environmental dimension, low-resolution graphics and lazy loading effectively lower rendering energy consumption.
+
+In the economic dimension, asset reuse and shared device usage reduce development and maintenance costs.
+
+In the social dimension, cooperative mechanics and fair-play systems enhance user interaction and resource sharing.
+
+In the individual dimension, short session design and low-pressure gameplay help players establish healthy usage patterns.
+
+### Sustainability Implementation via SusAF Dimensions
+
+Throughout the design and development of this game, we adopted several green software engineering strategies focused on three core goals: reducing resource consumption, increasing device utilization, and minimizing environmental impact. These approaches align with the five dimensions of the Sustainability Awareness Framework (SusAF)—environmental, technical, economic, individual, and social—and incorporate best practices from the Green Software Foundation Patterns.
+
+- Energy-efficient UI and system design (Environmental + Technical)
+
+The game features a minimalist pixel-art style and low-resolution assets, significantly reducing GPU rendering demands. By simplifying animations and offering short-session gameplay with lazy-loading techniques, we limit CPU and memory usage during runtime. These decisions contribute to lower energy consumption and extended device lifespan, aligning with the Demand Shaping and Green Hosting patterns.
+
+- Shared device and multiplayer optimization (Social + Economic)
+We support local two-player modes—either co-op or alternating turns—allowing multiple users to share a single device. This reduces the need for additional hardware purchases and enhances the usage rate of existing devices, thereby decreasing e-waste. The approach reflects the Substitution and Behaviour Change principles in promoting sustainable patterns of production and consumption.
+
+- Reusable assets across levels (Technical + Environmental)
+Common assets—such as grass blocks, barrels, and character models—are reused across multiple levels, avoiding redundant design work and reducing digital resource overhead. This follows the Material Optimization pattern, lowering both development and storage costs, and reducing the carbon footprint associated with asset creation and management.
+
+- Modular and clean code structure (Technical + Economic)
+The game logic is divided into clear, maintainable modules with optimized, lightweight code. This ensures efficient resource use, improves responsiveness, and simplifies long-term maintenance and scalability. These practices reflect the principles of Sustainable Software Architecture, contributing to both system efficiency and development cost reduction.
+Through these sustainability practices, our game actively addresses the environmental and technical challenges of software engineering. These efforts not only reduce the environmental burden of the product but also enhance the overall efficiency, maintainability, and user experience of the system.
+
+### Conclusion
+
+By following a structured path of problem identification → pattern matching → logic deduction → implementation, our development of Hay-stacking embedded green design at every level. This not only improved system performance but also reduced environmental impact and promoted sustainable awareness among players. The approach provides a reproducible model for future green game design and sustainable software engineering.
 
 ## Process
 
