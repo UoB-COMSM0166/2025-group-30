@@ -6,7 +6,6 @@ class Coop extends GameScreen {
         this.levelSuccessScreen = new LevelSuccessScreen(this.screenManager, this);
         this.targetScoreScreen = new TargetScoreScreen(this.screenManager, this);
         this.accomplishScreen = new AccomplishScreen(this.screenManager, this);
-
         this.player1 = new Player("left");
         this.player2 = new Player("right");
         this.basket = new Basket("left");
@@ -92,13 +91,15 @@ class Coop extends GameScreen {
                         // 铲子独立掉落
                         if (random() < 0.5) { // 50% 概率掉铲子
                             this.specialItems.push(new Shovel(newX, 10));
+                        } else {
+                            // 另外两种物品随机掉
+                            if (random() < 0.5) { // 50% 概率掉蛋白粉
+                                this.specialItems.push(new ProteinShaker(newX + 50, 10));
+                            } else { // 50% 概率掉速度靴
+                                this.specialItems.push(new SpeedBoot(newX + 50, 10));
+                            }
                         }
-                        // 另外两种物品随机掉
-                        if (random() < 0.5) { // 50% 概率掉蛋白粉
-                            this.specialItems.push(new ProteinShaker(newX + 50, 10));
-                        } else { // 50% 概率掉速度靴
-                            this.specialItems.push(new SpeedBoot(newX + 50, 10));
-                        }
+
                 }
             }
         }, this.level.specialItemDropDelay);
@@ -221,11 +222,11 @@ class Coop extends GameScreen {
 
     //--- Move to next level ---
     startNextLevel() {
+        this.clearStats();
         if (this.level.level >= 5) {
             this.screenManager.changeScreen(this.accomplishScreen);
         } else {
             this.level.startNextLevel();
-            this.clearStats();
             this.screenManager.changeScreen(this.targetScoreScreen);
         }
     }

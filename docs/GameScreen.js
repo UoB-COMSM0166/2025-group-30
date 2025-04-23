@@ -94,11 +94,6 @@ class GameScreen extends Screen {
             } //stop shovel fall if flashing is on or game is paused    
 
             if (currentItem.hits(player)) {
-                if (currentItem instanceof SpeedBoot) {
-                    player.speedBoot = currentItem;
-                } else if (currentItem instanceof ProteinShaker) {
-                    player.proteinShaker = currentItem;
-                }
                 currentItem.applyEffect(player, this);
                 specialItemsArray.splice(i, 1);
             } else if (currentItem.isOffscreen()) {
@@ -199,8 +194,7 @@ class GameScreen extends Screen {
         noStroke();
         textStyle(NORMAL);
 
-        // 只在游戏进行中显示特殊物品计时
-        if (this.screenManager.currentScreen === this && this.level.timeLeft > 0) {
+        if (this.level.timeLeft > 0) {
             // Display special item timers for each player
             if (this.player) {
                 this.displaySpecialItemTimers(this.player);
@@ -267,24 +261,27 @@ class GameScreen extends Screen {
 
     displaySpecialItemTimers(player) {
         // 只在有速度buff时显示
-        if (player.speedBoot && player.speedBoot.isBoosted) {
-            const remainingTime = player.speedBoot.getRemainingTime();
+        if (player.speedBoot) {
+            const remainingTime = player.speedBoot.timeLeft;
             if (remainingTime > 0) {
-                fill(0, 200, 255); // 蓝色
+                push();
                 textSize(20);
-                textAlign(CENTER);
-                text(`${remainingTime.toFixed(1)}s`, player.basket.x+player.basket.w, player.basket.y + 20);
+                textAlign(LEFT);
+                text(`Speed boost: ${remainingTime.toFixed(0)}s`, 20, 60);
+                pop();
             }
         }
 
         // 只在有力量buff时显示
-        if (player.proteinShaker && player.proteinShaker.isBoosted) {
-            const remainingTime = player.proteinShaker.getRemainingTime();
+        if (player.proteinShaker) {
+            const remainingTime = player.proteinShaker.timeLeft;
             if (remainingTime > 0) {
-                fill(255, 0, 0); // 红色
+                push();
+                fill(255);
                 textSize(20);
-                textAlign(CENTER);
-                text(`${remainingTime.toFixed(1)}s`, player.basket.x+player.basket.w, player.basket.y + 50);
+                textAlign(LEFT);
+                text(`Strength boost: ${remainingTime.toFixed(0)}s`, 20, 90);
+                pop();
             }
         }
     }

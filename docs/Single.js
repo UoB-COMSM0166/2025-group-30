@@ -86,12 +86,13 @@ class Single extends GameScreen {
                         // 铲子独立掉落
                         if (random() < 0.5) { // 50% 概率掉铲子
                             this.specialItems.push(new Shovel(newX, 10));
-                        }
-                        // 另外两种物品随机掉
-                        if (random() < 0.5) { // 50% 概率掉蛋白粉
-                            this.specialItems.push(new ProteinShaker(newX + 50, 10));
-                        } else { // 50% 概率掉速度靴
-                            this.specialItems.push(new SpeedBoot(newX + 50, 10));
+                        } else {
+                            // 另外两种物品随机掉
+                            if (random() < 0.5) { // 50% 概率掉蛋白粉
+                                this.specialItems.push(new ProteinShaker(newX + 50, 10));
+                            } else { // 50% 概率掉速度靴
+                                this.specialItems.push(new SpeedBoot(newX + 50, 10));
+                            }
                         }
                 }
             }
@@ -145,7 +146,9 @@ class Single extends GameScreen {
 
         this.levelTimerInterval = setInterval(() => {
             if (this.level.timeLeft > 0) {
-                if (this.player.flash.getFlashDuration() === 0 && this.screenManager.currentScreen === this) this.level.timeLeft--;
+                if (this.player.flash.getFlashDuration() === 0 && this.screenManager.currentScreen === this) {
+                    this.level.timeLeft--;
+                }
             }
             else { //check when times run out
                 this.stopGrassDrop();
@@ -185,11 +188,11 @@ class Single extends GameScreen {
     }
 
     startNextLevel() {
+        this.clearStats();
         if (this.level.level >= 5) {
             this.screenManager.changeScreen(this.accomplishScreen);
         } else {
             this.level.startNextLevel();
-            this.clearStats();
             this.screenManager.changeScreen(this.targetScoreScreen);
         }
     }
