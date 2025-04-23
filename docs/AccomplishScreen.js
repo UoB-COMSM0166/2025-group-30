@@ -7,7 +7,7 @@ class AccomplishScreen extends Screen {
 
         this.buttons = [
             {
-                label: "Back to Menu to Try a Different Mode",
+                label: "Back to Menu",
                 x: baseWidth / 2,
                 y: baseHeight / 2 + 60,
                 buttonWidth: this.buttonWidth,
@@ -64,16 +64,4 @@ class AccomplishScreen extends Screen {
             text(button.label, button.x, button.y);
         }
     }
-
-    // mousePressed() {
-    //     for (let button of this.buttons) {
-    //         if (window.mouseXGame >= button.x - button.buttonWidth / 2
-    //             && window.mouseXGame <= button.x + button.buttonWidth / 2
-    //             && window.mouseYGame >= button.y - button.buttonHeight / 2
-    //             && window.mouseYGame <= button.y + button.buttonHeight / 2) {
-    //             button.action();
-    //             break;
-    //         }
-    //     }
-    // }
 } 

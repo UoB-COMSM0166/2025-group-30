@@ -33,15 +33,6 @@ class ProteinShaker extends SpecialItem {
         game.particles.push(limitText);
     }
 
-    // Add a new cleanup method to properly clear the interval
-    cleanup() {
-        if (this.interval) {
-            clearInterval(this.interval);
-            this.interval = null;
-            console.log("ProteinShaker interval cleared");
-        }
-    }
-
     applyEffect(player, game) {
         // Create initial burst effect
         this.createBurstEffect(
