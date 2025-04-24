@@ -389,11 +389,33 @@ The **Game System** manages the underlying logic, rules, and state transitions w
 - Describe implementation of your game, in particular highlighting the three areas of challenge in developing your game. 
 
 ### Challenges
+#### challenge 1:
 A key gameplay mechanic in Haystacking involves dropping haystacks and other items (e.g., shovels, speed boot) at regular intervals. To implement this, we initially used `setInterval()` function to call object drop every few seconds.
 
 However, we ran into a timing issue when implementing pause and resume functionality. If the player paused and resumed the game multiple times, objects would begin dropping too frequently — sometimes multiple items would fall at once. After debugging, we realized that every time the game was resumed, a new interval was being created without clearing the previous one, leading to multiple concurrent timers calling object drop.
 
 To solve this, we updated the code to ensure that only one interval exists at any time. We used `clearInterval()` and set the reference to null before starting a new interval, which added a guard to prevent multiple intervals from stacking. This change allowed us to reliably manage the start and stop behavior of the object drops. It also made the codebase more maintainable and predictable when adding new features related to item timing or difficulty scaling.
+
+#### challenge 2: Game Balance Adjustment and Player Experience Optimization
+
+During the game development process, through continuous testing and player feedback, we identified and gradually resolved balance issues that were affecting the overall gameplay experience.
+
+In the initial version, we implemented a **health system** with the intention of increasing the game's difficulty. However, during actual testing, we discovered that this design made players **overly cautious**—especially after collecting a significant number of grass blocks. Players became more focused on avoiding mistakes for fear of losing health, which not only limited their strategic choices but also increased the likelihood of failure due to the added **psychological pressure**.
+
+After discussions within the team, we decided to **remove the health system**. This change **freed players from the stress** of managing health, allowing them to experiment more freely with different actions and strategies.
+
+As development progressed, we encountered another balancing issue in the game mechanics. Our design required players to **achieve a certain score within a set time** to pass a level. To meet this goal, players were naturally inclined to **catch as many grass bundles as possible** in one go. 
+
+However, we had also implemented a **weight system**: the more grass a player collected, the slower they would move. These two systems conflicted in practice—while players wanted to gather more grass to score higher, the resulting **decrease in movement speed** made it difficult to quickly reach the right position to catch grass accurately.
+
+After multiple rounds of adjustment and testing, we finally found a **balance**: we **fine-tuned the rate** at which the player’s movement speed decreased with the amount of grass collected. This preserved the **strategic aspect** of the weight system without overly hindering the gameplay experience.
+
+Through this series of adjustments and optimizations, we successfully achieved our intended gameplay experience:
+
+- **New players** can quickly get started and feel a **sense of accomplishment**.  
+- **Experienced players** can pursue **high scores** through perfect execution.  
+- The **difficulty curve** has become smoother.  
+- **Player retention** has significantly improved.
 
 ## Evaluation
 To ensure a balance between functionality and usability during the game development process, we chose to combine both qualitative and quantitative evaluation methods. Qualitative analysis helped us identify issues within the game, while quantitative evaluation provided insights into user perceptions, guiding us to iteratively improve the design.
