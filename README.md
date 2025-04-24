@@ -311,70 +311,101 @@ With the new simplified plan, the focus shifts to how to perfectly and completel
 ### Use Case Breakdown
 
 After finalizing the requirements and completing the feasibility analysis, we proceeded with the use case explanation.Here is the use-case diagram.
-<p align="center"><strong>Use-Case Diagram</strong></p>
+<p align="center"><strong>Use Case Diagram</strong></p>
 
 <p align="center">
-  <img width="680" alt="Image" src="https://github.com/user-attachments/assets/94a3733e-0182-400e-b6be-4c40585cdcee" />
+  <img width="1500" alt="Image" src="https://github.com/user-attachments/assets/445d04f9-d237-4835-9996-d4cfc2aeb7be" />
 </p>
 
 
-## 1. Players
+#### Game Entry
 
-Players are the primary users of the game, directly interacting with the game system to progress through various levels, manage resources, and achieve in-game goals.
+- **Start Game**  
+  Initiates the game and brings the player to the game mode selection screen.
 
-### Main Use Cases for Players:
+- **Select Game Mode**  
+  Allows the player to choose between different game modes (**Single**, **PvP**, or **Co-op**).
 
-- **Choose game mode**  
-  Players select between:
-  - **Single-player mode**
-  - **Multi-player mode** (including **PvP mode** and **Co-op mode**)
-
-- **Play game**  
-  Core gameplay activities include:
-  - **Move character**: Control the in-game avatar.
-  - **Catch grass**: Collect grass items within the game world.
-  - **Drop grass into the basket**: Deposit the collected grass, likely contributing to the player's score or progression.
-
-- **Pause game**  
-  Players can temporarily suspend the game session.
-
-- **Resume game**  
-  Players can continue the game after pausing.
-
-- **Start tutorial**  
-  An optional flow that allows players to learn game mechanics before engaging in the full game.
-
-- **View game over screen**  
-  Triggered when the player fails or completes the game, showing final results.
+- **View Tutorial**  
+  Provides guidance on how to play the game. Optional and triggered from the start screen (`<<extend>>`).
 
 ---
 
-## 2. Game System
+#### Game Modes
 
-The **Game System** manages the underlying logic, rules, and state transitions within the game. It ensures that player actions have consequences and that the game progresses according to its design.
+- **Single Mode**  
+  A solo gameplay experience where one player progresses through the game alone.
 
-### Main Functions of the Game System:
+- **PvP Mode**  
+  Player versus Player mode where two players compete against each other.
 
-- **Update score**  
-  Increases the player's score when they successfully drop grass into the basket.
-
-- **Level up**  
-  Increases game difficulty or transitions the player to a higher level when specific conditions are met (e.g., reaching a target score).
-
-- **Game over**  
-  Ends the game session when the player's lives reach zero, triggering the **view game over screen**.
+- **Co-op Mode**  
+  Cooperative gameplay mode where two players work together to achieve objectives.
 
 ---
 
-## Relationships (Use Case Diagram Specific)
+#### Play Session
 
-- **Includes (`<<include>>`)**:
-  - **Catch grass** is included in **Drop grass into the basket**.
-  - **PvP mode** and **Co-op mode** are included in **Multi-player mode**.
-  - **Restart from current level** and **Restart from level 1** are included in **Single-player mode**.
+- **Play Game**  
+  Represents the core gameplay session where the player actively engages in the game.
 
-- **Extends (`<<extend>>`)**:
-  - **View game over screen** extends **Play game** (only triggered when the game ends).
+- **View Help Screen**  
+  Offers in-game assistance or explanations of game mechanics, accessible during gameplay (`<<include>>`).
+
+---
+
+#### Game Actions
+
+- **Move Character**  
+  Enables the player to control the movement of their in-game character.
+
+- **Catch Grass**  
+  An in-game action where the player collects grass or similar objects as part of the game’s mechanics.
+
+- **Empty Basket**  
+  Allows the player to clear the collected items from their basket or inventory.
+
+- **Pause Game**  
+  Temporarily halts the game session, providing options like continuing or exiting (`<<extend>>`).
+
+---
+
+#### Pause Options
+
+- **Continue Game**  
+  Resumes the paused game session.
+
+- **Restart Level**  
+  Restarts the current game level from the beginning.
+
+- **Return to Home**  
+  Exits the current session and returns the player to the main menu.
+
+---
+
+#### Game Endings
+
+- **Game Over**  
+  Indicates failure in the game, ending the current session.
+
+- **Game Success**  
+  Indicates successful completion of the current level or game session.
+
+---
+
+#### Rewards & Next Steps
+
+- **Show Target Score**  
+  Displays the required or achieved target score for the level.
+
+- **Start Next Level**  
+  Allows the player to proceed to the next game level after success.
+
+- **Get Perfect Stack**  
+  A special reward given when the player stacks items perfectly during the game (`<<extend>>` from **Catch Grass**).
+
+- **Get Time Bonus**  
+  A time-based reward granted when certain conditions are met, like completing tasks quickly (`<<extend>>` from **Get Perfect Stack**).
 
   
 ## Design
