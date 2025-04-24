@@ -32,6 +32,16 @@ class LevelSuccessScreen extends Screen {
         ];
     }
 
+    keyPressed() {
+        if (keyCode === RETURN) {
+            // 找到 Next Level 按钮并触发其 action
+            const nextLevelButton = this.buttons.find(button => button.label === "Next Level");
+            if (nextLevelButton) {
+                nextLevelButton.action();
+            }
+        }
+    }
+
     // Display the Level Success screen
     display() { // Update the content of the LevelSuccessScreen
         this.gameScreen.display();

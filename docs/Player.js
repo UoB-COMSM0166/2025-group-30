@@ -26,8 +26,12 @@ class Player {
 
         this.flash = new Flash(0);
 
-        this.player1Image = null;
-        this.loadPlayer1Image();
+        this.playerImage = null;
+        this.loadPlayerImage();
+
+        this.speedBoot = null;
+        this.proteinShaker = null;
+
     }
 
     reset() {
@@ -42,6 +46,9 @@ class Player {
 
         this.stack = [];
         this.flash.setFlashDuration(0);
+
+        this.speedBoot = null;
+        this.proteinShaker = null;
     }
 
     movePlayerWithCaughtGrass() {
@@ -89,7 +96,7 @@ class Player {
         }
 
         // draw player image
-        image(this.player1Image, this.x, this.y, this.w, this.h);
+        image(this.playerImage, this.x, this.y, this.w, this.h);
     }
 
     catches(grass) { //return true if grass is caught, false otherwise
@@ -196,7 +203,11 @@ class Player {
         }
     }
 
-    loadPlayer1Image() {
-        this.player1Image = loadImage("assets/player1.webp");
+    loadPlayerImage() {
+        if (this.position === "right" || this.position === "pvpRight") {
+            this.playerImage = loadImage("assets/player2.webp");
+        } else {
+            this.playerImage = loadImage("assets/player1.webp");
+        }
     }
 }

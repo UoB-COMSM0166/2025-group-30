@@ -29,6 +29,11 @@ function mousePressed() {
     screenManager.mousePressed();
 }
 
+function doubleClicked() {
+    console.log("Double click detected!"); 
+    screenManager.doubleClick(); // 调用类的处理函数
+}
+
 function mouseMoved() {
     // 更新鼠标坐标
     page.setupMouseCoordinates();

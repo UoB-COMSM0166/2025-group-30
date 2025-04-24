@@ -19,6 +19,12 @@ class TargetScoreScreen extends Screen {
         };
     }
 
+    keyPressed() {
+        if (keyCode === RETURN) {
+            this.confirmButton.action();
+        }
+    }
+
     display() {
         image(this.gameScreen.backgroundImage, 0, 0, baseWidth, baseHeight);
 
