@@ -5,6 +5,7 @@ class Single extends GameScreen {
         this.gameOverScreen = new GameOverScreen(this.screenManager, this);
         this.levelSuccessScreen = new LevelSuccessScreen(this.screenManager, this);
         this.targetScoreScreen = new TargetScoreScreen(this.screenManager, this);
+        this.accomplishScreen = new AccomplishScreen(this.screenManager, this);
 
         this.player = new Player("middle");
         this.basket = new Basket("left");
@@ -82,13 +83,16 @@ class Single extends GameScreen {
                         this.specialItems.push(new ProteinShaker(newX, 10));
                         break;
                     case 5:
-                        //Randomly choose which special item to drop
-                        if (random() < 0.33) { // 33% chance for shovel
+                        // 铲子独立掉落
+                        if (random() < 0.5) { // 50% 概率掉铲子
                             this.specialItems.push(new Shovel(newX, 10));
-                        } else if (random() < 0.66) { // 33% chance for protein shaker
-                            this.specialItems.push(new ProteinShaker(newX, 10));
-                        } else { // 33% chance for speed boot
-                            this.specialItems.push(new SpeedBoot(newX, 10));
+                        } else {
+                            // 另外两种物品随机掉
+                            if (random() < 0.5) { // 50% 概率掉蛋白粉
+                                this.specialItems.push(new ProteinShaker(newX + 50, 10));
+                            } else { // 50% 概率掉速度靴
+                                this.specialItems.push(new SpeedBoot(newX + 50, 10));
+                            }
                         }
                 }
             }
@@ -142,16 +146,22 @@ class Single extends GameScreen {
 
         this.levelTimerInterval = setInterval(() => {
             if (this.level.timeLeft > 0) {
-                if (this.player.flash.getFlashDuration() === 0 && this.screenManager.currentScreen === this) this.level.timeLeft--;
+                if (this.player.flash.getFlashDuration() === 0 && this.screenManager.currentScreen === this) {
+                    this.level.timeLeft--;
+                }
             }
             else { //check when times run out
                 this.stopGrassDrop();
                 this.stopLevelTimer();
                 this.stopSpecialItemDrop();
                 if (this.player.score >= this.level.targetScores) {
-                    this.screenManager.changeScreen(this.levelSuccessScreen); //move up a level    
+                    if (this.level.level >= 5) {
+                        this.screenManager.changeScreen(this.accomplishScreen);
+                    } else {
+                        this.screenManager.changeScreen(this.levelSuccessScreen);
+                    }
                 } else {
-                    this.screenManager.changeScreen(this.gameOverScreen); //game over
+                    this.screenManager.changeScreen(this.gameOverScreen);
                 }
             }
         }, 1000);
@@ -178,9 +188,13 @@ class Single extends GameScreen {
     }
 
     startNextLevel() {
-        this.level.startNextLevel();
         this.clearStats();
-        this.screenManager.changeScreen(this.targetScoreScreen);
+        if (this.level.level >= 5) {
+            this.screenManager.changeScreen(this.accomplishScreen);
+        } else {
+            this.level.startNextLevel();
+            this.screenManager.changeScreen(this.targetScoreScreen);
+        }
     }
 
     keyPressed() {

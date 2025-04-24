@@ -194,6 +194,16 @@ class GameScreen extends Screen {
         noStroke();
         textStyle(NORMAL);
 
+        if (this.level.timeLeft > 0) {
+            // Display special item timers for each player
+            if (this.player) {
+                this.displaySpecialItemTimers(this.player);
+            } else if (this.player1 && this.player2) {
+                this.displaySpecialItemTimers(this.player1);
+                this.displaySpecialItemTimers(this.player2);
+            }
+        }
+
         // Call the game mode specific UI update
         this.updateScoreDisplay();
     }
@@ -247,5 +257,32 @@ class GameScreen extends Screen {
         } while (!isSafePosition);
 
         return newX;
+    }
+
+    displaySpecialItemTimers(player) {
+        // 只在有速度buff时显示
+        if (player.speedBoot) {
+            const remainingTime = player.speedBoot.timeLeft;
+            if (remainingTime > 0) {
+                push();
+                textSize(20);
+                textAlign(LEFT);
+                text(`Speed boost: ${remainingTime.toFixed(0)}s`, 20, 60);
+                pop();
+            }
+        }
+
+        // 只在有力量buff时显示
+        if (player.proteinShaker) {
+            const remainingTime = player.proteinShaker.timeLeft;
+            if (remainingTime > 0) {
+                push();
+                fill(255);
+                textSize(20);
+                textAlign(LEFT);
+                text(`Strength boost: ${remainingTime.toFixed(0)}s`, 20, 90);
+                pop();
+            }
+        }
     }
 } 
