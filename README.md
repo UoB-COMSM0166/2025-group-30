@@ -140,10 +140,94 @@ This animation shows the player failing to catch the grass and losing one life a
   <img src="https://github.com/user-attachments/assets/a21f37c9-d280-421e-a664-1148eeae3f51" width="500">
 </p>
 
-## User Stories and Epics
-At the early stage of the project, we created initial user stories based on the behavior patterns and expectations of different types of players (such as casual players, hardcore players, social players, etc.), in order to ensure that the core gameplay of HayStacking would meet the diverse needs of its target users.
+## 4.5 Requirement Analysis
 
-In the later development phase, we further refined and expanded these user stories by incorporating a sustainability perspective, particularly drawing from the five dimensions defined in the SusAF framework: Individual, Social, Environmental, Economic, and Technical. This allowed us to evaluate the potential impacts of the game from a more holistic standpoint. The following table presents the finalized user stories along with their corresponding acceptance criteria.
+### 4.5.1 User Requirements
+- Players should be able to control and stack square grass blocks smoothly
+
+### 4.5.2 Technical Requirements
+- Client-side Development: Implement the game interface and handle user input
+- Physics Simulation: Remove the external physics engine and use a simple square block stacking mechanism
+
+### 4.5.3 Technical Feasibility Study
+
+#### Initial Plan
+- Use an external physics engine (e.g., Box2D, Matter.js) for simulating different shape interactions
+- Requires complex physics calculations, including collision detection and gravity simulation
+
+#### Feasibility Evaluation
+- Lack of experience in physics engine development makes debugging and optimization challenging
+- Complex physics calculations may lead to high computational resource consumption, affecting game performance
+
+#### Alternative Plan
+- Switch to simple square grass block stacking without relying on an external physics engine
+- Use a rule-based stacking method where each block is placed according to predefined logic
+- Implement basic rectangle overlap detection for collision handling to improve development efficiency
+
+Based on the feasibility analysis, we have decided to adjust the game design by abandoning the complex physics engine integration and opting for a simple square grass block stacking mechanism. This will reduce technical difficulty, improve development efficiency, and ensure game stability.
+
+## 4.6 Stakeholders Analysis 
+
+Following the establishment of the initial idea for our game, conducting a stakeholder analysis is a critical step. By identifying key parties such as developers, players, and other developer teams, and clarifying their roles and needs, our team can more effectively allocate resources, enhance both the technical feasibility and the overall user experience of the game.
+
+<p align="center"><b>Figure 6: Onion Model</b></p>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/5ef9c5c4-04e5-4d8f-b85d-7bf6b9ef1358" width="500">
+</p>
+
+### Core Layer: Group 30
+Group 30-2025 are the core developer of the game, responsible for its design, development, and implementation. They determine the quality, gameplay, and overall experience of the game.
+
+### Internal Layer: Players and Lecturers
+- **Players**: The end-users of the game, including:
+  - New Players
+  - Old Players
+  - Casual Players
+  - Competitive Players
+- **Lecturers**: The evaluators of the assignment, responsible for assessing the quality of the game and whether it meets course requirements
+
+### Competition Layer: Other Teams
+Other teams are competitors in the assignment, and their performance may influence the evaluation by lecturers and bystanders.
+
+### External Layer: Broader Audience
+Bystanders are potential users who may not directly participate in the game but could be attracted to become new players.
+
+### Feasibility Study
+Based on the stakeholder analysis, we proceeded to evaluate the feasibility of the project.
+The feasibility study primarily focused on the technical aspects, including the development environment, available tools, and team skills.
+
+#### Initial Plan
+Initially, we considered implementing stacking mechanics using various shapes as the core gameplay feature. This approach would require:
+
+- Integration of an external physics engine (e.g., Box2D, Matter.js) to simulate realistic physical interactions
+
+- Implementation of complex physics logic such as collision detection and gravity effects
+
+#### Feasibility Evaluation
+However, after evaluating the technical feasibility, we identified several challenges:
+
+- Our team lacks experience in integrating and configuring physics engines 
+
+- Limited familiarity with real-time physics would significantly increase the debugging and optimization workload
+
+- A poorly implemented physics system would negatively impact gameplay quality and user experience
+
+#### Alternative Plan
+In this case, we decided to simplify the design by:
+
+- Switching to simple square grass block stacking without relying on an external physics engine
+- Using a rule-based stacking method where each block is placed according to predefined logic
+- Implementing basic rectangle overlap detection for collision handling to improve development efficiency
+
+Originally, one of the key technical challenges was determining how to position irregularly shaped grass blocks in a physically accurate and visually satisfying way.
+With the new simplified plan, the focus shifts to how to perfectly and completely align square grass blocks on top of one another, which significantly reduces complexity while preserving core gameplay value.
+
+## 4.7 User Stories and Epics
+
+Based on the stakeholder analysis and requirements analysis above, we identified the core needs of different user groups and created corresponding user stories. These user stories not only reflect the basic functional requirements of the game but also provide a foundation for subsequent sustainability design. During the development process, we further integrated these user stories with sustainability dimensions, particularly expanding on the social and technical aspects.
+
+In the early stages, we created initial user stories based on the behavior patterns and expectations of different user types (such as casual players, hardcore players, social players, etc.) to ensure that the core gameplay of HayStacking would meet the diverse needs of its target users. In the later development phase, we refined and expanded these user stories by incorporating a sustainability perspective, primarily drawing from the five dimensions defined in the SusAF framework: Individual, Social, Environmental, Economic, and Technical. This allowed us to evaluate the potential impacts of the game from a more holistic standpoint. The following table presents the finalized user stories along with their corresponding acceptance criteria.
 <p align="center">
     <i>Table 4: User Story</i>
 </p>
@@ -224,110 +308,21 @@ In the later development phase, we further refined and expanded these user stori
 </tr>
 </table>
 
-**Requirement Analysis**
-
-#### 1. User Requirements
-- Players should be able to control and stack square grass blocks smoothly
-
-#### 2. Technical Requirements
-- Client-side Development: Implement the game interface and handle user input
-- Physics Simulation: Remove the external physics engine and use a simple square block stacking mechanism
-
-#### Technical Feasibility Study
-
-##### Initial Plan
-- Use an external physics engine (e.g., Box2D, Matter.js) for simulating different shape interactions
-- Requires complex physics calculations, including collision detection and gravity simulation
-
-##### Feasibility Evaluation
-- Lack of experience in physics engine development makes debugging and optimization challenging
-- Complex physics calculations may lead to high computational resource consumption, affecting game performance
-
-##### Alternative Plan
-- Switch to simple square grass block stacking without relying on an external physics engine
-- Use a rule-based stacking method where each block is placed according to predefined logic
-- Implement basic rectangle overlap detection for collision handling to improve development efficiency
-
-Based on the feasibility analysis, we have decided to adjust the game design by abandoning the complex physics engine integration and opting for a simple square grass block stacking mechanism. This will reduce technical difficulty, improve development efficiency, and ensure game stability.
-
-### Stakeholders Analysis 
-
-Following the establishment of the initial idea for our game, conducting a stakeholder analysis is a critical step. By identifying key parties such as developers, players, and other developer teams, and clarifying their roles and needs, our team can more effectively allocate resources, enhance both the technical feasibility and the overall user experience of the game.
-
-<p align="center"><strong>Onion Model</strong></p>
-
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/5ef9c5c4-04e5-4d8f-b85d-7bf6b9ef1358" width="500">
-</p>
-
-
-#### Core Layer: Group 30
-Group 30-2025 are the core developer of the game, responsible for its design, development, and implementation. They determine the quality, gameplay, and overall experience of the game.
-
-#### Internal Layer: Players and Lecturers
-- **Players**: The end-users of the game, including:
-  - New Players
-  - Old Players
-  - Casual Players
-  - Competitive Players
-- **Lecturers**: The evaluators of the assignment, responsible for assessing the quality of the game and whether it meets course requirements
-
-#### Competition Layer: Other Teams
-Other teams are competitors in the assignment, and their performance may influence the evaluation by lecturers and bystanders.
-
-#### External Layer: Broader Audience
-Bystanders are potential users who may not directly participate in the game but could be attracted to become new players.
-
-
-
-**Feasibility Study**
-
-Based on the stakeholder analysis, we proceeded to evaluate the feasibility of the project.
-The feasibility study primarily focused on the technical aspects, including the development environment, available tools, and team skills.
-
-##### Initial Plan
-Initially, we considered implementing stacking mechanics using various shapes as the core gameplay feature. This approach would require:
-
-- Integration of an external physics engine (e.g., Box2D, Matter.js) to simulate realistic physical interactions
-
-- Implementation of complex physics logic such as collision detection and gravity effects
-
-##### Feasibility Evaluation
-
-However, after evaluating the technical feasibility, we identified several challenges:
-
-- Our team lacks experience in integrating and configuring physics engines 
-
-- Limited familiarity with real-time physics would significantly increase the debugging and optimization workload
-
-- A poorly implemented physics system would negatively impact gameplay quality and user experience
-
-##### Alternative Plan
-
-In this case, we decided to simplify the design by:
-
-- Switching to simple square grass block stacking without relying on an external physics engine
-- Using a rule-based stacking method where each block is placed according to predefined logic
-- Implementing basic rectangle overlap detection for collision handling to improve development efficiency
-
-Originally, one of the key technical challenges was determining how to position irregularly shaped grass blocks in a physically accurate and visually satisfying way.
-With the new simplified plan, the focus shifts to how to perfectly and completely align square grass blocks on top of one another, which significantly reduces complexity while preserving core gameplay value.
-
-### Use Case Breakdown
+## 4.8 Use Case Breakdown
 
 After finalizing the requirements and completing the feasibility analysis, we proceeded with the use case explanation.Here is the use-case diagram.
-<p align="center"><strong>Use-Case Diagram</strong></p>
+<p align="center"><b>Figure 7: Use-Case Diagram</b></p>
 
 <p align="center">
   <img width="680" alt="Image" src="https://github.com/user-attachments/assets/94a3733e-0182-400e-b6be-4c40585cdcee" />
 </p>
 
 
-## 1. Players
+### 4.8.1. Players
 
 Players are the primary users of the game, directly interacting with the game system to progress through various levels, manage resources, and achieve in-game goals.
 
-### Main Use Cases for Players:
+#### Main Use Cases for Players:
 
 - **Choose game mode**  
   Players select between:
@@ -354,11 +349,11 @@ Players are the primary users of the game, directly interacting with the game sy
 
 ---
 
-## 2. Game System
+### 4.8.2 Game System
 
 The **Game System** manages the underlying logic, rules, and state transitions within the game. It ensures that player actions have consequences and that the game progresses according to its design.
 
-### Main Functions of the Game System:
+#### Main Functions of the Game System:
 
 - **Update score**  
   Increases the player's score when they successfully drop grass into the basket.
@@ -371,7 +366,7 @@ The **Game System** manages the underlying logic, rules, and state transitions w
 
 ---
 
-## Relationships (Use Case Diagram Specific)
+### 4.8.3 Relationships (Use Case Diagram Specific)
 
 - **Includes (`<<include>>`)**:
   - **Catch grass** is included in **Drop grass into the basket**.
@@ -514,14 +509,19 @@ Based on the severity scores in the evaluation table, we will prioritize address
 
 ## 7.2 Quantitative Evaluation - SUS evaluation
 We collected and analyzed SUS questionnaire data from 12 users for both Level 1 and Level 2, calculating their total SUS scores. We then used the Wilcoxon Signed-Rank Test to examine whether there was a statistically significant difference in usability scores between the two levels. Click [here](sus.md) to see the raw data.
+
+<p align="center"><b>Figure 8: SUS Score Distribution Chart</b></p>
 <div align="center">
   <img src="SUS evaluation.png" width="533">
 </div>
 
+<p align="center"><b>Figure 9: Average Score Chart</b></p>
 <div align="center">
   <img src="averageScore.png" width="533">
 </div>
 The results of the Wilcoxon Signed-Rank Test for the System Usability Scale (SUS) scores show no statistically significant difference between the two difficulty levels (W = 10.5, p = 0.5461). Although individual user scores vary slightly, both the easy and hard levels received generally high SUS scores. This suggests that users found the game to be consistently usable across both difficulty settings.
+
+## 7.3 Test
 
 # 8.Sustainability
 
@@ -576,6 +576,7 @@ Decoupled structure to avoid unnecessary refreshes or duplicate checks
 
 To better visualize the sustainability logic in Hay-stacking, we mapped our design decisions to the five dimensions of the SusAF model—Individual, Social, Technical, Environmental, and Economic—following the Immediate → Enabling → Structural logic. Each design pattern contributes not only to immediate efficiency, but also to long-term structural sustainability.
 
+<p align="center"><b>Figure 9: Sustainability Awareness Diagram</b></p>
 <p align="center">
   <img src="https://github.com/user-attachments/assets/dcf6ef86-3c7f-488f-917f-530946ea2709" width="600">
 </p>
