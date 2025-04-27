@@ -7,7 +7,7 @@ function setup() {
     page = new Page();
     window.page = page;
     screenManager = new ScreenManager();
-  
+
     // Add visibility change event listener
     document.addEventListener('visibilitychange', () => screenManager.handleVisibilityChange());
 

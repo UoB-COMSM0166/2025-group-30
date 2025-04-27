@@ -2,44 +2,66 @@ class StepByStepHelpScreen extends Screen {
     constructor(screenManager) {
         super(screenManager);
 
+        // 添加背景图片和颜色变量
+        this.backgroundImage = null;
+        this.backgroundColor = color(222, 234, 235); // 默认背景色
+        this.loadBackgroundImage(); // 加载背景图片
+        // 添加警告图标
+        this.warningIcon = null;
+        this.loadWarningIcon(); // 加载警告图标
+        // 添加按钮相关变量
         this.buttonWidth = 120;
         this.buttonHeight = 40;
+
+        // 添加标题动画相关变量
+        this.titleFinalSize = 34;      // 标题最终字体大小
+        this.titleCurrentSize = 0;     // 标题当前字体大小（初始为0）
+        this.titleAnimationActive = true; // 标题动画是否激活
+        this.titleAnimationStartTime = null;  // 标题动画开始时间
+        this.titleAnimationDuration = 1000;   // 标题动画持续时间（1秒）
+
+        // Replace separate progress and instruction animation variables with combined text animation variables
+        this.textYOffset = 30;         // Text initial Y offset
+        this.textAnimationActive = true;   // Text animation active state
+        this.textAnimationStartTime = null; // Text animation start time
+        this.textAnimationDuration = 500;  // Text animation duration (0.8s)
+        this.textOpacity = 0;              // Text opacity
 
         this.buttons = [
             {
                 label: "Back", //only show on first step
-                x: baseWidth / 4,
-                y: baseHeight / 6 * 5,
+                x: baseWidth / 8,
+                y: baseHeight / 8,
                 buttonWidth: this.buttonWidth,
                 buttonHeight: this.buttonHeight,
                 action: () => this.screenManager.changeScreen(this.screenManager.menuScreen)
             },
             {
                 label: "Previous",
-                x: baseWidth / 4,
-                y: baseHeight / 6 * 5,
+                x: baseWidth / 8,
+                y: baseHeight / 8,
                 buttonWidth: this.buttonWidth,
                 buttonHeight: this.buttonHeight,
                 action: () => this.previousStep()
             },
             {
                 label: "Next",
-                x: baseWidth / 4 * 3,
-                y: baseHeight / 6 * 5,
+                x: baseWidth * 7/8,
+                y: baseHeight / 8,
                 buttonWidth: this.buttonWidth,
                 buttonHeight: this.buttonHeight,
                 action: () => this.nextStep()
             },
             {
                 label: "Start", //only show on last step
-                x: baseWidth / 4 * 3,
-                y: baseHeight / 6 * 5,
+                x: baseWidth * 7/8,
+                y: baseHeight / 8,
                 buttonWidth: this.buttonWidth,
                 buttonHeight: this.buttonHeight,
                 action: () => {
                     this.currentStep = 0;
                     this.demoPlayer.stack = [];
-                    this.screenManager.changeScreen(this.screenManager.menuScreen)
+                    this.screenManager.changeScreen(this.screenManager.menuScreen);
                 }
             }
         ];
@@ -47,16 +69,16 @@ class StepByStepHelpScreen extends Screen {
         this.title = "Tutorial";
 
         this.demoPlayer = new Player("middle");
-        this.demoPlayer.y = baseHeight / 3 * 2; // Position higher for visibility
+        this.demoPlayer.y = baseHeight - 150; // 调整到与实际游戏相同的高度
 
         this.demoBasket = new Basket("left");
-        this.demoBasket.y = baseHeight / 2;
+        this.demoBasket.y = baseHeight - this.demoBasket.h; // 使篮子底部与界面底部对齐
         this.demoPlayer.basket = this.demoBasket;
 
         // Tutorial steps
         this.currentStep = 0;
         this.tutorialSteps = [
-            { //step 0
+            { //step 1
                 instruction: "Press ← or → keys to move",
                 setup: () => { this.demoPlayer.stack = []; },
                 update: () => {
@@ -74,7 +96,7 @@ class StepByStepHelpScreen extends Screen {
                     return false;
                 }
             },
-            { //step 1
+            { //step 2
                 instruction: "Move under the falling hay block to catch it",
                 setup: () => {
                     this.demoPlayer.stack = [];
@@ -98,12 +120,12 @@ class StepByStepHelpScreen extends Screen {
 
                         // If grass falls off screen, create a new one
                         if (this.demoGrass && this.demoGrass.y > baseHeight) {
-                            this.demoGrass = new Grass(random(200, baseWidth - 100), 10)
+                            this.demoGrass = new Grass(random(200, baseWidth - 100), 10);
                         }
                     }
                 },
                 draw: () => {
-                    // Draw the falling grass if it exists
+                    // Draw the falling grass if it exists                  
                     if (this.demoGrass) {
                         this.demoGrass.draw();
                     }
@@ -118,14 +140,23 @@ class StepByStepHelpScreen extends Screen {
                     return false;
                 }
             },
-            { //step 2
+            { //step 3
                 instruction: "Press SPACE when near the basket to empty your stack",
                 setup: () => {
+                    // 重置篮子分数
+                    this.demoBasket.score = 0;
+                    this.demoPlayer.score = 0;
+                    
+                    // 重置玩家位置到中间
+                    this.demoPlayer.x = (baseWidth - this.demoPlayer.w) / 2;
+                    this.demoPlayer.dir = 0; // 重置移动方向
+                    
                     if (this.demoPlayer.stack.length === 1) { return; }
+                    const yGap = 3; // Use consistent gap for all grass blocks
                     // put a grass block in the player's stack
                     this.demoGrass = new Grass();
                     this.demoGrass.x = this.demoPlayer.x + this.demoPlayer.w / 2 - this.demoGrass.w / 2;
-                    this.demoGrass.y = this.demoPlayer.y - this.demoGrass.h;
+                    this.demoGrass.y = this.demoPlayer.y - this.demoGrass.h + yGap;
                     this.demoPlayer.stack = [this.demoGrass];
                 },
                 update: () => {
@@ -135,6 +166,7 @@ class StepByStepHelpScreen extends Screen {
                     // Check for space key to empty to basket
                     if (keyIsDown(32)) { // 32 is the keyCode for SPACE
                         this.demoPlayer.emptyToBasket();
+                        this.demoBasket.score = this.demoPlayer.score;
                     }
                 },
                 draw: () => {
@@ -151,18 +183,19 @@ class StepByStepHelpScreen extends Screen {
                     return false;
                 }
             },
-            { //step 3
+            { //step 4
                 instruction: `Catch one more hay block to exceed the limit of 5`,
                 setup: () => {
                     // Clear the player's stack
                     this.demoPlayer.stack = [];
+                    const yGap = 3; // Use consistent gap for all grass blocks
 
                     // Add 5 grass blocks to the player's stack
                     for (let i = 0; i < 5; i++) {
                         let grass = new Grass();
                         //create a staggered stack of grass blocks
                         grass.x = random(this.demoPlayer.x + this.demoPlayer.w / 4 - 20, this.demoPlayer.x + this.demoPlayer.w / 4 + 20);
-                        grass.y = this.demoPlayer.y - (i + 1) * grass.h;
+                        grass.y = this.demoPlayer.y - (i + 1) * (grass.h - yGap);
                         this.demoPlayer.stack.push(grass);
                     }
 
@@ -186,7 +219,7 @@ class StepByStepHelpScreen extends Screen {
 
                         // If grass falls off screen, create a new one
                         if (this.demoGrass && this.demoGrass.y > baseHeight) {
-                            this.demoGrass = new Grass(random(200, baseWidth - 100), 10)
+                            this.demoGrass = new Grass(random(200, baseWidth - 100), 10);
                         }
                     }
                 },
@@ -202,13 +235,34 @@ class StepByStepHelpScreen extends Screen {
                     // Display message with emphasized limit
                     textAlign(LEFT);
 
-
                     // If flashing, show explanation
                     if (!this.demoGrass) {
-                        fill(255, 0, 0);
+                        // 绘制白色透明背景框
+                        rectMode(CENTER);
+                        noStroke();
+                        fill(255, 255, 255, 180); // 白色半透明
+                        rect(baseWidth / 2, baseHeight / 2, 500, 60, 15); // 圆角矩形，高度调大
+
+                        // 设置文本为金黄色
+                        fill(255, 215, 0); // 金黄色
                         textAlign(CENTER);
                         textSize(24);
-                        text("Stack exceeded! All blocks dropped!", baseWidth / 2, baseHeight / 2);
+
+                        // 如果警告图标已加载，则显示图标和文本
+                        if (this.warningIcon) {
+                            // 放大图标尺寸
+                            const iconSize = 50;
+
+                            // 绘制图标在背景框左侧
+                            image(this.warningIcon, baseWidth / 2 - 230, baseHeight / 2 - iconSize / 2, iconSize, iconSize);
+
+                            // 绘制文本，位于图标右侧
+                            textAlign(LEFT);
+                            text("Stack exceeded! All blocks dropped!", baseWidth / 2 - 170, baseHeight / 2 + 8);
+                        } else {
+                            // 如果图标尚未加载，只显示文本
+                            text("Stack exceeded! All blocks dropped!", baseWidth / 2, baseHeight / 2);
+                        }
                     }
                 },
                 checkCompletion: () => {
@@ -218,7 +272,7 @@ class StepByStepHelpScreen extends Screen {
                     return false;
                 }
             },
-            { //step 4
+            { //step 5
                 instruction: "You're ready to play! Click 'Start' to select play mode.",
                 setup: () => {
                     // No demo needed for final step
@@ -238,6 +292,93 @@ class StepByStepHelpScreen extends Screen {
         // Initialize the first step
         this.tutorialSteps[this.currentStep].setup();
 
+        // 初始化ScreenManager覆盖
+        this.initScreenManagerOverride();
+    }
+
+    // 加载背景图片方法
+    loadBackgroundImage() {
+        // 加载背景图片
+        loadImage('./assets/Tutorial-background.webp', img => {
+            this.backgroundImage = img;
+        });
+    }
+
+    // 加载警告图标方法
+    loadWarningIcon() {
+        // 加载警告图标
+        loadImage('./assets/warning.gif', img => {
+            this.warningIcon = img;
+        });
+    }
+
+    // 更新标题动画
+    updateTitleAnimation() {
+        if (this.titleAnimationActive) {
+            // 初始化动画开始时间
+            if (this.titleAnimationStartTime === null) {
+                this.titleAnimationStartTime = millis();
+            }
+
+            // 计算当前动画进度（0-1之间）
+            const currentTime = millis();
+            const elapsedTime = currentTime - this.titleAnimationStartTime;
+            const progress = constrain(elapsedTime / this.titleAnimationDuration, 0, 1);
+
+            // 使用缓动函数使动画更自然
+            const easedProgress = 1 - Math.pow(1 - progress, 3); // 缓出效果
+
+            // 更新当前字体大小
+            this.titleCurrentSize = this.titleFinalSize * easedProgress;
+
+            // 检查动画是否完成
+            if (progress >= 1) {
+                this.titleAnimationActive = false;
+                this.titleCurrentSize = this.titleFinalSize;
+
+                // 标题动画完成后，启动文本动画
+                if (this.textAnimationStartTime === null) {
+                    this.textAnimationStartTime = millis();
+                }
+            }
+        } else {
+            // 如果动画未激活，使用最终大小
+            this.titleCurrentSize = this.titleFinalSize;
+        }
+    }
+
+    // Replace both updateProgressAnimation and updateInstructionAnimation with single method
+    updateTextAnimation() {
+        // Only start text animation after title animation is complete
+        if (!this.titleAnimationActive && this.textAnimationActive) {
+            // Initialize animation start time
+            if (this.textAnimationStartTime === null) {
+                this.textAnimationStartTime = millis();
+            }
+
+            // Calculate current animation progress (0-1)
+            const currentTime = millis();
+            const elapsedTime = currentTime - this.textAnimationStartTime;
+            const progress = constrain(elapsedTime / this.textAnimationDuration, 0, 1);
+
+            // Use easing function for smoother animation
+            const easedProgress = 1 - Math.pow(1 - progress, 3); // Ease out
+
+            // Update Y offset and opacity for both texts simultaneously
+            this.textYOffset = 30 * (1 - easedProgress);
+            this.textOpacity = 255 * easedProgress;
+
+            // Check if animation is complete
+            if (progress >= 1) {
+                this.textAnimationActive = false;
+                this.textYOffset = 0;
+                this.textOpacity = 255;
+            }
+        } else if (!this.textAnimationActive) {
+            // If animation is inactive or complete, use final values
+            this.textYOffset = 0;
+            this.textOpacity = 255;
+        }
     }
 
     previousStep() {
@@ -245,6 +386,8 @@ class StepByStepHelpScreen extends Screen {
         if (this.currentStep > 0) {
             this.currentStep--;
             this.tutorialSteps[this.currentStep].setup();
+            // 重置文本动画，在步骤切换时重播动画
+            this.resetTextAnimations();
         }
     }
 
@@ -253,33 +396,82 @@ class StepByStepHelpScreen extends Screen {
         if (this.currentStep < this.tutorialSteps.length - 1) {
             this.currentStep++;
             this.tutorialSteps[this.currentStep].setup();
+            // 重置文本动画，在步骤切换时重播动画
+            this.resetTextAnimations();
         }
     }
 
-
     display() {
-        background(230);
+        // 设置背景色 - 使用构造函数中设置的默认颜色
+        background(this.backgroundColor);
 
-        // Display title
+        // 显示背景图片，底部对齐
+        if (this.backgroundImage) {
+            // 计算缩放比例，保持图片比例
+            let scale = Math.min(
+                baseWidth / this.backgroundImage.width,
+                baseHeight / this.backgroundImage.height
+            );
+
+            // 计算水平居中但垂直底部对齐的位置
+            let newWidth = this.backgroundImage.width * scale;
+            let newHeight = this.backgroundImage.height * scale;
+            let x = (baseWidth - newWidth) / 2; // 水平居中
+            let y = baseHeight - newHeight;     // 底部对齐
+
+            // 绘制图片，保持原始比例，底部对齐
+            image(this.backgroundImage, x, y, newWidth, newHeight);
+        }
+
+        // Update all animations
+        this.updateTitleAnimation();
+        this.updateTextAnimation();
+
+        // Display title - 使用卡通风格字体、白色文本和指定颜色阴影
         textAlign(CENTER, CENTER);
-        textSize(32);
-        fill(0);
-        text(this.title, baseWidth / 2, baseHeight / 8);
+        textSize(this.titleCurrentSize); // 使用动画大小
 
-        // Display step progress
+        // 设置卡通风格字体
+        textFont("Comic Sans MS, Chalkboard, Marker Felt, sans-serif");
+
+        // 只有当字体大小大于0时才绘制文本（避免动画开始时闪烁）
+        if (this.titleCurrentSize > 1) {
+            // 先绘制阴影，增加立体感
+            fill(214, 237, 250);
+            textStyle(BOLD);
+            text(this.title, baseWidth / 2 + 1.5, baseHeight / 8 + 1.5); // 减小阴影偏移
+
+            // 再绘制墨灰色文本
+            fill(51, 51, 51);
+            text(this.title, baseWidth / 2, baseHeight / 8);
+        }
+
+        // 重置为默认字体和样式
+        textFont("sans-serif");
+        textStyle(NORMAL);
+
+        // Display progress text and instruction text with the same animation
         textSize(16);
-        fill(100, 100, 100);
-        text(`Step ${this.currentStep + 1} of ${this.tutorialSteps.length}`, baseWidth / 2, baseHeight / 8 + 40);
+        fill(123, 164, 79, this.textOpacity);
+        text(`Step ${this.currentStep + 1} of ${this.tutorialSteps.length}`,
+            baseWidth / 2,
+            baseHeight / 8 + 40 + this.textYOffset);
 
-        // Display current step instruction
+        // Display instruction text
         textSize(18);
-        fill(50, 50, 200);
-        text(this.tutorialSteps[this.currentStep].instruction, baseWidth / 2, baseHeight / 4);
+        fill(91, 132, 60, this.textOpacity); // Using the same green color as progress text
+        textStyle(ITALIC);
+        text(this.tutorialSteps[this.currentStep].instruction,
+            baseWidth / 2,
+            baseHeight / 4 + this.textYOffset);
+        textStyle(NORMAL);
 
-        // Update and draw the current step
-        this.tutorialSteps[this.currentStep].update();
-        this.tutorialSteps[this.currentStep].draw();
-
+        // 只有当所有动画完成后才更新和绘制教程步骤内容
+        if (!this.titleAnimationActive && !this.textAnimationActive) {
+            // Update and draw the current step
+            this.tutorialSteps[this.currentStep].update();
+            this.tutorialSteps[this.currentStep].draw();
+        }
 
         // Draw buttons
         for (let button of this.buttons) {
@@ -291,10 +483,16 @@ class StepByStepHelpScreen extends Screen {
                 && window.mouseYGame >= button.y - this.buttonHeight / 2
                 && window.mouseYGame <= button.y + this.buttonHeight / 2;
 
+            // 设置按钮样式 - 使用与菜单屏幕相似的绿色系
+            strokeWeight(2);
             if (isHovered) {
-                fill(100, 100, 255);
+                // 悬停状态
+                stroke(111, 148, 112, 230); // 与MenuScreen特殊按钮边框色一致
+                fill(95, 140, 96, 230); // 与MenuScreen特殊按钮填充色一致
             } else {
-                fill(70, 70, 200);
+                // 非悬停状态
+                stroke(111, 148, 112, 180); // 与MenuScreen特殊按钮边框色一致
+                fill(95, 140, 96, 200); // 与MenuScreen特殊按钮填充色一致
             }
 
             // Only show Next button if not on the last step
@@ -317,12 +515,17 @@ class StepByStepHelpScreen extends Screen {
                 continue;
             }
 
+            // 绘制圆角矩形按钮
             rect(button.x, button.y, this.buttonWidth, this.buttonHeight, 10);
 
-            fill(255);
+            // 按钮文字 - 白色文本更加清晰
+            noStroke();
+            fill(255, 255, 255, isHovered ? 255 : 220);
             textSize(16);
+            textStyle(BOLD);
             textAlign(CENTER, CENTER);
             text(button.label, button.x, button.y);
+            textStyle(NORMAL);
         }
     }
 
@@ -384,6 +587,60 @@ class StepByStepHelpScreen extends Screen {
         this.demoPlayer.movePlayerWithCaughtGrass();
     }
 
+    // Update resetAnimation() method
+    resetAnimation() {
+        // Reset title animation
+        this.titleAnimationActive = true;
+        this.titleAnimationStartTime = null;
+        this.titleCurrentSize = 0;
 
+        // Reset combined text animation
+        this.textAnimationActive = true;
+        this.textAnimationStartTime = null;
+        this.textYOffset = 30;
+        this.textOpacity = 0;
 
+        // Reset current step
+        this.currentStep = 0;
+        this.tutorialSteps[this.currentStep].setup();
+    }
+
+    // Update resetTextAnimations() method
+    resetTextAnimations() {
+        this.textAnimationActive = true;
+
+        // Start text animation immediately if title animation is complete
+        if (!this.titleAnimationActive) {
+            this.textAnimationStartTime = millis();
+        } else {
+            this.textAnimationStartTime = null;
+        }
+
+        this.textYOffset = 30;
+        this.textOpacity = 0;
+    }
+
+    // 初始化ScreenManager覆盖
+    initScreenManagerOverride() {
+        // 获取ScreenManager的引用
+        if (this.screenManager && this.screenManager.constructor) {
+            // 保存构造函数的引用
+            const ScreenManagerClass = this.screenManager.constructor;
+
+            // 保存原始的changeScreen方法
+            const originalChangeScreen = ScreenManagerClass.prototype.changeScreen;
+
+            // 覆盖changeScreen方法
+            ScreenManagerClass.prototype.changeScreen = function (newScreen) {
+                // 检查是否从Menu跳转到Tutorial
+                if (this.currentScreen === this.menuScreen && newScreen === this.stepByStepHelpScreen) {
+                    // 重置Tutorial动画
+                    this.stepByStepHelpScreen.resetAnimation();
+                }
+
+                // 调用原始方法
+                originalChangeScreen.call(this, newScreen);
+            };
+        }
+    }
 }
