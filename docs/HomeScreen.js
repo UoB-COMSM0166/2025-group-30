@@ -140,9 +140,11 @@ class HomeScreen extends Screen {
             textStyle(NORMAL);
         }
     }
+    doubleClicked() {
+        this.screenManager.changeScreen(this.screenManager.menuScreen);
+    }
 
-    mousePressed() {
-        // 切换到菜单屏幕
+    keyPressed() {
         this.screenManager.changeScreen(this.screenManager.menuScreen);
     }
 }

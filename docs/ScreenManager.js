@@ -27,6 +27,10 @@ class ScreenManager {
         this.currentScreen.mousePressed();
     }
 
+    doubleClick() {
+        this.currentScreen.doubleClicked();
+    }
+
     keyPressed() {
         this.currentScreen.keyPressed(); 
     }

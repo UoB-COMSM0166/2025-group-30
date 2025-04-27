@@ -1,33 +1,16 @@
-class Coop extends Screen {
+class Coop extends GameScreen {
     constructor(screenManager, level = 1) {
-        // --- basic settings ---
-        super(screenManager);
-        this.backgroundImage = null;
-        this.loadBackgroundImage();
+        super(screenManager, level, Level.GAME_MODES.COOP);
 
-        // --- level related settings ---
-        this.level = new Level(Level.GAME_MODES.COOP, level);
-
-        this.pauseScreen = new PauseScreen(this.screenManager, this);
         this.gameOverScreen = new GameOverScreen(this.screenManager, this);
         this.levelSuccessScreen = new LevelSuccessScreen(this.screenManager, this);
         this.targetScoreScreen = new TargetScoreScreen(this.screenManager, this);
-
+        this.accomplishScreen = new AccomplishScreen(this.screenManager, this);
         this.player1 = new Player("left");
         this.player2 = new Player("right");
-        this.basket = new Basket("left"); // 只使用一个篮子
+        this.basket = new Basket("left");
         this.player1.basket = this.basket;
         this.player2.basket = this.basket;
-
-        this.grass = []; //collection of falling grass
-        this.shovels = [];
-
-        this.grassDropInterval = null; //manage how often a grass drops
-        this.levelTimerInterval = null; //manage how often the timer goes down i.e. 1 second
-        this.shovelDropInterval = null;
-
-        this.particles1 = []; // Add particle array to handle the effects of perfect stack
-        this.particles2 = []; // Add particle array to handle the effects of perfect stack
     }
 
     display() {
@@ -38,13 +21,13 @@ class Coop extends Screen {
             this.player1.movePlayerWithCaughtGrass();
             this.player2.movePlayerWithCaughtGrass();
             this.updateFallingGrass();
-            this.updateShovels();
+            this.updateSpecialItems();
             this.checkPerfectStack();
             this.updateParticles();
         }
 
         this.drawFallingGrass();
-        this.drawShovels();
+        this.drawSpecialItems();
         this.player1.drawPlayerWithCaughtGrass(); //show player with grass 
         this.player2.drawPlayerWithCaughtGrass();
         this.drawParticles();
@@ -59,18 +42,18 @@ class Coop extends Screen {
             this.grassDropInterval = null;
         }
 
-        this.grass = []; //empty the grass piles
+        this.resetGrassArray();
 
         setTimeout(() => {
             if (this.grassDropInterval === null) {
-                let firstX = random(200, baseWidth - 100);
+                let firstX = this.findSafePosition(50, baseWidth - 70, this.grass, this.specialItems);
                 this.grass.push(new Grass(firstX, 10));
 
                 this.grassDropInterval = setInterval(() => {
                     if ((this.player1.flash.getFlashDuration() === 0 ||
                         this.player2.flash.getFlashDuration() === 0) &&
                         this.screenManager.currentScreen === this) {
-                        let newX = random(200, baseWidth - 100);
+                        let newX = this.findSafePosition(50, baseWidth - 70, this.grass, this.specialItems);
                         this.grass.push(new Grass(newX, 10));
                     }
                 }, this.level.grassDropDelay);
@@ -78,38 +61,48 @@ class Coop extends Screen {
         }, 1000);
     }
 
-    stopGrassDrop() {
-        if (this.grassDropInterval) {
-            clearInterval(this.grassDropInterval);
-            this.grassDropInterval = null;
-        }
-    }
-
-    startShovelDrop() {
-        if (this.level.level === 1) return; //shovels starts from level 2
-        if (this.shovelDropInterval) {
-            clearInterval(this.shovelDropInterval);
-            this.shovelDropInterval = null;
+    startSpecialItemDrop() {
+        if (this.level.level === 1) return; //special items starts from level 2
+        if (this.specialItemDropInterval) {
+            clearInterval(this.specialItemDropInterval);
+            this.specialItemDropInterval = null;
         }
 
-        this.shovels = []; //empty the shovel piles   
+        this.resetSpecialItemsArray();
 
-        this.shovelDropInterval = setInterval(() => {
+        this.specialItemDropInterval = setInterval(() => {
             if ((this.player1.flash.getFlashDuration() === 0 ||
                 this.player2.flash.getFlashDuration() === 0) &&
                 this.screenManager.currentScreen === this) {
-                let newX = random(200, baseWidth - 100);
-                this.shovels.push(new Shovel(newX, 10));
+
+                const newX = this.findSafePosition(50, baseWidth - 70, this.grass, this.specialItems);
+
+                switch (this.level.level) {
+                    case 2:
+                        this.specialItems.push(new Shovel(newX, 10));
+                        break;
+                    case 3:
+                        this.specialItems.push(new SpeedBoot(newX, 10));
+                        break;
+                    case 4:
+                        this.specialItems.push(new ProteinShaker(newX, 10));
+                        break;
+                    case 5:
+                        // 铲子独立掉落
+                        if (random() < 0.5) { // 50% 概率掉铲子
+                            this.specialItems.push(new Shovel(newX, 10));
+                        } else {
+                            // 另外两种物品随机掉
+                            if (random() < 0.5) { // 50% 概率掉蛋白粉
+                                this.specialItems.push(new ProteinShaker(newX + 50, 10));
+                            } else { // 50% 概率掉速度靴
+                                this.specialItems.push(new SpeedBoot(newX + 50, 10));
+                            }
+                        }
+
+                }
             }
-        }, this.level.shovelDropDelay);
-    }
-
-
-    stopShovelDrop() {
-        if (this.shovelDropInterval) {
-            clearInterval(this.shovelDropInterval);
-            this.shovelDropInterval = null;
-        }
+        }, this.level.specialItemDropDelay);
     }
 
     // --- main game logic ----
@@ -135,85 +128,44 @@ class Coop extends Screen {
     }
 
     checkPerfectStack() {
-        if (this.player1.checkPerfectStack()) {
-            console.log("Perfect stack");
-            this.level.addTime(2);
-            this.createPerfectStackEffects(this.player1, this.particles1);
-        }
-        if (this.player2.checkPerfectStack()) {
-            console.log("Perfect stack");
-            this.level.addTime(2);
-            this.createPerfectStackEffects(this.player2, this.particles2);
-        }
+        this.checkEachPlayerPerfectStack(this.player1, this.particles1);
+        this.checkEachPlayerPerfectStack(this.player2, this.particles2);
     }
 
-    createPerfectStackEffects(player, particles) {
-        // Get the position of the perfect stack
-        const currentGrass = player.stack[player.stack.length - 1];
-        const x = currentGrass.x + currentGrass.w / 2;
-        const y = currentGrass.y + currentGrass.h / 2;
-
-        // Create sparkles
-        for (let i = 0; i < 10; i++) {
-            particles.push(new Particle(x, y, 'sparkle'));
-        }
-
-        // Create "Perfect Stack!" text
-        particles.push(new Particle(x, y - 30, 'text'));
-
-        // Create "+2s" bonus text
-        particles.push(new Particle(x, y - 60, 'bonus'));
-    }
-
-    updateShovels() {
+    updateSpecialItems() {
         if (this.level.level === 1) {
             return;
         }
-        for (let i = this.shovels.length - 1; i >= 0; i--) {
-            const currentShovel = this.shovels[i];
+        for (let i = this.specialItems.length - 1; i >= 0; i--) {
+            const currentItem = this.specialItems[i];
             if ((this.player1.flash.getFlashDuration() === 0 ||
                 this.player2.flash.getFlashDuration() === 0)) {
-                currentShovel.fall();
-            } //stop shovel fall if flashing is on or game is paused    
+                currentItem.fall();
+            } //stop fall if flashing is on or game is paused    
 
-            if (currentShovel.hits(this.player1) &&
-                currentShovel.hits(this.player2)) {
-                this.player1.stack = [];
-                this.player2.stack = [];
-                this.player1.flash.setFlashDuration(30);
-                this.player2.flash.setFlashDuration(30);
-                this.shovels.splice(i, 1);
-            } else if (currentShovel.hits(this.player1)) {
-                this.player1.stack = [];
-                this.player1.flash.setFlashDuration(30);
-                this.shovels.splice(i, 1);
-            } else if (currentShovel.hits(this.player2)) {
-                this.player2.stack = [];
-                this.player2.flash.setFlashDuration(30);
-                this.shovels.splice(i, 1);
-            } else if (currentShovel.isOffscreen()) {
-                this.shovels.splice(i, 1);
+            if (currentItem.hits(this.player1) && currentItem.hits(this.player2)) {
+                currentItem.applyEffect(this.player1, this);
+                currentItem.applyEffect(this.player2, this);
+                this.specialItems.splice(i, 1);
+            } else if (currentItem.hits(this.player1)) {
+                currentItem.applyEffect(this.player1, this);
+                this.specialItems.splice(i, 1);
+            } else if (currentItem.hits(this.player2)) {
+                currentItem.applyEffect(this.player2, this);
+                this.specialItems.splice(i, 1);
+            } else if (currentItem.isOffscreen()) {
+                this.specialItems.splice(i, 1);
             }
         }
     }
 
-    drawShovels() {
-        this.shovels.forEach(shovel => shovel.draw());
+    drawSpecialItems() {
+        this.specialItems.forEach(item => item.draw());
     }
 
     updateParticles() {
-        for (let i = this.particles1.length - 1; i >= 0; i--) {
-            this.particles1[i].update();
-            if (this.particles1[i].isDead()) {
-                this.particles1.splice(i, 1);
-            }
-        }
-        for (let i = this.particles2.length - 1; i >= 0; i--) {
-            this.particles2[i].update();
-            if (this.particles2[i].isDead()) {
-                this.particles2.splice(i, 1);
-            }
-        }
+        this.updateEachPlayerParticles(this.player1, this.particles1);
+        this.updateEachPlayerParticles(this.player2, this.particles2);
     }
 
     drawParticles() {
@@ -231,70 +183,52 @@ class Coop extends Screen {
             }
             else { //check when times run out
                 this.stopGrassDrop();
-                this.stopShovelDrop();
+                this.stopSpecialItemDrop();
                 this.stopLevelTimer();
                 if ((this.player1.score + this.player2.score) >= this.level.targetScores) {
-                    this.screenManager.changeScreen(this.levelSuccessScreen); //move up a level    
+                    if (this.level.level >= 5) {
+                        this.screenManager.changeScreen(this.accomplishScreen);
+                    } else {
+                        this.screenManager.changeScreen(this.levelSuccessScreen);
+                    }
                 } else {
-                    this.screenManager.changeScreen(this.gameOverScreen); //game over
+                    this.screenManager.changeScreen(this.gameOverScreen);
                 }
             }
         }, 1000);
     }
 
-    stopLevelTimer() {
-        if (this.levelTimerInterval) {
-            clearInterval(this.levelTimerInterval);
-            this.levelTimerInterval = null;
-        }
-    }
-
-    clearStats() {
+    resetPlayers() {
         this.player1.reset();
         this.player2.reset();
-        this.level.resetTimeLeft();
+    }
+
+    resetGrassArray() {
         this.grass = [];
-        this.shovels = [];
-        this.stopGrassDrop();
-        this.stopShovelDrop();
-        this.stopLevelTimer();
     }
 
-    restartFromLevel1() {
-        this.level.resetToLevel1();
-        this.restartFromCurrentLevel();
+    resetSpecialItemsArray() {
+        this.specialItems = [];
     }
 
-    restartFromCurrentLevel() {
-        this.clearStats();
-        this.startGrassDrop();
-        this.startShovelDrop();
-        this.startLevelTimer();
+    resetParticles() {
+        this.particles1 = [];
+        this.particles2 = [];
     }
 
-    displayUI() {
+    updateScoreDisplay() {
         this.basket.updateScore(this.player1.score + this.player2.score, this.level.targetScores);
-
-        fill(255);
-        textSize(20);
-        stroke(0);
-        strokeWeight(2);
-        textStyle(BOLD);
-
-        textAlign(CENTER);
-        text(`Level ${this.level.level}`, baseWidth / 2, 30);
-
-        textAlign(LEFT);
-        text(`Time: ${this.level.timeLeft}s`, 20, 30);
-        noStroke();
-        textStyle(NORMAL);
     }
 
     //--- Move to next level ---
     startNextLevel() {
-        this.level.startNextLevel();
         this.clearStats();
-        this.screenManager.changeScreen(this.targetScoreScreen);
+        if (this.level.level >= 5) {
+            this.screenManager.changeScreen(this.accomplishScreen);
+        } else {
+            this.level.startNextLevel();
+            this.screenManager.changeScreen(this.targetScoreScreen);
+        }
     }
 
     keyPressed() {
@@ -316,7 +250,4 @@ class Coop extends Screen {
         if (keyCode === LEFT_ARROW || keyCode === RIGHT_ARROW) this.player2.dir = 0;
     }
 
-    loadBackgroundImage() {
-        this.backgroundImage = loadImage("assets/barn.webp");
-    }
 }

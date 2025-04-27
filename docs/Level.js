@@ -10,16 +10,18 @@ class Level {
             initialTargetScores: 5,
             targetScoresIncrement: 5,
 
-            initialTimer: 10,
+            initialTimer: 15,
+            //initialTimer: 100,
             timerIncrement: 5,
 
             initialGrassDropDelay: 2000, //2 seconds
             grassDropDelayDecrement: 300,
             minGrassDropDelay: 1000,
 
-            initialShovelDropDelay: 8000, //not used in level 1, 8 seconds
-            shovelDropDelayDecrement: 800,
-            minShovelDropDelay: 5000
+            initialSpecialItemDropDelay: 10000, //10 seconds
+            //initialSpecialItemDropDelay: 2000, //5 seconds
+            specialItemDropDelayDecrement: 500, //decrease by 0.5 seconds each level
+            minSpecialItemDropDelay: 10000, //minimum 10 seconds
         },
         [Level.GAME_MODES.COOP]: {
             initialTargetScores: 5,
@@ -32,9 +34,9 @@ class Level {
             grassDropDelayDecrement: 200,
             minGrassDropDelay: 500,
 
-            initialShovelDropDelay: 3500,
-            shovelDropDelayDecrement: 300,
-            minShovelDropDelay: 2500
+            initialSpecialItemDropDelay: 3500,
+            specialItemDropDelayDecrement: 300,
+            minSpecialItemDropDelay: 2500,
         },
         [Level.GAME_MODES.PVP]: {
             initialTargetScores: 0, // Not used in PvP
@@ -47,9 +49,9 @@ class Level {
             grassDropDelayDecrement: 300,
             minGrassDropDelay: 500,
 
-            initialShovelDropDelay: 3500,
-            shovelDropDelayDecrement: 500,
-            minShovelDropDelay: 2000
+            initialSpecialItemDropDelay: 3500,
+            specialItemDropDelayDecrement: 500,
+            minSpecialItemDropDelay: 2000
         }
     };
 
@@ -62,7 +64,7 @@ class Level {
         this.timer = settings.initialTimer;
         this.timeLeft = this.timer;
         this.grassDropDelay = settings.initialGrassDropDelay;
-        this.shovelDropDelay = settings.initialShovelDropDelay;
+        this.specialItemDropDelay = settings.initialSpecialItemDropDelay;
         // Store settings for level progression
         this.settings = settings;
     }
@@ -79,9 +81,9 @@ class Level {
             this.settings.minGrassDropDelay,
             this.grassDropDelay - this.settings.grassDropDelayDecrement
         );
-        this.shovelDropDelay = max(
-            this.settings.minShovelDropDelay,
-            this.shovelDropDelay - this.settings.shovelDropDelayDecrement
+        this.specialItemDropDelay = max(
+            this.settings.minSpecialItemDropDelay,
+            this.specialItemDropDelay - this.settings.specialItemDropDelayDecrement
         );
         this.resetTimeLeft();
     }
@@ -92,7 +94,7 @@ class Level {
         this.targetScores = settings.initialTargetScores;
         this.timer = settings.initialTimer;
         this.grassDropDelay = settings.initialGrassDropDelay;
-        this.shovelDropDelay = settings.initialShovelDropDelay;
+        this.specialItemDropDelay = settings.initialSpecialItemDropDelay;
         this.resetTimeLeft();
     }
 
