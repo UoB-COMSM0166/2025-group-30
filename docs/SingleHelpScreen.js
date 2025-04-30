@@ -150,17 +150,21 @@ class SingleHelpScreen extends Screen {
                 && window.mouseYGame >= button.y - button.buttonHeight / 2
                 && window.mouseYGame <= button.y + button.buttonHeight / 2;
 
+            // 绘制按钮边框
+            stroke(53, 97, 140);  // 蓝黑色
+            strokeWeight(3);      // 加粗边框
             if (isHovered) {
-                fill(227, 249, 253);  // Lighter version of button color when hovering
+                fill(227, 249, 253);  // 更亮的按钮颜色
             } else {
-                fill(207, 239, 246);  // Normal button color
+                fill(207, 239, 246);  // 正常按钮颜色
             }
             rect(button.x, button.y, button.buttonWidth, button.buttonHeight, 10);
+            noStroke();  // 重置描边设置
 
             // Draw text
             textSize(16);
             textAlign(CENTER, CENTER);
-            fill(53, 97, 140);  // Button text color
+            fill(53, 97, 140);  // 按钮文字颜色
             text(button.label, button.x, button.y);
         }
 
