@@ -51,7 +51,9 @@ class PauseScreen extends Screen {
 
 
         // Draw pause menu title
-        fill(255);
+        fill(254, 224, 173);
+        textFont('Comic Sans MS');
+        textStyle(BOLD);
         textSize(40);
         textAlign(CENTER, CENTER);
         text("PAUSE", baseWidth/2, baseHeight/2 - 100);
@@ -67,14 +69,16 @@ class PauseScreen extends Screen {
                 && window.mouseYGame <= button.y + button.buttonHeight/2;
 
             if (isHovered) {
-                fill(100, 100, 255);
+                fill(255, 210, 160);
             } else {
-                fill(70, 70, 200);
+                fill(243, 186, 125);
             }
             rect(button.x, button.y, button.buttonWidth, button.buttonHeight, 10);
 
             // Draw button text
-            fill(255);
+            fill(147, 75, 43);
+            textFont('Comic Sans MS');
+            textStyle(BOLD);
             textSize(20);
             textAlign(CENTER, CENTER);
             text(button.label, button.x, button.y);
