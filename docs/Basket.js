@@ -28,7 +28,7 @@ class Basket {
         pop(); // 恢复绘图状态
 
         // 显示分数
-        fill(255);
+        fill(254, 224, 173);
         textSize(20);
         stroke(0);
         strokeWeight(2);
