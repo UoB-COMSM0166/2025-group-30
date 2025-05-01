@@ -14,7 +14,6 @@ class Coop extends GameScreen {
     }
 
     display() {
-        // 设置全局字体
         textFont('Comic Sans MS');
         
         image(this.backgroundImage, 0, 0, baseWidth, baseHeight);
