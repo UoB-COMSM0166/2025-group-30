@@ -80,14 +80,6 @@ class CoopHelpScreen extends Screen {
         rectMode(CORNER);
         rect(0, 0, baseWidth, baseHeight);
 
-        // Draw title
-        textAlign(CENTER, TOP);
-        textFont('Comic Sans MS');
-        textStyle(BOLD);
-        textSize(40);
-        fill(53, 97, 140);
-        text("Guidance", baseWidth/2, baseHeight/24);
-
         // Set global text style
         textStyle(BOLD);
         textFont('Comic Sans MS');
@@ -173,14 +165,14 @@ class CoopHelpScreen extends Screen {
         for (let i = 0; i < 6; i++) {
             image(this.grassImage, 
                 stackX + offsets[i], 
-                playerY - playerHeight/2 - grassHeight/2 - (i * (grassHeight - yGap)), 
+                playerY - playerHeight/2 - grassHeight/2 - (i * (grassHeight - yGap)) + 3, 
                 grassWidth, 
                 grassHeight
             );
         }
 
         // Draw blue X on the last hay block
-        const topGrassY = playerY - playerHeight/2 - grassHeight/2 - (5 * (grassHeight - yGap));
+        const topGrassY = playerY - playerHeight/2 - grassHeight/2 - (5 * (grassHeight - yGap)) + 3;
         stroke(117, 170, 208);
         strokeWeight(4);
         line(

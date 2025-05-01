@@ -121,9 +121,6 @@ class TargetScoreScreen extends Screen {
                 itemDescription = "Protein Shaker:";
                 itemDescription2 = "Stack unlimitedly for a while";
                 break;
-            case 5:
-                itemDescription = "All items Random drops";
-                break;
             default:
                 itemDescription = "";
                 itemDescription2 = "";

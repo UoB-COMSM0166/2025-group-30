@@ -58,14 +58,6 @@ class SingleHelpScreen extends Screen {
         rectMode(CORNER);
         rect(0, 0, baseWidth, baseHeight);
 
-        // Draw title
-        textAlign(CENTER, TOP);
-        textFont('Comic Sans MS');
-        textStyle(BOLD);
-        textSize(48);
-        fill(53, 97, 140);
-        text("Guidance", baseWidth/2, baseHeight/18);
-
         const arrowSize = 60;
         const spaceButtonSize = arrowSize;  // Make space button same size as arrow buttons
 
@@ -109,14 +101,14 @@ class SingleHelpScreen extends Screen {
         for (let i = 0; i < 6; i++) {
             image(this.grassImage, 
                 stackX + offsets[i], 
-                playerY - playerHeight/2 - grassHeight/2 - (i * (grassHeight - yGap)), 
+                playerY - playerHeight/2 - grassHeight/2 - (i * (grassHeight - yGap)) + 3, 
                 grassWidth, 
                 grassHeight
             );
         }
 
         // Draw a blue X over the top grass block
-        const topGrassY = playerY - playerHeight/2 - grassHeight/2 - (5 * (grassHeight - yGap));
+        const topGrassY = playerY - playerHeight/2 - grassHeight/2 - (5 * (grassHeight - yGap)) + 3;
         stroke(117, 170, 208);  // Use same blue color
         strokeWeight(4);  // Set line thickness
         // Draw X

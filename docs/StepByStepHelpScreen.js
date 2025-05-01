@@ -141,7 +141,7 @@ class StepByStepHelpScreen extends Screen {
                 }
             },
             { //step 3
-                instruction: "Press SPACE when near the basket to empty your stack",
+                instruction: "Press SPACE when near the barrel to empty your stack",
                 setup: () => {
                     // Reset basket score
                     this.demoBasket.score = 0;
@@ -180,7 +180,7 @@ class StepByStepHelpScreen extends Screen {
                 }
             },
             { //step 4
-                instruction: `Catch one more hay block to exceed the limit of 5`,
+                instruction: `Catch one more hay stack to exceed the limit of 5`,
                 setup: () => {
                     // Clear the player's stack
                     this.demoPlayer.stack = [];
@@ -430,7 +430,7 @@ class StepByStepHelpScreen extends Screen {
         textSize(this.titleCurrentSize); // Use animated size
 
         // Set cartoon style font
-        textFont("Comic Sans MS, Chalkboard, Marker Felt, sans-serif");
+        textFont("Comic Sans MS");
 
         // Only draw text when font size is greater than 0 (avoid flickering at animation start)
         if (this.titleCurrentSize > 1) {
