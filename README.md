@@ -56,9 +56,7 @@ Our game is a casual stacking challenge inspired by a classic mini-game from the
 
 To increase the game's difficulty and reflect real-world limitations on how much a person can carry, each player can catch a maximum of five haystacks at a time. If this limit is exceeded, the character will stumble and drop all collected hay. This mechanic not only adds tension but also introduces strategic decision-making—players must carefully balance between collecting more hay and emptying their basket in time.
 
-As hay accumulates, the character's movement speed gradually slows down, requiring players to choose the right moment to clear their collection bucket and maintain agility. Building on the original gameplay, the game introduces more challenging elements, During the game, players must avoid falling shovels to prevent their currently carried hay from being cleared. To overcome the gravity-based slowdown and increase movement speed, players should try to catch the falling SpeedBoot. To raise the maximum hay-carrying limit from 5 to 10, players need to catch the falling ProteinShaker. In addition, the game features a "perfect catch" mechanic: if the next piece of hay overlaps almost perfectly with the previous one within a certain range, it is considered a perfect catch, rewarding the player with an extra 2 seconds of gameplay time.
-
-To enrich the overall experience, the game offers not only a single-player mode, but also a two-player co-op mode and a two-player competitive mode. These design elements add depth to the gameplay, delivering a fun, fast-paced, and relaxing farm harvesting experience.
+As hay accumulates, the character's movement speed gradually slows down, requiring players to choose the right moment to clear their collection bucket and maintain agility. Building on the original gameplay, the game introduces more challenging elements: in single-player mode, players must dodge falling shovels and buckets while collecting stars for extra lives. In two-player mode, players can either collaborate to achieve a shared goal or compete to see who finishes first. These design features enrich the gameplay and deliver a fun, fast-paced, yet relaxing farm harvest experience.
 
 The following table shows the main elements of the game:
 <p align="center">
@@ -67,12 +65,12 @@ The following table shows the main elements of the game:
 
 | Category | Image | Description |
 |:---      | :---: | :---:       |
-| **Player & lifting basket** | <img src="docs/assets/player1.webp" width="50" style="vertical-align: middle;">        | The character controlled by the player, moving left and right to catch falling hay.                                    |
+| **Player & lifting basket** | <img src="docs/assets/player1.webp" width="50" style="vertical-align: middle;">        | The character controlled by the player, moving left and right to catch falling hay.                                        |
 | **collection Basket**       | <img src="docs/assets/basket.webp" width="50" style="vertical-align: middle;">         | A secondary basket used for catching hay before transferring it to the main collection basket.                           |
-| **Falling Hay**             | <img src="docs/assets/hay.webp" width="50" style="vertical-align: middle;">            | Falling haystacks descend from the sky. Players must efficiently catch them and place them into the basket within the time limit for the scores to count toward their goal.                                                                       |
-| **Shovel**                  | <img src="docs/assets/shovel.webp" width="50" style="vertical-align: middle;">         | Starting from level two, random items will begin to drop. If a player comes into contact with one, their currently held haystack will be cleared. However, this does not affect the haystacks that have already been counted in the basket.                                                                                                                |
-| **ProteinShaker**           | <img src="docs/assets/protein-shaker.webp" width="50" style="vertical-align: middle;"> | Starting from level three, a random item may drop. If the player touches it, their maximum haystack carrying limit temporarily increases from 5 to 10 for 10 seconds, and the movement speed penalty caused by stacking hay is removed during this period.                |
-| **SpeedBoot**               | <img src="docs/assets/speed-boot.webp" width="50" style="vertical-align: middle;">     | Starting from level four, a random item may drop. If the player touches it, their movement speed increases by 20% for 5 seconds, triggering a blue particle effect that enhances the player's mobility for a short duration.                                                                         |
+| **Falling Hay**             | <img src="docs/assets/hay.webp" width="50" style="vertical-align: middle;">            | The hay stacks that fall from the sky. Players must catch them efficiently to reach the target before time runs out.       |
+| **Shovel**                  | <img src="docs/assets/shovel.webp" width="50" style="vertical-align: middle;">         | If the player accidentally comes into contact with a randomly dropped item—a shovel—it will cause the current stack of grass the player is holding to be cleared. However, this does not affect the number of grass bundles that have already been counted in the basket.                                                                                                            |
+| **ProteinShaker**           | <img src="docs/assets/protein-shaker.webp" width="50" style="vertical-align: middle;"> | When used, this item temporarily increases the player's maximum stack limit to 10 (originally 5) for 10 seconds, and removes the movement speed penalty caused by stacking grass. A red particle effect is triggered during this period.                |
+| **SpeedBoot**               | <img src="docs/assets/speed-boot.webp" width="50" style="vertical-align: middle;">     | When used, this item increases the player's movement speed by 20% for 5 seconds and triggers a blue particle effect, granting the player enhanced mobility for a short duration.                                                                         |
 
 # 4.Requirements 
 - 15% ~750 words
@@ -514,16 +512,44 @@ We collected and analyzed SUS questionnaire data from 12 users for both Level 1 
 
 <p align="center"><b>Figure 8: SUS Score Distribution Chart</b></p>
 <div align="center">
-  <img src="SUS evaluation.png" width="533">
+  <img src="SUS evaluation.webp" width="533">
 </div>
 
 <p align="center"><b>Figure 9: Average Score Chart</b></p>
 <div align="center">
-  <img src="averageScore.png" width="533">
+  <img src="averageScore.webp" width="533">
 </div>
 The results of the Wilcoxon Signed-Rank Test for the System Usability Scale (SUS) scores show no statistically significant difference between the two difficulty levels (W = 10.5, p = 0.5461). Although individual user scores vary slightly, both the easy and hard levels received generally high SUS scores. This suggests that users found the game to be consistently usable across both difficulty settings.
 
 ## 7.3 Test
+We mainly conducted black-box testing for the game. The test cases were designed based on the equivalence partitioning method and focused on core game functionalities. Testing covered five major areas: game mode selection, player movement control, grass block collection mechanics, score calculation system, and shovel item system.
+Each test case was designed following the equivalence class principle, covering valid inputs, invalid inputs, and boundary conditions.
+The test results showed that all core functionalities are working correctly, including interface responsiveness, player control accuracy, game mechanic stability, score calculation correctness, and item system functionality.
+Special attention was given to boundary condition handling, such as screen edge limits, basket capacity limits, and time limits, ensuring the game operates normally under all conditions.
+All test cases passed, indicating that the core functions have been successfully implemented and are operating correctly.
+
+| Test ID | Test Type | Input Condition | Equivalence Class | Expected Output | Actual Output | Test Result |
+|:-------:|:---------:|:---------------:|:-----------------:|:---------------:|:-------------:|:-----------:|
+| GM-01 | UI Interaction | Click "Single Player" button | Valid Input | Enter single-player help screen | Successfully entered single-player help screen | Passed |
+| GM-02 | UI Interaction | Click "Co-op Mode" button | Valid Input | Enter co-op mode help screen | Successfully entered co-op mode help screen | Passed |
+| GM-03 | UI Interaction | Click "PvP Mode" button | Valid Input | Enter PvP mode help screen | Successfully entered PvP mode help screen | Passed |
+| GM-04 | UI Interaction | Click on blank area | Invalid Input | Remain on the current screen | Screen remained unchanged | Passed |
+| PM-01 | Player Control | Press left arrow key | Valid Input | Player moves left | Player moves left smoothly | Passed |
+| PM-02 | Player Control | Press right arrow key | Valid Input | Player moves right | Player moves right smoothly | Passed |
+| PM-03 | Player Control | Press both left and right keys simultaneously | Invalid Input | Player remains stationary | Player remains stationary | Passed |
+| PM-04 | Player Control | Player reaches screen boundary | Boundary Condition | Player stops moving | Player stops at boundary | Passed |
+| GC-01 | Game Mechanics | Player successfully catches a grass block | Valid Input | Grass block enters basket | Grass block enters basket with animation | Passed |
+| GC-02 | Game Mechanics | Player misses the grass block | Valid Input | Grass block continues to fall | Grass block continues falling and disappears | Passed |
+| GC-03 | Game Mechanics | Basket is full when catching grass block | Boundary Condition | Grass block continues to fall | Grass block cannot enter basket | Passed |
+| GC-04 | Game Mechanics | Grass block falls outside the basket | Boundary Condition | Grass block disappears | Grass block disappears after touching ground | Passed |
+| SC-01 | Score System | Successfully collect a grass block | Valid Input | Score increases by 1 point | Score correctly increases by 1 point | Passed |
+| SC-02 | Score System | Perfectly stack grass blocks | Valid Input | Gain additional time reward | Special effects displayed, time increased by 5 seconds | Passed |
+| SC-03 | Score System | Reach target score | Boundary Condition | Advance to next level | Level-clear animation displayed, moved to next level | Passed |
+| SC-04 | Score System | Time runs out before reaching target | Boundary Condition | Game over | Game over screen displayed | Passed |
+| SH-01 | Item System | Press space key to use shovel | Valid Input | Shovel launches forward | Shovel launched forward | Passed |
+| SH-02 | Item System | Shovel hits an opponent | Valid Input | Opponent is knocked back | Opponent knocked back with animation | Passed |
+| SH-03 | Item System | Shovel durability runs out | Boundary Condition | Unable to use shovel | Shovel icon turns gray | Passed |
+| SH-04 | Item System | Shovel misses the target | Valid Input | Shovel disappears after flying | Shovel disappeared after flying | Passed |
 
 # 8.Sustainability
 
@@ -578,7 +604,7 @@ Decoupled structure to avoid unnecessary refreshes or duplicate checks
 
 To better visualize the sustainability logic in Hay-stacking, we mapped our design decisions to the five dimensions of the SusAF model—Individual, Social, Technical, Environmental, and Economic—following the Immediate → Enabling → Structural logic. Each design pattern contributes not only to immediate efficiency, but also to long-term structural sustainability.
 
-<p align="center"><b>Figure 9: Sustainability Awareness Diagram</b></p>
+<p align="center"><b>Figure 10: Sustainability Awareness Diagram</b></p>
 <p align="center">
   <img src="https://github.com/user-attachments/assets/dcf6ef86-3c7f-488f-917f-530946ea2709" width="600">
 </p>
@@ -637,7 +663,10 @@ We used **GitHub's Kanban Board** to visualize project tasks and track progress.
 - 🟡 **To Do**
 - 🔵 **In Progress**
 - 🟢 **Done**
-
+<p align="center"><b>Figure 11: Kanban Board</b></p>
+<div align="center">
+  <img src="kanban.webp" width="533">
+</div>
 Responsibilities such as asset creation, audio collection, and documentation were distributed organically among team members, reflecting our self-organizing working style. This helped us clearly monitor each task's status and streamline our workflow.
 
 ---
