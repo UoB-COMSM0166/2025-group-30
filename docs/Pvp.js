@@ -68,31 +68,8 @@ class Pvp extends GameScreen { // player with higher score in the set time wins
     }
 
     displaySpecialItemTimers(player) {
-        // Only show when speed buff is active
-        if (player.speedBoot) {
-            const remainingTime = player.speedBoot.timeLeft;
-            if (remainingTime > 0) {
-                push();
-                fill(254, 224, 173); // Set to specified RGB color
-                textSize(20);
-                textAlign(LEFT);
-                text(`Speed boost: ${remainingTime.toFixed(0)}s`, 20, 60);
-                pop();
-            }
-        }
-
-        // Only show when strength buff is active
-        if (player.proteinShaker) {
-            const remainingTime = player.proteinShaker.timeLeft;
-            if (remainingTime > 0) {
-                push();
-                fill(254, 224, 173); // Set to specified RGB color
-                textSize(20);
-                textAlign(LEFT);
-                text(`Strength boost: ${remainingTime.toFixed(0)}s`, 20, 90);
-                pop();
-            }
-        }
+        // 移除所有显示道具时间的文本
+        return;
     }
 
     // --- initialising the game state ---
