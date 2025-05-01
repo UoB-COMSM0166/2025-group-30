@@ -17,7 +17,15 @@
 
 # 1.Game & Game video
 
-Link to your game [PLAY HERE](https://uob-comsm0166.github.io/2025-group-30/) 
+<p align="center">
+  <a href="https://uob-comsm0166.github.io/2025-group-30/">
+    <img src="docs/assets/HomeScreen.gif" alt="Game Screen" />
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://uob-comsm0166.github.io/2025-group-30/">Play here</a>
+</p>
 
 Our game lives in the [docs](/docs) folder, and is published using Github pages to the link above.
 
@@ -49,8 +57,6 @@ Include a demo video of our game here
 </div>
 
 # 3.Introduction
-- 5% ~250 words 
-- Describe your game, what is based on, what makes it novel? 
 
 Our game is a casual stacking challenge inspired by a classic mini-game from the popular title *Mole Manor*. Drawing from its gameplay, we set the game's backdrop during the harvest season on a farm. Players must control their character's left and right movements to catch falling haystacks and place them into a basket within a limited time in order to reach the collection goal and advance to the next level.
 
@@ -73,9 +79,6 @@ The following table shows the main elements of the game:
 | **SpeedBoot**               | <img src="docs/assets/speed-boot.webp" width="50" style="vertical-align: middle;">     | When used, this item increases the player's movement speed by 20% for 5 seconds and triggers a blue particle effect, granting the player enhanced mobility for a short duration.                                                                         |
 
 # 4.Requirements 
-- 15% ~750 words
-- Use case diagrams, user stories. Early stages design. Ideation process. How did you decide as a team what to develop? 
-
 ## 4.1 Game Idea Brainstorming Overview
 
 As part of our early ideation process, our team participated in a collaborative brainstorming session to generate and explore a variety of game concepts. We studied a wide range of existing games, focusing on their core mechanics, player engagement strategies, and potential for creative development. Our goal was to identify gameplay elements that are not only fun and challenging, but also flexible enough to allow for innovation and adaptation.
@@ -312,10 +315,9 @@ In the early stages, we created initial user stories based on the behavior patte
 
 After finalizing the requirements and completing the feasibility analysis, we proceeded with the use case explanation.Here is the use-case diagram.
 <p align="center"><b>Figure 7: Use-Case Diagram</b></p>
-
-<p align="center">
-  <img width="680" alt="Image" src="https://github.com/user-attachments/assets/94a3733e-0182-400e-b6be-4c40585cdcee" />
-</p>
+<div align="center">
+  <img src="use-case diagram.webp" width="1100">
+</div>
 
 
 ### 4.8.1. Players
@@ -379,13 +381,7 @@ The **Game System** manages the underlying logic, rules, and state transitions w
   
 # 5.Design
 
-- 15% ~750 words 
-- System architecture. Class diagrams, behavioural diagrams. 
-
 # 6.Implementation
-
-- 15% ~750 words
-- Describe implementation of your game, in particular highlighting the three areas of challenge in developing your game. 
 
 ## 6.1 Challenges
 ### 6.1.1 challenge 1:
@@ -417,11 +413,6 @@ Through this series of adjustments and optimizations, we successfully achieved o
 - **Player retention** has significantly improved.
 
 # 7.Evaluation
-
-- 15% ~750 words
-- One qualitative evaluation (your choice) 
-- One quantitative evaluation (of your choice) 
-- Description of how code was tested. 
 
 To ensure a balance between functionality and usability during the game development process, we chose to combine both qualitative and quantitative evaluation methods. Qualitative analysis helped us identify issues within the game, while quantitative evaluation provided insights into user perceptions, guiding us to iteratively improve the design.
 ## 7.1 Qualitative Evaluation - Heuristic Evaluation
@@ -527,6 +518,9 @@ Each test case was designed following the equivalence class principle, covering 
 The test results showed that all core functionalities are working correctly, including interface responsiveness, player control accuracy, game mechanic stability, score calculation correctness, and item system functionality.
 Special attention was given to boundary condition handling, such as screen edge limits, basket capacity limits, and time limits, ensuring the game operates normally under all conditions.
 All test cases passed, indicating that the core functions have been successfully implemented and are operating correctly.
+<p align="center">
+    <i>Table 6: Black-Box Test Table</i>
+</p>
 
 | Test ID | Test Type | Input Condition | Equivalence Class | Expected Output | Actual Output | Test Result |
 |:-------:|:---------:|:---------------:|:-----------------:|:---------------:|:-------------:|:-----------:|
@@ -649,8 +643,6 @@ Through these sustainability practices, our game actively addresses the environm
 By following a structured path of problem identification → pattern matching → logic deduction → implementation, our development of Hay-stacking embedded green design at every level. This not only improved system performance but also reduced environmental impact and promoted sustainable awareness among players. The approach provides a reproducible model for future green game design and sustainable software engineering.
 
 # 9.Process
-- 15% ~750 words
-- Teamwork. How did you work together, what tools did you use. Did you have team roles? Reflection on how you worked together.
 
 In this project, our team adopted the **Scrum** framework, a core methodology in Agile development, to organize teamwork and manage task progression. This approach ensured our project followed a structured workflow while staying aligned with the weekly teaching schedule.
 
@@ -711,9 +703,6 @@ By combining **Scrum methodology**, **Kanban-based task tracking**, and **freque
 
 # 10.Conclusion
 
-- 10% ~500 words
-- Reflect on project as a whole. Lessons learned. Reflect on challenges. Future work. 
-
 # 11.Contribution Statement
 | Name         | Contribution |
 | ------------ | ------------ |
@@ -723,17 +712,3 @@ By combining **Scrum methodology**, **Kanban-based task tracking**, and **freque
 | Shiyu Dou    |              |
 | Zhuoyan Qiu  |              |
 | Liyang Li    |              |
-
-- Provide a table of everyone's contribution, which may be used to weight individual grades. We expect that the contribution will be split evenly across team-members in most cases. Let us know as soon as possible if there are any issues with teamwork as soon as they are apparent. 
-
-# 12.Additional Marks
-
-You can delete this section in your own repo, it's just here for information. in addition to the marks above, we will be marking you on the following two points:
-
-- **Quality** of report writing, presentation, use of figures and visual material (5%) 
-  - Please write in a clear concise manner suitable for an interested layperson. Write as if this repo was publicly available.
-
-- **Documentation** of code (5%)
-
-  - Is your repo clearly organised? 
-  - Is code well commented throughout?
