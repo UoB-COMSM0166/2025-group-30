@@ -13,6 +13,9 @@ class Single extends GameScreen {
     }
 
     display() {
+        // Set global font
+        textFont('Comic Sans MS');
+        
         image(this.backgroundImage, 0, 0, baseWidth, baseHeight);
         this.basket.draw();
 
@@ -29,6 +32,66 @@ class Single extends GameScreen {
         this.player.drawPlayerWithCaughtGrass(); //show player with grass   
 
         this.displayUI();
+        
+        // Reset font
+        textFont('sans-serif');
+    }
+
+    displayUI() {
+        // Common UI elements
+        fill(254, 224, 173); 
+        textSize(20);
+        textStyle(BOLD);
+
+        // Display level
+        textAlign(CENTER);
+        text(`Level ${this.level.level}`, baseWidth / 2, 30);
+
+        // Display time
+        textAlign(LEFT);
+        text(`Time: ${this.level.timeLeft}s`, 20, 30);
+        textStyle(NORMAL);
+
+        if (this.level.timeLeft > 0) {
+            // Display special item timers for each player
+            if (this.player) {
+                this.displaySpecialItemTimers(this.player);
+            } else if (this.player1 && this.player2) {
+                this.displaySpecialItemTimers(this.player1);
+                this.displaySpecialItemTimers(this.player2);
+            }
+        }
+
+        // Call the game mode specific UI update
+        this.updateScoreDisplay();
+    }
+
+    displaySpecialItemTimers(player) {
+        // Only show when speed buff is active
+        if (player.speedBoot) {
+            const remainingTime = player.speedBoot.timeLeft;
+            if (remainingTime > 0) {
+                push();
+                fill(254, 224, 173); // Set to specified RGB color
+                textSize(20);
+                textAlign(LEFT);
+                text(`Speed boost: ${remainingTime.toFixed(0)}s`, 20, 60);
+                pop();
+            }
+        }
+
+        // Only show when strength buff is active
+        if (player.proteinShaker) {
+            const remainingTime = player.proteinShaker.timeLeft;
+            if (remainingTime > 0) {
+                push();
+                fill(254, 224, 173); // Set to specified RGB color
+                textSize(20);
+                textAlign(LEFT);
+                text(`Strength boost: ${remainingTime.toFixed(0)}s`, 20, 90);
+                pop();
+            }
+        }
     }
 
     // --- initialising the game state ---
@@ -83,14 +146,14 @@ class Single extends GameScreen {
                         this.specialItems.push(new ProteinShaker(newX, 10));
                         break;
                     case 5:
-                        // 铲子独立掉落
-                        if (random() < 0.5) { // 50% 概率掉铲子
+                        // Shovel drops independently
+                        if (random() < 0.5) { // 50% chance for shovel
                             this.specialItems.push(new Shovel(newX, 10));
                         } else {
-                            // 另外两种物品随机掉
-                            if (random() < 0.5) { // 50% 概率掉蛋白粉
+                            // Random drop between the other two items
+                            if (random() < 0.5) { // 50% chance for protein shaker
                                 this.specialItems.push(new ProteinShaker(newX + 50, 10));
-                            } else { // 50% 概率掉速度靴
+                            } else { // 50% chance for speed boot
                                 this.specialItems.push(new SpeedBoot(newX + 50, 10));
                             }
                         }
@@ -98,7 +161,6 @@ class Single extends GameScreen {
             }
         }, this.level.specialItemDropDelay);
     }
-
 
     // --- main game logic ----
     updateFallingGrass() { //update the grass from this.grass based on if caught or missed   
@@ -209,5 +271,4 @@ class Single extends GameScreen {
     keyReleased() {
         if (keyCode === LEFT_ARROW || keyCode === RIGHT_ARROW) this.player.dir = 0;
     }
-
 }
