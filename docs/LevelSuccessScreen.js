@@ -50,16 +50,6 @@ class LevelSuccessScreen extends Screen {
         this.resetAnimationState();
     }
 
-    keyPressed() {
-        if (keyCode === RETURN) {
-            // Find Next Level button and trigger its action
-            const nextLevelButton = this.buttons.find(button => button.label === "Next Level");
-            if (nextLevelButton) {
-                nextLevelButton.action();
-            }
-        }
-    }
-
     display() {
         this.gameScreen.display();
 
