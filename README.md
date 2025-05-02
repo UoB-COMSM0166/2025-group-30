@@ -380,7 +380,6 @@ The **Game System** manages the underlying logic, rules, and state transitions w
 
   
 # 5.Design
-After finalizing the requirements and completing the feasibility analysis, we proceeded with the use case explanation.Here is the use-case diagram.
 <p align="center"><b>Figure 8: Class Diagram</b></p>
 <div align="center">
   <img src="class_diagram.png" width="1100">
