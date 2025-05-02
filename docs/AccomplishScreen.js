@@ -5,6 +5,7 @@ class AccomplishScreen extends Screen {
         this.buttonWidth = 120;
         this.buttonHeight = 40;
         this.boardImage = loadImage('assets/board2.webp');
+        this.farmerWinImage = loadImage('assets/farmer win.gif');
         this.scale = 0;
         this.targetScale = 1;
         this.animationSpeed = 0.1;
@@ -35,6 +36,9 @@ class AccomplishScreen extends Screen {
         translate(baseWidth / 2, baseHeight / 2);
         scale(this.scale);
         translate(-baseWidth / 2, -baseHeight / 2);
+
+        imageMode(CENTER);
+        image(this.farmerWinImage, baseWidth / 2, baseHeight / 2 - 150, 200, 200);
 
         imageMode(CENTER);
         image(this.boardImage, baseWidth / 2, baseHeight / 2, 300, 250);
