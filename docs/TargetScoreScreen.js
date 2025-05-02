@@ -115,7 +115,8 @@ class TargetScoreScreen extends Screen {
                 itemDescription = "Shovel: Clear your grass stack";
                 break;
             case 3:
-                itemDescription = "Speed Boot: Move faster for a while";
+                itemDescription = "Speed Boot:";
+                itemDescription2 = "Move faster for a while";
                 break;
             case 4:
                 itemDescription = "Protein Shaker:";
@@ -126,7 +127,7 @@ class TargetScoreScreen extends Screen {
                 itemDescription2 = "";
         }
         if (itemDescription) {
-            if (this.gameScreen.level.level === 4) {
+            if (this.gameScreen.level.level === 4 || this.gameScreen.level.level === 3) {
                 textAlign(LEFT, CENTER);  // First line left-aligned
                 text(itemDescription, baseWidth / 2 - 100, baseHeight / 2 + 65);  // Offset 100 units to the left
                 textAlign(CENTER, CENTER);  // Second line remains center-aligned

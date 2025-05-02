@@ -10,6 +10,8 @@ class GameOverScreen extends Screen {
         this.loadFarmerImage();
 
         this.boardImage = loadImage('assets/board2.webp');
+        
+        this.resetAnimationState();
 
         this.buttons = [
             {
@@ -37,6 +39,15 @@ class GameOverScreen extends Screen {
         ];
     }
 
+    resetAnimationState() {
+        this.alpha = 0;
+        this.fadeSpeed = 5;
+    }
+
+    onActivate() {
+        this.resetAnimationState();
+    }
+
     loadFarmerImage() {
         loadImage('./assets/Farmer Cry.gif', img => {
             this.farmerImage = img;
@@ -47,15 +58,18 @@ class GameOverScreen extends Screen {
         this.gameScreen.display();
         rectMode(CORNER);
 
+        this.alpha = min(255, this.alpha + this.fadeSpeed);
+
         fill(0, 0, 0, 127);
         rect(0, 0, baseWidth, baseHeight);
 
         const panelWidth = 300;
         const panelHeight = 250;
         imageMode(CENTER);
+        tint(255, this.alpha);
         image(this.boardImage, baseWidth / 2, baseHeight / 2, panelWidth, panelHeight);
 
-        fill(0);
+        fill(0, this.alpha);
         textFont('Comic Sans MS');
         textStyle(BOLD);
         textSize(30);
@@ -86,18 +100,19 @@ class GameOverScreen extends Screen {
                 && window.mouseYGame <= button.y + button.buttonHeight / 2;
 
             if (isHovered) {
-                fill(255, 210, 160);
+                fill(255, 210, 160, this.alpha);
             } else {
-                fill(243, 186, 125);
+                fill(243, 186, 125, this.alpha);
             }
             rect(button.x, button.y, button.buttonWidth, button.buttonHeight, 10);
 
-            fill(147, 75, 43);
+            fill(147, 75, 43, this.alpha);
             textSize(16);
             textAlign(CENTER, CENTER);
             text(button.label, button.x, button.y);
         }
 
+        noTint();
         textFont('sans-serif');
     }
 }

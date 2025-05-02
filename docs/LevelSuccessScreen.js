@@ -21,6 +21,7 @@ class LevelSuccessScreen extends Screen {
                 buttonHeight: this.buttonHeight,
                 action: () => {
                     this.gameScreen.startNextLevel();
+                    this.resetAnimationState();
                 }
             },
             {
@@ -46,7 +47,7 @@ class LevelSuccessScreen extends Screen {
     // Called when screen is activated
     onActivate() {
         // Reset animation state
-        this.alpha = 0;
+        this.resetAnimationState();
     }
 
     keyPressed() {
