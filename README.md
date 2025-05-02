@@ -380,6 +380,11 @@ The **Game System** manages the underlying logic, rules, and state transitions w
 
   
 # 5.Design
+After finalizing the requirements and completing the feasibility analysis, we proceeded with the use case explanation.Here is the use-case diagram.
+<p align="center"><b>Figure 8: Class Diagram</b></p>
+<div align="center">
+  <img src="class_diagram.png" width="1100">
+</div>
 
 # 6.Implementation
 
@@ -501,12 +506,12 @@ Based on the severity scores in the evaluation table, we will prioritize address
 ## 7.2 Quantitative Evaluation - SUS evaluation
 We collected and analyzed SUS questionnaire data from 12 users for both Level 1 and Level 2, calculating their total SUS scores. We then used the Wilcoxon Signed-Rank Test to examine whether there was a statistically significant difference in usability scores between the two levels. Click [here](sus.md) to see the raw data.
 
-<p align="center"><b>Figure 8: SUS Score Distribution Chart</b></p>
+<p align="center"><b>Figure 10: SUS Score Distribution Chart</b></p>
 <div align="center">
   <img src="SUS evaluation.webp" width="533">
 </div>
 
-<p align="center"><b>Figure 9: Average Score Chart</b></p>
+<p align="center"><b>Figure 11: Average Score Chart</b></p>
 <div align="center">
   <img src="averageScore.webp" width="533">
 </div>
@@ -598,7 +603,7 @@ Decoupled structure to avoid unnecessary refreshes or duplicate checks
 
 To better visualize the sustainability logic in Hay-stacking, we mapped our design decisions to the five dimensions of the SusAF model—Individual, Social, Technical, Environmental, and Economic—following the Immediate → Enabling → Structural logic. Each design pattern contributes not only to immediate efficiency, but also to long-term structural sustainability.
 
-<p align="center"><b>Figure 10: Sustainability Awareness Diagram</b></p>
+<p align="center"><b>Figure 12: Sustainability Awareness Diagram</b></p>
 <p align="center">
   <img src="https://github.com/user-attachments/assets/dcf6ef86-3c7f-488f-917f-530946ea2709" width="600">
 </p>
@@ -655,7 +660,7 @@ We used **GitHub's Kanban Board** to visualize project tasks and track progress.
 - 🟡 **To Do**
 - 🔵 **In Progress**
 - 🟢 **Done**
-<p align="center"><b>Figure 11: Kanban Board</b></p>
+<p align="center"><b>Figure 13: Kanban Board</b></p>
 <div align="center">
   <img src="kanban.webp" width="533">
 </div>
