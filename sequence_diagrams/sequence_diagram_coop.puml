@@ -1,0 +1,87 @@
+@startuml sequence_diagram_coop
+
+actor "Player 1" as P1
+actor "Player 2" as P2
+participant "ScreenManager" as SM
+participant "Coop" as Coop
+participant "Player 1" as Player1
+participant "Player 2" as Player2
+participant "Barrel" as B
+participant "Hay" as H
+participant "SpecialItem" as SI
+
+P1 -> SM: Start Game
+P2 -> SM: Join Game
+activate SM
+SM -> Coop: changeScreen(Coop)
+activate Coop
+
+Coop -> Coop: startLevelTimer()
+Coop -> Coop: startHayDrop()
+Coop -> Coop: startSpecialItemDrop()
+
+loop Game Loop
+    Coop -> H: fall()
+    activate H
+    H --> Coop: isOffscreen()
+    deactivate H
+    
+    Coop -> Player1: catches(hay)
+    activate Player1
+    alt Hay Caught by Player 1
+        Player1 --> Coop: true
+        Coop -> Player1: addToStack()
+    else Hay Missed by Player 1
+        Player1 --> Coop: false
+    end
+    deactivate Player1
+    
+    Coop -> Player2: catches(hay)
+    activate Player2
+    alt Hay Caught by Player 2
+        Player2 --> Coop: true
+        Coop -> Player2: addToStack()
+    else Hay Missed by Player 2
+        Player2 --> Coop: false
+    end
+    deactivate Player2
+    
+    Coop -> Player1: move()
+    Coop -> Player1: show()
+    Coop -> Player2: move()
+    Coop -> Player2: show()
+    
+    Coop -> B: updateScore()
+    activate B
+    B --> Coop: score updated
+    deactivate B
+    
+    alt Special Item Appears
+        Coop -> SI: fall()
+        activate SI
+        Coop -> Player1: catches(specialItem)
+        alt Special Item Caught by Player 1
+            Player1 --> Coop: true
+            Coop -> SI: applyEffect(player1)
+            SI --> Player1: effect applied
+        end
+        
+        Coop -> Player2: catches(specialItem)
+        alt Special Item Caught by Player 2
+            Player2 --> Coop: true
+            Coop -> SI: applyEffect(player2)
+            SI --> Player2: effect applied
+        end
+        deactivate SI
+    end
+end
+
+alt Level Complete
+    Coop -> Coop: startNextLevel()
+else Game Over
+    Coop -> SM: changeScreen(GameOverScreen)
+end
+
+deactivate Coop
+deactivate SM
+@enduml 

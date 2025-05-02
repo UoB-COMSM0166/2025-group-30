@@ -1,0 +1,67 @@
+@startuml sequence_diagram_single
+
+actor Player
+participant "ScreenManager" as SM
+participant "Single" as Single
+participant "Player" as P
+participant "Barrel" as B
+participant "Hay" as H
+participant "SpecialItem" as SI
+
+Player -> SM: Start Game
+activate SM
+SM -> Single: changeScreen(Single)
+activate Single
+
+Single -> Single: startLevelTimer()
+Single -> Single: startHayDrop()
+Single -> Single: startSpecialItemDrop()
+
+loop Game Loop
+    Single -> H: fall()
+    activate H
+    H --> Single: isOffscreen()
+    deactivate H
+    
+    Single -> P: catches(hay)
+    activate P
+    alt Hay Caught
+        P --> Single: true
+        Single -> P: addToStack()
+    else Hay Missed
+        P --> Single: false
+    end
+    deactivate P
+    
+    Single -> P: move()
+    Single -> P: show()
+    
+    Single -> B: updateScore()
+    activate B
+    B --> Single: score updated
+    deactivate B
+    
+    alt Special Item Appears
+        Single -> SI: fall()
+        activate SI
+        Single -> P: catches(specialItem)
+        alt Special Item Caught
+            P --> Single: true
+            Single -> SI: applyEffect(player)
+            ' activate SI
+            SI --> P: effect applied
+            ' deactivate SI
+        end
+        deactivate SI
+    end
+end
+
+alt Level Complete
+    Single -> Single: startNextLevel()
+else Game Over
+    Single -> SM: changeScreen(GameOverScreen)
+end
+
+deactivate Single
+deactivate SM
+@enduml 
