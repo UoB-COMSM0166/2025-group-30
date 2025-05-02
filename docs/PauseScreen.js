@@ -8,8 +8,8 @@ class PauseScreen extends Screen {
         this.buttons = [
             {
                 label: "Continue",
-                x: baseWidth/2 ,
-                y: baseHeight/2,
+                x: baseWidth / 2,
+                y: baseHeight / 2,
                 buttonWidth: 200,
                 buttonHeight: 50,
                 action: () => {
@@ -18,8 +18,8 @@ class PauseScreen extends Screen {
             },
             {
                 label: "Restart",
-                x: baseWidth/2,
-                y: baseHeight/2 + 50 + this.buttonSpacing,
+                x: baseWidth / 2,
+                y: baseHeight / 2 + 50 + this.buttonSpacing,
                 buttonWidth: 200,
                 buttonHeight: 50,
                 action: () => {
@@ -29,8 +29,8 @@ class PauseScreen extends Screen {
             },
             {
                 label: "Home",
-                x: baseWidth/2,
-                y: baseHeight/2 + (50 + this.buttonSpacing)*2,
+                x: baseWidth / 2,
+                y: baseHeight / 2 + (50 + this.buttonSpacing) * 2,
                 buttonWidth: 200,
                 buttonHeight: 50,
                 action: () => {
@@ -56,19 +56,21 @@ class PauseScreen extends Screen {
         textStyle(BOLD);
         textSize(40);
         textAlign(CENTER, CENTER);
-        text("PAUSE", baseWidth/2, baseHeight/2 - 100);
+        text("PAUSE", baseWidth / 2, baseHeight / 2 - 100);
 
         // Display buttons
         for (let button of this.buttons) {
             rectMode(CENTER);
 
             // Check if mouse is hovering over button
-            let isHovered = window.mouseXGame >= button.x - button.buttonWidth/2 
-                && window.mouseXGame <= button.x + button.buttonWidth/2 
-                && window.mouseYGame >= button.y - button.buttonHeight/2 
-                && window.mouseYGame <= button.y + button.buttonHeight/2;
+            let isHovered = window.mouseXGame >= button.x - button.buttonWidth / 2
+                && window.mouseXGame <= button.x + button.buttonWidth / 2
+                && window.mouseYGame >= button.y - button.buttonHeight / 2
+                && window.mouseYGame <= button.y + button.buttonHeight / 2;
 
-            if (isHovered) {
+            let isFocused = this.focusedButtonIndex === this.buttons.indexOf(button);
+
+            if (isHovered || isFocused) {
                 fill(255, 210, 160);
             } else {
                 fill(243, 186, 125);

@@ -15,7 +15,7 @@ class Single extends GameScreen {
     display() {
         // Set global font
         textFont('Comic Sans MS');
-        
+
         image(this.backgroundImage, 0, 0, baseWidth, baseHeight);
         this.basket.draw();
 
@@ -32,14 +32,14 @@ class Single extends GameScreen {
         this.player.drawPlayerWithCaughtGrass(); //show player with grass   
 
         this.displayUI();
-        
+
         // Reset font
         textFont('sans-serif');
     }
 
     displayUI() {
         // Common UI elements
-        fill(254, 224, 173); 
+        fill(254, 224, 173);
         textSize(20);
         textStyle(BOLD);
 

@@ -27,7 +27,7 @@ class StepByStepHelpScreen extends Screen {
         this.textAnimationDuration = 500;  // Text animation duration (0.8s)
         this.textOpacity = 0;              // Text opacity
 
-        this.buttons = [
+        this.allButtons = [
             {
                 label: "Back", //only show on first step
                 x: baseWidth / 8,
@@ -46,7 +46,7 @@ class StepByStepHelpScreen extends Screen {
             },
             {
                 label: "Next",
-                x: baseWidth * 7/8,
+                x: baseWidth * 7 / 8,
                 y: baseHeight / 8,
                 buttonWidth: this.buttonWidth,
                 buttonHeight: this.buttonHeight,
@@ -54,7 +54,7 @@ class StepByStepHelpScreen extends Screen {
             },
             {
                 label: "Start", //only show on last step
-                x: baseWidth * 7/8,
+                x: baseWidth * 7 / 8,
                 y: baseHeight / 8,
                 buttonWidth: this.buttonWidth,
                 buttonHeight: this.buttonHeight,
@@ -65,6 +65,8 @@ class StepByStepHelpScreen extends Screen {
                 }
             }
         ];
+
+        this.buttons = []; // Initialize as empty array
 
         this.title = "Tutorial";
 
@@ -146,7 +148,7 @@ class StepByStepHelpScreen extends Screen {
                     // Reset basket score
                     this.demoBasket.score = 0;
                     this.demoPlayer.score = 0;
-                    
+
                     if (this.demoPlayer.stack.length === 1) { return; }
                     const yGap = 3; // Use consistent gap for all grass blocks
                     // put a grass block in the player's stack
@@ -483,6 +485,7 @@ class StepByStepHelpScreen extends Screen {
         }
 
         // Draw buttons
+        this.buttons = this.getButtonsForStep(this.currentStep);
         for (let button of this.buttons) {
             rectMode(CENTER);
 
@@ -492,9 +495,11 @@ class StepByStepHelpScreen extends Screen {
                 && window.mouseYGame >= button.y - this.buttonHeight / 2
                 && window.mouseYGame <= button.y + this.buttonHeight / 2;
 
+            let isFocused = this.focusedButtonIndex === this.buttons.indexOf(button);
+
             // Set button style - use green color scheme similar to menu screen
             strokeWeight(2);
-            if (isHovered) {
+            if (isHovered || isFocused) {
                 // Hover state
                 stroke(200, 140, 80, 230);
                 fill(255, 240, 220, 230);
@@ -504,32 +509,12 @@ class StepByStepHelpScreen extends Screen {
                 fill(255, 240, 220, 200);
             }
 
-            // Only show Next button if not on the last step
-            if (button.label === "Next" && this.currentStep >= this.tutorialSteps.length - 1) {
-                continue;
-            }
-
-            // Only show Previous button if not on the first step
-            if (button.label === "Previous" && this.currentStep <= 0) {
-                continue;
-            }
-
-            // Only show Start button if on the last step
-            if (button.label === "Start" && this.currentStep !== this.tutorialSteps.length - 1) {
-                continue;
-            }
-
-            // Only show Back button if on the first step
-            if (button.label === "Back" && this.currentStep !== 0) {
-                continue;
-            }
-
             // Draw rounded rectangle button
             rect(button.x, button.y, this.buttonWidth, this.buttonHeight, 10);
 
             // Button text
             noStroke();
-            fill(141, 74, 44, isHovered ? 255 : 220);
+            fill(141, 74, 44, isHovered || isFocused ? 255 : 220);
             textSize(16);
             textStyle(BOLD);
             textAlign(CENTER, CENTER);
@@ -539,10 +524,7 @@ class StepByStepHelpScreen extends Screen {
     }
 
     keyPressed() {
-        // Track if player has moved for the first step
-        if (this.currentStep === 0 && (keyCode === LEFT_ARROW || keyCode === RIGHT_ARROW)) {
-            this.playerHasMoved = true;
-        }
+        this.buttons = this.getButtonsForStep(this.currentStep);
 
         // Call the parent keyPressed method
         super.keyPressed();
@@ -552,20 +534,6 @@ class StepByStepHelpScreen extends Screen {
     mousePressed() {
         if (!this.buttons) return;
         for (let button of this.buttons) {
-            // Skip buttons that shouldn't be visible based on current step
-            if (button.label === "Next" && this.currentStep >= this.tutorialSteps.length - 1) {
-                continue;
-            }
-            if (button.label === "Previous" && this.currentStep <= 0) {
-                continue;
-            }
-            if (button.label === "Start" && this.currentStep !== this.tutorialSteps.length - 1) {
-                continue;
-            }
-            if (button.label === "Back" && this.currentStep !== 0) {
-                continue;
-            }
-
             // Calculate button click area
             let buttonTop = button.y - button.buttonHeight / 2;
             let buttonBottom = button.y + button.buttonHeight / 2;
@@ -650,6 +618,21 @@ class StepByStepHelpScreen extends Screen {
                 // Call original method
                 originalChangeScreen.call(this, newScreen);
             };
+        }
+    }
+
+    getButtonsForStep(step) {
+        switch (step) {
+            case 0:
+                return [this.allButtons[0], this.allButtons[2]];
+            case 1:
+            case 2:
+            case 3:
+                return [this.allButtons[1], this.allButtons[2]];
+            case 4:
+                return [this.allButtons[1], this.allButtons[3]];
+            default:
+                return []; // Return empty array as fallback
         }
     }
 }

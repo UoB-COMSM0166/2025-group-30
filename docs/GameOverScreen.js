@@ -10,7 +10,7 @@ class GameOverScreen extends Screen {
         this.loadFarmerImage();
 
         this.boardImage = loadImage('assets/board2.webp');
-        
+
         this.resetAnimationState();
 
         this.buttons = [
@@ -99,7 +99,9 @@ class GameOverScreen extends Screen {
                 && window.mouseYGame >= button.y - button.buttonHeight / 2
                 && window.mouseYGame <= button.y + button.buttonHeight / 2;
 
-            if (isHovered) {
+            let isFocused = this.focusedButtonIndex === this.buttons.indexOf(button);
+
+            if (isHovered || isFocused) {
                 fill(255, 210, 160, this.alpha);
             } else {
                 fill(243, 186, 125, this.alpha);

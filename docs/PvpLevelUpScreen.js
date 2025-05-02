@@ -94,11 +94,11 @@ class PvpLevelUpScreen extends Screen {
         textSize(32);
         textAlign(CENTER, CENTER);
         if (this.gameScreen.player1.score > this.gameScreen.player2.score) {
-            text("Player 1 Wins!", baseWidth / 2, baseHeight / 2 + 10);
+            text("Player 1 Wins!", baseWidth / 2, baseHeight / 2 + 20);
         } else if (this.gameScreen.player1.score < this.gameScreen.player2.score) {
-            text("Player 2 Wins!", baseWidth / 2, baseHeight / 2 + 10);
+            text("Player 2 Wins!", baseWidth / 2, baseHeight / 2 + 20);
         } else {
-            text("It's a Tie!", baseWidth / 2, baseHeight / 2 + 10);
+            text("It's a Tie!", baseWidth / 2, baseHeight / 2 + 20);
         }
 
         // Display buttons
@@ -111,7 +111,9 @@ class PvpLevelUpScreen extends Screen {
                 && window.mouseYGame >= button.y - this.buttonHeight / 2
                 && window.mouseYGame <= button.y + this.buttonHeight / 2;
 
-            if (isHovered) {
+            let isFocused = this.focusedButtonIndex === this.buttons.indexOf(button);
+
+            if (isHovered || isFocused) {
                 fill(255, 210, 160, this.alpha);
             } else {
                 fill(243, 186, 125, this.alpha);
@@ -127,18 +129,5 @@ class PvpLevelUpScreen extends Screen {
         // 重置文本样式
         textStyle(NORMAL);
         textFont('sans-serif');
-    }
-
-    mousePressed() {
-        // 检查是否点击了按钮
-        for (let button of this.buttons) {
-            if (window.mouseXGame >= button.x - this.buttonWidth / 2
-                && window.mouseXGame <= button.x + this.buttonWidth / 2
-                && window.mouseYGame >= button.y - this.buttonHeight / 2
-                && window.mouseYGame <= button.y + this.buttonHeight / 2) {
-                button.action();
-                break;
-            }
-        }
     }
 }

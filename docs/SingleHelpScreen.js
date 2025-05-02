@@ -12,7 +12,7 @@ class SingleHelpScreen extends Screen {
         this.rightArrowImg = loadImage('assets/right-arrow-button.webp');
         this.leftArrowImg = loadImage('assets/left-arrow-button.webp');
         this.spaceButtonImg = loadImage('assets/space-button.webp');
-        
+
         // Load player and grass images
         this.playerImage = loadImage('assets/player1.webp');
         this.grassImage = loadImage('assets/hay.webp');
@@ -99,30 +99,30 @@ class SingleHelpScreen extends Screen {
 
         // Draw stack of 6 grass blocks right above the player with random offsets
         for (let i = 0; i < 6; i++) {
-            image(this.grassImage, 
-                stackX + offsets[i], 
-                playerY - playerHeight/2 - grassHeight/2 - (i * (grassHeight - yGap)) + 3, 
-                grassWidth, 
+            image(this.grassImage,
+                stackX + offsets[i],
+                playerY - playerHeight / 2 - grassHeight / 2 - (i * (grassHeight - yGap)) + 3,
+                grassWidth,
                 grassHeight
             );
         }
 
         // Draw a blue X over the top grass block
-        const topGrassY = playerY - playerHeight/2 - grassHeight/2 - (5 * (grassHeight - yGap)) + 3;
+        const topGrassY = playerY - playerHeight / 2 - grassHeight / 2 - (5 * (grassHeight - yGap)) + 3;
         stroke(117, 170, 208);  // Use same blue color
         strokeWeight(4);  // Set line thickness
         // Draw X
         line(
-            stackX + offsets[5] - grassWidth/2, 
-            topGrassY - grassHeight/2,
-            stackX + offsets[5] + grassWidth/2, 
-            topGrassY + grassHeight/2
+            stackX + offsets[5] - grassWidth / 2,
+            topGrassY - grassHeight / 2,
+            stackX + offsets[5] + grassWidth / 2,
+            topGrassY + grassHeight / 2
         );
         line(
-            stackX + offsets[5] - grassWidth/2, 
-            topGrassY + grassHeight/2,
-            stackX + offsets[5] + grassWidth/2, 
-            topGrassY - grassHeight/2
+            stackX + offsets[5] - grassWidth / 2,
+            topGrassY + grassHeight / 2,
+            stackX + offsets[5] + grassWidth / 2,
+            topGrassY - grassHeight / 2
         );
         noStroke();  // Reset stroke settings
 
@@ -142,10 +142,12 @@ class SingleHelpScreen extends Screen {
                 && window.mouseYGame >= button.y - button.buttonHeight / 2
                 && window.mouseYGame <= button.y + button.buttonHeight / 2;
 
+            let isFocused = this.focusedButtonIndex === this.buttons.indexOf(button);
+
             // 绘制按钮边框
             stroke(53, 97, 140);  // 蓝黑色
             strokeWeight(3);      // 加粗边框
-            if (isHovered) {
+            if (isHovered || isFocused) {
                 fill(227, 249, 253);  // 更亮的按钮颜色
             } else {
                 fill(207, 239, 246);  // 正常按钮颜色

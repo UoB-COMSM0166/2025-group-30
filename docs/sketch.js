@@ -18,7 +18,7 @@ function draw() {
 
     page.applyTransformation();
 
-    screenManager.display();   
+    screenManager.display();
 
     pop();
 }
@@ -30,7 +30,7 @@ function mousePressed() {
 }
 
 function doubleClicked() {
-    console.log("Double click detected!"); 
+    console.log("Double click detected!");
     screenManager.doubleClick(); // 调用类的处理函数
 }
 
@@ -40,6 +40,11 @@ function mouseMoved() {
 }
 
 function keyPressed() {
+    // Prevent default behavior for Tab key
+    if (keyCode === TAB) {
+        event.preventDefault();
+    }
+
     screenManager.keyPressed(); // Calls keyPressed in ScreenManager
 }
 

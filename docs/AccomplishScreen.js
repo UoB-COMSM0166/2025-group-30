@@ -22,6 +22,12 @@ class AccomplishScreen extends Screen {
         ];
     }
 
+    keyPressed() {
+        if (keyCode === RETURN) {
+            this.buttons[0].action();
+        }
+    }
+
     display() {
         this.gameScreen.display();
 
@@ -49,11 +55,12 @@ class AccomplishScreen extends Screen {
         fill(0);
         textSize(30);
         textAlign(CENTER, CENTER);
-        text("Congratulations!", baseWidth / 2, baseHeight / 2 - 85);
-        
-        textSize(24);
-        text("You did it!", baseWidth / 2, baseHeight / 2 - 25);
-        text("All levels conquered!", baseWidth / 2, baseHeight / 2 + 35);
+        text("Congratulations!", baseWidth / 2, baseHeight / 2 - 95);
+
+        textSize(16);
+        text("You did it! All levels conquered!", baseWidth / 2, baseHeight / 2 - 35);
+        text("Thanks for playing", baseWidth / 2, baseHeight / 2 + 25);
+        text("now go rest those speedy boots!", baseWidth / 2, baseHeight / 2 + 90);
 
         for (let button of this.buttons) {
             rectMode(CENTER);

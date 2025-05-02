@@ -108,7 +108,9 @@ class LevelSuccessScreen extends Screen {
                 && window.mouseYGame >= button.y - button.buttonHeight / 2
                 && window.mouseYGame <= button.y + button.buttonHeight / 2;
 
-            if (isHovered) {
+            let isFocused = this.focusedButtonIndex === this.buttons.indexOf(button);
+
+            if (isHovered || isFocused) {
                 fill(254, 224, 173, this.alpha * 0.8); // Slightly transparent when hovered
             } else {
                 fill(254, 224, 173, this.alpha);
