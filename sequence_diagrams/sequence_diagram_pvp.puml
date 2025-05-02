@@ -1,0 +1,96 @@
+@startuml sequence_diagram_pvp
+actor "Player 1" as P1
+actor "Player 2" as P2
+participant "ScreenManager" as SM
+participant "Pvp" as Pvp
+participant "Player 1" as Player1
+participant "Player 2" as Player2
+participant "Barrel 1" as B1
+participant "Barrel 2" as B2
+participant "Hay" as H
+participant "SpecialItem" as SI
+
+P1 -> SM: Start Game
+P2 -> SM: Join Game
+activate SM
+SM -> Pvp: changeScreen(Pvp)
+activate Pvp
+
+Pvp -> Pvp: startLevelTimer()
+Pvp -> Pvp: startHayDrop()
+Pvp -> Pvp: startSpecialItemDrop()
+
+loop Game Loop
+    Pvp -> H: fall()
+    activate H
+    H --> Pvp: isOffscreen()
+    deactivate H
+    
+    Pvp -> Player1: catches(hay)
+    activate Player1
+    alt Hay Caught by Player 1
+        Player1 --> Pvp: true
+        Pvp -> Player1: addToStack()
+    else Hay Missed by Player 1
+        Player1 --> Pvp: false
+    end
+    deactivate Player1
+    
+    Pvp -> Player2: catches(hay)
+    activate Player2
+    alt Hay Caught by Player 2
+        Player2 --> Pvp: true
+        Pvp -> Player2: addToStack()
+    else Hay Missed by Player 2
+        Player2 --> Pvp: false
+    end
+    deactivate Player2
+    
+    Pvp -> Player1: move()
+    Pvp -> Player1: show()
+    Pvp -> Player2: move()
+    Pvp -> Player2: show()
+    
+    Pvp -> B1: updateScore()
+    activate B1
+    B1 --> Pvp: score updated
+    deactivate B1
+    
+    Pvp -> B2: updateScore()
+    activate B2
+    B2 --> Pvp: score updated
+    deactivate B2
+    
+    alt Special Item Appears
+        Pvp -> SI: fall()
+        activate SI
+        Pvp -> Player1: catches(specialItem)
+        alt Special Item Caught by Player 1
+            Player1 --> Pvp: true
+            Pvp -> SI: applyEffect(player1)
+            SI --> Player1: effect applied
+        end
+        
+        Pvp -> Player2: catches(specialItem)
+        alt Special Item Caught by Player 2
+            Player2 --> Pvp: true
+            Pvp -> SI: applyEffect(player2)
+            SI --> Player2: effect applied
+        end
+        deactivate SI
+    end
+end
+
+
+Pvp -> Pvp: compareScores()
+Pvp -> SM: changeScreen(PvpLevelUpScreen)
+
+alt continue playing
+    Pvp -> Pvp: startNextLevel()
+else
+    Pvp -> SM: changeScreen(HomeScreen)
+end
+
+deactivate Pvp
+deactivate SM
+@enduml 
