@@ -17,6 +17,7 @@ class TargetScoreScreen extends Screen {
                 this.startFadeOut();
             }
         };
+        this.buttons = [this.confirmButton];
 
         // Initialize animation state
         this.resetAnimationState();
@@ -147,6 +148,7 @@ class TargetScoreScreen extends Screen {
             && window.mouseYGame >= this.confirmButton.y - this.confirmButton.buttonHeight / 2
             && window.mouseYGame <= this.confirmButton.y + this.confirmButton.buttonHeight / 2;
 
+
         if (isHovered) {
             fill(180, 126, 89, this.alpha);
         } else {
@@ -162,15 +164,5 @@ class TargetScoreScreen extends Screen {
         // Reset text style
         textStyle(NORMAL);
         textFont('sans-serif');
-    }
-
-    mousePressed() {
-        // Check if button is clicked
-        if (window.mouseXGame >= this.confirmButton.x - this.confirmButton.buttonWidth / 2
-            && window.mouseXGame <= this.confirmButton.x + this.confirmButton.buttonWidth / 2
-            && window.mouseYGame >= this.confirmButton.y - this.confirmButton.buttonHeight / 2
-            && window.mouseYGame <= this.confirmButton.y + this.confirmButton.buttonHeight / 2) {
-            this.confirmButton.action();
-        }
     }
 } 

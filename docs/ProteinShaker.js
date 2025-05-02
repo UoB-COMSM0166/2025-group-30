@@ -11,7 +11,7 @@ class ProteinShaker extends SpecialItem {
         this.image = loadImage('assets/protein-shaker.webp');
     }
 
-    createBurstEffect(x, y, game, player) {
+    createBurstEffect(x, y, game) {
         // Create burst particles
         for (let i = 0; i < 20; i++) {
             const particle = new Particle(x, y, 'strength_burst');

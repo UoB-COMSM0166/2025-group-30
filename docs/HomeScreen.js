@@ -8,6 +8,9 @@ class HomeScreen extends Screen {
         this.backgroundColor = color(205, 238, 226);
         this.gifLoaded = false;  // Track if GIF is successfully loaded
         this.titleLoaded = false;  // Track if title image is successfully loaded
+        this.isLoading = true;  // Track loading state
+        this.gifReady = false;  // Track if GIF is ready for smooth playback
+        this.gifLoadStartTime = null;  // Track when GIF loading started
 
         // Text animation related variables
         this.textAlpha = 200;      // Text opacity
@@ -19,57 +22,69 @@ class HomeScreen extends Screen {
         // Title image floating effect matches text
         this.titleYOffset = 0;     // Title Y-axis offset
 
-        // Load background GIF and title image
-        this.loadBackgroundGif();
+        // Start loading assets
+        this.loadAssets();
     }
 
-    loadBackgroundGif() {
+    loadAssets() {
+        this.gifLoadStartTime = millis();
+
         // Load background GIF
-        loadImage('./assets/HomeScreen.gif', img => {
+        loadImage('./assets/HomeScreen-optimize.gif', img => {
             this.backgroundGif = img;
             this.gifLoaded = true;
-            this.loadTitleImage();
-        });
-    }
 
-    loadTitleImage() {
+            // Start pre-buffering the GIF
+            if (this.backgroundGif) {
+                // Force a few frames to be processed
+                for (let i = 0; i < 5; i++) {
+                    this.backgroundGif.get();
+                }
+            }
+
+            // Wait a short time to ensure smooth playback
+            setTimeout(() => {
+                this.gifReady = true;
+                this.checkLoadingComplete();
+            }, 500);
+        });
+
         // Load title image
         loadImage('./assets/title.webp', img => {
             this.titleImage = img;
             this.titleLoaded = true;
+            this.checkLoadingComplete();
         });
     }
 
-    // Update text animation effects
-    updateTextAnimation() {
-        // Update opacity animation - make text opacity breathe between 150-250
-        if (this.textFading) {
-            this.textAlpha -= 0.8;
-            if (this.textAlpha <= 150) {
-                this.textFading = false;
-            }
-        } else {
-            this.textAlpha += 0.8;
-            if (this.textAlpha >= 250) {
-                this.textFading = true;
-            }
+    checkLoadingComplete() {
+        if (this.gifLoaded && this.titleLoaded && this.gifReady) {
+            this.isLoading = false;
         }
-
-        // Update floating animation - make text float up and down
-        this.textYOffset = Math.sin(frameCount * this.textFloatSpeed * 0.05) * this.textFloatAmount;
-        // Update title floating effect - use same floating speed and amplitude
-        this.titleYOffset = this.textYOffset;
-
-        // Update text color opacity
-        this.textColor = color(70, 90, 100, this.textAlpha);
     }
 
     display() {
         // Use specified background color
         background(this.backgroundColor);
 
+        if (this.isLoading) {
+            // Show loading state with progress
+            textAlign(CENTER, CENTER);
+            textFont('Comic Sans MS');
+            textSize(24);
+            fill(70, 90, 100);
+
+            let loadingText = "Loading";
+            if (this.gifLoadStartTime) {
+                const dots = Math.floor((millis() - this.gifLoadStartTime) / 500) % 4;
+                loadingText += ".".repeat(dots);
+            }
+            text(loadingText, baseWidth / 2, baseHeight / 2);
+            return;
+        }
+
         // Display background GIF
-        if (this.gifLoaded && this.backgroundGif) {
+        if (this.gifLoaded && this.backgroundGif && this.gifReady) {
             // Calculate scale ratio, maintain GIF aspect ratio
             let gifWidth = this.backgroundGif.width;
             let gifHeight = this.backgroundGif.height;
@@ -142,6 +157,31 @@ class HomeScreen extends Screen {
             textFont('sans-serif');
         }
     }
+
+    // Update text animation effects
+    updateTextAnimation() {
+        // Update opacity animation - make text opacity breathe between 150-250
+        if (this.textFading) {
+            this.textAlpha -= 0.8;
+            if (this.textAlpha <= 150) {
+                this.textFading = false;
+            }
+        } else {
+            this.textAlpha += 0.8;
+            if (this.textAlpha >= 250) {
+                this.textFading = true;
+            }
+        }
+
+        // Update floating animation - make text float up and down
+        this.textYOffset = Math.sin(frameCount * this.textFloatSpeed * 0.05) * this.textFloatAmount;
+        // Update title floating effect - use same floating speed and amplitude
+        this.titleYOffset = this.textYOffset;
+
+        // Update text color opacity
+        this.textColor = color(70, 90, 100, this.textAlpha);
+    }
+
     doubleClicked() {
         this.screenManager.changeScreen(this.screenManager.menuScreen);
     }

@@ -13,11 +13,29 @@ class MenuScreen extends Screen {
         this.loadFarmerImage();
 
         // Text floating effect variables
-        this.textYOffset = 0;      
-        this.textFloatSpeed = 0.3; 
-        this.textFloatAmount = 5;  
+        this.textYOffset = 0;
+        this.textFloatSpeed = 0.3;
+        this.textFloatAmount = 5;
 
         this.buttons = [
+            {
+                label: "Back",
+                x: baseWidth / 8,
+                y: baseHeight * 1 / 10,
+                buttonWidth: 100,
+                buttonHeight: 40,
+                isSpecial: true,
+                action: () => this.screenManager.changeScreen(this.screenManager.homeScreen) //go to home screen
+            },
+            {
+                label: "Tutorial",
+                x: baseWidth * 7 / 8,
+                y: baseHeight * 1 / 10,
+                buttonWidth: 100,
+                buttonHeight: 40,
+                isSpecial: true,
+                action: () => this.screenManager.changeScreen(this.screenManager.stepByStepHelpScreen) //go to tutorial screen
+            },
             {
                 label: "Single Player",
                 x: baseWidth / 2,
@@ -41,24 +59,6 @@ class MenuScreen extends Screen {
                 buttonWidth: 200,
                 buttonHeight: 40,
                 action: () => this.screenManager.changeScreen(this.screenManager.pvpHelpScreen) //go to pvp help screen
-            },
-            {
-                label: "Back",
-                x: baseWidth / 8, 
-                y: baseHeight * 1 / 10, 
-                buttonWidth: 100,
-                buttonHeight: 40,
-                isSpecial: true, 
-                action: () => this.screenManager.changeScreen(this.screenManager.homeScreen) //go to home screen
-            },
-            {
-                label: "Tutorial",
-                x: baseWidth * 7 / 8, 
-                y: baseHeight * 1 / 10, 
-                buttonWidth: 100,
-                buttonHeight: 40,
-                isSpecial: true, 
-                action: () => this.screenManager.changeScreen(this.screenManager.stepByStepHelpScreen) //go to tutorial screen
             }
         ];
     }
@@ -128,16 +128,21 @@ class MenuScreen extends Screen {
                 && window.mouseYGame >= button.y - button.buttonHeight / 2
                 && window.mouseYGame <= button.y + button.buttonHeight / 2;
 
+            let isFocused = this.focusedButtonIndex === this.buttons.indexOf(button);
             // Special button style (Back and Tutorial)
             if (button.isSpecial) {
                 if (isHovered) {
-                    fill(95, 140, 96, 230); 
-                    stroke(111, 148, 112, 230); 
-                    strokeWeight(3);
+                    fill(95, 140, 96, 230);
+                    stroke(111, 148, 112, 230);
+                    strokeWeight(4);
                 } else {
                     fill(95, 140, 96, 200);
-                    stroke(111, 148, 112, 180); 
+                    stroke(111, 148, 112, 50);
                     strokeWeight(2);
+                }
+                if (isFocused) {
+                    stroke(14, 105, 218);
+                    strokeWeight(4);
                 }
 
                 ellipse(button.x, button.y, button.buttonWidth * 0.9, button.buttonHeight * 1.2);
@@ -163,6 +168,10 @@ class MenuScreen extends Screen {
                     stroke(255, 255, 255, 150);
                     fill(255, 255, 255, 120);
                 }
+                if (isFocused) {
+                    stroke(14, 105, 218);
+                    strokeWeight(4);
+                }
 
                 // Calculate button Y coordinate, apply floating effect to specific buttons
                 let buttonY = button.y;
@@ -176,7 +185,7 @@ class MenuScreen extends Screen {
                 if (isHovered) {
                     fill(45, 84, 75, 255);
                 } else {
-                    fill(45, 84, 75, 220);
+                    fill(45, 84, 75, 200);
                 }
                 textSize(20);
                 textAlign(CENTER, CENTER);
@@ -191,11 +200,11 @@ class MenuScreen extends Screen {
                 const imageX = tutorialButton.x - tutorialButton.buttonWidth * 0.8;
                 const imageY = tutorialButton.y + tutorialButton.buttonHeight * 1.5;
 
-                push(); 
+                push();
 
                 stroke(255, 255, 255, 200);
                 strokeWeight(2);
-                drawingContext.setLineDash([5, 5]); 
+                drawingContext.setLineDash([5, 5]);
 
                 // Calculate control points - from image center to button
                 const startX = imageX + imageSize / 2;

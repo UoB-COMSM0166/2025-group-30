@@ -14,17 +14,6 @@ class LevelSuccessScreen extends Screen {
         // Buttons for navigating
         this.buttons = [
             {
-                label: "Next Level",
-                x: baseWidth / 4 * 3,
-                y: baseHeight / 5 * 4,
-                buttonWidth: this.buttonWidth,
-                buttonHeight: this.buttonHeight,
-                action: () => {
-                    this.gameScreen.startNextLevel();
-                    this.resetAnimationState();
-                }
-            },
-            {
                 label: "Home",
                 x: baseWidth / 4,
                 y: baseHeight / 5 * 4,
@@ -33,6 +22,17 @@ class LevelSuccessScreen extends Screen {
                 action: () => {
                     this.gameScreen.clearStats();
                     this.screenManager.changeScreen(this.screenManager.homeScreen);
+                }
+            },
+            {
+                label: "Next Level",
+                x: baseWidth / 4 * 3,
+                y: baseHeight / 5 * 4,
+                buttonWidth: this.buttonWidth,
+                buttonHeight: this.buttonHeight,
+                action: () => {
+                    this.gameScreen.startNextLevel();
+                    this.resetAnimationState();
                 }
             }
         ];
@@ -48,16 +48,6 @@ class LevelSuccessScreen extends Screen {
     onActivate() {
         // Reset animation state
         this.resetAnimationState();
-    }
-
-    keyPressed() {
-        if (keyCode === RETURN) {
-            // Find Next Level button and trigger its action
-            const nextLevelButton = this.buttons.find(button => button.label === "Next Level");
-            if (nextLevelButton) {
-                nextLevelButton.action();
-            }
-        }
     }
 
     display() {
@@ -108,13 +98,20 @@ class LevelSuccessScreen extends Screen {
                 && window.mouseYGame >= button.y - button.buttonHeight / 2
                 && window.mouseYGame <= button.y + button.buttonHeight / 2;
 
+            let isFocused = this.focusedButtonIndex === this.buttons.indexOf(button);
+
             if (isHovered) {
                 fill(254, 224, 173, this.alpha * 0.8); // Slightly transparent when hovered
             } else {
                 fill(254, 224, 173, this.alpha);
             }
+            if (isFocused) {
+                stroke(14, 105, 218);
+                strokeWeight(4);
+            }
             rect(button.x, button.y, button.buttonWidth, button.buttonHeight, 10);
 
+            noStroke();
             fill(147, 75, 43, this.alpha);
             textSize(20);
             textAlign(CENTER, CENTER);

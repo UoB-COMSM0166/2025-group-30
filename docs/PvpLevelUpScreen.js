@@ -4,6 +4,7 @@ class PvpLevelUpScreen extends Screen {
         this.gameScreen = gameScreen;
         this.boardImage = loadImage('assets/board2.webp');
         this.farmerTieImage = loadImage('assets/Farmer tie.gif');
+        this.lastClickedButton = null;
 
         this.buttonWidth = 120;
         this.buttonHeight = 40;
@@ -14,18 +15,24 @@ class PvpLevelUpScreen extends Screen {
         // Buttons for navigating
         this.buttons = [
             {
-                label: "Next Level",
-                x: baseWidth / 4 * 3,
+                label: "Home",
+                x: baseWidth / 4,
                 y: baseHeight / 5 * 4,
+                buttonWidth: this.buttonWidth,
+                buttonHeight: this.buttonHeight,
                 action: () => {
+                    this.lastClickedButton = this.buttons[1];
                     this.startFadeOut();
                 }
             },
             {
-                label: "Home",
-                x: baseWidth / 4,
+                label: "Next Level",
+                x: baseWidth / 4 * 3,
                 y: baseHeight / 5 * 4,
+                buttonWidth: this.buttonWidth,
+                buttonHeight: this.buttonHeight,
                 action: () => {
+                    this.lastClickedButton = this.buttons[0];
                     this.startFadeOut();
                 }
             }
@@ -69,10 +76,12 @@ class PvpLevelUpScreen extends Screen {
             // 当淡出完成时
             if (this.alpha === 0 && this.isTransitioning) {
                 this.isTransitioning = false;
-                if (this.buttons[0].action === this.buttons[0].action) {
+                if (this.lastClickedButton === this.buttons[0]) {
+                    this.resetAnimationState();
                     this.gameScreen.startNextLevel();
                     this.screenManager.changeScreen(this.gameScreen);
                 } else {
+                    this.resetAnimationState();
                     this.gameScreen.clearStats();
                     this.screenManager.changeScreen(this.screenManager.homeScreen);
                 }
@@ -94,11 +103,11 @@ class PvpLevelUpScreen extends Screen {
         textSize(32);
         textAlign(CENTER, CENTER);
         if (this.gameScreen.player1.score > this.gameScreen.player2.score) {
-            text("Player 1 Wins!", baseWidth / 2, baseHeight / 2 + 10);
+            text("Player 1 Wins!", baseWidth / 2, baseHeight / 2 + 20);
         } else if (this.gameScreen.player1.score < this.gameScreen.player2.score) {
-            text("Player 2 Wins!", baseWidth / 2, baseHeight / 2 + 10);
+            text("Player 2 Wins!", baseWidth / 2, baseHeight / 2 + 20);
         } else {
-            text("It's a Tie!", baseWidth / 2, baseHeight / 2 + 10);
+            text("It's a Tie!", baseWidth / 2, baseHeight / 2 + 20);
         }
 
         // Display buttons
@@ -106,18 +115,25 @@ class PvpLevelUpScreen extends Screen {
             rectMode(CENTER);
 
             // Check if mouse is hovering over button
-            let isHovered = window.mouseXGame >= button.x - this.buttonWidth / 2
-                && window.mouseXGame <= button.x + this.buttonWidth / 2
-                && window.mouseYGame >= button.y - this.buttonHeight / 2
-                && window.mouseYGame <= button.y + this.buttonHeight / 2;
+            let isHovered = window.mouseXGame >= button.x - button.buttonWidth / 2
+                && window.mouseXGame <= button.x + button.buttonWidth / 2
+                && window.mouseYGame >= button.y - button.buttonHeight / 2
+                && window.mouseYGame <= button.y + button.buttonHeight / 2;
 
-            if (isHovered) {
+            let isFocused = this.focusedButtonIndex === this.buttons.indexOf(button);
+
+            if (isHovered || isFocused) {
                 fill(255, 210, 160, this.alpha);
             } else {
                 fill(243, 186, 125, this.alpha);
             }
-            rect(button.x, button.y, this.buttonWidth, this.buttonHeight, 10);
+            if (isFocused) {
+                stroke(14, 105, 218);
+                strokeWeight(4);
+            }
+            rect(button.x, button.y, button.buttonWidth, button.buttonHeight, 10);
 
+            noStroke();
             fill(147, 75, 43, this.alpha);
             textSize(16);
             textAlign(CENTER, CENTER);
@@ -127,18 +143,5 @@ class PvpLevelUpScreen extends Screen {
         // 重置文本样式
         textStyle(NORMAL);
         textFont('sans-serif');
-    }
-
-    mousePressed() {
-        // 检查是否点击了按钮
-        for (let button of this.buttons) {
-            if (window.mouseXGame >= button.x - this.buttonWidth / 2
-                && window.mouseXGame <= button.x + this.buttonWidth / 2
-                && window.mouseYGame >= button.y - this.buttonHeight / 2
-                && window.mouseYGame <= button.y + this.buttonHeight / 2) {
-                button.action();
-                break;
-            }
-        }
     }
 }
