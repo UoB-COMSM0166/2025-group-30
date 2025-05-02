@@ -31,18 +31,18 @@ class SpecialItem extends FallingObject {
             if (xOverlapPercent > overlapThreshold) return true;
         }
 
-        // Check collision with each grass in the stack
+        // Check collision with each hay in the stack
         for (let i = 0; i < player.stack.length; i++) {
-            const grass = player.stack[i];
+            const hay = player.stack[i];
 
-            const isYOverlappingGrass =
-                this.y < grass.y + grass.h &&
-                this.y + this.h > grass.y;
+            const isYOverlappingHay =
+                this.y < hay.y + hay.h &&
+                this.y + this.h > hay.y;
 
-            if (isYOverlappingGrass) {
+            if (isYOverlappingHay) {
                 const xOverlapPercent = calculateXOverlapPercentage(
                     { x: this.x, width: this.w },
-                    { x: grass.x, width: grass.w }
+                    { x: hay.x, width: hay.w }
                 );
                 if (xOverlapPercent > overlapThreshold) return true;
             }

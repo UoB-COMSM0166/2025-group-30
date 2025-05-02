@@ -1,4 +1,4 @@
-class Basket {
+class Barrel {
     constructor(position = "left") {
         this.position = position;
         this.x = (position === "left") ? 10 : baseWidth - 160;
@@ -7,7 +7,7 @@ class Basket {
         this.h = 150;
         this.score = 0;
         this.targetScore = 0;
-        this.basketImage = loadImage("assets/basket.webp");
+        this.barrelImage = loadImage("assets/barrel.webp");
     }
 
     draw() {
@@ -23,7 +23,7 @@ class Basket {
             tint(grayValue, grayValue, grayValue);
         }
 
-        image(this.basketImage, this.x, this.y, this.w, this.h);
+        image(this.barrelImage, this.x, this.y, this.w, this.h);
 
         pop(); // 恢复绘图状态
 

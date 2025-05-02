@@ -20,7 +20,7 @@ class CoopHelpScreen extends Screen {
         this.spaceButtonImg = loadImage('assets/space-button.webp');
         this.player1Img = loadImage('assets/player1.webp');
         this.player2Img = loadImage('assets/player2.webp');
-        this.grassImage = loadImage('assets/hay.webp');
+        this.hayImage = loadImage('assets/hay.webp');
 
         this.buttons = [
             {
@@ -90,13 +90,13 @@ class CoopHelpScreen extends Screen {
         const player1Width = this.buttonSize * player1Scale;
         const player1Height = (this.player1Img.height / this.player1Img.width) * player1Width;
         image(this.player1Img, baseWidth / 4, 120, player1Width, player1Height);
-        
+
         // Display player2 image, maintain aspect ratio
         const player2Scale = 1.2; // Use same scale factor
         const player2Width = this.buttonSize * player2Scale;
         const player2Height = (this.player2Img.height / this.player2Img.width) * player2Width;
         image(this.player2Img, baseWidth / 4 * 3, 120, player2Width, player2Height);
-        
+
         image(this.aButtonImg, baseWidth / 8, baseHeight / 6, this.buttonSize, this.buttonSize);
         image(this.dButtonImg, baseWidth / 8 * 3, baseHeight / 6, this.buttonSize, this.buttonSize);
         image(this.spaceButtonImg, baseWidth / 4, 200, this.buttonSize, this.buttonSize);
@@ -143,8 +143,8 @@ class CoopHelpScreen extends Screen {
         noStroke();
 
         // Draw hay stack and player using images
-        const grassWidth = 42;
-        const grassHeight = 28;
+        const hayWidth = 42;
+        const hayHeight = 28;
         const stackX = baseWidth / 2;
         const stackBaseY = baseHeight / 6 * 5;
         const playerHeight = 105;
@@ -152,7 +152,7 @@ class CoopHelpScreen extends Screen {
 
         // Calculate total height of hay stack
         const yGap = 3;
-        const totalGrassHeight = 6 * (grassHeight - yGap) + yGap;
+        const totalHayHeight = 6 * (hayHeight - yGap) + yGap;
 
         // Draw player image first
         const playerY = stackBaseY;
@@ -163,29 +163,29 @@ class CoopHelpScreen extends Screen {
 
         // Draw 6 hay blocks, each with random offset
         for (let i = 0; i < 6; i++) {
-            image(this.grassImage, 
-                stackX + offsets[i], 
-                playerY - playerHeight/2 - grassHeight/2 - (i * (grassHeight - yGap)) + 3, 
-                grassWidth, 
-                grassHeight
+            image(this.hayImage,
+                stackX + offsets[i],
+                playerY - playerHeight / 2 - hayHeight / 2 - (i * (hayHeight - yGap)) + 3,
+                hayWidth,
+                hayHeight
             );
         }
 
         // Draw blue X on the last hay block
-        const topGrassY = playerY - playerHeight/2 - grassHeight/2 - (5 * (grassHeight - yGap)) + 3;
+        const topHayY = playerY - playerHeight / 2 - hayHeight / 2 - (5 * (hayHeight - yGap)) + 3;
         stroke(117, 170, 208);
         strokeWeight(4);
         line(
-            stackX + offsets[5] - grassWidth/2, 
-            topGrassY - grassHeight/2,
-            stackX + offsets[5] + grassWidth/2, 
-            topGrassY + grassHeight/2
+            stackX + offsets[5] - hayWidth / 2,
+            topHayY - hayHeight / 2,
+            stackX + offsets[5] + hayWidth / 2,
+            topHayY + hayHeight / 2
         );
         line(
-            stackX + offsets[5] - grassWidth/2, 
-            topGrassY + grassHeight/2,
-            stackX + offsets[5] + grassWidth/2, 
-            topGrassY - grassHeight/2
+            stackX + offsets[5] - hayWidth / 2,
+            topHayY + hayHeight / 2,
+            stackX + offsets[5] + hayWidth / 2,
+            topHayY - hayHeight / 2
         );
         noStroke();
 
@@ -193,7 +193,7 @@ class CoopHelpScreen extends Screen {
         textAlign(CENTER, BOTTOM);
         textSize(18);
         fill(117, 170, 208);  // Use same blue color
-        text("Maximum 5 hay stacks at a time", stackX, topGrassY - grassHeight - 10);
+        text("Maximum 5 hay stacks at a time", stackX, topHayY - hayHeight - 10);
 
         for (let button of this.buttons) {
             rectMode(CENTER);

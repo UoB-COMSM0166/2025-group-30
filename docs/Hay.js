@@ -1,7 +1,7 @@
-class Grass extends FallingObject {
+class Hay extends FallingObject {
     constructor(x, y) {
         super(x, y, 60, 40, 3);
-        this.perfectStack = null; // Add property to track if this grass is part of a perfect stack
+        this.perfectStack = null; // Add property to track if this hay is part of a perfect stack
     }
 
     loadImage() {

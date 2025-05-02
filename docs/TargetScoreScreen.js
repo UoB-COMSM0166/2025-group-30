@@ -24,7 +24,7 @@ class TargetScoreScreen extends Screen {
 
     // Reset animation state
     resetAnimationState() {
-        this.alpha = 0; 
+        this.alpha = 0;
         this.fadeIn = true;
         this.fadeSpeed = 5;
         this.isTransitioning = false;
@@ -60,12 +60,12 @@ class TargetScoreScreen extends Screen {
 
         // Draw different players based on game mode
         if (this.gameScreen === this.screenManager.single) {
-            this.gameScreen.basket.draw();
-            this.gameScreen.player.drawPlayerWithCaughtGrass();
+            this.gameScreen.barrel.draw();
+            this.gameScreen.player.drawPlayerWithCaughtHay();
         } else if (this.gameScreen === this.screenManager.coop) {
-            this.gameScreen.basket.draw();
-            this.gameScreen.player1.drawPlayerWithCaughtGrass();
-            this.gameScreen.player2.drawPlayerWithCaughtGrass();
+            this.gameScreen.barrel.draw();
+            this.gameScreen.player1.drawPlayerWithCaughtHay();
+            this.gameScreen.player2.drawPlayerWithCaughtHay();
         }
 
         // Draw semi-transparent background
@@ -88,7 +88,7 @@ class TargetScoreScreen extends Screen {
 
         // Draw board.webp as dialog background
         tint(255, this.alpha);
-        image(this.boardImage, baseWidth/2 - 150, baseHeight/2 - 100, 300, 200);
+        image(this.boardImage, baseWidth / 2 - 150, baseHeight / 2 - 100, 300, 200);
         noTint();
 
         // Set global text style
@@ -109,10 +109,10 @@ class TargetScoreScreen extends Screen {
         // Display item description
         textSize(18);
         let itemDescription = "";
-        let itemDescription2 = ""; 
+        let itemDescription2 = "";
         switch (this.gameScreen.level.level) {
             case 2:
-                itemDescription = "Shovel: Clear your grass stack";
+                itemDescription = "Shovel: Clear your hay stack";
                 break;
             case 3:
                 itemDescription = "Speed Boot:";
@@ -148,9 +148,9 @@ class TargetScoreScreen extends Screen {
             && window.mouseYGame <= this.confirmButton.y + this.confirmButton.buttonHeight / 2;
 
         if (isHovered) {
-            fill(180, 126, 89, this.alpha); 
+            fill(180, 126, 89, this.alpha);
         } else {
-            fill(130, 76, 39, this.alpha); 
+            fill(130, 76, 39, this.alpha);
         }
         rect(this.confirmButton.x, this.confirmButton.y, this.confirmButton.buttonWidth, this.confirmButton.buttonHeight, 10);
 
