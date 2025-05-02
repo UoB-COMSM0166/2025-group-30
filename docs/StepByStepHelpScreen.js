@@ -46,7 +46,7 @@ class StepByStepHelpScreen extends Screen {
             },
             {
                 label: "Next",
-                x: baseWidth * 7/8,
+                x: baseWidth * 7 / 8,
                 y: baseHeight / 8,
                 buttonWidth: this.buttonWidth,
                 buttonHeight: this.buttonHeight,
@@ -54,7 +54,7 @@ class StepByStepHelpScreen extends Screen {
             },
             {
                 label: "Start", //only show on last step
-                x: baseWidth * 7/8,
+                x: baseWidth * 7 / 8,
                 y: baseHeight / 8,
                 buttonWidth: this.buttonWidth,
                 buttonHeight: this.buttonHeight,
@@ -71,9 +71,9 @@ class StepByStepHelpScreen extends Screen {
         this.demoPlayer = new Player("middle");
         this.demoPlayer.y = baseHeight - 150; // Adjust to match actual game height
 
-        this.demoBasket = new Basket("left");
-        this.demoBasket.y = baseHeight - this.demoBasket.h; // Align basket bottom with screen bottom
-        this.demoPlayer.basket = this.demoBasket;
+        this.demoBarrel = new Barrel("left");
+        this.demoBarrel.y = baseHeight - this.demoBarrel.h; // Align barrel bottom with screen bottom
+        this.demoPlayer.barrel = this.demoBarrel;
 
         // Tutorial steps
         this.currentStep = 0;
@@ -87,7 +87,7 @@ class StepByStepHelpScreen extends Screen {
                 },
                 draw: () => {
                     // Draw the player
-                    this.demoPlayer.drawPlayerWithCaughtGrass();
+                    this.demoPlayer.drawPlayerWithCaughtHay();
                 },
                 checkCompletion: () => {
                     if (keyCode === LEFT_ARROW || keyCode === RIGHT_ARROW) {
@@ -97,41 +97,41 @@ class StepByStepHelpScreen extends Screen {
                 }
             },
             { //step 2
-                instruction: "Move under the falling hay block to catch it",
+                instruction: "Catch the falling hay by moving under it",
                 setup: () => {
                     this.demoPlayer.stack = [];
-                    // Add a falling grass block
-                    this.demoGrass = new Grass(random(200, baseWidth - 100), 10);
+                    // Add a falling hay block
+                    this.demoHay = new Hay(random(200, baseWidth - 100), 10);
                 },
                 update: () => {
                     // Handle player movement in the demo
                     this.handlePlayerMovement();
 
-                    // Only move the grass if it exists
-                    if (this.demoGrass) {
-                        // Move the falling grass
-                        this.demoGrass.fall();
+                    // Only move the hay if it exists
+                    if (this.demoHay) {
+                        // Move the falling hay
+                        this.demoHay.fall();
 
-                        // Check if grass is caught
-                        if (this.demoPlayer.catches(this.demoGrass)) {
-                            // If grass is caught, don't create a new one
-                            this.demoGrass = null;
+                        // Check if hay is caught
+                        if (this.demoPlayer.catches(this.demoHay)) {
+                            // If hay is caught, don't create a new one
+                            this.demoHay = null;
                         }
 
-                        // If grass falls off screen, create a new one
-                        if (this.demoGrass && this.demoGrass.y > baseHeight) {
-                            this.demoGrass = new Grass(random(200, baseWidth - 100), 10);
+                        // If hay falls off screen, create a new one
+                        if (this.demoHay && this.demoHay.y > baseHeight) {
+                            this.demoHay = new Hay(random(200, baseWidth - 100), 10);
                         }
                     }
                 },
                 draw: () => {
-                    // Draw the falling grass if it exists                  
-                    if (this.demoGrass) {
-                        this.demoGrass.draw();
+                    // Draw the falling hay if it exists                  
+                    if (this.demoHay) {
+                        this.demoHay.draw();
                     }
 
-                    // Draw the player with stacked grass
-                    this.demoPlayer.drawPlayerWithCaughtGrass();
+                    // Draw the player with stacked hay
+                    this.demoPlayer.drawPlayerWithCaughtHay();
                 },
                 checkCompletion: () => {
                     if (this.demoPlayer.stack.length > 0) {
@@ -141,36 +141,36 @@ class StepByStepHelpScreen extends Screen {
                 }
             },
             { //step 3
-                instruction: "Press SPACE when near the barrel to empty your stack",
+                instruction: "Go near the barrel and press SPACE to unload",
                 setup: () => {
-                    // Reset basket score
-                    this.demoBasket.score = 0;
+                    // Reset barrel score
+                    this.demoBarrel.score = 0;
                     this.demoPlayer.score = 0;
-                    
+
                     if (this.demoPlayer.stack.length === 1) { return; }
-                    const yGap = 3; // Use consistent gap for all grass blocks
-                    // put a grass block in the player's stack
-                    this.demoGrass = new Grass();
-                    this.demoGrass.x = this.demoPlayer.x + this.demoPlayer.w / 2 - this.demoGrass.w / 2;
-                    this.demoGrass.y = this.demoPlayer.y - this.demoGrass.h + yGap;
-                    this.demoPlayer.stack = [this.demoGrass];
+                    const yGap = 3; // Use consistent gap for all hay blocks
+                    // put a hay block in the player's stack
+                    this.demoHay = new Hay();
+                    this.demoHay.x = this.demoPlayer.x + this.demoPlayer.w / 2 - this.demoHay.w / 2;
+                    this.demoHay.y = this.demoPlayer.y - this.demoHay.h + yGap;
+                    this.demoPlayer.stack = [this.demoHay];
                 },
                 update: () => {
                     // Handle player movement
                     this.handlePlayerMovement();
 
-                    // Check for space key to empty to basket
+                    // Check for space key to empty to barrel
                     if (keyIsDown(32)) { // 32 is the keyCode for SPACE
-                        this.demoPlayer.emptyToBasket();
-                        this.demoBasket.score = this.demoPlayer.score;
+                        this.demoPlayer.emptyToBarrel();
+                        this.demoBarrel.score = this.demoPlayer.score;
                     }
                 },
                 draw: () => {
-                    // Draw the basket
-                    this.demoBasket.draw();
+                    // Draw the barrel
+                    this.demoBarrel.draw();
 
-                    // Draw the player with stacked grass
-                    this.demoPlayer.drawPlayerWithCaughtGrass();
+                    // Draw the player with stacked hay
+                    this.demoPlayer.drawPlayerWithCaughtHay();
                 },
                 checkCompletion: () => {
                     if (this.demoPlayer.stack.length === 0) {
@@ -180,59 +180,59 @@ class StepByStepHelpScreen extends Screen {
                 }
             },
             { //step 4
-                instruction: `Catch one more hay stack to exceed the limit of 5`,
+                instruction: `You're limited to 5 stacks — catch a 6th to overflow!`,
                 setup: () => {
                     // Clear the player's stack
                     this.demoPlayer.stack = [];
-                    const yGap = 3; // Use consistent gap for all grass blocks
+                    const yGap = 3; // Use consistent gap for all hay blocks
 
-                    // Add 5 grass blocks to the player's stack
+                    // Add 5 hay blocks to the player's stack
                     for (let i = 0; i < 5; i++) {
-                        let grass = new Grass();
-                        //create a staggered stack of grass blocks
-                        grass.x = random(this.demoPlayer.x + this.demoPlayer.w / 4 - 20, this.demoPlayer.x + this.demoPlayer.w / 4 + 20);
-                        grass.y = this.demoPlayer.y - (i + 1) * (grass.h - yGap);
-                        this.demoPlayer.stack.push(grass);
+                        let hay = new Hay();
+                        //create a staggered stack of hay blocks
+                        hay.x = random(this.demoPlayer.x + this.demoPlayer.w / 4 - 20, this.demoPlayer.x + this.demoPlayer.w / 4 + 20);
+                        hay.y = this.demoPlayer.y - (i + 1) * (hay.h - yGap);
+                        this.demoPlayer.stack.push(hay);
                     }
 
-                    // Add one falling grass block to demonstrate exceeding the limit
-                    this.demoGrass = new Grass(random(200, baseWidth - 100), 10);
+                    // Add one falling hay block to demonstrate exceeding the limit
+                    this.demoHay = new Hay(random(200, baseWidth - 100), 10);
                 },
 
                 update: () => {
                     // Handle player movement
                     this.handlePlayerMovement();
-                    // Only move the grass if it exists
-                    if (this.demoGrass) {
-                        // Move the falling grass
-                        this.demoGrass.fall();
+                    // Only move the hay if it exists
+                    if (this.demoHay) {
+                        // Move the falling hay
+                        this.demoHay.fall();
 
-                        // Check if grass is caught
-                        if (this.demoPlayer.catches(this.demoGrass)) {
-                            // If grass is caught, don't create a new one
-                            this.demoGrass = null;
+                        // Check if hay is caught
+                        if (this.demoPlayer.catches(this.demoHay)) {
+                            // If hay is caught, don't create a new one
+                            this.demoHay = null;
                         }
 
-                        // If grass falls off screen, create a new one
-                        if (this.demoGrass && this.demoGrass.y > baseHeight) {
-                            this.demoGrass = new Grass(random(200, baseWidth - 100), 10);
+                        // If hay falls off screen, create a new one
+                        if (this.demoHay && this.demoHay.y > baseHeight) {
+                            this.demoHay = new Hay(random(200, baseWidth - 100), 10);
                         }
                     }
                 },
                 draw: () => {
-                    // Draw the player with stacked grass
-                    this.demoPlayer.drawPlayerWithCaughtGrass();
+                    // Draw the player with stacked hay
+                    this.demoPlayer.drawPlayerWithCaughtHay();
 
-                    // Draw falling grass if it exists
-                    if (this.demoGrass) {
-                        this.demoGrass.draw();
+                    // Draw falling hay if it exists
+                    if (this.demoHay) {
+                        this.demoHay.draw();
                     }
 
                     // Display message with emphasized limit
                     textAlign(LEFT);
 
                     // If flashing, show explanation
-                    if (!this.demoGrass) {
+                    if (!this.demoHay) {
                         // Draw white transparent background box
                         rectMode(CENTER);
                         noStroke();
@@ -254,10 +254,10 @@ class StepByStepHelpScreen extends Screen {
 
                             // Draw text on the right side of icon
                             textAlign(LEFT);
-                            text("Stack exceeded! All blocks dropped!", baseWidth / 2 - 170, baseHeight / 2 + 8);
+                            text("Uh-oh! You stacked too much!", baseWidth / 2 - 170, baseHeight / 2);
                         } else {
                             // If icon is not loaded yet, only show text
-                            text("Stack exceeded! All blocks dropped!", baseWidth / 2, baseHeight / 2);
+                            text("Uh-oh! You stacked too much!", baseWidth / 2, baseHeight / 2);
                         }
                     }
                 },
@@ -269,7 +269,7 @@ class StepByStepHelpScreen extends Screen {
                 }
             },
             { //step 5
-                instruction: "You're ready to play! Click 'Start' to select play mode.",
+                instruction: "All set! Click 'Start' to choose a game mode and begin",
                 setup: () => {
                     // No demo needed for final step
                 },
@@ -593,7 +593,7 @@ class StepByStepHelpScreen extends Screen {
         } else {
             this.demoPlayer.dir = 0;
         }
-        this.demoPlayer.movePlayerWithCaughtGrass();
+        this.demoPlayer.movePlayerWithCaughtHay();
     }
 
     // Update resetAnimation() method

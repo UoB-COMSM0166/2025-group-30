@@ -12,10 +12,10 @@ class SingleHelpScreen extends Screen {
         this.rightArrowImg = loadImage('assets/right-arrow-button.webp');
         this.leftArrowImg = loadImage('assets/left-arrow-button.webp');
         this.spaceButtonImg = loadImage('assets/space-button.webp');
-        
-        // Load player and grass images
+
+        // Load player and hay images
         this.playerImage = loadImage('assets/player1.webp');
-        this.grassImage = loadImage('assets/hay.webp');
+        this.hayImage = loadImage('assets/hay.webp');
 
         this.buttons = [
             {
@@ -79,59 +79,59 @@ class SingleHelpScreen extends Screen {
         text("PUT DOWN HAY", baseWidth / 2, textY);
 
         // Draw a visual representation of the maximum stack
-        const grassWidth = 42;
-        const grassHeight = 28;
+        const hayWidth = 42;
+        const hayHeight = 28;
         const stackX = baseWidth / 2;  // Center X coordinate
         const stackBaseY = baseHeight / 2 + 120;  // Move down 120 pixels
         const playerHeight = 105;
         const playerWidth = 70;
 
-        // Calculate total height of grass stack
+        // Calculate total height of hay stack
         const yGap = 3;
-        const totalGrassHeight = 6 * (grassHeight - yGap) + yGap;
+        const totalHayHeight = 6 * (hayHeight - yGap) + yGap;
 
         // Draw player image first
         const playerY = stackBaseY;
         image(this.playerImage, stackX, playerY, playerWidth, playerHeight);
 
-        // Define random offsets for each grass block
+        // Define random offsets for each hay block
         const offsets = [5, -8, 3, -4, 7, -2];  // Small random offsets
 
-        // Draw stack of 6 grass blocks right above the player with random offsets
+        // Draw stack of 6 hay blocks right above the player with random offsets
         for (let i = 0; i < 6; i++) {
-            image(this.grassImage, 
-                stackX + offsets[i], 
-                playerY - playerHeight/2 - grassHeight/2 - (i * (grassHeight - yGap)) + 3, 
-                grassWidth, 
-                grassHeight
+            image(this.hayImage,
+                stackX + offsets[i],
+                playerY - playerHeight / 2 - hayHeight / 2 - (i * (hayHeight - yGap)) + 3,
+                hayWidth,
+                hayHeight
             );
         }
 
-        // Draw a blue X over the top grass block
-        const topGrassY = playerY - playerHeight/2 - grassHeight/2 - (5 * (grassHeight - yGap)) + 3;
+        // Draw a blue X over the top hay block
+        const topHayY = playerY - playerHeight / 2 - hayHeight / 2 - (5 * (hayHeight - yGap)) + 3;
         stroke(117, 170, 208);  // Use same blue color
         strokeWeight(4);  // Set line thickness
         // Draw X
         line(
-            stackX + offsets[5] - grassWidth/2, 
-            topGrassY - grassHeight/2,
-            stackX + offsets[5] + grassWidth/2, 
-            topGrassY + grassHeight/2
+            stackX + offsets[5] - hayWidth / 2,
+            topHayY - hayHeight / 2,
+            stackX + offsets[5] + hayWidth / 2,
+            topHayY + hayHeight / 2
         );
         line(
-            stackX + offsets[5] - grassWidth/2, 
-            topGrassY + grassHeight/2,
-            stackX + offsets[5] + grassWidth/2, 
-            topGrassY - grassHeight/2
+            stackX + offsets[5] - hayWidth / 2,
+            topHayY + hayHeight / 2,
+            stackX + offsets[5] + hayWidth / 2,
+            topHayY - hayHeight / 2
         );
         noStroke();  // Reset stroke settings
 
-        // Draw instructions text next to the top grass block
+        // Draw instructions text next to the top hay block
         textAlign(LEFT, CENTER);
         textSize(22);
-        const textX = stackX + grassWidth + 50;  // Move text more to the right
-        text("Maximum 5 hay stacks", textX, topGrassY - 15);
-        text("at a time", textX, topGrassY + 15);
+        const textX = stackX + hayWidth + 50;  // Move text more to the right
+        text("Maximum 5 hay stacks", textX, topHayY - 15);
+        text("at a time", textX, topHayY + 15);
 
         for (let button of this.buttons) {
             rectMode(CENTER);

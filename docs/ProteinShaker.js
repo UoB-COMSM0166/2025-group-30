@@ -45,7 +45,7 @@ class ProteinShaker extends SpecialItem {
 
         // Apply stack size boost and remove speed reduction
         player.maxStack = 10;
-        player.speedReductionPerGrass = 0;  // No speed reduction during boost
+        player.speedReductionPerHay = 0;  // No speed reduction during boost
         player.proteinShaker = this; // 设置对玩家的引用
 
         if (this.interval) {
@@ -96,7 +96,7 @@ class ProteinShaker extends SpecialItem {
                 }
             } else {
                 player.maxStack = 5;
-                player.speedReductionPerGrass = 0.1;
+                player.speedReductionPerHay = 0.1;
                 player.proteinShaker = null;
                 clearInterval(this.interval);
             }
