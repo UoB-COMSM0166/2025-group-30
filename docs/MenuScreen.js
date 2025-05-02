@@ -131,7 +131,7 @@ class MenuScreen extends Screen {
             let isFocused = this.focusedButtonIndex === this.buttons.indexOf(button);
             // Special button style (Back and Tutorial)
             if (button.isSpecial) {
-                if (isHovered || isFocused) {
+                if (isHovered) {
                     fill(95, 140, 96, 230);
                     stroke(111, 148, 112, 230);
                     strokeWeight(4);
@@ -140,11 +140,15 @@ class MenuScreen extends Screen {
                     stroke(111, 148, 112, 50);
                     strokeWeight(2);
                 }
+                if (isFocused) {
+                    stroke(14, 105, 218);
+                    strokeWeight(4);
+                }
 
                 ellipse(button.x, button.y, button.buttonWidth * 0.9, button.buttonHeight * 1.2);
 
                 noStroke();
-                fill(255, 255, 255, isHovered || isFocused ? 255 : 220);
+                fill(255, 255, 255, isHovered ? 255 : 220);
                 textStyle(BOLD);
                 textSize(18);
                 textAlign(CENTER, CENTER);
@@ -155,7 +159,7 @@ class MenuScreen extends Screen {
                 // Set stroke
                 strokeWeight(2);
 
-                if (isHovered || isFocused) {
+                if (isHovered) {
                     // Hover state: brighter semi-transparent effect
                     stroke(255, 255, 255, 200);
                     fill(255, 255, 255, 180);
@@ -163,6 +167,10 @@ class MenuScreen extends Screen {
                     // Non-hover state: darker semi-transparent effect
                     stroke(255, 255, 255, 150);
                     fill(255, 255, 255, 120);
+                }
+                if (isFocused) {
+                    stroke(14, 105, 218);
+                    strokeWeight(4);
                 }
 
                 // Calculate button Y coordinate, apply floating effect to specific buttons
@@ -174,7 +182,7 @@ class MenuScreen extends Screen {
                 rect(button.x, buttonY, button.buttonWidth, button.buttonHeight, 15);
 
                 noStroke();
-                if (isHovered || isFocused) {
+                if (isHovered) {
                     fill(45, 84, 75, 255);
                 } else {
                     fill(45, 84, 75, 200);

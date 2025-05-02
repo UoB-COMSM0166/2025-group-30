@@ -186,14 +186,18 @@ class DoubleHelpScreen extends Screen {
             // Draw button border
             stroke(53, 97, 140);  // Blue-black color
             strokeWeight(3);      // Bold border
-            if (isHovered || isFocused) {
+            if (isHovered) {
                 fill(227, 249, 253);  // Brighter button color
             } else {
                 fill(207, 239, 246);  // Normal button color
             }
+            if (isFocused) {
+                stroke(14, 105, 218);
+                strokeWeight(5);
+            }
             rect(button.x, button.y, button.buttonWidth, button.buttonHeight, 10);
-            noStroke();  // Reset stroke settings
 
+            noStroke();  // Reset stroke settings
             fill(53, 97, 140);  // Button text color
             textSize(14);
             textAlign(CENTER, CENTER);

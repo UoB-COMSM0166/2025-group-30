@@ -70,14 +70,19 @@ class PauseScreen extends Screen {
 
             let isFocused = this.focusedButtonIndex === this.buttons.indexOf(button);
 
-            if (isHovered || isFocused) {
+            if (isHovered) {
                 fill(255, 210, 160);
             } else {
                 fill(243, 186, 125);
             }
+            if (isFocused) {
+                stroke(14, 105, 218);
+                strokeWeight(4);
+            }
             rect(button.x, button.y, button.buttonWidth, button.buttonHeight, 10);
 
             // Draw button text
+            noStroke();
             fill(147, 75, 43);
             textFont('Comic Sans MS');
             textStyle(BOLD);

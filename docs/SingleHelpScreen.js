@@ -147,10 +147,14 @@ class SingleHelpScreen extends Screen {
             // 绘制按钮边框
             stroke(53, 97, 140);  // 蓝黑色
             strokeWeight(3);      // 加粗边框
-            if (isHovered || isFocused) {
+            if (isHovered) {
                 fill(227, 249, 253);  // 更亮的按钮颜色
             } else {
                 fill(207, 239, 246);  // 正常按钮颜色
+            }
+            if (isFocused) {
+                stroke(14, 105, 218);
+                strokeWeight(5);
             }
             rect(button.x, button.y, button.buttonWidth, button.buttonHeight, 10);
             noStroke();  // 重置描边设置

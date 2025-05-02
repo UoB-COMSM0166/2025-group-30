@@ -499,7 +499,7 @@ class StepByStepHelpScreen extends Screen {
 
             // Set button style - use green color scheme similar to menu screen
             strokeWeight(2);
-            if (isHovered || isFocused) {
+            if (isHovered) {
                 // Hover state
                 stroke(200, 140, 80, 230);
                 fill(255, 240, 220, 230);
@@ -508,13 +508,17 @@ class StepByStepHelpScreen extends Screen {
                 stroke(200, 140, 80, 180);
                 fill(255, 240, 220, 200);
             }
+            if (isFocused) {
+                stroke(14, 105, 218);
+                strokeWeight(4);
+            }
 
             // Draw rounded rectangle button
             rect(button.x, button.y, this.buttonWidth, this.buttonHeight, 10);
 
             // Button text
             noStroke();
-            fill(141, 74, 44, isHovered || isFocused ? 255 : 220);
+            fill(141, 74, 44, isHovered ? 255 : 220);
             textSize(16);
             textStyle(BOLD);
             textAlign(CENTER, CENTER);
