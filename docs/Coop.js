@@ -14,6 +14,8 @@ class Coop extends GameScreen {
     }
 
     display() {
+        textFont('Comic Sans MS');
+        
         image(this.backgroundImage, 0, 0, baseWidth, baseHeight);
         this.basket.draw();
 
@@ -32,6 +34,38 @@ class Coop extends GameScreen {
         this.player2.drawPlayerWithCaughtGrass();
         this.drawParticles();
         this.displayUI();
+        
+        // 重置字体
+        textFont('sans-serif');
+    }
+
+    displayUI() {
+        // Common UI elements
+        fill(254, 224, 173); // 修改为指定的RGB颜色
+        textSize(20);
+        textStyle(BOLD);
+
+        // Display level
+        textAlign(CENTER);
+        text(`Level ${this.level.level}`, baseWidth / 2, 30);
+
+        // Display time
+        textAlign(LEFT);
+        text(`Time: ${this.level.timeLeft}s`, 20, 30);
+        textStyle(NORMAL);
+
+        if (this.level.timeLeft > 0) {
+            // Display special item timers for each player
+            if (this.player) {
+                this.displaySpecialItemTimers(this.player);
+            } else if (this.player1 && this.player2) {
+                this.displaySpecialItemTimers(this.player1);
+                this.displaySpecialItemTimers(this.player2);
+            }
+        }
+
+        // Call the game mode specific UI update
+        this.updateScoreDisplay();
     }
 
     // --- initialising the game state ---

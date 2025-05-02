@@ -13,6 +13,9 @@ class Pvp extends GameScreen { // player with higher score in the set time wins
     }
 
     display() {
+        // Set global font
+        textFont('Comic Sans MS');
+        
         image(this.backgroundImage, 0, 0, baseWidth, baseHeight);
         this.basket1.draw();
         this.basket2.draw();
@@ -30,6 +33,43 @@ class Pvp extends GameScreen { // player with higher score in the set time wins
         this.player2.drawPlayerWithCaughtGrass();
 
         this.displayUI();
+        
+        // Reset font
+        textFont('sans-serif');
+    }
+
+    displayUI() {
+        // Common UI elements
+        fill(254, 224, 173); // Set to specified RGB color
+        textSize(20);
+        textStyle(BOLD);
+
+        // Display level
+        textAlign(CENTER);
+        text(`Level ${this.level.level}`, baseWidth / 2, 30);
+
+        // Display time
+        textAlign(LEFT);
+        text(`Time: ${this.level.timeLeft}s`, 20, 30);
+        textStyle(NORMAL);
+
+        if (this.level.timeLeft > 0) {
+            // Display special item timers for each player
+            if (this.player) {
+                this.displaySpecialItemTimers(this.player);
+            } else if (this.player1 && this.player2) {
+                this.displaySpecialItemTimers(this.player1);
+                this.displaySpecialItemTimers(this.player2);
+            }
+        }
+
+        // Call the game mode specific UI update
+        this.updateScoreDisplay();
+    }
+
+    displaySpecialItemTimers(player) {
+        // 移除所有显示道具时间的文本
+        return;
     }
 
     // --- initialising the game state ---
@@ -93,21 +133,19 @@ class Pvp extends GameScreen { // player with higher score in the set time wins
                 break;
             case 5:
             default:
-                // 铲子独立掉落
-                if (random() < 0.5) { // 50% 概率掉铲子
+                // Shovel drops independently
+                if (random() < 0.5) { // 50% chance for shovel
                     specialItemsArray.push(new Shovel(newX, 10));
                 } else {
-                    // 另外两种物品随机掉
-                    if (random() < 0.5) { // 50% 概率掉蛋白粉
+                    // Random drop between the other two items
+                    if (random() < 0.5) { // 50% chance for protein shaker
                         specialItemsArray.push(new ProteinShaker(newX + 50, 10));
-                    } else { // 50% 概率掉速度靴
+                    } else { // 50% chance for speed boot
                         specialItemsArray.push(new SpeedBoot(newX + 50, 10));
                     }
                 }
-
         }
     }
-
 
     // --- main game logic ----
     updateFallingGrass() { //update the grass from this.grass based on if caught or missed   
@@ -151,7 +189,6 @@ class Pvp extends GameScreen { // player with higher score in the set time wins
         this.updateEachPlayerSpecialItems(this.player1, this.specialItems1);
         this.updateEachPlayerSpecialItems(this.player2, this.specialItems2);
     }
-
 
     drawSpecialItems() {
         this.specialItems1.forEach(item => item.draw());
@@ -211,8 +248,8 @@ class Pvp extends GameScreen { // player with higher score in the set time wins
         this.basket2.updateScore(this.player2.score, 0);
 
         // Draw the center line
-        stroke(0);
-        line(baseWidth / 2, 0, baseWidth / 2, baseHeight);
+        stroke(254, 224, 173);
+        line(baseWidth / 2, 50, baseWidth / 2, baseHeight); // Start from y=50 to avoid overlapping with level text
         noStroke();
     }
 
