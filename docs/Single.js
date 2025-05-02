@@ -8,8 +8,8 @@ class Single extends GameScreen {
         this.accomplishScreen = new AccomplishScreen(this.screenManager, this);
 
         this.player = new Player("middle");
-        this.basket = new Basket("left");
-        this.player.basket = this.basket;
+        this.barrel = new Barrel("left");
+        this.player.barrel = this.barrel;
     }
 
     display() {
@@ -17,19 +17,19 @@ class Single extends GameScreen {
         textFont('Comic Sans MS');
 
         image(this.backgroundImage, 0, 0, baseWidth, baseHeight);
-        this.basket.draw();
+        this.barrel.draw();
 
         if (this.screenManager.currentScreen === this) { //stop updating when paused
-            this.player.movePlayerWithCaughtGrass();
-            this.updateFallingGrass();
+            this.player.movePlayerWithCaughtHay();
+            this.updateFallingHay();
             this.updateSpecialItems();
             this.checkPerfectStack();
             this.updateParticles();
         }
-        this.drawFallingGrass();
+        this.drawFallingHay();
         this.drawSpecialItems();
         this.drawParticles();
-        this.player.drawPlayerWithCaughtGrass(); //show player with grass   
+        this.player.drawPlayerWithCaughtHay(); //show player with hay   
 
         this.displayUI();
 
@@ -96,26 +96,26 @@ class Single extends GameScreen {
 
     // --- initialising the game state ---
 
-    startGrassDrop() {
-        if (this.grassDropInterval) {
-            clearInterval(this.grassDropInterval);
-            this.grassDropInterval = null;
+    startHayDrop() {
+        if (this.hayDropInterval) {
+            clearInterval(this.hayDropInterval);
+            this.hayDropInterval = null;
         }
 
-        this.resetGrassArray();
+        this.resetHayArray();
 
         setTimeout(() => {
-            if (this.grassDropInterval === null) {
-                let firstX = this.findSafePosition(50, baseWidth - 70, this.grass, this.specialItems);
-                this.grass.push(new Grass(firstX, 10));
+            if (this.hayDropInterval === null) {
+                let firstX = this.findSafePosition(50, baseWidth - 70, this.hay, this.specialItems);
+                this.hay.push(new Hay(firstX, 10));
 
-                this.grassDropInterval = setInterval(() => {
+                this.hayDropInterval = setInterval(() => {
                     if (this.player.flash.getFlashDuration() === 0
                         && this.screenManager.currentScreen === this) {
-                        let newX = this.findSafePosition(50, baseWidth - 70, this.grass, this.specialItems);
-                        this.grass.push(new Grass(newX, 10));
+                        let newX = this.findSafePosition(50, baseWidth - 70, this.hay, this.specialItems);
+                        this.hay.push(new Hay(newX, 10));
                     }
-                }, this.level.grassDropDelay);
+                }, this.level.hayDropDelay);
             }
         }, 1000);
     }
@@ -133,7 +133,7 @@ class Single extends GameScreen {
             if (this.player.flash.getFlashDuration() === 0
                 && this.screenManager.currentScreen === this) {
 
-                const newX = this.findSafePosition(50, baseWidth - 70, this.grass, this.specialItems);
+                const newX = this.findSafePosition(50, baseWidth - 70, this.hay, this.specialItems);
 
                 switch (this.level.level) {
                     case 2:
@@ -163,23 +163,23 @@ class Single extends GameScreen {
     }
 
     // --- main game logic ----
-    updateFallingGrass() { //update the grass from this.grass based on if caught or missed   
-        for (let i = this.grass.length - 1; i >= 0; i--) {
-            const currentGrass = this.grass[i];
+    updateFallingHay() { //update the hay from this.hay based on if caught or missed   
+        for (let i = this.hay.length - 1; i >= 0; i--) {
+            const currentHay = this.hay[i];
             if (this.player.flash.getFlashDuration() === 0) {
-                currentGrass.fall();
-            } //stop grass fall if flashing is on or game is paused            
+                currentHay.fall();
+            } //stop hay fall if flashing is on or game is paused            
 
-            if (currentGrass.isOffscreen() ||
-                this.player.catches(currentGrass)) {
-                this.grass.splice(i, 1);  // Remove if off-screen or caught
+            if (currentHay.isOffscreen() ||
+                this.player.catches(currentHay)) {
+                this.hay.splice(i, 1);  // Remove if off-screen or caught
             }
         }
     }
 
-    drawFallingGrass() { //draw the grass
-        for (let i = this.grass.length - 1; i >= 0; i--) {
-            this.grass[i].draw();
+    drawFallingHay() { //draw the hay
+        for (let i = this.hay.length - 1; i >= 0; i--) {
+            this.hay[i].draw();
         }
     }
 
@@ -213,7 +213,7 @@ class Single extends GameScreen {
                 }
             }
             else { //check when times run out
-                this.stopGrassDrop();
+                this.stopHayDrop();
                 this.stopLevelTimer();
                 this.stopSpecialItemDrop();
                 if (this.player.score >= this.level.targetScores) {
@@ -233,8 +233,8 @@ class Single extends GameScreen {
         this.player.reset();
     }
 
-    resetGrassArray() {
-        this.grass = [];
+    resetHayArray() {
+        this.hay = [];
     }
 
     resetSpecialItemsArray() {
@@ -246,7 +246,7 @@ class Single extends GameScreen {
     }
 
     updateScoreDisplay() {
-        this.basket.updateScore(this.player.score, this.level.targetScores);
+        this.barrel.updateScore(this.player.score, this.level.targetScores);
     }
 
     startNextLevel() {
@@ -262,7 +262,7 @@ class Single extends GameScreen {
     keyPressed() {
         if (keyCode === RIGHT_ARROW) this.player.dir = 1;
         else if (keyCode === LEFT_ARROW) this.player.dir = -1;
-        else if (keyCode === 32) this.player.emptyToBasket(); //spacebar    
+        else if (keyCode === 32) this.player.emptyToBarrel(); //spacebar    
         else if (keyCode === ESCAPE) {
             this.screenManager.changeScreen(this.pauseScreen);
         }

@@ -5,15 +5,15 @@ Class Breakdown
 display()
 <br>
 
-startGrassDropAndLevelTimer() --> startLevelTimer()
+startHayDropAndLevelTimer() --> startLevelTimer()
 
-stopGrassDropAndLevelTimer() --> stopLevelTimer()
+stopHayDropAndLevelTimer() --> stopLevelTimer()
 
 <br>
 
-updateFallingGrass() `// main game logic`
+updateFallingHay() `// main game logic`
 
-drawGrass()
+drawHay()
 
 <br>
 displayUI()
@@ -27,7 +27,7 @@ keyReleased()
 startNextLevel()
 
 <br>
-clearStats() --> stopGrassDropAndLevelTimer() `//clear the current game stats`
+clearStats() --> stopHayDropAndLevelTimer() `//clear the current game stats`
 
 restartFromCurrentLevel() 
 
@@ -41,6 +41,6 @@ move()
 
 show()
 
-catches(grass) `//return true or false`
+catches(hay) `//return true or false`
 
-emptyToBasket() `//empty grass to basket`
+emptyToBarrel() `//empty hay to barrel`

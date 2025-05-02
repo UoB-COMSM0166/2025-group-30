@@ -1,7 +1,7 @@
 class PvpHelpScreen extends DoubleHelpScreen {
     constructor(screenManager) {
         super(screenManager);
-
+      
         this.buttons = [
             {
                 label: "Back",

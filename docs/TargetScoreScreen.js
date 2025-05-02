@@ -61,12 +61,12 @@ class TargetScoreScreen extends Screen {
 
         // Draw different players based on game mode
         if (this.gameScreen === this.screenManager.single) {
-            this.gameScreen.basket.draw();
-            this.gameScreen.player.drawPlayerWithCaughtGrass();
+            this.gameScreen.barrel.draw();
+            this.gameScreen.player.drawPlayerWithCaughtHay();
         } else if (this.gameScreen === this.screenManager.coop) {
-            this.gameScreen.basket.draw();
-            this.gameScreen.player1.drawPlayerWithCaughtGrass();
-            this.gameScreen.player2.drawPlayerWithCaughtGrass();
+            this.gameScreen.barrel.draw();
+            this.gameScreen.player1.drawPlayerWithCaughtHay();
+            this.gameScreen.player2.drawPlayerWithCaughtHay();
         }
 
         // Draw semi-transparent background
@@ -113,7 +113,7 @@ class TargetScoreScreen extends Screen {
         let itemDescription2 = "";
         switch (this.gameScreen.level.level) {
             case 2:
-                itemDescription = "Shovel: Clear your grass stack";
+                itemDescription = "Shovel: Clear your hay stack";
                 break;
             case 3:
                 itemDescription = "Speed Boot:";

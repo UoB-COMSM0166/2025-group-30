@@ -117,22 +117,22 @@ In this game, the player only needs to keep touching the screen to control a bir
 - Different colored buttons have been added to correspond to different players, which means that everyone has to undertake corresponding tasks, which can make the gathering force stronger.
 
 
-## Grass Catching
-"Grass Catching” is one of the classic game form of Mole Manor.
+## Hay Catching
+"Hay Catching” is one of the classic game form of Mole Manor.
 
 ### Game Mechanics
-Initial Speed: At the start of the game, the character moves quickly, allowing easy maneuvering to catch grass.
+Initial Speed: At the start of the game, the character moves quickly, allowing easy maneuvering to catch hay.
 
-Weight Accumulation: As the player catches more grass, the character's movement speed gradually decreases. This simulates the effect of carrying a heavier load.
-- The more grass collected, the slower the character moves.
-- Slower movement increases the difficulty of positioning to catch falling grass accurately.
+Weight Accumulation: As the player catches more hay, the character's movement speed gradually decreases. This simulates the effect of carrying a heavier load.
+- The more hay collected, the slower the character moves.
+- Slower movement increases the difficulty of positioning to catch falling hay accurately.
 
 Dynamic Balance: By gradually increasing the difficulty, this mechanic forces players to make more strategic and precise decisions in the later stages.
 
 ### Effects of the Mechanic
 Impact on Player Actions
-- Players need to anticipate where the grass will fall and adjust their position in advance since slower movement makes catching grass more challenging.
+- Players need to anticipate where the hay will fall and adjust their position in advance since slower movement makes catching hay more challenging.
 - Quick reaction times and efficient planning become more critical as the game progresses.
 Impact on Game Pacing
 - The early stages of the game are fast-paced and allow for more freedom of movement.
-- As the grass accumulates, the game becomes more tense and strategic, requiring players to adapt to the slower pace.
+- As the hay accumulates, the game becomes more tense and strategic, requiring players to adapt to the slower pace.

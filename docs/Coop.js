@@ -8,33 +8,33 @@ class Coop extends GameScreen {
         this.accomplishScreen = new AccomplishScreen(this.screenManager, this);
         this.player1 = new Player("left");
         this.player2 = new Player("right");
-        this.basket = new Basket("left");
-        this.player1.basket = this.basket;
-        this.player2.basket = this.basket;
+        this.barrel = new Barrel("left");
+        this.player1.barrel = this.barrel;
+        this.player2.barrel = this.barrel;
     }
 
     display() {
         textFont('Comic Sans MS');
-        
+
         image(this.backgroundImage, 0, 0, baseWidth, baseHeight);
-        this.basket.draw();
+        this.barrel.draw();
 
         if (this.screenManager.currentScreen === this) {
-            this.player1.movePlayerWithCaughtGrass();
-            this.player2.movePlayerWithCaughtGrass();
-            this.updateFallingGrass();
+            this.player1.movePlayerWithCaughtHay();
+            this.player2.movePlayerWithCaughtHay();
+            this.updateFallingHay();
             this.updateSpecialItems();
             this.checkPerfectStack();
             this.updateParticles();
         }
 
-        this.drawFallingGrass();
+        this.drawFallingHay();
         this.drawSpecialItems();
-        this.player1.drawPlayerWithCaughtGrass(); //show player with grass 
-        this.player2.drawPlayerWithCaughtGrass();
+        this.player1.drawPlayerWithCaughtHay(); //show player with hay 
+        this.player2.drawPlayerWithCaughtHay();
         this.drawParticles();
         this.displayUI();
-        
+
         // 重置字体
         textFont('sans-serif');
     }
@@ -70,27 +70,27 @@ class Coop extends GameScreen {
 
     // --- initialising the game state ---
 
-    startGrassDrop() {
-        if (this.grassDropInterval) {
-            clearInterval(this.grassDropInterval);
-            this.grassDropInterval = null;
+    startHayDrop() {
+        if (this.hayDropInterval) {
+            clearInterval(this.hayDropInterval);
+            this.hayDropInterval = null;
         }
 
-        this.resetGrassArray();
+        this.resetHayArray();
 
         setTimeout(() => {
-            if (this.grassDropInterval === null) {
-                let firstX = this.findSafePosition(50, baseWidth - 70, this.grass, this.specialItems);
-                this.grass.push(new Grass(firstX, 10));
+            if (this.hayDropInterval === null) {
+                let firstX = this.findSafePosition(50, baseWidth - 70, this.hay, this.specialItems);
+                this.hay.push(new Hay(firstX, 10));
 
-                this.grassDropInterval = setInterval(() => {
+                this.hayDropInterval = setInterval(() => {
                     if ((this.player1.flash.getFlashDuration() === 0 ||
                         this.player2.flash.getFlashDuration() === 0) &&
                         this.screenManager.currentScreen === this) {
-                        let newX = this.findSafePosition(50, baseWidth - 70, this.grass, this.specialItems);
-                        this.grass.push(new Grass(newX, 10));
+                        let newX = this.findSafePosition(50, baseWidth - 70, this.hay, this.specialItems);
+                        this.hay.push(new Hay(newX, 10));
                     }
-                }, this.level.grassDropDelay);
+                }, this.level.hayDropDelay);
             }
         }, 1000);
     }
@@ -109,7 +109,7 @@ class Coop extends GameScreen {
                 this.player2.flash.getFlashDuration() === 0) &&
                 this.screenManager.currentScreen === this) {
 
-                const newX = this.findSafePosition(50, baseWidth - 70, this.grass, this.specialItems);
+                const newX = this.findSafePosition(50, baseWidth - 70, this.hay, this.specialItems);
 
                 switch (this.level.level) {
                     case 2:
@@ -140,24 +140,24 @@ class Coop extends GameScreen {
     }
 
     // --- main game logic ----
-    updateFallingGrass() { //update the grass from this.grass based on if caught or missed   
-        for (let i = this.grass.length - 1; i >= 0; i--) {
-            const currentGrass = this.grass[i];
+    updateFallingHay() { //update the hay from this.hay based on if caught or missed   
+        for (let i = this.hay.length - 1; i >= 0; i--) {
+            const currentHay = this.hay[i];
             if ((this.player1.flash.getFlashDuration() === 0 || this.player2.flash.getFlashDuration() === 0)) {
-                currentGrass.fall();
-            } //stop grass fall if flashing is on or game is paused
+                currentHay.fall();
+            } //stop hay fall if flashing is on or game is paused
 
-            if (this.player1.catches(currentGrass) ||
-                this.player2.catches(currentGrass) ||
-                currentGrass.isOffscreen()) {
-                this.grass.splice(i, 1);
+            if (this.player1.catches(currentHay) ||
+                this.player2.catches(currentHay) ||
+                currentHay.isOffscreen()) {
+                this.hay.splice(i, 1);
             }
         }
     }
 
-    drawFallingGrass() {
-        for (let i = 0; i < this.grass.length; i++) {
-            this.grass[i].draw();
+    drawFallingHay() {
+        for (let i = 0; i < this.hay.length; i++) {
+            this.hay[i].draw();
         }
     }
 
@@ -216,7 +216,7 @@ class Coop extends GameScreen {
                 } //time goes down for both player during flashing
             }
             else { //check when times run out
-                this.stopGrassDrop();
+                this.stopHayDrop();
                 this.stopSpecialItemDrop();
                 this.stopLevelTimer();
                 if ((this.player1.score + this.player2.score) >= this.level.targetScores) {
@@ -237,8 +237,8 @@ class Coop extends GameScreen {
         this.player2.reset();
     }
 
-    resetGrassArray() {
-        this.grass = [];
+    resetHayArray() {
+        this.hay = [];
     }
 
     resetSpecialItemsArray() {
@@ -251,7 +251,7 @@ class Coop extends GameScreen {
     }
 
     updateScoreDisplay() {
-        this.basket.updateScore(this.player1.score + this.player2.score, this.level.targetScores);
+        this.barrel.updateScore(this.player1.score + this.player2.score, this.level.targetScores);
     }
 
     //--- Move to next level ---
@@ -268,11 +268,11 @@ class Coop extends GameScreen {
     keyPressed() {
         if (keyCode === RIGHT_ARROW) this.player2.dir = 1;
         else if (keyCode === LEFT_ARROW) this.player2.dir = -1;
-        else if (keyCode === ENTER) this.player2.emptyToBasket();
+        else if (keyCode === ENTER) this.player2.emptyToBarrel();
 
         else if (keyCode === 68) this.player1.dir = 1; // D
         else if (keyCode === 65) this.player1.dir = -1; // A
-        else if (keyCode === 32) this.player1.emptyToBasket(); //spacebar    
+        else if (keyCode === 32) this.player1.emptyToBarrel(); //spacebar    
 
         else if (keyCode === ESCAPE) {
             this.screenManager.changeScreen(this.pauseScreen);

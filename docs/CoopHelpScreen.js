@@ -25,5 +25,4 @@ class CoopHelpScreen extends DoubleHelpScreen {
         ];
 
     }
-
 }
