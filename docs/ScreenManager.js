@@ -4,6 +4,7 @@ window.ScreenManager = class ScreenManager {
         console.log('Initializing ScreenManager');
         this.homeScreen = new HomeScreen(this);      
         this.menuScreen = new MenuScreen(this);
+        this.pauseScreen = new PauseScreen(this);
         
         this.stepByStepHelpScreen = new StepByStepHelpScreen(this);
         this.singleHelpScreen = new SingleHelpScreen(this);
@@ -38,10 +39,19 @@ window.ScreenManager = class ScreenManager {
         const previousScreen = this.currentScreen;
         this.currentScreen = screen;
         
+        console.log('Previous screen:', previousScreen.constructor.name);
+        console.log('Current screen:', screen.constructor.name);
+        
         // 根据屏幕类型播放相应的音效和背景音乐
         if (screen instanceof GameScreen) {
-            this.soundManager.stopBackgroundMusic();
-            this.soundManager.playBackgroundMusic();    
+            // 检查previousScreen是否是PauseScreen的实例
+            if (!(previousScreen instanceof PauseScreen)) {
+                console.log('Not from pause screen, restarting music');
+                this.soundManager.stopBackgroundMusic();
+                this.soundManager.playBackgroundMusic();
+            } else {
+                //console.log('From pause screen, keeping music state');
+            }
         } else if (screen === this.menuScreen) {
             if (previousScreen !== this.stepByStepHelpScreen && previousScreen !== this.singleHelpScreen 
                 && previousScreen !== this.coopHelpScreen && previousScreen !== this.pvpHelpScreen 
@@ -54,11 +64,6 @@ window.ScreenManager = class ScreenManager {
             if (previousScreen === this.menuScreen) {
                 this.soundManager.stopBackgroundMusic();
             }
-        } else if (screen instanceof PauseScreen) {
-            // 暂停时不播放背景音乐
-            this.soundManager.stopBackgroundMusic();
-        } else if (screen === this.settingScreen) {
-            // setting界面保持之前的音乐状态，不做任何改变
         } else if (screen instanceof GameOverScreen) {
             this.soundManager.playSound('gameOver');
         } else if (screen instanceof LevelSuccessScreen) {

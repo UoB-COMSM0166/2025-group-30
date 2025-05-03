@@ -17,8 +17,6 @@ class PauseScreen extends Screen {
                 buttonWidth: 200,
                 buttonHeight: 50,
                 action: () => {
-                    // 先播放游戏音乐，再切换屏幕
-                    this.screenManager.soundManager.playBackgroundMusic();
                     this.screenManager.changeScreen(this.gameScreen);
                 }
             },
@@ -31,8 +29,9 @@ class PauseScreen extends Screen {
                 action: () => {
                     this.gameScreen.restartFromCurrentLevel();
                     // 先播放游戏音乐，再切换屏幕
-                    this.screenManager.soundManager.playBackgroundMusic();
                     this.screenManager.changeScreen(this.gameScreen);
+                    this.screenManager.soundManager.playBackgroundMusic();
+                    
                 }
             },
             {
@@ -44,6 +43,7 @@ class PauseScreen extends Screen {
                 action: () => {
                     this.gameScreen.clearStats();
                     this.screenManager.changeScreen(this.screenManager.homeScreen);
+                    this.screenManager.soundManager.stopBackgroundMusic();
                 }
             },
             {
