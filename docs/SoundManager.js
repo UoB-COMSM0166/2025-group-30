@@ -96,15 +96,19 @@ class SoundManager {
         // 先停止当前正在播放的音乐
         this.stopBackgroundMusic();
 
-        if (this.screenManager.currentScreen === this.screenManager.homeScreen) {
-            this.currentBackgroundMusic = this.sounds.homeMusic;
-        } else if (this.screenManager.currentScreen instanceof GameScreen) {
+        if (this.screenManager.currentScreen instanceof GameScreen) {
             this.currentBackgroundMusic = this.sounds.gameMusic;
         } else if (this.screenManager.currentScreen instanceof AccomplishScreen) {
             this.currentBackgroundMusic = this.sounds.accomplishMusic;
-        } else {
-            // 对于其他屏幕，默认使用主菜单音乐
+        } else if (this.screenManager.currentScreen === this.screenManager.menuScreen) {
+            // 只在菜单屏幕播放主菜单音乐
             this.currentBackgroundMusic = this.sounds.homeMusic;
+        } else if (this.screenManager.currentScreen instanceof PauseScreen) {
+            // 暂停时不播放音乐
+            this.currentBackgroundMusic = null;
+        } else {
+            // 其他屏幕不播放背景音乐
+            this.currentBackgroundMusic = null;
         }
 
         // 确保音量设置正确

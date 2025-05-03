@@ -3,8 +3,10 @@ class SettingScreen extends Screen {
         super(screenManager);
         this.previousScreen = previousScreen || screenManager.menuScreen;
         
-        // 加载背景图片和音量图标
-        this.backgroundImage = loadImage('assets/helpscreen.webp');
+        // 重置按钮焦点
+        this.focusedButtonIndex = -1;
+        
+        // 预加载音量图标
         this.volumeIcon = loadImage('assets/volume.png');
         this.noVolumeIcon = loadImage('assets/no-volume.png');
         
@@ -15,11 +17,17 @@ class SettingScreen extends Screen {
         this.sliderHandleSize = 20;
         this.volumeIconSize = 30; // 音量图标大小
         
+        // 计算设置框的位置和大小
+        this.boxWidth = baseWidth * 0.6;
+        this.boxHeight = baseHeight * 0.7;
+        this.boxX = (baseWidth - this.boxWidth) / 2;
+        this.boxY = (baseHeight - this.boxHeight) / 2;
+        
         // 初始化滑块位置
-        this.musicSliderX = baseWidth/2 - this.sliderWidth/2;
-        this.musicSliderY = baseHeight/2 - 50;
-        this.soundSliderX = baseWidth/2 - this.sliderWidth/2;
-        this.soundSliderY = baseHeight/2 + 50;
+        this.musicSliderX = baseWidth/2;
+        this.musicSliderY = this.boxY + this.boxHeight/3;
+        this.soundSliderX = baseWidth/2;
+        this.soundSliderY = this.boxY + this.boxHeight/2 + 50; // 调整音效滑块位置
         
         this.isDraggingMusic = false;
         this.isDraggingSound = false;
@@ -36,7 +44,7 @@ class SettingScreen extends Screen {
             {
                 label: "Back",
                 x: baseWidth/2,
-                y: baseHeight/2 + 150,
+                y: this.boxY + this.boxHeight - 80,
                 buttonWidth: this.buttonWidth,
                 buttonHeight: this.buttonHeight,
                 action: () => {
@@ -47,46 +55,54 @@ class SettingScreen extends Screen {
         ];
     }
     
-    display() {
-        // 绘制背景图片
-        if (this.backgroundImage) {
-            let scale = Math.max(
-                baseWidth / this.backgroundImage.width,
-                baseHeight / this.backgroundImage.height
-            );
-
-            let newWidth = this.backgroundImage.width * scale;
-            let newHeight = this.backgroundImage.height * scale;
-
-            let x = (baseWidth - newWidth) / 2;
-            let y = (baseHeight - newHeight) / 2;
-
-            image(this.backgroundImage, x, y, newWidth, newHeight);
+    keyPressed() {
+        if (keyCode === TAB) {
+            // 切换按钮焦点
+            this.focusedButtonIndex = (this.focusedButtonIndex + 1) % this.buttons.length;
+            // 播放音效
+            this.screenManager.soundManager.playSound('buttonClick');
+        } else if (keyCode === ENTER || keyCode === RETURN) {
+            // 如果当前有按钮被选中，执行其动作
+            if (this.focusedButtonIndex >= 0 && this.focusedButtonIndex < this.buttons.length) {
+                this.buttons[this.focusedButtonIndex].action();
+            }
         }
-
-        // 绘制蓝色边框
-        stroke(53, 97, 140);
-        strokeWeight(10);
-        noFill();
-        rect(5, 5, baseWidth - 10, baseHeight - 10);
-        noStroke();
-
-        // 添加半透明白色覆盖层
-        fill(255, 255, 255, 255 * 0.65);
+    }
+    
+    display() {
+        // 显示之前的屏幕
+        if (this.previousScreen) {
+            this.previousScreen.display();
+        }
+        
+        // 绘制半透明黑色背景
+        fill(0, 0, 0, 180);
         rectMode(CORNER);
         rect(0, 0, baseWidth, baseHeight);
+        
+        // 绘制白色背景框
+        fill(255, 255, 255);
+        rectMode(CORNER);
+        rect(this.boxX, this.boxY, this.boxWidth, this.boxHeight, 20);
+        
+        // 绘制蓝色边框
+        stroke(53, 97, 140);
+        strokeWeight(5);
+        noFill();
+        rect(this.boxX, this.boxY, this.boxWidth, this.boxHeight, 20);
+        noStroke();
         
         // 标题
         fill(53, 97, 140);
         textSize(40);
         textAlign(CENTER, CENTER);
-        text("SETTINGS", baseWidth/2, baseHeight/2 - 150);
+        text("SETTINGS", baseWidth/2, this.boxY + 50);
         
         // 音乐音量控制
         this.drawVolumeControl(
             "Music Volume",
             baseWidth/2,
-            baseHeight/2 - 50,
+            this.boxY + this.boxHeight/3,
             this.musicVolume,
             (value) => {
                 this.musicVolume = value;
@@ -101,7 +117,7 @@ class SettingScreen extends Screen {
         this.drawVolumeControl(
             "Sound Volume",
             baseWidth/2,
-            baseHeight/2 + 50,
+            this.boxY + this.boxHeight/2 + 50, // 调整音效控制位置
             this.soundVolume,
             (value) => {
                 this.soundVolume = value;
@@ -113,7 +129,8 @@ class SettingScreen extends Screen {
         );
         
         // 显示按钮
-        for (let button of this.buttons) {
+        for (let i = 0; i < this.buttons.length; i++) {
+            const button = this.buttons[i];
             rectMode(CENTER);
             
             let isHovered = window.mouseXGame >= button.x - button.buttonWidth/2 
@@ -121,12 +138,18 @@ class SettingScreen extends Screen {
                 && window.mouseYGame >= button.y - button.buttonHeight/2 
                 && window.mouseYGame <= button.y + button.buttonHeight/2;
             
+            let isFocused = this.focusedButtonIndex === i;
+            
             stroke(53, 97, 140);
             strokeWeight(3);
             if (isHovered) {
                 fill(227, 249, 253);
             } else {
                 fill(207, 239, 246);
+            }
+            if (isFocused) {
+                stroke(14, 105, 218);
+                strokeWeight(5);
             }
             rect(button.x, button.y, button.buttonWidth, button.buttonHeight, 10);
             
@@ -160,6 +183,7 @@ class SettingScreen extends Screen {
         const volumeIcon = (isMusicControl ? this.musicVolume : this.soundVolume) > 0 ? 
             this.volumeIcon : this.noVolumeIcon;
         
+        // 先绘制音量图标
         if (volumeIcon) {
             // 绘制静音按钮背景（悬停时显示）
             if (isMuteBtnHovered) {
@@ -204,9 +228,9 @@ class SettingScreen extends Screen {
     mousePressed() {
         // 检查是否点击了静音按钮
         const musicMuteBtnX = baseWidth/2 - this.sliderWidth/2 - this.volumeIconSize - 15;
-        const musicMuteBtnY = baseHeight/2 - 50;
+        const musicMuteBtnY = this.boxY + this.boxHeight/3;
         const soundMuteBtnX = baseWidth/2 - this.sliderWidth/2 - this.volumeIconSize - 15;
-        const soundMuteBtnY = baseHeight/2 + 50;
+        const soundMuteBtnY = this.boxY + this.boxHeight/2 + 50; // 修正音效静音按钮的Y坐标
         
         // 检查音乐静音按钮
         if (dist(window.mouseXGame, window.mouseYGame, musicMuteBtnX, musicMuteBtnY) <= this.volumeIconSize/2) {
@@ -302,7 +326,7 @@ class SettingScreen extends Screen {
         
         volume = constrain(volume, 0, 1);
         this.musicVolume = volume;
-        this.musicSliderX = newX; // 直接使用约束后的位置
+        this.musicSliderX = newX;
         this.screenManager.soundManager.setBackgroundMusicVolume(volume);
     }
     
@@ -319,12 +343,11 @@ class SettingScreen extends Screen {
         
         volume = constrain(volume, 0, 1);
         this.soundVolume = volume;
-        this.soundSliderX = newX; // 直接使用约束后的位置
+        this.soundSliderX = newX;
         this.screenManager.soundManager.setSoundVolume(volume);
     }
     
     isMouseOverSlider(sliderX, sliderY) {
-        // 修改2: 点击区域分为两部分
         const trackLeft = baseWidth/2 - this.sliderWidth/2;
         const trackRight = baseWidth/2 + this.sliderWidth/2;
         const trackTop = sliderY - this.sliderHeight/2;

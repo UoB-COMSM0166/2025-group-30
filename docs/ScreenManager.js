@@ -21,6 +21,7 @@ window.ScreenManager = class ScreenManager {
         this.coop = new Coop(this);
 
         this.currentScreen = this.homeScreen; //home screen is the default current
+        this.isChangingScreen = false; // 添加标志来防止屏幕切换时的重叠
         
         // 添加页面加载完成后的背景音乐播放
         window.addEventListener('load', () => {
@@ -30,29 +31,34 @@ window.ScreenManager = class ScreenManager {
     }
 
     changeScreen(screen) {
+        if (this.isChangingScreen) return; // 如果正在切换屏幕，直接返回
+        this.isChangingScreen = true;
+        
         // 切换屏幕
         const previousScreen = this.currentScreen;
         this.currentScreen = screen;
         
         // 根据屏幕类型播放相应的音效和背景音乐
         if (screen instanceof GameScreen) {
-            // 切换到游戏屏幕时，停止当前背景音乐并播放游戏背景音乐
             this.soundManager.stopBackgroundMusic();
-            this.soundManager.playBackgroundMusic();
-        } else if (screen === this.homeScreen) {
-            // 如果是homeScreen，重新播放背景音乐
-            this.soundManager.stopBackgroundMusic();
-            this.soundManager.playBackgroundMusic();
+            this.soundManager.playBackgroundMusic();    
         } else if (screen === this.menuScreen) {
-            if (previousScreen !== this.homeScreen && previousScreen !== this.stepByStepHelpScreen
-                && previousScreen !== this.singleHelpScreen && previousScreen !== this.coopHelpScreen 
-                && previousScreen !== this.pvpHelpScreen && previousScreen !== this.settingScreen) {
+            if (previousScreen !== this.stepByStepHelpScreen && previousScreen !== this.singleHelpScreen 
+                && previousScreen !== this.coopHelpScreen && previousScreen !== this.pvpHelpScreen 
+                && previousScreen !== this.settingScreen) {
                 this.soundManager.stopBackgroundMusic();
                 this.soundManager.playBackgroundMusic();
+            }
+        } else if (screen === this.homeScreen) {
+            // 从menuScreen回到homeScreen时停止音乐
+            if (previousScreen === this.menuScreen) {
+                this.soundManager.stopBackgroundMusic();
             }
         } else if (screen instanceof PauseScreen) {
             // 暂停时不播放背景音乐
             this.soundManager.stopBackgroundMusic();
+        } else if (screen === this.settingScreen) {
+            // setting界面保持之前的音乐状态，不做任何改变
         } else if (screen instanceof GameOverScreen) {
             this.soundManager.playSound('gameOver');
         } else if (screen instanceof LevelSuccessScreen) {
@@ -61,6 +67,11 @@ window.ScreenManager = class ScreenManager {
             this.soundManager.stopBackgroundMusic();
             this.soundManager.playBackgroundMusic();
         }
+        
+        // 在下一帧重置标志
+        requestAnimationFrame(() => {
+            this.isChangingScreen = false;
+        });
     }
 
     display() {

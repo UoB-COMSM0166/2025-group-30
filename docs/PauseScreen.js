@@ -16,6 +16,8 @@ class PauseScreen extends Screen {
                 buttonWidth: 200,
                 buttonHeight: 50,
                 action: () => {
+                    // 先播放游戏音乐，再切换屏幕
+                    this.screenManager.soundManager.playBackgroundMusic();
                     this.screenManager.changeScreen(this.gameScreen);
                 }
             },
@@ -27,6 +29,8 @@ class PauseScreen extends Screen {
                 buttonHeight: 50,
                 action: () => {
                     this.gameScreen.restartFromCurrentLevel();
+                    // 先播放游戏音乐，再切换屏幕
+                    this.screenManager.soundManager.playBackgroundMusic();
                     this.screenManager.changeScreen(this.gameScreen);
                 }
             },
@@ -48,7 +52,6 @@ class PauseScreen extends Screen {
                 buttonWidth: 40,
                 buttonHeight: 40,
                 action: () => {
-                    // 使用新实例而非共享的settingScreen
                     const settingScreen = new SettingScreen(this.screenManager, this);
                     this.screenManager.changeScreen(settingScreen);
                 },
@@ -64,15 +67,14 @@ class PauseScreen extends Screen {
     }
 
     display() {
-        this.gameScreen.display();
+        console.log('PauseScreen display called, currentScreen:', this.screenManager.currentScreen.constructor.name);
         if (this.screenManager.currentScreen === this) {
-
-
+            console.log('Drawing PauseScreen');
+            this.gameScreen.display();
             // Draw semi-transparent overlay
             fill(0, 0, 0, 180);
             rectMode(CORNER);
             rect(0, 0, baseWidth, baseHeight);
-
 
             // Draw pause menu title
             fill(254, 224, 173);
@@ -91,7 +93,7 @@ class PauseScreen extends Screen {
                 let isHovered = window.mouseXGame >= button.x - button.buttonWidth / 2
                     && window.mouseXGame <= button.x + button.buttonWidth / 2
                     && window.mouseYGame >= button.y - button.buttonHeight / 2
-                    && window.mouseYGame <= button.y + button.buttonHeight / 2;
+                    && window.mouseYGame <= button.y + button.buttonHeight/2;
 
                 let isFocused = this.focusedButtonIndex === this.buttons.indexOf(button);
 
@@ -142,9 +144,12 @@ class PauseScreen extends Screen {
     }
 
     mousePressed() {
+        console.log('PauseScreen mousePressed called');
         for (let button of this.buttons) {
             if (this.isMouseOverButton(button)) {
+                console.log('Button clicked:', button.label || 'Setting Button');
                 button.action();
+                console.log('After button action, currentScreen:', this.screenManager.currentScreen.constructor.name);
                 return;
             }
         }
