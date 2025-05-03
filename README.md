@@ -203,90 +203,17 @@ To better understand the interactions between the game and its users, we used a 
 </p>
 
 <p align="center">
-    <i>Table 5: Use Case Specification: Pause Game</i>
+    <i>Table 5: Use Case Specifications for: Stack Hay, Pause Game, and Start Game</i>
 </p>
 
-<table style="width:100%">
-<tr>
-<th>Element</th>
-<th>Description</th>
-</tr>
-<tr>
-<td><strong>Actors</strong></td>
-<td>Player</td>
-</tr>
-<tr>
-<td><strong>Description</strong></td>
-<td>Player pauses the game.</td>
-</tr>
-<tr>
-<td><strong>Main Flow</strong></td>
-<td>1. Player pauses the game.<br>2. System stops gameplay and show pause menu<br>3. Player can choose to Resume, Restart, or Exit</td>
-</tr>
-<tr>
-<td><strong>Extension</strong></td>
-<td>Resumne, Restart, Exit</td>
-</tr>
-</table>
-
-<p align="center">
-    <i>Table 6: Use Case Specification: Start Game</i>
-</p>
-
-<table style="width:100%">
-<tr>
-<th>Element</th>
-<th>Description</th>
-</tr>
-<tr>
-<td><strong>Actors</strong></td>
-<td>Player</td>
-</tr>
-<tr>
-<td><strong>Description</strong></td>
-<td>Player starts the game and engages with the core gameplay mechanics.</td>
-</tr>
-<tr>
-<td><strong>Main Flow</strong></td>
-<td>1. Player clicks "Start"<br>2. Game initializes<br>3. Player begins interacting</td>
-</tr>
-<tr>
-<td><strong>Includes</strong></td>
-<td>Move Left/Right, Stack Hay, Empty to Barrel, Avoid Obstacles, Catch Special Items</td>
-</tr>
-</table>
-
-<p align="center">
-    <i>Table 7: Use Case Specification: Stack Hay</i>
-</p>
-
-<table style="width:100%">
-<tr>
-<th>Element</th>
-<th>Description</th>
-</tr>
-<tr>
-<td><strong>Actors</strong></td>
-<td>Player</td>
-</tr>
-<tr>
-<td><strong>Description</strong></td>
-<td>Player catches the falling hay.</td>
-</tr>
-<tr>
-<td><strong>Main Flow</strong></td>
-<td>1. Hay bales fall from the sky<br>2. Player moves character to catch hay<br>3.Hay is added to player's stack</td>
-</tr>
-<tr>
-<td><strong>Extension</strong></td>
-<td>Perfect Stack (if the player balances hay precisely).</td>
-</tr>
-<tr>
-<td><strong>Alternative Flow</strong></td>
-<td>1. Hay bales fall from the sky<br>2. Player fails to catch hay<br>3.Hay is offscreen and disappears.</td>
-</tr>
-</table>
-
+| **Element**                                                                     | **Stack Hay**                                                                   | **Pause Game**                                                                                           | **Start Game**                                                                               |
+| ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| **Actors**                                                                      | Player                                                                          | Player                                                                                                   | Player                                                                                       |
+| **Description**                                                                 | Player catches the falling hay.                                                 | Player pauses the game.                                                                                  | Player starts the game and engages with core gameplay.                                       |
+| **Main Flow**                                                                   | 1. Hay bales fall.<br>2. Player catches hay.<br>3. Hay is added to stack.       | 1. Player pauses the game.<br>2. System shows pause menu.<br>3. Player chooses Resume, Restart, or Exit. | 1. Player clicks "Start".<br>2. Game initializes.<br>3. Player interacts with game elements. |
+| **Includes / Extensions**                                                       | Perfect Stack (if balanced precisely)                                           | Resume, Restart, Exit                                                                                    | Move Left/Right, Stack Hay, Empty to Barrel,<br> Avoid Obstacles, Catch Special Items        |
+| **Alternative Flow**                                                            | 1. Hay bales fall.<br>2. Player fails to catch.<br>3. Hay disappears offscreen. | N/A                                                                                                      | N/A                                                                                          |
+| 1. Hay bales fall.<br>2. Player fails to catch.<br>3. Hay disappears offscreen. |
 
 # 5.Design
 
