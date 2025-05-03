@@ -330,7 +330,7 @@ The Player can view progress, including statistics such as scores and level comp
 
 #### 3. Pause Menu Options
 
-The Player can pause the game at any time, triggering the following extended options:
+The Player can pause the game at any time, triggering the following **extended** options:
 
 - Resume: Continue the game from where it was paused.
 
@@ -339,7 +339,7 @@ The Player can pause the game at any time, triggering the following extended opt
 - Exit: Return to the main menu or quit the session.
 
 #### 4. Start Game & In-Game Actions
-Once the game starts, the Player can perform five essential actions and probably trigger an extended action:
+The Player can start the game, which **includes** mainly five essential in-game actions and will probably trigger an **extended action**:
 
 - Stack Hay: The core gameplay mechanic.
 
@@ -351,16 +351,16 @@ Once the game starts, the Player can perform five essential actions and probably
 
 - Catch Special Items: Items like SpeedBoots or Shovel grant extra abilities, or punishments.
 
-- <<extend>> If stacking is done with precision, a perfect stack is triggered, activating a bonus condition.
+- <extend> If stacking is done with precision, a perfect stack is triggered, activating a bonus condition.
 
 #### 5. Select Game Mode
-Before gameplay begins, the Player must choose one of the following modes:
+5. The Player must select a game mode before playing, which **extends** to one of the following:
 
 - Single Mode: Play alone.
 
-- PvP Mode: Compete against a second player.
+- PvP Mode: Compete against **a second player**.
 
-- Co-op Mode: Collaborate with a second player.
+- Co-op Mode: Collaborate with **a second player**.
   
 # 5.Design
 <p align="center"><b>Figure 8: Class Diagram</b></p>
