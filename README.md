@@ -17,12 +17,12 @@
 
 # 1.Game & Game video
 
-Link to your game [PLAY HERE](https://uob-comsm0166.github.io/2025-group-30/) 
+Play the game [HERE](https://uob-comsm0166.github.io/2025-group-30/) 
 
 Our game lives in the [docs](/docs) folder, and is published using Github pages to the link above.
 
-Include a demo video of our game here
-[🎬 Click here to watch the demo video](https://github.com/UoB-COMSM0166/2025-group-30/blob/nemo/videos/demo%20video.MP4)
+Watch the demo video
+[🎬 here](https://github.com/UoB-COMSM0166/2025-group-30/blob/nemo/videos/demo%20video.MP4)
 
 # 2.Team
 
@@ -52,25 +52,26 @@ Include a demo video of our game here
 - 5% ~250 words 
 - Describe your game, what is based on, what makes it novel? 
 
-Our game is a casual stacking challenge inspired by a classic mini-game from the popular title *Mole Manor*. Drawing from its gameplay, we set the game's backdrop during the harvest season on a farm. Players must control their character's left and right movements to catch falling haystacks and place them into a barrel within a limited time in order to reach the collection goal and advance to the next level.
+Our game is a lighthearted, fast-paced stacking challenge inspired by a classic mini-game from Mole Manor, reimagined with a fresh farmyard twist. Set during harvest season, players must move their character left and right to catch falling haystacks and deposit them into a barrel before time runs out. The goal: hit the hay collection target to progress to the next level.
 
-To increase the game's difficulty and reflect real-world limitations on how much a person can carry, each player can catch a maximum of five haystacks at a time. If this limit is exceeded, the character will stumble and drop all collected hay. This mechanic not only adds tension but also introduces strategic decision-making—players must carefully balance between collecting more hay and emptying their barrel in time.
+What sets our game apart is the blend of intuitive mechanics with subtle strategy. Players can carry up to five haystacks at once—exceeding this limit causes them to stumble and lose everything, introducing a risk-reward dynamic that keeps the action engaging. As players gather more hay, their movement slows, forcing thoughtful decisions about when to offload and when to keep stacking.
 
-As hay accumulates, the character's movement speed gradually slows down, requiring players to choose the right moment to clear their collection bucket and maintain agility. Building on the original gameplay, the game introduces more challenging elements: in single-player mode, players must dodge falling shovels and buckets while collecting stars for extra lives. In two-player mode, players can either collaborate to achieve a shared goal or compete to see who finishes first. These design features enrich the gameplay and deliver a fun, fast-paced, yet relaxing farm harvest experience.
+Beyond its core mechanic, the game introduces novel twists to deepen the experience. In single-player mode, players must dodge falling obstacles like shovels while collecting power-up items. In two-player mode, players can either team up in cooperative gameplay with a shared hay quota, or face off competitively in a race to complete their goal first.
+
+By combining charming visuals, progressively tricky mechanics, and multiple play modes, our game offers an accessible yet addictive take on the stacking genre. Whether playing solo or with a friend, players are treated to a fun and strategic farming experience that’s easy to pick up but hard to master.
 
 The following table shows the main elements of the game:
 <p align="center">
     <i>Table 2: Game Elements</i>
 </p>
 
-| Category                    |                                         Image                                          |                                                                                                                              Description                                                                                                                              |
-| :-------------------------- | :------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-| **Player & lifting barrel** |    <img src="docs/assets/player1.webp" width="50" style="vertical-align: middle;">     |                                                                                          The character controlled by the player, moving left and right to catch falling hay.                                                                                          |
-| **collection Barrel**       |     <img src="docs/assets/barrel.webp" width="50" style="vertical-align: middle;">     |                                                                                    A secondary barrel used for catching hay before transferring it to the main collection barrel.                                                                                     |
-| **Falling Hay**             |      <img src="docs/assets/hay.webp" width="50" style="vertical-align: middle;">       |                                                                         The hay stacks that fall from the sky. Players must catch them efficiently to reach the target before time runs out.                                                                          |
-| **Shovel**                  |     <img src="docs/assets/shovel.webp" width="50" style="vertical-align: middle;">     | If the player accidentally comes into contact with a randomly dropped item—a shovel—it will cause the current stack of hay the player is holding to be cleared. However, this does not affect the number of hay bundles that have already been counted in the barrel. |
-| **ProteinShaker**           | <img src="docs/assets/protein-shaker.webp" width="50" style="vertical-align: middle;"> |                When used, this item temporarily increases the player's maximum stack limit to 10 (originally 5) for 10 seconds, and removes the movement speed penalty caused by stacking hay. A red particle effect is triggered during this period.                 |
-| **SpeedBoot**               |   <img src="docs/assets/speed-boot.webp" width="50" style="vertical-align: middle;">   |                                           When used, this item increases the player's movement speed by 20% for 5 seconds and triggers a blue particle effect, granting the player enhanced mobility for a short duration.                                            |
+| Category     |                                         Image                                          | Description                                                               |
+| :----------- | :------------------------------------------------------------------------------------: | :------------------------------------------------------------------------ |
+| Barrel       |                     <img src="docs/assets/barrel.webp" width="50">                     | To collect hay.                                                           |
+| Hay          |      <img src="docs/assets/hay.webp" width="50" style="vertical-align: middle;">       | Catch to stack in player's basket.                                        |
+| Shovel       |     <img src="docs/assets/shovel.webp" width="50" style="vertical-align: middle;">     | Cause player to lose all current stack if hits the player.                |
+| ProteinShake | <img src="docs/assets/protein-shaker.webp" width="50" style="vertical-align: middle;"> | Increase player's strength temporarily so that they could carry more hay. |
+| SpeedBoot    |   <img src="docs/assets/speed-boot.webp" width="50" style="vertical-align: middle;">   | Increase player's speed temporarily.                                      |
 
 # 4.Requirements 
 - 15% ~750 words
