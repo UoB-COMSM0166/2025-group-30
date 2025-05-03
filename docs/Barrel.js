@@ -11,23 +11,23 @@ class Barrel {
     }
 
     draw() {
-        push(); // 保存当前绘图状态
+        push(); // Save current drawing state
 
-        // 根据得分设置颜色
+        // Set color based on score
         if (this.targetScore === 0) {
             tint(255);
         } else {
             let progress = min(this.score / this.targetScore, 1);
-            // 从灰色(128,128,128)变化到原色(255,255,255)
+            // Transition from gray(128,128,128) to original color(255,255,255)
             let grayValue = lerp(128, 255, progress);
             tint(grayValue, grayValue, grayValue);
         }
 
         image(this.barrelImage, this.x, this.y, this.w, this.h);
 
-        pop(); // 恢复绘图状态
+        pop(); // Restore drawing state
 
-        // 显示分数
+        // Display score
         fill(254, 224, 173);
         textSize(20);
         stroke(0);

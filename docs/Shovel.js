@@ -8,6 +8,9 @@ class Shovel extends SpecialItem {
     }
 
     applyEffect(player, game) {
+        if (player.soundManager) {
+            player.soundManager.playSound('ouch');
+        }
         // When shovel hits, clear the stack
         player.stack = [];
         player.flash.setFlashDuration(30); // trigger flash immediately

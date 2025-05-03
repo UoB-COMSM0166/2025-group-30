@@ -260,7 +260,7 @@ class GameScreen extends Screen {
     }
 
     displaySpecialItemTimers(player) {
-        // 只在有速度buff时显示
+        // Only display when speed buff is active
         if (player.speedBoot) {
             const remainingTime = player.speedBoot.timeLeft;
             if (remainingTime > 0) {
@@ -272,7 +272,7 @@ class GameScreen extends Screen {
             }
         }
 
-        // 只在有力量buff时显示
+        // Only display when strength buff is active
         if (player.proteinShaker) {
             const remainingTime = player.proteinShaker.timeLeft;
             if (remainingTime > 0) {

@@ -6,10 +6,12 @@ class Pvp extends GameScreen { // player with higher score in the set time wins
         this.player1 = new Player("pvpLeft");
         this.barrel1 = new Barrel("left");
         this.player1.barrel = this.barrel1;
+        this.player1.soundManager = this.screenManager.soundManager;
 
         this.player2 = new Player("pvpRight");
         this.barrel2 = new Barrel("right");
         this.player2.barrel = this.barrel2;
+        this.player2.soundManager = this.screenManager.soundManager;
     }
 
     display() {
@@ -53,23 +55,8 @@ class Pvp extends GameScreen { // player with higher score in the set time wins
         text(`Time: ${this.level.timeLeft}s`, 20, 30);
         textStyle(NORMAL);
 
-        if (this.level.timeLeft > 0) {
-            // Display special item timers for each player
-            if (this.player) {
-                this.displaySpecialItemTimers(this.player);
-            } else if (this.player1 && this.player2) {
-                this.displaySpecialItemTimers(this.player1);
-                this.displaySpecialItemTimers(this.player2);
-            }
-        }
-
         // Call the game mode specific UI update
         this.updateScoreDisplay();
-    }
-
-    displaySpecialItemTimers(player) {
-        // 移除所有显示道具时间的文本
-        return;
     }
 
     // --- initialising the game state ---

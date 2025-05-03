@@ -8,6 +8,7 @@ class Single extends GameScreen {
         this.accomplishScreen = new AccomplishScreen(this.screenManager, this);
 
         this.player = new Player("middle");
+        this.player.soundManager = this.screenManager.soundManager;
         this.barrel = new Barrel("left");
         this.player.barrel = this.barrel;
     }

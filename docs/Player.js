@@ -16,13 +16,13 @@ class Player {
         this.maxSpeed = 10;
         this.acceleration = 0.85;
         this.decelerationFactor = 0.8;
-        this.speedReductionPerHay = 0.1; // 每接到一个草减速的系数
+        this.speedReductionPerHay = 0.1; // Speed reduction per hay caught
         this.dir = 0;
 
         this.stack = [];  //visible caught hay
         this.maxStack = 5;
 
-        this.barrel = null; // 确保barrel被正确初始化
+        this.barrel = null;
 
         this.flash = new Flash(0);
 
@@ -32,6 +32,12 @@ class Player {
         this.speedBoot = null;
         this.proteinShaker = null;
 
+        this.soundManager = null; 
+
+    }
+
+    setSoundManager(soundManager) {
+        this.soundManager = soundManager;
     }
 
     reset() {
@@ -56,9 +62,9 @@ class Player {
 
         const oldX = this.x;
 
-        // 根据当前草的堆叠数量计算实际的最大速度
+        // Calculate actual max speed based on current hay stack
         let currentMaxSpeed = this.maxSpeed * (1 - this.stack.length * this.speedReductionPerHay);
-        currentMaxSpeed = Math.max(currentMaxSpeed, this.maxSpeed * 0.3); // 设置最小速度为最大速度的30%
+        currentMaxSpeed = Math.max(currentMaxSpeed, this.maxSpeed * 0.3); // Set minimum speed to 30% of max speed
 
         if (this.dir !== 0) {
             if (Math.sign(this.dir) !== Math.sign(this.velocity)  //player changes direction
@@ -73,12 +79,12 @@ class Player {
             if (abs(this.velocity) < 0.1) this.velocity = 0;
         }
 
-        // 限制移动范围
+        // Limit movement range
         if (this.position === "pvpLeft") this.x = constrain(this.x, 0, baseWidth / 2 - this.w);
         else if (this.position === "pvpRight") this.x = constrain(this.x, baseWidth / 2, baseWidth - this.w);
         else this.x = constrain(this.x, 0, baseWidth - this.w);
 
-        // 计算x轴移动距离并更新堆叠的草的位置 caught hay moves with the player
+        // Calculate x-axis movement distance and update stacked hay positions
         this.x += this.velocity;
         const dx = this.x - oldX;
         for (let hay of this.stack) {
@@ -103,7 +109,7 @@ class Player {
     catches(hay) { //return true if hay is caught, false otherwise
         const yGap = 3; // Use consistent gap for all hay blocks
 
-        // 如果是第一个方块，检查是否与木板接触
+        // If it's the first block, check if it's in contact with the platform
         if (this.stack.length === 0) {
             // Calculate overlap with player platform
             const overlapLeft = Math.max(this.x, hay.x);
@@ -120,15 +126,28 @@ class Player {
                 hay.setPerfectStack(false); // the first hay is not a perfect stack
                 this.stack.push(hay);
 
+                // Play collect hay sound effect
+                if (this.soundManager) {
+                    console.log('Playing collectHay sound');
+                    this.soundManager.playSound('collectHay');
+                } else {
+                    console.error('SoundManager not set');
+                }
+
                 // Check if adding this hay exceeds the maximum stack size
                 if (this.stack.length > this.maxStack) {
                     this.stack = [];
                     this.flash.setFlashDuration(30); // trigger flash immediately
+                    // Play ouch sound effect
+                    if (this.soundManager) {
+                        console.log('Playing ouch sound');
+                        this.soundManager.playSound('ouch');
+                    }
                 }
                 return true;
             }
         } else {
-            // 获取最上面的方块
+            // Get the top block
             const topHay = this.stack[this.stack.length - 1];
 
             // Calculate overlap with top hay in stack
@@ -147,10 +166,23 @@ class Player {
                 this.checkPerfectStack(); //check if the new hay is a perfect stack
                 this.stack.push(hay);
 
+                // Play collect hay sound effect
+                if (this.soundManager) {
+                    console.log('Playing collectHay sound');
+                    this.soundManager.playSound('collectHay');
+                } else {
+                    console.error('SoundManager not set');
+                }
+
                 // Check if adding this hay exceeds the maximum stack size
                 if (this.stack.length > this.maxStack) {
                     this.stack = [];
                     this.flash.setFlashDuration(30); // trigger flash immediately
+                    // Play ouch sound effect
+                    if (this.soundManager) {
+                        console.log('Playing ouch sound');
+                        this.soundManager.playSound('ouch');
+                    }
                 }
                 return true;
             }
@@ -189,17 +221,24 @@ class Player {
     emptyToBarrel() { //empty hay to the barrel
         if (this.stack.length === 0) return;
 
-        // 计算玩家与篮子的距离
+        // Calculate distance between player and barrel
         let playerCenter = this.x + this.w / 2;
         let barrelCenter = this.barrel.x + this.barrel.w / 2;
         let distance = abs(playerCenter - barrelCenter);
 
-        // 设置最大放草距离
-        let maxDistance = 150; // 可以根据需要调整这个值
+        // Set maximum distance for placing hay
+        let maxDistance = 150; // This value can be adjusted as needed
 
-        // 检查玩家是否在合理范围内
+        // Check if player is within reasonable range
         if (distance <= maxDistance) {
             this.score += this.stack.length;
+            // Play set hay sound effect
+            if (this.soundManager) {
+                console.log('Playing setHay sound');
+                this.soundManager.playSound('setHay');
+            } else {
+                console.error('SoundManager not set');
+            }
             this.stack = [];
         }
     }
