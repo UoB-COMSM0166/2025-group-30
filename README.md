@@ -15,7 +15,7 @@
 - [11. Contribution Statement](#11contribution-statement)
 - [12. Additional Marks](#12additional-marks)
 
-# 1.Game & Game video
+# 1. Game & Game video
 
 Play the game [HERE](https://uob-comsm0166.github.io/2025-group-30/) 
 
@@ -24,7 +24,7 @@ Our game lives in the [docs](/docs) folder, and is published using Github pages 
 Watch the demo video
 [🎬 here](https://github.com/UoB-COMSM0166/2025-group-30/blob/nemo/videos/demo%20video.MP4)
 
-# 2.Team
+# 2. Team
 
 <p align="center">
   <br><i> Figure 1: Group photo of the team</i></br>
@@ -48,7 +48,7 @@ Watch the demo video
 
 </div>
 
-# 3.Introduction
+# 3. Introduction
 - 5% ~250 words 
 - Describe your game, what is based on, what makes it novel? 
 
@@ -58,88 +58,74 @@ What sets our game apart is the blend of intuitive mechanics with subtle strateg
 
 Beyond its core mechanic, the game introduces novel twists to deepen the experience. In single-player mode, players must dodge falling obstacles like shovels while collecting power-up items. In two-player mode, players can either team up in cooperative gameplay with a shared hay quota, or face off competitively in a race to complete their goal first.
 
-By combining charming visuals, progressively tricky mechanics, and multiple play modes, our game offers an accessible yet addictive take on the stacking genre. Whether playing solo or with a friend, players are treated to a fun and strategic farming experience that’s easy to pick up but hard to master.
+By combining charming visuals, progressively tricky mechanics, and multiple play modes, our game offers an accessible yet addictive take on the stacking genre. Whether playing solo or with a friend, players are treated to a fun and strategic farming experience that's easy to pick up but hard to master.
 
 The following table shows the main elements of the game:
 <p align="center">
     <i>Table 2: Game Elements</i>
 </p>
 
-| Category     |                                         Image                                          | Description                                                               |
-| :----------- | :------------------------------------------------------------------------------------: | :------------------------------------------------------------------------ |
-| Barrel       |                     <img src="docs/assets/barrel.webp" width="50">                     | To collect hay.                                                           |
-| Hay          |      <img src="docs/assets/hay.webp" width="50" style="vertical-align: middle;">       | Catch to stack in player's basket.                                        |
-| Shovel       |     <img src="docs/assets/shovel.webp" width="50" style="vertical-align: middle;">     | Cause player to lose all current stack if hits the player.                |
-| ProteinShake | <img src="docs/assets/protein-shaker.webp" width="50" style="vertical-align: middle;"> | Increase player's strength temporarily so that they could carry more hay. |
-| SpeedBoot    |   <img src="docs/assets/speed-boot.webp" width="50" style="vertical-align: middle;">   | Increase player's speed temporarily.                                      |
+| Category           |                                         Image                                          | Description                                                               |
+| :----------------- | :------------------------------------------------------------------------------------: | :------------------------------------------------------------------------ |
+| Player with basket |    <img src="docs/assets/player1.webp" width="50" style="vertical-align: middle;">     | Player collects hay bales to their basket.                                |
+| Barrel             |                     <img src="docs/assets/barrel.webp" width="50">                     | A barrel where the caught hay bales in the basket are emptied to.         |
+| Hay bale           |      <img src="docs/assets/hay.webp" width="50" style="vertical-align: middle;">       | Catch to stack in player's basket.                                        |
+| Shovel             |     <img src="docs/assets/shovel.webp" width="50" style="vertical-align: middle;">     | Cause player to lose all current stack if hits the player.                |
+| Protein shake      | <img src="docs/assets/protein-shaker.webp" width="50" style="vertical-align: middle;"> | Increase player's strength temporarily so that they could carry more hay. |
+| Speed boot         |   <img src="docs/assets/speed-boot.webp" width="50" style="vertical-align: middle;">   | Increase player's speed temporarily.                                      |
 
-# 4.Requirements 
+# 4. Requirements 
 - 15% ~750 words
 - Use case diagrams, user stories. Early stages design. Ideation process. How did you decide as a team what to develop? 
 
-## 4.1 Game Idea Brainstorming Overview
+## Ideation Process
 
-As part of our early ideation process, our team participated in a collaborative brainstorming session to generate and explore a variety of game concepts. We studied a wide range of existing games, focusing on their core mechanics, player engagement strategies, and potential for creative development. Our goal was to identify gameplay elements that are not only fun and challenging, but also flexible enough to allow for innovation and adaptation.
-
-The table below summarizes our findings. For each game, we described its core concept and proposed potential extensions or twists to make the gameplay more unique, engaging, or suitable for different audiences and platforms.
-<p align="center">
-    <i>Table 3: Original game ideas</i>
-</p>
-
-| Game Genre                     | Game Inspiration    | Game Description                                                                                                                                                                      | Creative Expansion Ideas                                                                                                                                                                                                  |
-| ------------------------------ | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Puzzle Game                    | Car Park Puzzle     | A logic-based game where players must move surrounding vehicles forward or backward to clear a path for their own car to exit the parking lot.                                        | - Dynamically generate car layouts based on difficulty <br> - Add cars facing different directions <br> - Bus station mode: match passengers with buses <br> - Real-world elements like crosswalks, truck unloading zones |
-| Cooperative Puzzle Platformer  | Fireboy & Watergirl | Two players work together to navigate levels by controlling Fireboy and Watergirl, each immune to their respective element. Touching the wrong element or falling results in failure. | - New elements like electricity/ice/wind <br> - Attribute swapping mechanics <br> - Time-limited challenges and multiple endings <br> - Unlockable skills and collectibles                                                |
-| Casual Reaction Game           | Flappy Bird         | Players tap to keep a bird in the air and avoid pipes. Each successful pass earns one point. The game restarts upon failure.                                                          | - Moving or rotating obstacles <br> - Power-up system: shields, speed boosts <br> - Multiplayer co-op or versus mode <br> - Timed bonus collection mode                                                                   |
-| Multiplayer Cooperative Puzzle | Pico Park           | Players collect keys and open gates while navigating obstacles together. Movement is limited to up, down, left, and right. Supports 2–8 players.                                      | - Random events triggered by pressure plates <br> - Fog to limit visibility <br> - Assign unique skills to each player (fly, climb, lift) <br> - Add immersive story mode                                                 |
-| Strategy + Reflex Mini Game    | Hay Catching        | Players catch falling hay. The more they collect, the slower they move, increasing challenge and requiring strategic movement and timing.                                             | - Cooperative or versus mode <br> - Special hay types (e.g. poison, explosive) <br> - Weather effects influencing falling patterns <br> - Speed boost or weight-reducing power-ups                                        |
-
-## 4.2 Game Delection Process
-
-As part of our game development planning, our team initially brainstormed and analyzed five different game inspirations. After careful discussion and evaluation, we shortlisted two candidates for prototyping:Fireboy & Watergirl and Hay Catching.
-
-To better understand and experience the game mechanics, we created paper prototypes for both games. By interacting with the prototypes directly, we were able to simulate the core gameplay and interaction flow, design basic maps and character movement paths, observe players' intuitive understanding and reactions, and evaluate whether the gameplay was engaging and expandable.
-
-The following are our paper prototypes for Fireboy & Watergirl and Hay Catching.
+Our team initially brainstormed five distinct game concepts, which we narrowed down to [two](./assets_for_README/Initial_ideas.md) after group discussions evaluating feasibility, appeal, and gameplay potential. To explore these ideas further, we developed paper prototypes for both shortlisted concepts, allowing us to simulate and assess the core mechanics before moving forward.
 
 <p align="center">
-  <br><a href="https://youtu.be/uvnLMF2GfXI">Figure 2: Fireboy & Watergirl Game Prototype</a></br>
-  <a href="https://youtu.be/kqHrW4fSKdE">
-    <img src="https://img.youtube.com/vi/kqHrW4fSKdE/0.jpg" width="600">
-  </a>
-</p>
-
-<p align="center">
-  <br><a href="https://youtu.be/uvnLMF2GfXI">Figure 3: Haystacking Game Prototype</a></br>
+  <br>Figure 3: Paper Prototype for <a href="https://youtu.be/uvnLMF2GfXI">Haystacking </a></br>
   <a href="https://youtu.be/uvnLMF2GfXI">
-    <img src="https://img.youtube.com/vi/uvnLMF2GfXI/0.jpg" width="600">
+    <img src="./assets_for_README/haystacking_paper_prototype.gif" width="400">
+  </a>
+</p
+
+<p align="center">
+  <br>Figure 4: Paper Prototype for <a href="https://youtu.be/uvnLMF2GfXI">Fireboy & Watergirl</a></br>
+  <a href="https://youtu.be/kqHrW4fSKdE">
+    <img src="./assets_for_README/fireboy_watergirl_paper_prototype.gif" width="400">
   </a>
 </p>
 
-## 4.3 Final Decision
-After multiple rounds of testing and team feedback, we ultimately selected Hay Catching as the core game for our project. This decision was based on several key factors: the gameplay mechanics are simple yet offer meaningful challenge, making the game easy to implement while allowing for depth through the addition of items, constraints, and variations.
+During this process, we observed a shared preference within the team for mini-games that feature simple rules yet offer surprisingly engaging and addictive gameplay. We appreciated how these types of games require minimal time, effort, and cognitive load—making them ideal as casual, everyday stress relievers that can be played anywhere, at any time.
 
-It also features high replayability—players slow down as they collect more hay, creating a naturally increasing difficulty curve well-suited for score-based challenges. Furthermore, the concept has great potential for creative expansion, such as adding multiplayer modes, weather effects, special types of hay, and animated visual effects. Finally, its intuitive gameplay makes it highly accessible and easy to promote, appealing to a wide range of players and suitable for release on web or mobile platforms.
+With these factors in mind, we ultimately selected Haystacking as our final concept. Its straightforward yet strategic mechanics and lighthearted tone aligned well with our vision for an accessible and enjoyable game experience.
 
-## 4.4 Digital Paper Prototype tool
+## Stakeholders Analysis 
 
-To help players quickly get familiar with the game, we created a digital model based on the paper prototype. Hanying attempted to generate the digital model using her iPad, which allowed for a representation that more closely resembled the actual game compared to the paper prototype.
+Following the establishment of the initial idea for our game, conducting a stakeholder analysis is a critical step. By identifying key parties such as developers, players, and other developer teams, and clarifying their roles and needs, our team can more effectively allocate resources, enhance both the technical feasibility and the overall user experience of the game.
 
-This animation shows the player successfully catching the hay and placing it into the barrel.
-
-<p align="center"><b>Figure 4: Success Situation</b></p>
+<p align="center"><i>Figure 5: Onion Model of Haystacking Game</i></p>
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/dfb59e37-652d-4112-a203-70f36f721ae3" width="500">
+  <img src="https://github.com/user-attachments/assets/5ef9c5c4-04e5-4d8f-b85d-7bf6b9ef1358" width="700">
 </p>
 
-This animation shows the player failing to catch the hay and losing one life as a result.
+### Core Layer: Group 30
+Group 30-2025 are the core developer of the game, responsible for its design, development, and implementation. They determine the quality, gameplay, and overall experience of the game.
 
-<p align="center"><b>Figure 5: Failed Situation</b></p>
+### Internal Layer: Players and Lecturers
+- **Players**: The end-users of the game, including:
+  - New Players
+  - Old Players
+  - Casual Players
+  - Competitive Players
+- **Lecturers**: The evaluators of the assignment, responsible for assessing the quality of the game and whether it meets course requirements
 
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/a21f37c9-d280-421e-a664-1148eeae3f51" width="500">
-</p>
+### Competition Layer: Other Teams
+Other teams are competitors in the assignment, and their performance may influence the evaluation by lecturers and bystanders.
+
+### External Layer: Broader Audience
+Bystanders are potential users who may not directly participate in the game but could be attracted to become new players.
 
 ## 4.5 Requirement Analysis
 
@@ -167,32 +153,7 @@ This animation shows the player failing to catch the hay and losing one life as 
 
 Based on the feasibility analysis, we have decided to adjust the game design by abandoning the complex physics engine integration and opting for a simple square hay block stacking mechanism. This will reduce technical difficulty, improve development efficiency, and ensure game stability.
 
-## 4.6 Stakeholders Analysis 
 
-Following the establishment of the initial idea for our game, conducting a stakeholder analysis is a critical step. By identifying key parties such as developers, players, and other developer teams, and clarifying their roles and needs, our team can more effectively allocate resources, enhance both the technical feasibility and the overall user experience of the game.
-
-<p align="center"><b>Figure 6: Onion Model</b></p>
-
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/5ef9c5c4-04e5-4d8f-b85d-7bf6b9ef1358" width="500">
-</p>
-
-### Core Layer: Group 30
-Group 30-2025 are the core developer of the game, responsible for its design, development, and implementation. They determine the quality, gameplay, and overall experience of the game.
-
-### Internal Layer: Players and Lecturers
-- **Players**: The end-users of the game, including:
-  - New Players
-  - Old Players
-  - Casual Players
-  - Competitive Players
-- **Lecturers**: The evaluators of the assignment, responsible for assessing the quality of the game and whether it meets course requirements
-
-### Competition Layer: Other Teams
-Other teams are competitors in the assignment, and their performance may influence the evaluation by lecturers and bystanders.
-
-### External Layer: Broader Audience
-Bystanders are potential users who may not directly participate in the game but could be attracted to become new players.
 
 ### Feasibility Study
 Based on the stakeholder analysis, we proceeded to evaluate the feasibility of the project.
