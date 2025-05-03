@@ -225,35 +225,57 @@ To better understand the interactions between the game and its users, we used a 
 </div>
 
 # 6.Implementation
+- 15% ~750 words
+- Describe implementation of your game, in particular highlighting the three areas of challenge in developing your game. 
 
-## 6.1 Challenges
-### 6.1.1 challenge 1:
-A key gameplay mechanic in Haystacking involves dropping haystacks and other items (e.g., shovels, speed boot) at regular intervals. To implement this, we initially used `setInterval()` function to call object drop every few seconds.
+## Challenges
 
-However, we ran into a timing issue when implementing pause and resume functionality. If the player paused and resumed the game multiple times, objects would begin dropping too frequently — sometimes multiple items would fall at once. After debugging, we realized that every time the game was resumed, a new interval was being created without clearing the previous one, leading to multiple concurrent timers calling object drop.
+We encountered three main challenges when developing the game: 
+1. Managing the timing of dropping objects
+2. Implementing rule-based stacking mechanics
+3. Managing screen switching logic
 
-To solve this, we updated the code to ensure that only one interval exists at any time. We used `clearInterval()` and set the reference to null before starting a new interval, which added a guard to prevent multiple intervals from stacking. This change allowed us to reliably manage the start and stop behavior of the object drops. It also made the codebase more maintainable and predictable when adding new features related to item timing or difficulty scaling.
+#### Challenge 1: Managing the timing of dropping objects
 
-### 6.1.2 challenge 2: Game Balance Adjustment and Player Experience Optimization
+A key gameplay mechanic in Haystacking involves dropping hay bales and other items (e.g., shovels, speed boot) at regular intervals. To implement this, we initially used `setInterval()` function to call object drop every few seconds.
 
-During the game development process, through continuous testing and player feedback, we identified and gradually resolved balance issues that were affecting the overall gameplay experience.
+However, we ran into a timing issue when implementing pause and resume functionality. If the player paused and resumed the game multiple times, objects would begin dropping too frequently — sometimes multiple items would fall at once. After debugging, we found that every time the game was resumed, a new interval was being created without clearing the previous one, leading to multiple concurrent timers calling object drop.
 
-In the initial version, we implemented a **health system** with the intention of increasing the game's difficulty. However, during actual testing, we discovered that this design made players **overly cautious**—especially after collecting a significant number of hay blocks. Players became more focused on avoiding mistakes for fear of losing health, which not only limited their strategic choices but also increased the likelihood of failure due to the added **psychological pressure**.
+To solve this, we updated the code to ensure that only one interval exists at any time. We used `clearInterval()` and set the reference to null before starting a new interval, which added a guard to prevent multiple intervals from stacking:
 
-After discussions within the team, we decided to **remove the health system**. This change **freed players from the stress** of managing health, allowing them to experiment more freely with different actions and strategies.
+```javascript
+if (dropInterval) {
+  clearInterval(dropInterval);
+  dropInterval = null;
+}
+dropInterval = setInterval(dropItem, dropRate);
+```
 
-As development progressed, we encountered another balancing issue in the game mechanics. Our design required players to **achieve a certain score within a set time** to pass a level. To meet this goal, players were naturally inclined to **catch as many hay bundles as possible** in one go. 
+This change allowed us to reliably manage the start and stop behavior of the object drops. It also made the codebase more maintainable and predictable when adding new features related to item timing or difficulty scaling.
 
-However, we had also implemented a **weight system**: the more hay a player collected, the slower they would move. These two systems conflicted in practice—while players wanted to gather more hay to score higher, the resulting **decrease in movement speed** made it difficult to quickly reach the right position to catch hay accurately.
+#### Challenge 2: Implementing rule-based stacking mechanics
 
-After multiple rounds of adjustment and testing, we finally found a **balance**: we **fine-tuned the rate** at which the player's movement speed decreased with the amount of hay collected. This preserved the **strategic aspect** of the weight system without overly hindering the gameplay experience.
+Initially, we planned to use a physics engine such as Matter.js to simulate the realistic falling and stackking of hay bales. However, we quickly realised it introduced significant complexity, including collision handling, rotation, and gravity simulations. We then opted for a simpler design of using only rectangular hay blocks in a cartoon-like asthetic. The challenge then becoame making the stacking feel realistic and rewarding.
 
-Through this series of adjustments and optimizations, we successfully achieved our intended gameplay experience:
+We first introduced a minimum horizontal overlap thresholder for a hay bale to be considered caught. We also implemented some backback mechanisms such as a gradual speed decrease as the player take on more hay bales. We thought we should impose a penalty for missing any hay bale, so we added a `Flash` object to the `Player`, which would cause the player to freeze and flash for a 0.5s. However, many users complainted about this features during the initial evalutation process. In fast-paced later levels, players could enter a frustrating loop where a missed bale triggered a flash, which caused them to miss the next bale immediately upon resuming — resulting in a chain of unavoidable penalties. Therefore, we scraped this setting. However, we were able to repurposed the `Flash` mechanics to be activated when a player exceeds the maximum number of hay bales they could carry. 
 
-- **New players** can quickly get started and feel a **sense of accomplishment**.  
-- **Experienced players** can pursue **high scores** through perfect execution.  
-- The **difficulty curve** has become smoother.  
-- **Player retention** has significantly improved.
+Finally, to encourage precision, we implemented a `PerfectStack` reward system. If a player achieved a stacking alignment of 90% or greater with the hay bale or basket below, they received a time bonus. 
+
+#### Challenge 3: Managing screen switching logic
+
+As none of us had any prior experience with game development, one of the early challenges we faced was to implement the logic of switching between different screens.
+
+At first, we started with a single-page prototype focused solely on the stacking mechanic. As we introduced additional screens (e.g. home screen, pause screen, gameplay, game over), we used simple conditional statements to handle the screen changes, e.g.:
+
+```javascript
+if (isPaused && screen === "game") {
+    // ... game paused logic
+} else if (screen === "home") {
+    // ... home screen logic
+}
+```
+
+However, as the number of screens grew, this became increasingly difficult to maintain. To solve this, we impletemented a state management class - `ScreenManager` which emcompasses different screens such as the game screens and home screens, and each of the game screen has their respective target score screen, level up screen etc. The `ScreenManager` also maintains a `currentScreen` property and has methods to change and display the current screen.
 
 # 7.Evaluation
 
