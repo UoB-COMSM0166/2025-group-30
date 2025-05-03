@@ -90,7 +90,7 @@ class MenuScreen extends Screen {
     }
 
     loadSettingImage() {
-        loadImage('./assets/setting1.png', img => {
+        loadImage('./assets/settings.png', img => {
             this.settingImage = img;
         });
     }
