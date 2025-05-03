@@ -6,9 +6,10 @@ class SettingScreen extends Screen {
         // 重置按钮焦点
         this.focusedButtonIndex = -1;
         
-        // 预加载音量图标
+        // 预加载音量图标和背景图片
         this.volumeIcon = loadImage('assets/volume.png');
         this.noVolumeIcon = loadImage('assets/no-volume.png');
+        this.backgroundImage = loadImage('assets/board2.webp');
         
         this.buttonWidth = 200;
         this.buttonHeight = 50;
@@ -25,9 +26,9 @@ class SettingScreen extends Screen {
         
         // 初始化滑块位置
         this.musicSliderX = baseWidth/2;
-        this.musicSliderY = this.boxY + this.boxHeight/3;
+        this.musicSliderY = this.boxY + this.boxHeight/3 + 10;
         this.soundSliderX = baseWidth/2;
-        this.soundSliderY = this.boxY + this.boxHeight/2 + 50; // 调整音效滑块位置
+        this.soundSliderY = this.boxY + this.boxHeight/2 + 50;
         
         this.isDraggingMusic = false;
         this.isDraggingSound = false;
@@ -44,7 +45,7 @@ class SettingScreen extends Screen {
             {
                 label: "Back",
                 x: baseWidth/2,
-                y: this.boxY + this.boxHeight - 80,
+                y: this.boxY + this.boxHeight - 80, // 将按钮移回原位
                 buttonWidth: this.buttonWidth,
                 buttonHeight: this.buttonHeight,
                 action: () => {
@@ -80,20 +81,17 @@ class SettingScreen extends Screen {
         rectMode(CORNER);
         rect(0, 0, baseWidth, baseHeight);
         
-        // 绘制白色背景框
-        fill(255, 255, 255);
-        rectMode(CORNER);
-        rect(this.boxX, this.boxY, this.boxWidth, this.boxHeight, 20);
+        // 设置全局文字样式为加粗
+        textStyle(BOLD);
+        textFont('Comic Sans MS'); // 统一使用Comic Sans MS字体
         
-        // 绘制蓝色边框
-        stroke(53, 97, 140);
-        strokeWeight(5);
-        noFill();
-        rect(this.boxX, this.boxY, this.boxWidth, this.boxHeight, 20);
-        noStroke();
+        // 绘制背景图片和所有UI元素
+        push(); // 保存当前绘图状态
+        imageMode(CORNER);
+        image(this.backgroundImage, this.boxX, this.boxY, this.boxWidth, this.boxHeight);
         
         // 标题
-        fill(53, 97, 140);
+        fill(0, 0, 0);
         textSize(40);
         textAlign(CENTER, CENTER);
         text("SETTINGS", baseWidth/2, this.boxY + 50);
@@ -102,7 +100,7 @@ class SettingScreen extends Screen {
         this.drawVolumeControl(
             "Music Volume",
             baseWidth/2,
-            this.boxY + this.boxHeight/3,
+            this.boxY + this.boxHeight/3 + 10,
             this.musicVolume,
             (value) => {
                 this.musicVolume = value;
@@ -117,7 +115,7 @@ class SettingScreen extends Screen {
         this.drawVolumeControl(
             "Sound Volume",
             baseWidth/2,
-            this.boxY + this.boxHeight/2 + 50, // 调整音效控制位置
+            this.boxY + this.boxHeight/2 + 50,
             this.soundVolume,
             (value) => {
                 this.soundVolume = value;
@@ -140,25 +138,28 @@ class SettingScreen extends Screen {
             
             let isFocused = this.focusedButtonIndex === i;
             
-            stroke(53, 97, 140);
-            strokeWeight(3);
             if (isHovered) {
-                fill(227, 249, 253);
+                fill(160, 96, 59); // 更深的棕色
             } else {
-                fill(207, 239, 246);
+                fill(130, 76, 39); // 深棕色
             }
             if (isFocused) {
                 stroke(14, 105, 218);
-                strokeWeight(5);
+                strokeWeight(4);
             }
             rect(button.x, button.y, button.buttonWidth, button.buttonHeight, 10);
             
             noStroke();
-            fill(53, 97, 140);
+            fill(255); // 白色文字
             textSize(20);
             textAlign(CENTER, CENTER);
             text(button.label, button.x, button.y);
         }
+        pop(); // 恢复绘图状态
+        
+        // 恢复普通文字样式
+        textStyle(NORMAL);
+        textFont('sans-serif');
     }
     
     drawVolumeControl(label, x, y, value, onChange, isDragging, sliderX, isMusicControl) {
@@ -167,7 +168,7 @@ class SettingScreen extends Screen {
             dist(window.mouseXGame, window.mouseYGame, sliderX, y) <= this.sliderHandleSize/2;
 
         // 绘制标签
-        fill(53, 97, 140);
+        fill(0, 0, 0);
         textSize(20);
         textAlign(CENTER, CENTER);
         text(label, x, y - 30);
@@ -187,7 +188,7 @@ class SettingScreen extends Screen {
         if (volumeIcon) {
             // 绘制静音按钮背景（悬停时显示）
             if (isMuteBtnHovered) {
-                fill(207, 239, 246, 150);
+                fill(180, 126, 89, 150); // 浅棕色，半透明
                 noStroke();
                 ellipse(muteBtnX, muteBtnY, this.volumeIconSize + 10);
             }
@@ -199,30 +200,30 @@ class SettingScreen extends Screen {
         
         // 绘制滑块背景轨道
         noStroke();
-        fill(207, 239, 246);
+        fill(139, 69, 19, 100); // 深棕色，半透明
         rectMode(CORNER);
         rect(x - this.sliderWidth/2, y - this.sliderHeight/2, this.sliderWidth, this.sliderHeight, 10);
         
         // 绘制已填充部分
-        fill(53, 97, 140, 150);
+        fill(139, 69, 19, 200); // 深棕色，较不透明
         rect(x - this.sliderWidth/2, y - this.sliderHeight/2, 
             (sliderX - (x - this.sliderWidth/2)) + this.sliderHandleSize/2, 
             this.sliderHeight, 10);
         
         // 绘制滑块圆形
         if (isHovered || isDragging) {
-            fill(227, 249, 253);
+            fill(160, 82, 45); // 浅棕色
         } else {
-            fill(53, 97, 140);
+            fill(139, 69, 19); // 深棕色
         }
         ellipseMode(CENTER);
         ellipse(sliderX, y, this.sliderHandleSize);
         
-        // 绘制音量值文本
-        fill(53, 97, 140);
+        // 绘制音量值文本（移到进度条右侧）
+        fill(0, 0, 0);
         textSize(16);
-        textAlign(CENTER, CENTER);
-        text(`${Math.round(value * 100)}%`, x, y + 25);
+        textAlign(LEFT, CENTER);
+        text(`${Math.round(value * 100)}%`, x + this.sliderWidth/2 + 15, y);
     }
     
     mousePressed() {

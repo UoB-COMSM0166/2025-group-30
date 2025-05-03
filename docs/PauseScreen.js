@@ -5,7 +5,8 @@ class PauseScreen extends Screen {
         
         // 加载设置图标
         this.settingImage = null;
-        this.loadSettingImage();
+        this.settingImage2 = null;
+        this.loadSettingImages();
         
         this.buttonSpacing = 30;
         this.buttons = [
@@ -52,17 +53,20 @@ class PauseScreen extends Screen {
                 buttonWidth: 40,
                 buttonHeight: 40,
                 action: () => {
-                    const settingScreen = new SettingScreen(this.screenManager, this);
-                    this.screenManager.changeScreen(settingScreen);
+                    this.screenManager.settingScreen.previousScreen = this;
+                    this.screenManager.changeScreen(this.screenManager.settingScreen);
                 },
                 showLabel: false // 不显示文字标签
             }
         ];
     }
 
-    loadSettingImage() {
-        loadImage('./assets/setting1.png', img => {
+    loadSettingImages() {
+        loadImage('./assets/setting.png', img => {
             this.settingImage = img;
+        });
+        loadImage('./assets/setting2.jpg', img => {
+            this.settingImage2 = img;
         });
     }
 
@@ -119,21 +123,14 @@ class PauseScreen extends Screen {
             }
             // 单独绘制设置图标
             const settingButton = this.buttons.find(b => b.label === "");
-            if (settingButton && this.settingImage) {
+            if (settingButton) {
                 const isHovered = this.isMouseOverButton(settingButton);
                 
-                // 悬停效果
-                if (isHovered) {
-                    push();
-                    tint(255, 200); // 半透明效果
-                    image(this.settingImage, 
-                          settingButton.x - settingButton.buttonWidth/2,
-                          settingButton.y - settingButton.buttonHeight/2,
-                          settingButton.buttonWidth,
-                          settingButton.buttonHeight);
-                    pop();
-                } else {
-                    image(this.settingImage, 
+                // 根据悬停状态选择不同的图片
+                const currentImage = isHovered ? this.settingImage2 : this.settingImage;
+                
+                if (currentImage) {
+                    image(currentImage, 
                           settingButton.x - settingButton.buttonWidth/2,
                           settingButton.y - settingButton.buttonHeight/2,
                           settingButton.buttonWidth,
