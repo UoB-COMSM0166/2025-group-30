@@ -100,9 +100,9 @@ During this process, we observed a shared preference within the team for mini-ga
 
 With these factors in mind, we ultimately selected Haystacking as our final concept. Its straightforward yet strategic mechanics and lighthearted tone aligned well with our vision for an accessible and enjoyable game experience.
 
-## Stakeholders Analysis 
+## Identifying Stakeholders 
 
-Following the establishment of the initial idea for our game, conducting a stakeholder analysis is a critical step. By identifying key parties such as developers, players, and other developer teams, and clarifying their roles and needs, our team can more effectively allocate resources, enhance both the technical feasibility and the overall user experience of the game.
+As shown in Figure 5, we conducted a stakeholder analysis using the Onion Model. This helped us to categorise key parties based on their proximity to the systme, understandand their needs and prioritise them accordingly during the development process.
 
 <p align="center"><i>Figure 5: Onion Model of Haystacking Game</i></p>
 
@@ -110,88 +110,27 @@ Following the establishment of the initial idea for our game, conducting a stake
   <img src="https://github.com/user-attachments/assets/5ef9c5c4-04e5-4d8f-b85d-7bf6b9ef1358" width="700">
 </p>
 
-### Core Layer: Group 30
-Group 30-2025 are the core developer of the game, responsible for its design, development, and implementation. They determine the quality, gameplay, and overall experience of the game.
-
-### Internal Layer: Players and Lecturers
-- **Players**: The end-users of the game, including:
-  - New Players
-  - Old Players
-  - Casual Players
-  - Competitive Players
-- **Lecturers**: The evaluators of the assignment, responsible for assessing the quality of the game and whether it meets course requirements
-
-### Competition Layer: Other Teams
-Other teams are competitors in the assignment, and their performance may influence the evaluation by lecturers and bystanders.
-
-### External Layer: Broader Audience
-Bystanders are potential users who may not directly participate in the game but could be attracted to become new players.
-
-## 4.5 Requirement Analysis
-
-### 4.5.1 User Requirements
-- Players should be able to control and stack square hay blocks smoothly
-
-### 4.5.2 Technical Requirements
-- Client-side Development: Implement the game interface and handle user input
-- Physics Simulation: Remove the external physics engine and use a simple square block stacking mechanism
-
-### 4.5.3 Technical Feasibility Study
-
-#### Initial Plan
-- Use an external physics engine (e.g., Box2D, Matter.js) for simulating different shape interactions
-- Requires complex physics calculations, including collision detection and gravity simulation
-
-#### Feasibility Evaluation
-- Lack of experience in physics engine development makes debugging and optimization challenging
-- Complex physics calculations may lead to high computational resource consumption, affecting game performance
-
-#### Alternative Plan
-- Switch to simple square hay block stacking without relying on an external physics engine
-- Use a rule-based stacking method where each block is placed according to predefined logic
-- Implement basic rectangle overlap detection for collision handling to improve development efficiency
-
-Based on the feasibility analysis, we have decided to adjust the game design by abandoning the complex physics engine integration and opting for a simple square hay block stacking mechanism. This will reduce technical difficulty, improve development efficiency, and ensure game stability.
-
-
-
-### Feasibility Study
-Based on the stakeholder analysis, we proceeded to evaluate the feasibility of the project.
-The feasibility study primarily focused on the technical aspects, including the development environment, available tools, and team skills.
-
-#### Initial Plan
-Initially, we considered implementing stacking mechanics using various shapes as the core gameplay feature. This approach would require:
-
-- Integration of an external physics engine (e.g., Box2D, Matter.js) to simulate realistic physical interactions
-
-- Implementation of complex physics logic such as collision detection and gravity effects
-
-#### Feasibility Evaluation
-However, after evaluating the technical feasibility, we identified several challenges:
-
-- Our team lacks experience in integrating and configuring physics engines 
-
-- Limited familiarity with real-time physics would significantly increase the debugging and optimization workload
-
-- A poorly implemented physics system would negatively impact gameplay quality and user experience
-
-#### Alternative Plan
-In this case, we decided to simplify the design by:
-
-- Switching to simple square hay block stacking without relying on an external physics engine
-- Using a rule-based stacking method where each block is placed according to predefined logic
-- Implementing basic rectangle overlap detection for collision handling to improve development efficiency
-
-Originally, one of the key technical challenges was determining how to position irregularly shaped hay blocks in a physically accurate and visually satisfying way.
-With the new simplified plan, the focus shifts to how to perfectly and completely align square hay blocks on top of one another, which significantly reduces complexity while preserving core gameplay value.
-
-## 4.7 User Stories and Epics
-
-Based on the stakeholder analysis and requirements analysis above, we identified the core needs of different user groups and created corresponding user stories. These user stories not only reflect the basic functional requirements of the game but also provide a foundation for subsequent sustainability design. During the development process, we further integrated these user stories with sustainability dimensions, particularly expanding on the social and technical aspects.
-
-In the early stages, we created initial user stories based on the behavior patterns and expectations of different user types (such as casual players, hardcore players, social players, etc.) to ensure that the core gameplay of HayStacking would meet the diverse needs of its target users. In the later development phase, we refined and expanded these user stories by incorporating a sustainability perspective, primarily drawing from the five dimensions defined in the SusAF framework: Individual, Social, Environmental, Economic, and Technical. This allowed us to evaluate the potential impacts of the game from a more holistic standpoint. The following table presents the finalized user stories along with their corresponding acceptance criteria.
 <p align="center">
-    <i>Table 4: User Story</i>
+    <i>Table 3: Stakeholders Analysis</i>
+</p>
+
+| Stakeholder       | Description                                                                                           |
+| ----------------- | ----------------------------------------------------------------------------------------------------- |
+| Group 30-2025     | Primary developers responsible for design, development, and implementation of the game                |
+| Players           | Includes first-time player, old players, casual players, competitive, players with disability (motor) |
+| Lecturers and TAs | Evaluators assessing project quality                                                                  |
+| Other Teams       | Other student teams working on similar projects                                                       |
+| Bystanders        | Potential future players who may be attracted to the game                                             |
+
+
+## User Stories and Acceptance Criteria
+
+Throughout the development processes, we continuously evaluated and refined our user stories after every sprint review to make sure our game align with evolving users requirements. This iterative approach allowed us to stay responsive to feedback and maintain a user-centered design focus. 
+
+In the later stage, we also incorporated sustainability-conducive requirements from the Sustainability Awareness Framework (SusAF), which enabled us to evaluate the potential impacts of the game from a more holistic standpoint. Table 4 presents the finalised user stories along with their corresponding acceptance criteria.
+
+<p align="center">
+    <i>Table 4: User Story and Acceptance Criteria</i>
 </p>
 
 <table>
@@ -233,21 +172,9 @@ In the early stages, we created initial user stories based on the behavior patte
   <td>Given I complete a level, when I choose to replay, then I should be able to restart the same level without restrictions.</td>
 </tr>
 <tr>
-  <td>Hardcore Player</td>
-  <td>Character Progression</td>
-  <td>As a hardcore player, I want to upgrade my character's equipment so that I can compete at higher difficulty levels.</td>
-  <td>Given I have in-game currency or rewards, when I visit the store, then I should be able to buy gear to enhance my character.</td>
-</tr>
-<tr>
-  <td></td>
-  <td></td>
-  <td>As a hardcore player, I want to compare scores with my friends so that I can compete with them.</td>
-  <td>Given I have friends added in-game, when I view the friends leaderboard, then I should see their scores to compare with mine.</td>
-</tr>
-<tr>
-  <td></td>
+  <td>Competitive Player</td>
   <td>Game Challenge</td>
-  <td>As a hardcore player, I want the game to become more challenging over time so that it remains engaging.</td>
+  <td>As a competitive player, I want the game to become more challenging over time so that it remains engaging.</td>
   <td>Given the game progresses, when I reach higher levels, then the game should introduce faster speeds or new obstacles.</td>
 </tr>
 <tr>
@@ -257,88 +184,59 @@ In the early stages, we created initial user stories based on the behavior patte
   <td>Given I enter multiplayer mode, when I choose competitive or co-op, then the game should support both modes and show rankings after matches.</td>
 </tr>
 <tr>
-  <td>Creative Player</td>
-  <td>Character Customization</td>
-  <td>As a creative player, I want to customize my character so that I can personalize my gaming experience.</td>
-  <td>Given I open the customization menu, when I select different options, then I should be able to save and use them in-game.</td>
-</tr>
-<tr>
-  <td>Detail-Oriented Player</td>
-  <td>Realistic Physics</td>
-  <td>As a detail-oriented player, I want realistic physics for stacking objects and accurate sound effects when catching items.</td>
-  <td>Given I am stacking hay or catching it, when physics interactions occur, then they should follow real-world rules and trigger appropriate sound effects.</td>
+  <td>Player with motor disability</td>
+  <td>Keyboard Accessibility</td>
+  <td>As a player with motor disability, I want to navigate and interact with all parts of the game using the keyboard only, so that I don't have to use a mouse.</td>
+  <td>Given I am in the game, when I use the keyboard (Tab, Shift+Tab, Enter, Esc), then I can access and operate all interactive elements without a mouse.</td>
 </tr>
 </table>
 
-## 4.8 Use Case Breakdown
 
-After finalizing the requirements and completing the feasibility analysis, we proceeded with the use case explanation.Here is the use-case diagram.
-<p align="center"><b>Figure 7: Use-Case Diagram</b></p>
+## Use Cases Breakdown
+
+To better understand the interactions between the game and its users, we used a Use Case Model to describe the game's functional requirements.
+
+<p align="center"><i>Figure 7: Use-Case Diagram</i></p>
 
 <p align="center">
-  <img width="680" alt="Image" src="https://github.com/user-attachments/assets/94a3733e-0182-400e-b6be-4c40585cdcee" />
+  <img width="800" alt="Image" src="assets_for_README/use_case_diagram.jpg" />
 </p>
 
+<p align="center">
+    <i>Table 5: Use Case Specification: Pause Game</i>
+</p>
 
-### 4.8.1. Players
+| **Element**     | **Description**                                                                                                                |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| **Actors**      | Player                                                                                                                         |
+| **Description** | Player pauses the game.                                                                                                        |
+| **Main Flow**   | 1. Player pauses the game.<br>2. System stops gameplay and show pause menu<br>3. Player can choose to Resume, Restart, or Exit |
+| **Extension**   | Resumne, Restart, Exit                                                                                                         |
 
-Players are the primary users of the game, directly interacting with the game system to progress through various levels, manage resources, and achieve in-game goals.
+<p align="center">
+    <i>Table 6: Use Case Specification: Start Game</i>
+</p>
 
-#### Main Use Cases for Players:
+| **Element**     | **Description**                                                                   |
+| --------------- | --------------------------------------------------------------------------------- |
+| **Actors**      | Player                                                                            |
+| **Description** | Player starts the game and engages with the core gameplay mechanics.              |
+| **Main Flow**   | 1. Player clicks "Start"<br>2. Game initializes<br>3. Player begins interacting   |
+| **Includes**    | Move Left/Right, Stack Hay, Empty to Barrel, Avoid Obstacles, Catch Special Items |
 
-- **Choose game mode**  
-  Players select between:
-  - **Single-player mode**
-  - **Multi-player mode** (including **PvP mode** and **Co-op mode**)
+<p align="center">
+    <i>Table 7: Use Case Specification: Stack Hay</i>
+</p>
 
-- **Play game**  
-  Core gameplay activities include:
-  - **Move character**: Control the in-game avatar.
-  - **Catch hay**: Collect hay items within the game world.
-  - **Drop hay into the barrel**: Deposit the collected hay, likely contributing to the player's score or progression.
+| **Element**          | **Description**                                                                                              |
+| -------------------- | ------------------------------------------------------------------------------------------------------------ |
+| **Actors**           | Player                                                                                                       |
+| **Description**      | Player catches the falling hay.                                                                              |
+| **Main Flow**        | 1. Hay bales fall from the sky<br>2. Player moves character to catch hay<br>3.Hay is added to player's stack |
+| **Extension**        | Perfect Stack (if the player balances hay precisely).                                                        |
+| **Alternative Flow** | 1. Hay bales fall from the sky<br>2. Player fails to catch hay<br>3.Hay is offscreen and disappears.         |
 
-- **Pause game**  
-  Players can temporarily suspend the game session.
 
-- **Resume game**  
-  Players can continue the game after pausing.
-
-- **Start tutorial**  
-  An optional flow that allows players to learn game mechanics before engaging in the full game.
-
-- **View game over screen**  
-  Triggered when the player fails or completes the game, showing final results.
-
----
-
-### 4.8.2 Game System
-
-The **Game System** manages the underlying logic, rules, and state transitions within the game. It ensures that player actions have consequences and that the game progresses according to its design.
-
-#### Main Functions of the Game System:
-
-- **Update score**  
-  Increases the player's score when they successfully drop hay into the barrel.
-
-- **Level up**  
-  Increases game difficulty or transitions the player to a higher level when specific conditions are met (e.g., reaching a target score).
-
-- **Game over**  
-  Ends the game session when the player's lives reach zero, triggering the **view game over screen**.
-
----
-
-### 4.8.3 Relationships (Use Case Diagram Specific)
-
-- **Includes (`<<include>>`)**:
-  - **Catch hay** is included in **Drop hay into the barrel**.
-  - **PvP mode** and **Co-op mode** are included in **Multi-player mode**.
-  - **Restart from current level** and **Restart from level 1** are included in **Single-player mode**.
-
-- **Extends (`<<extend>>`)**:
-  - **View game over screen** extends **Play game** (only triggered when the game ends).
-
-  
 # 5.Design
 
 - 15% ~750 words 
