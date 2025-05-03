@@ -87,7 +87,7 @@ Our team initially brainstormed five distinct game concepts, which we narrowed d
   <a href="https://youtu.be/uvnLMF2GfXI">
     <img src="./assets_for_README/haystacking_paper_prototype.gif" width="400">
   </a>
-</p
+</p>
 
 <p align="center">
   <br>Figure 4: Paper Prototype for <a href="https://youtu.be/uvnLMF2GfXI">Fireboy & Watergirl</a></br>
@@ -206,35 +206,86 @@ To better understand the interactions between the game and its users, we used a 
     <i>Table 5: Use Case Specification: Pause Game</i>
 </p>
 
-| **Element**     | **Description**                                                                                                                |
-| --------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| **Actors**      | Player                                                                                                                         |
-| **Description** | Player pauses the game.                                                                                                        |
-| **Main Flow**   | 1. Player pauses the game.<br>2. System stops gameplay and show pause menu<br>3. Player can choose to Resume, Restart, or Exit |
-| **Extension**   | Resumne, Restart, Exit                                                                                                         |
+<table style="width:100%">
+<tr>
+<th>Element</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><strong>Actors</strong></td>
+<td>Player</td>
+</tr>
+<tr>
+<td><strong>Description</strong></td>
+<td>Player pauses the game.</td>
+</tr>
+<tr>
+<td><strong>Main Flow</strong></td>
+<td>1. Player pauses the game.<br>2. System stops gameplay and show pause menu<br>3. Player can choose to Resume, Restart, or Exit</td>
+</tr>
+<tr>
+<td><strong>Extension</strong></td>
+<td>Resumne, Restart, Exit</td>
+</tr>
+</table>
 
 <p align="center">
     <i>Table 6: Use Case Specification: Start Game</i>
 </p>
 
-| **Element**     | **Description**                                                                   |
-| --------------- | --------------------------------------------------------------------------------- |
-| **Actors**      | Player                                                                            |
-| **Description** | Player starts the game and engages with the core gameplay mechanics.              |
-| **Main Flow**   | 1. Player clicks "Start"<br>2. Game initializes<br>3. Player begins interacting   |
-| **Includes**    | Move Left/Right, Stack Hay, Empty to Barrel, Avoid Obstacles, Catch Special Items |
+<table style="width:100%">
+<tr>
+<th>Element</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><strong>Actors</strong></td>
+<td>Player</td>
+</tr>
+<tr>
+<td><strong>Description</strong></td>
+<td>Player starts the game and engages with the core gameplay mechanics.</td>
+</tr>
+<tr>
+<td><strong>Main Flow</strong></td>
+<td>1. Player clicks "Start"<br>2. Game initializes<br>3. Player begins interacting</td>
+</tr>
+<tr>
+<td><strong>Includes</strong></td>
+<td>Move Left/Right, Stack Hay, Empty to Barrel, Avoid Obstacles, Catch Special Items</td>
+</tr>
+</table>
 
 <p align="center">
     <i>Table 7: Use Case Specification: Stack Hay</i>
 </p>
 
-| **Element**          | **Description**                                                                                              |
-| -------------------- | ------------------------------------------------------------------------------------------------------------ |
-| **Actors**           | Player                                                                                                       |
-| **Description**      | Player catches the falling hay.                                                                              |
-| **Main Flow**        | 1. Hay bales fall from the sky<br>2. Player moves character to catch hay<br>3.Hay is added to player's stack |
-| **Extension**        | Perfect Stack (if the player balances hay precisely).                                                        |
-| **Alternative Flow** | 1. Hay bales fall from the sky<br>2. Player fails to catch hay<br>3.Hay is offscreen and disappears.         |
+<table style="width:100%">
+<tr>
+<th>Element</th>
+<th>Description</th>
+</tr>
+<tr>
+<td><strong>Actors</strong></td>
+<td>Player</td>
+</tr>
+<tr>
+<td><strong>Description</strong></td>
+<td>Player catches the falling hay.</td>
+</tr>
+<tr>
+<td><strong>Main Flow</strong></td>
+<td>1. Hay bales fall from the sky<br>2. Player moves character to catch hay<br>3.Hay is added to player's stack</td>
+</tr>
+<tr>
+<td><strong>Extension</strong></td>
+<td>Perfect Stack (if the player balances hay precisely).</td>
+</tr>
+<tr>
+<td><strong>Alternative Flow</strong></td>
+<td>1. Hay bales fall from the sky<br>2. Player fails to catch hay<br>3.Hay is offscreen and disappears.</td>
+</tr>
+</table>
 
 
 # 5.Design
