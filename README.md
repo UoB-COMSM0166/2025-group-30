@@ -14,7 +14,7 @@
 - [10. Conclusion](#10conclusion)
 - [11. Contribution Statement](#11contribution-statement)
 
-# 1.Game & Game video
+# 1. Game & Game video
 
 <p align="center">
   <a href="https://uob-comsm0166.github.io/2025-group-30/">
@@ -23,15 +23,15 @@
 </p>
 
 <p align="center">
-  <a href="https://uob-comsm0166.github.io/2025-group-30/">Play here</a>
+  <a href="https://uob-comsm0166.github.io/2025-group-30/">Play the game here</a>
 </p>
 
 Our game lives in the [docs](/docs) folder, and is published using Github pages to the link above.
 
-Include a demo video of our game here
-[🎬 Click here to watch the demo video](https://github.com/UoB-COMSM0166/2025-group-30/blob/nemo/videos/demo%20video.MP4)
+Watch the demo video
+[🎬 here](https://github.com/UoB-COMSM0166/2025-group-30/blob/nemo/videos/demo%20video.MP4)
 
-# 2.Team
+# 2. Team
 
 <p align="center">
   <br><i> Figure 1: Group photo of the team</i></br>
@@ -57,181 +57,83 @@ Include a demo video of our game here
 
 # 3.Introduction
 
-Our game is a casual stacking challenge inspired by a classic mini-game from the popular title *Mole Manor*. Drawing from its gameplay, we set the game's backdrop during the harvest season on a farm. Players must control their character's left and right movements to catch falling haystacks and place them into a barrel within a limited time in order to reach the collection goal and advance to the next level.
+Our game is a lighthearted, fast-paced stacking challenge inspired by a classic mini-game from Mole Manor, reimagined with a fresh farmyard twist. Set during harvest season, players must move their character left and right to catch falling haystacks and deposit them into a barrel before time runs out. The goal: hit the hay collection target to progress to the next level.
 
-To increase the game's difficulty and reflect real-world limitations on how much a person can carry, each player can catch a maximum of five haystacks at a time. If this limit is exceeded, the character will stumble and drop all collected hay. This mechanic not only adds tension but also introduces strategic decision-making—players must carefully balance between collecting more hay and emptying their barrel in time.
+What sets our game apart is the blend of intuitive mechanics with subtle strategy. Players can carry up to five haystacks at once—exceeding this limit causes them to stumble and lose everything, introducing a risk-reward dynamic that keeps the action engaging. As players gather more hay, their movement slows, forcing thoughtful decisions about when to offload and when to keep stacking.
 
-As hay accumulates, the character's movement speed gradually slows down, requiring players to choose the right moment to clear their collection bucket and maintain agility. Building on the original gameplay, the game introduces more challenging elements: in single-player mode, players must dodge falling shovels and buckets while collecting stars for extra lives. In two-player mode, players can either collaborate to achieve a shared goal or compete to see who finishes first. These design features enrich the gameplay and deliver a fun, fast-paced, yet relaxing farm harvest experience.
+Beyond its core mechanic, the game introduces novel twists to deepen the experience. In single-player mode, players must dodge falling obstacles like shovels while collecting power-up items. In two-player mode, players can either team up in cooperative gameplay with a shared hay quota, or face off competitively in a race to complete their goal first.
+
+By combining charming visuals, progressively tricky mechanics, and multiple play modes, our game offers an accessible yet addictive take on the stacking genre. Whether playing solo or with a friend, players are treated to a fun and strategic farming experience that's easy to pick up but hard to master.
 
 The following table shows the main elements of the game:
 <p align="center">
     <i>Table 2: Game Elements</i>
 </p>
 
-| Category                    |                                         Image                                          |                                                                                                                              Description                                                                                                                              |
-| :-------------------------- | :------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-| **Player & lifting barrel** |    <img src="docs/assets/player1.webp" width="50" style="vertical-align: middle;">     |                                                                                          The character controlled by the player, moving left and right to catch falling hay.                                                                                          |
-| **collection Barrel**       |     <img src="docs/assets/barrel.webp" width="50" style="vertical-align: middle;">     |                                                                                    A secondary barrel used for catching hay before transferring it to the main collection barrel.                                                                                     |
-| **Falling Hay**             |      <img src="docs/assets/hay.webp" width="50" style="vertical-align: middle;">       |                                                                         The hay stacks that fall from the sky. Players must catch them efficiently to reach the target before time runs out.                                                                          |
-| **Shovel**                  |     <img src="docs/assets/shovel.webp" width="50" style="vertical-align: middle;">     | If the player accidentally comes into contact with a randomly dropped item—a shovel—it will cause the current stack of hay the player is holding to be cleared. However, this does not affect the number of hay bundles that have already been counted in the barrel. |
-| **ProteinShaker**           | <img src="docs/assets/protein-shaker.webp" width="50" style="vertical-align: middle;"> |                When used, this item temporarily increases the player's maximum stack limit to 10 (originally 5) for 10 seconds, and removes the movement speed penalty caused by stacking hay. A red particle effect is triggered during this period.                 |
-| **SpeedBoot**               |   <img src="docs/assets/speed-boot.webp" width="50" style="vertical-align: middle;">   |                                           When used, this item increases the player's movement speed by 20% for 5 seconds and triggers a blue particle effect, granting the player enhanced mobility for a short duration.                                            |
+| Category           |                                         Image                                          | Description                                                               |
+| :----------------- | :------------------------------------------------------------------------------------: | :------------------------------------------------------------------------ |
+| Player with basket |    <img src="docs/assets/player1.webp" width="50" style="vertical-align: middle;">     | Player collects hay bales to their basket.                                |
+| Barrel             |                     <img src="docs/assets/barrel.webp" width="50">                     | A barrel where the caught hay bales in the basket are emptied to.         |
+| Hay bale           |      <img src="docs/assets/hay.webp" width="50" style="vertical-align: middle;">       | Catch to stack in player's basket.                                        |
+| Shovel             |     <img src="docs/assets/shovel.webp" width="50" style="vertical-align: middle;">     | Cause player to lose all current stack if hits the player.                |
+| Protein shake      | <img src="docs/assets/protein-shaker.webp" width="50" style="vertical-align: middle;"> | Increase player's strength temporarily so that they could carry more hay. |
+| Speed boot         |   <img src="docs/assets/speed-boot.webp" width="50" style="vertical-align: middle;">   | Increase player's speed temporarily.                                      |
 
-# 4.Requirements 
-## 4.1 Game Idea Brainstorming Overview
+# 4. Requirements 
 
-As part of our early ideation process, our team participated in a collaborative brainstorming session to generate and explore a variety of game concepts. We studied a wide range of existing games, focusing on their core mechanics, player engagement strategies, and potential for creative development. Our goal was to identify gameplay elements that are not only fun and challenging, but also flexible enough to allow for innovation and adaptation.
+## Ideation Process
 
-The table below summarizes our findings. For each game, we described its core concept and proposed potential extensions or twists to make the gameplay more unique, engaging, or suitable for different audiences and platforms.
-<p align="center">
-    <i>Table 3: Original game ideas</i>
-</p>
-
-| Game Genre                     | Game Inspiration    | Game Description                                                                                                                                                                      | Creative Expansion Ideas                                                                                                                                                                                                  |
-| ------------------------------ | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Puzzle Game                    | Car Park Puzzle     | A logic-based game where players must move surrounding vehicles forward or backward to clear a path for their own car to exit the parking lot.                                        | - Dynamically generate car layouts based on difficulty <br> - Add cars facing different directions <br> - Bus station mode: match passengers with buses <br> - Real-world elements like crosswalks, truck unloading zones |
-| Cooperative Puzzle Platformer  | Fireboy & Watergirl | Two players work together to navigate levels by controlling Fireboy and Watergirl, each immune to their respective element. Touching the wrong element or falling results in failure. | - New elements like electricity/ice/wind <br> - Attribute swapping mechanics <br> - Time-limited challenges and multiple endings <br> - Unlockable skills and collectibles                                                |
-| Casual Reaction Game           | Flappy Bird         | Players tap to keep a bird in the air and avoid pipes. Each successful pass earns one point. The game restarts upon failure.                                                          | - Moving or rotating obstacles <br> - Power-up system: shields, speed boosts <br> - Multiplayer co-op or versus mode <br> - Timed bonus collection mode                                                                   |
-| Multiplayer Cooperative Puzzle | Pico Park           | Players collect keys and open gates while navigating obstacles together. Movement is limited to up, down, left, and right. Supports 2–8 players.                                      | - Random events triggered by pressure plates <br> - Fog to limit visibility <br> - Assign unique skills to each player (fly, climb, lift) <br> - Add immersive story mode                                                 |
-| Strategy + Reflex Mini Game    | Hay Catching        | Players catch falling hay. The more they collect, the slower they move, increasing challenge and requiring strategic movement and timing.                                             | - Cooperative or versus mode <br> - Special hay types (e.g. poison, explosive) <br> - Weather effects influencing falling patterns <br> - Speed boost or weight-reducing power-ups                                        |
-
-## 4.2 Game Delection Process
-
-As part of our game development planning, our team initially brainstormed and analyzed five different game inspirations. After careful discussion and evaluation, we shortlisted two candidates for prototyping:Fireboy & Watergirl and Hay Catching.
-
-To better understand and experience the game mechanics, we created paper prototypes for both games. By interacting with the prototypes directly, we were able to simulate the core gameplay and interaction flow, design basic maps and character movement paths, observe players' intuitive understanding and reactions, and evaluate whether the gameplay was engaging and expandable.
-
-The following are our paper prototypes for Fireboy & Watergirl and Hay Catching.
+Our team initially brainstormed five distinct game concepts, which we narrowed down to [two](./assets_for_README/Initial_ideas.md) after group discussions evaluating feasibility, appeal, and gameplay potential. To explore these ideas further, we developed paper prototypes for both shortlisted concepts, allowing us to simulate and assess the core mechanics before moving forward.
 
 <p align="center">
-  <br><a href="https://youtu.be/uvnLMF2GfXI">Figure 2: Fireboy & Watergirl Game Prototype</a></br>
-  <a href="https://youtu.be/kqHrW4fSKdE">
-    <img src="https://img.youtube.com/vi/kqHrW4fSKdE/0.jpg" width="600">
-  </a>
-</p>
-
-<p align="center">
-  <br><a href="https://youtu.be/uvnLMF2GfXI">Figure 3: Haystacking Game Prototype</a></br>
+  <br>Figure 3: Paper Prototype for <a href="https://youtu.be/uvnLMF2GfXI">Haystacking </a></br>
   <a href="https://youtu.be/uvnLMF2GfXI">
-    <img src="https://img.youtube.com/vi/uvnLMF2GfXI/0.jpg" width="600">
+    <img src="./assets_for_README/haystacking_paper_prototype.gif" width="400">
   </a>
 </p>
 
-## 4.3 Final Decision
-After multiple rounds of testing and team feedback, we ultimately selected Hay Catching as the core game for our project. This decision was based on several key factors: the gameplay mechanics are simple yet offer meaningful challenge, making the game easy to implement while allowing for depth through the addition of items, constraints, and variations.
-
-It also features high replayability—players slow down as they collect more hay, creating a naturally increasing difficulty curve well-suited for score-based challenges. Furthermore, the concept has great potential for creative expansion, such as adding multiplayer modes, weather effects, special types of hay, and animated visual effects. Finally, its intuitive gameplay makes it highly accessible and easy to promote, appealing to a wide range of players and suitable for release on web or mobile platforms.
-
-## 4.4 Digital Paper Prototype tool
-
-To help players quickly get familiar with the game, we created a digital model based on the paper prototype. Hanying attempted to generate the digital model using her iPad, which allowed for a representation that more closely resembled the actual game compared to the paper prototype.
-
-This animation shows the player successfully catching the hay and placing it into the barrel.
-
-<p align="center"><b>Figure 4: Success Situation</b></p>
-
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/dfb59e37-652d-4112-a203-70f36f721ae3" width="500">
+  <br>Figure 4: Paper Prototype for <a href="https://youtu.be/uvnLMF2GfXI">Fireboy & Watergirl</a></br>
+  <a href="https://youtu.be/kqHrW4fSKdE">
+    <img src="./assets_for_README/fireboy_watergirl_paper_prototype.gif" width="400">
+  </a>
 </p>
 
-This animation shows the player failing to catch the hay and losing one life as a result.
+During this process, we observed a shared preference within the team for mini-games that feature simple rules yet offer surprisingly engaging and addictive gameplay. We appreciated how these types of games require minimal time, effort, and cognitive load—making them ideal as casual, everyday stress relievers that can be played anywhere, at any time.
 
-<p align="center"><b>Figure 5: Failed Situation</b></p>
+With these factors in mind, we ultimately selected Haystacking as our final concept. Its straightforward yet strategic mechanics and lighthearted tone aligned well with our vision for an accessible and enjoyable game experience.
+
+## Identifying Stakeholders 
+
+As shown in Figure 5, we conducted a stakeholder analysis using the Onion Model. This helped us to categorise key parties based on their proximity to the systme, understandand their needs and prioritise them accordingly during the development process.
+
+<p align="center"><i>Figure 5: Onion Model of Haystacking Game</i></p>
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/a21f37c9-d280-421e-a664-1148eeae3f51" width="500">
+  <img src="https://github.com/user-attachments/assets/5ef9c5c4-04e5-4d8f-b85d-7bf6b9ef1358" width="700">
 </p>
 
-## 4.5 Requirement Analysis
-
-### 4.5.1 User Requirements
-- Players should be able to control and stack square hay blocks smoothly
-
-### 4.5.2 Technical Requirements
-- Client-side Development: Implement the game interface and handle user input
-- Physics Simulation: Remove the external physics engine and use a simple square block stacking mechanism
-
-### 4.5.3 Technical Feasibility Study
-
-#### Initial Plan
-- Use an external physics engine (e.g., Box2D, Matter.js) for simulating different shape interactions
-- Requires complex physics calculations, including collision detection and gravity simulation
-
-#### Feasibility Evaluation
-- Lack of experience in physics engine development makes debugging and optimization challenging
-- Complex physics calculations may lead to high computational resource consumption, affecting game performance
-
-#### Alternative Plan
-- Switch to simple square hay block stacking without relying on an external physics engine
-- Use a rule-based stacking method where each block is placed according to predefined logic
-- Implement basic rectangle overlap detection for collision handling to improve development efficiency
-
-Based on the feasibility analysis, we have decided to adjust the game design by abandoning the complex physics engine integration and opting for a simple square hay block stacking mechanism. This will reduce technical difficulty, improve development efficiency, and ensure game stability.
-
-## 4.6 Stakeholders Analysis 
-
-Following the establishment of the initial idea for our game, conducting a stakeholder analysis is a critical step. By identifying key parties such as developers, players, and other developer teams, and clarifying their roles and needs, our team can more effectively allocate resources, enhance both the technical feasibility and the overall user experience of the game.
-
-<p align="center"><b>Figure 6: Onion Model</b></p>
-
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/5ef9c5c4-04e5-4d8f-b85d-7bf6b9ef1358" width="500">
+    <i>Table 3: Stakeholders Analysis</i>
 </p>
 
-### Core Layer: Group 30
-Group 30-2025 are the core developer of the game, responsible for its design, development, and implementation. They determine the quality, gameplay, and overall experience of the game.
+| Stakeholder       | Description                                                                                           |
+| ----------------- | ----------------------------------------------------------------------------------------------------- |
+| Group 30-2025     | Primary developers responsible for design, development, and implementation of the game                |
+| Players           | Includes first-time player, old players, casual players, competitive, players with disability (motor) |
+| Lecturers and TAs | Evaluators assessing project quality                                                                  |
+| Other Teams       | Other student teams working on similar projects                                                       |
+| Bystanders        | Potential future players who may be attracted to the game                                             |
 
-### Internal Layer: Players and Lecturers
-- **Players**: The end-users of the game, including:
-  - New Players
-  - Old Players
-  - Casual Players
-  - Competitive Players
-- **Lecturers**: The evaluators of the assignment, responsible for assessing the quality of the game and whether it meets course requirements
 
-### Competition Layer: Other Teams
-Other teams are competitors in the assignment, and their performance may influence the evaluation by lecturers and bystanders.
+## User Stories and Acceptance Criteria
 
-### External Layer: Broader Audience
-Bystanders are potential users who may not directly participate in the game but could be attracted to become new players.
+Throughout the development processes, we continuously evaluated and refined our user stories after every sprint review to make sure our game align with evolving users requirements. This iterative approach allowed us to stay responsive to feedback and maintain a user-centered design focus. 
 
-### Feasibility Study
-Based on the stakeholder analysis, we proceeded to evaluate the feasibility of the project.
-The feasibility study primarily focused on the technical aspects, including the development environment, available tools, and team skills.
+In the later stage, we also incorporated sustainability-conducive requirements from the Sustainability Awareness Framework (SusAF), which enabled us to evaluate the potential impacts of the game from a more holistic standpoint. Table 4 presents the finalised user stories along with their corresponding acceptance criteria.
 
-#### Initial Plan
-Initially, we considered implementing stacking mechanics using various shapes as the core gameplay feature. This approach would require:
-
-- Integration of an external physics engine (e.g., Box2D, Matter.js) to simulate realistic physical interactions
-
-- Implementation of complex physics logic such as collision detection and gravity effects
-
-#### Feasibility Evaluation
-However, after evaluating the technical feasibility, we identified several challenges:
-
-- Our team lacks experience in integrating and configuring physics engines 
-
-- Limited familiarity with real-time physics would significantly increase the debugging and optimization workload
-
-- A poorly implemented physics system would negatively impact gameplay quality and user experience
-
-#### Alternative Plan
-In this case, we decided to simplify the design by:
-
-- Switching to simple square hay block stacking without relying on an external physics engine
-- Using a rule-based stacking method where each block is placed according to predefined logic
-- Implementing basic rectangle overlap detection for collision handling to improve development efficiency
-
-Originally, one of the key technical challenges was determining how to position irregularly shaped hay blocks in a physically accurate and visually satisfying way.
-With the new simplified plan, the focus shifts to how to perfectly and completely align square hay blocks on top of one another, which significantly reduces complexity while preserving core gameplay value.
-
-## 4.7 User Stories and Epics
-
-Based on the stakeholder analysis and requirements analysis above, we identified the core needs of different user groups and created corresponding user stories. These user stories not only reflect the basic functional requirements of the game but also provide a foundation for subsequent sustainability design. During the development process, we further integrated these user stories with sustainability dimensions, particularly expanding on the social and technical aspects.
-
-In the early stages, we created initial user stories based on the behavior patterns and expectations of different user types (such as casual players, hardcore players, social players, etc.) to ensure that the core gameplay of HayStacking would meet the diverse needs of its target users. In the later development phase, we refined and expanded these user stories by incorporating a sustainability perspective, primarily drawing from the five dimensions defined in the SusAF framework: Individual, Social, Environmental, Economic, and Technical. This allowed us to evaluate the potential impacts of the game from a more holistic standpoint. The following table presents the finalized user stories along with their corresponding acceptance criteria.
 <p align="center">
-    <i>Table 4: User Story</i>
+    <i>Table 4: User Story and Acceptance Criteria</i>
 </p>
 
 <table>
@@ -273,21 +175,9 @@ In the early stages, we created initial user stories based on the behavior patte
   <td>Given I complete a level, when I choose to replay, then I should be able to restart the same level without restrictions.</td>
 </tr>
 <tr>
-  <td>Hardcore Player</td>
-  <td>Character Progression</td>
-  <td>As a hardcore player, I want to upgrade my character's equipment so that I can compete at higher difficulty levels.</td>
-  <td>Given I have in-game currency or rewards, when I visit the store, then I should be able to buy gear to enhance my character.</td>
-</tr>
-<tr>
-  <td></td>
-  <td></td>
-  <td>As a hardcore player, I want to compare scores with my friends so that I can compete with them.</td>
-  <td>Given I have friends added in-game, when I view the friends leaderboard, then I should see their scores to compare with mine.</td>
-</tr>
-<tr>
-  <td></td>
+  <td>Competitive Player</td>
   <td>Game Challenge</td>
-  <td>As a hardcore player, I want the game to become more challenging over time so that it remains engaging.</td>
+  <td>As a competitive player, I want the game to become more challenging over time so that it remains engaging.</td>
   <td>Given the game progresses, when I reach higher levels, then the game should introduce faster speeds or new obstacles.</td>
 </tr>
 <tr>
@@ -297,71 +187,37 @@ In the early stages, we created initial user stories based on the behavior patte
   <td>Given I enter multiplayer mode, when I choose competitive or co-op, then the game should support both modes and show rankings after matches.</td>
 </tr>
 <tr>
-  <td>Creative Player</td>
-  <td>Character Customization</td>
-  <td>As a creative player, I want to customize my character so that I can personalize my gaming experience.</td>
-  <td>Given I open the customization menu, when I select different options, then I should be able to save and use them in-game.</td>
-</tr>
-<tr>
-  <td>Detail-Oriented Player</td>
-  <td>Realistic Physics</td>
-  <td>As a detail-oriented player, I want realistic physics for stacking objects and accurate sound effects when catching items.</td>
-  <td>Given I am stacking hay or catching it, when physics interactions occur, then they should follow real-world rules and trigger appropriate sound effects.</td>
+  <td>Player with motor disability</td>
+  <td>Keyboard Accessibility</td>
+  <td>As a player with motor disability, I want to navigate and interact with all parts of the game using the keyboard only, so that I don't have to use a mouse.</td>
+  <td>Given I am in the game, when I use the keyboard (Tab, Shift+Tab, Enter, Esc), then I can access and operate all interactive elements without a mouse.</td>
 </tr>
 </table>
 
-## 4.8 Use Case Breakdown
 
-After finalizing the requirements and completing the feasibility analysis, we proceeded with the use case explanation.Here is the use-case diagram.
-<p align="center"><b>Figure 7: Use-Case Diagram</b></p>
-<div align="center">
-  <img src="use-case diagram.webp" width="1100">
-</div>
+## Use Cases Breakdown
 
-### 🎮 The 🧍‍♂️Player
+To better understand the interactions between the game and its users, we used a Use Case Model to describe the game's functional requirements.
 
-#### 1. Tutorial Access
+<p align="center"><i>Figure 7: Use-Case Diagram</i></p>
 
-The Player can view the tutorial, which provides guidance on how to play the game and understand its mechanics.
+<p align="center">
+  <img width="800" alt="Image" src="assets_for_README/use_case_diagram.jpg" />
+</p>
 
-#### 2. View Progress
+<p align="center">
+    <i>Table 5: Use Case Specifications for: Stack Hay, Pause Game, and Start Game</i>
+</p>
 
-The Player can view progress, including statistics such as scores and level completion status.
+| **Element**          | **Stack Hay**                                                                   | **Pause Game**                                                                                           | **Start Game**                                                                               |
+| -------------------- | ------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| **Actors**           | Player                                                                          | Player                                                                                                   | Player                                                                                       |
+| **Description**      | Player catches the falling hay.                                                 | Player pauses the game.                                                                                  | Player starts the game and engages with core gameplay.                                       |
+| **Main Flow**        | 1. Hay bales fall.<br>2. Player catches hay.<br>3. Hay is added to stack.       | 1. Player pauses the game.<br>2. System shows pause menu.<br>3. Player chooses Resume, Restart, or Exit. | 1. Player clicks "Start".<br>2. Game initializes.<br>3. Player interacts with game elements. |
+| **Extensions**       | Perfect Stack (if balanced precisely)                                           | Resume, Restart, Exit                                                                                    | N/A                                                                                          |
+| **Include**          | N/A                                                                             | N/A                                                                                                      | Move Left/Right, Stack Hay, Empty to Barrel, Avoid Obstacles, Catch Special Items            |
+| **Alternative Flow** | 1. Hay bales fall.<br>2. Player fails to catch.<br>3. Hay disappears offscreen. | N/A                                                                                                      | N/A                                                                                          |
 
-#### 3. Pause Menu Options
-
-The Player can pause the game at any time, triggering the following **extended** options:
-
-- Resume: Continue the game from where it was paused.
-
-- Restart: Reset the game state and begin a new session.
-
-- Exit: Return to the main menu or quit the session.
-
-#### 4. Start Game & In-Game Actions
-The Player can start the game, which **includes** mainly five essential in-game actions and will probably trigger an **extended action**:
-
-- Stack Hay: The core gameplay mechanic.
-
-- Move Left or Right: Navigate the character across the screen.
-
-- Empty Hay into Barrel: Store collected hay or items to score points.
-
-- Avoid Obstacles: Prevent penalties or loss during gameplay.
-
-- Catch Special Items: Items like SpeedBoots or Shovel grant extra abilities, or punishments.
-
-- <extend> If stacking is done with precision, a perfect stack is triggered, activating a bonus condition.
-
-#### 5. Select Game Mode
-5. The Player must select a game mode before playing, which **extends** to one of the following:
-
-- Single Mode: Play alone.
-
-- PvP Mode: Compete against **a second player**.
-
-- Co-op Mode: Collaborate with **a second player**.
-  
 # 5.Design
 <p align="center"><b>Figure 8: Class Diagram</b></p>
 <div align="center">
