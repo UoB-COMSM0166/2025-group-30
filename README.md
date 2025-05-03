@@ -319,65 +319,49 @@ After finalizing the requirements and completing the feasibility analysis, we pr
   <img src="use-case diagram.webp" width="1100">
 </div>
 
+### 🎮 The 🧍‍♂️Player
 
-### 4.8.1. Players
+#### 1. Tutorial Access
 
-Players are the primary users of the game, directly interacting with the game system to progress through various levels, manage resources, and achieve in-game goals.
+The Player can view the tutorial, which provides guidance on how to play the game and understand its mechanics.
 
-#### Main Use Cases for Players:
+#### 2. View Progress
 
-- **Choose game mode**  
-  Players select between:
-  - **Single-player mode**
-  - **Multi-player mode** (including **PvP mode** and **Co-op mode**)
+The Player can view progress, including statistics such as scores and level completion status.
 
-- **Play game**  
-  Core gameplay activities include:
-  - **Move character**: Control the in-game avatar.
-  - **Catch grass**: Collect grass items within the game world.
-  - **Drop grass into the basket**: Deposit the collected grass, likely contributing to the player's score or progression.
+#### 3. Pause Menu Options
 
-- **Pause game**  
-  Players can temporarily suspend the game session.
+The Player can pause the game at any time, triggering the following extended options:
 
-- **Resume game**  
-  Players can continue the game after pausing.
+- Resume: Continue the game from where it was paused.
 
-- **Start tutorial**  
-  An optional flow that allows players to learn game mechanics before engaging in the full game.
+- Restart: Reset the game state and begin a new session.
 
-- **View game over screen**  
-  Triggered when the player fails or completes the game, showing final results.
+- Exit: Return to the main menu or quit the session.
 
----
+#### 4. Start Game & In-Game Actions
+Once the game starts, the Player can perform five essential actions and probably trigger an extended action:
 
-### 4.8.2 Game System
+- Stack Hay: The core gameplay mechanic.
 
-The **Game System** manages the underlying logic, rules, and state transitions within the game. It ensures that player actions have consequences and that the game progresses according to its design.
+- Move Left or Right: Navigate the character across the screen.
 
-#### Main Functions of the Game System:
+- Empty Hay into Barrel: Store collected hay or items to score points.
 
-- **Update score**  
-  Increases the player's score when they successfully drop grass into the basket.
+- Avoid Obstacles: Prevent penalties or loss during gameplay.
 
-- **Level up**  
-  Increases game difficulty or transitions the player to a higher level when specific conditions are met (e.g., reaching a target score).
+- Catch Special Items: Items like SpeedBoots or Shovel grant extra abilities, or punishments.
 
-- **Game over**  
-  Ends the game session when the player's lives reach zero, triggering the **view game over screen**.
+- <<extend>> If stacking is done with precision, a perfect stack is triggered, activating a bonus condition.
 
----
+#### 5. Select Game Mode
+Before gameplay begins, the Player must choose one of the following modes:
 
-### 4.8.3 Relationships (Use Case Diagram Specific)
+- Single Mode: Play alone.
 
-- **Includes (`<<include>>`)**:
-  - **Catch grass** is included in **Drop grass into the basket**.
-  - **PvP mode** and **Co-op mode** are included in **Multi-player mode**.
-  - **Restart from current level** and **Restart from level 1** are included in **Single-player mode**.
+- PvP Mode: Compete against a second player.
 
-- **Extends (`<<extend>>`)**:
-  - **View game over screen** extends **Play game** (only triggered when the game ends).
-
+- Co-op Mode: Collaborate with a second player.
   
 # 5.Design
 <p align="center"><b>Figure 8: Class Diagram</b></p>
@@ -644,68 +628,60 @@ Through these sustainability practices, our game actively addresses the environm
 
 ## 8.6 Conclusion
 
-By following a structured path of problem identification → pattern matching → logic deduction → implementation, our development of Hay-stacking embedded green design at every level. This not only improved system performance but also reduced environmental impact and promoted sustainable awareness among players. The approach provides a reproducible model for future green game design and sustainable software engineering.
+By following a structured path of problem identification → pattern matching → logic deduction → implementation, our development of Hay-stacking embedded green design at every level. This not only improved system performance but also reduced environmental impact and promted sustainable awareness among players. The approach provides a reproducible model for future green game design and sustainable software engineering.
 
 # 9.Process
 
 In this project, our team adopted the **Scrum** framework, a core methodology in Agile development, to organize teamwork and manage task progression. This approach ensured our project followed a structured workflow while staying aligned with the weekly teaching schedule.
 
----
-
-### 🗂 Project Management and Task Allocation
+### 9.1 Project Management and Task Allocation
 
 We used **GitHub's Kanban Board** to visualize project tasks and track progress. Each week, based on the course schedule, we set **Sprint goals** and assigned tasks to team members. Tasks were categorized into three stages:
 
-- 🟡 **To Do**
-- 🔵 **In Progress**
-- 🟢 **Done**
+- **To Do**
+- **In Progress**
+- **Done**
+
+Responsibilities such as asset creation, audio collection, and documentation were distributed organically among team members, reflecting our self-organizing working style. This helped us clearly monitor each task's status and streamline our workflow.
+
 <p align="center"><b>Figure 13: Kanban Board</b></p>
 <div align="center">
   <img src="kanban.webp" width="533">
 </div>
-Responsibilities such as asset creation, audio collection, and documentation were distributed organically among team members, reflecting our self-organizing working style. This helped us clearly monitor each task's status and streamline our workflow.
 
----
-
-### 🔀 Version Control and Code Management
-
+### 9.2 Version Control and Code Management
 We used **Git** for version control. Each member worked on their own **feature branch**. After completing their work, they submitted a **Pull Request** for code review. Only after approval would the code be merged into the `main` branch.  
 This ensured code quality and minimized the risk of conflicts.
 
----
-
-### 👥 Team Meetings and Collaboration
-
+### 9.3 Team Meetings and Collaboration
 We held **meetings every week** to:
-
-- ✅ Review current progress
-- ✅ Analyze completed tasks
-- ✅ Discuss existing issues
-- ✅ Distribute new tasks
+- Review current progress
+- Analyze completed tasks
+- Discuss existing issues
+- Distribute new tasks
 
 After each meeting, we updated the **Kanban board** to reflect progress and task updates, keeping everyone aligned. Even for bug fixing or visual polish tasks, the team collaborated without rigid role assignments.
 
----
-
-### 💬 Communication Tools
-
+### 9.4 Communication Tools
 We used **WhatsApp** for quick daily communication and **Teams** for formal discussions and screen sharing.  
 This setup supported efficient, consistent collaboration, even during remote work.
 
----
-
-### 🌱 Agile Practices and Flexibility
-
+### 9.5 Agile Practices and Flexibility
 While our work followed a Sprint-based structure, internal task distribution remained flexible. Members took initiative to work on tasks based on their interests and expertise.  
 Tasks such as tutorial UI, sound design, asset preparation, and even bug fixing were shared among the team in a collaborative and adaptive way. This self-organizing model allowed us to stay responsive, communicate openly, and maintain consistent progress.
 
----
-
-### ✅ Summary
-
+### 9.6 Summary
 By combining **Scrum methodology**, **Kanban-based task tracking**, and **frequent team communication**, we enhanced our development efficiency, maintained progress, and built a strong, collaborative work environment. 
 
 # 10.Conclusion
+
+Through the development of our farm-themed stacking game, our team has gained valuable hands-on experience in the entire software development lifecycle—from ideation and prototyping to implementation and evaluation. The process not only improved our programming skills but also taught us how to manage a project collaboratively using Agile methods. Weekly sprints, regular meetings, and clear role distribution allowed us to keep track of progress and adapt swiftly to changes.
+
+Throughout the project, we encountered several technical and design challenges, such as managing object drop timing, balancing gameplay difficulty, and ensuring stable cross-platform performance. To address these issues, we constantly made trade-offs, refined debugging skills, and adjusted mechanics based on continuous testing and user feedback. These experiences significantly deepened our understanding of modular code architecture and user-centered development.
+
+Additionally, we prioritized sustainability and accessibility in our development. By reusing assets, designing for short gameplay sessions, supporting local multiplayer, and implementing basic accessibility features, we created a game that is both environmentally friendly and inclusive. In particular, our design is more accessible for players with motor disabilities, reflecting our commitment to user diversity.
+
+In the near future, we plan to introduce new game items such as freeze sprays, glue bottles, and magnetic gloves to further enrich gameplay. These items will introduce new tactical options—such as hindering opponents or boosting speed—making the game more dynamic and engaging. We also aim to expand level design and improve visual effects to enhance immersion. And in the long run, we aim to implement online multiplayer functionality, allowing players to compete or cooperate remotely. As our technical capabilities grow, we also plan to introduce a progression system, global leaderboard, and story mode—adding longevity and depth to the game experience.
 
 # 11.Contribution Statement
 | Name         | Contribution |
