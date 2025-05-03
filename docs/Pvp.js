@@ -6,10 +6,12 @@ class Pvp extends GameScreen { // player with higher score in the set time wins
         this.player1 = new Player("pvpLeft");
         this.barrel1 = new Barrel("left");
         this.player1.barrel = this.barrel1;
+        this.player1.soundManager = this.screenManager.soundManager;
 
         this.player2 = new Player("pvpRight");
         this.barrel2 = new Barrel("right");
         this.player2.barrel = this.barrel2;
+        this.player2.soundManager = this.screenManager.soundManager;
     }
 
     display() {

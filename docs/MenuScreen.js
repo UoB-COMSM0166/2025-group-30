@@ -12,6 +12,10 @@ class MenuScreen extends Screen {
         this.farmerImage = null;
         this.loadFarmerImage();
 
+        // Load setting icon
+        this.settingImage = null;
+        this.loadSettingImage();
+
         // Text floating effect variables
         this.textYOffset = 0;
         this.textFloatSpeed = 0.3;
@@ -59,6 +63,16 @@ class MenuScreen extends Screen {
                 buttonWidth: 200,
                 buttonHeight: 40,
                 action: () => this.screenManager.changeScreen(this.screenManager.pvpHelpScreen) //go to pvp help screen
+            },
+            {
+                label: "",
+                x: baseWidth * 0.1,
+                y: baseHeight * 0.9,
+                buttonWidth: 50,
+                buttonHeight: 50,
+                isSpecial: true,
+                action: () => this.screenManager.changeScreen(this.screenManager.settingScreen), //go to setting screen
+                showLabel: false // 添加这个属性来指示不显示标签
             }
         ];
     }
@@ -72,6 +86,12 @@ class MenuScreen extends Screen {
     loadFarmerImage() {
         loadImage('./assets/Farmer Confused.gif', img => {
             this.farmerImage = img;
+        });
+    }
+
+    loadSettingImage() {
+        loadImage('./assets/setting1.png', img => {
+            this.settingImage = img;
         });
     }
 
@@ -129,6 +149,12 @@ class MenuScreen extends Screen {
                 && window.mouseYGame <= button.y + button.buttonHeight / 2;
 
             let isFocused = this.focusedButtonIndex === this.buttons.indexOf(button);
+            
+            // 跳过设置按钮的默认按钮绘制
+            if (button.label === "") {
+                continue;
+            }
+            
             // Special button style (Back and Tutorial)
             if (button.isSpecial) {
                 if (isHovered) {
@@ -152,7 +178,9 @@ class MenuScreen extends Screen {
                 textStyle(BOLD);
                 textSize(18);
                 textAlign(CENTER, CENTER);
-                text(button.label, button.x, button.y);
+                if (button.showLabel !== false) {
+                    text(button.label, button.x, button.y);
+                }
                 textStyle(NORMAL);
             } else {
                 // Normal button style (game mode buttons)
@@ -235,6 +263,32 @@ class MenuScreen extends Screen {
                 pop();
 
                 image(this.farmerImage, imageX - imageSize / 2, imageY - imageSize / 2, imageSize, imageSize);
+            }
+        }
+
+        // Draw setting icon
+        if (this.settingImage) {
+            const settingButton = this.buttons.find(button => button.label === "");
+            if (settingButton) {
+                const imageSize = 40;
+                const imageX = settingButton.x;
+                const imageY = settingButton.y;
+
+                // Check if mouse is hovering over the setting icon
+                let isHovered = window.mouseXGame >= imageX - imageSize / 2
+                    && window.mouseXGame <= imageX + imageSize / 2
+                    && window.mouseYGame >= imageY - imageSize / 2
+                    && window.mouseYGame <= imageY + imageSize / 2;
+
+                // Add hover effect
+                if (isHovered) {
+                    push();
+                    tint(255, 200);
+                    image(this.settingImage, imageX - imageSize / 2, imageY - imageSize / 2, imageSize, imageSize);
+                    pop();
+                } else {
+                    image(this.settingImage, imageX - imageSize / 2, imageY - imageSize / 2, imageSize, imageSize);
+                }
             }
         }
     }

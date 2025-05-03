@@ -20,7 +20,8 @@ class Screen {
                 window.mouseXGame < buttonRight &&
                 window.mouseYGame > buttonTop &&
                 window.mouseYGame < buttonBottom) {
-
+                // 播放按钮点击音效
+                this.screenManager.soundManager.playSound('buttonClick');
                 button.action();
                 return; // 防止点击多个按钮
             }
@@ -55,4 +56,10 @@ class Screen {
     }
 
     keyReleased() { }
+
+    mouseReleased() { }
+
+    mouseDragged() { }
+
+    doubleClicked() { }
 }

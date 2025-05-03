@@ -32,6 +32,12 @@ class Player {
         this.speedBoot = null;
         this.proteinShaker = null;
 
+        this.soundManager = null; // 初始化 soundManager 为 null
+
+    }
+
+    setSoundManager(soundManager) {
+        this.soundManager = soundManager;
     }
 
     reset() {
@@ -120,10 +126,23 @@ class Player {
                 hay.setPerfectStack(false); // the first hay is not a perfect stack
                 this.stack.push(hay);
 
+                // 播放接到草的音效
+                if (this.soundManager) {
+                    console.log('Playing collectHay sound');
+                    this.soundManager.playSound('collectHay');
+                } else {
+                    console.error('SoundManager not set');
+                }
+
                 // Check if adding this hay exceeds the maximum stack size
                 if (this.stack.length > this.maxStack) {
                     this.stack = [];
                     this.flash.setFlashDuration(30); // trigger flash immediately
+                    // 播放 ouch 音效
+                    if (this.soundManager) {
+                        console.log('Playing ouch sound');
+                        this.soundManager.playSound('ouch');
+                    }
                 }
                 return true;
             }
@@ -147,10 +166,23 @@ class Player {
                 this.checkPerfectStack(); //check if the new hay is a perfect stack
                 this.stack.push(hay);
 
+                // 播放接到草的音效
+                if (this.soundManager) {
+                    console.log('Playing collectHay sound');
+                    this.soundManager.playSound('collectHay');
+                } else {
+                    console.error('SoundManager not set');
+                }
+
                 // Check if adding this hay exceeds the maximum stack size
                 if (this.stack.length > this.maxStack) {
                     this.stack = [];
                     this.flash.setFlashDuration(30); // trigger flash immediately
+                    // 播放 ouch 音效
+                    if (this.soundManager) {
+                        console.log('Playing ouch sound');
+                        this.soundManager.playSound('ouch');
+                    }
                 }
                 return true;
             }
@@ -200,6 +232,13 @@ class Player {
         // 检查玩家是否在合理范围内
         if (distance <= maxDistance) {
             this.score += this.stack.length;
+            // 播放放草的音效
+            if (this.soundManager) {
+                console.log('Playing setHay sound');
+                this.soundManager.playSound('setHay');
+            } else {
+                console.error('SoundManager not set');
+            }
             this.stack = [];
         }
     }

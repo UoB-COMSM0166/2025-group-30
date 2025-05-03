@@ -11,6 +11,9 @@ class Coop extends GameScreen {
         this.barrel = new Barrel("left");
         this.player1.barrel = this.barrel;
         this.player2.barrel = this.barrel;
+
+        this.player1.soundManager = this.screenManager.soundManager;
+        this.player2.soundManager = this.screenManager.soundManager;
     }
 
     display() {
