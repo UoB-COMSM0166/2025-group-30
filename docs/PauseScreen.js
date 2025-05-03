@@ -3,7 +3,6 @@ class PauseScreen extends Screen {
         super(screenManager);
         this.gameScreen = gameScreen;
         
-        // 加载设置图标
         this.settingImage = null;
         this.settingImage2 = null;
         this.loadSettingImages();
@@ -28,10 +27,9 @@ class PauseScreen extends Screen {
                 buttonHeight: 50,
                 action: () => {
                     this.gameScreen.restartFromCurrentLevel();
-                    // 先播放游戏音乐，再切换屏幕
+                    // Play game music first, then switch screen
                     this.screenManager.changeScreen(this.gameScreen);
                     this.screenManager.soundManager.playBackgroundMusic();
-                    
                 }
             },
             {
@@ -47,8 +45,8 @@ class PauseScreen extends Screen {
                 }
             },
             {
-                label: "", // 空标签表示这是图标按钮
-                x: baseWidth * 0.9, // 右上角位置
+                label: "",
+                x: baseWidth * 0.9,
                 y: baseHeight * 0.1,
                 buttonWidth: 40,
                 buttonHeight: 40,
@@ -56,7 +54,7 @@ class PauseScreen extends Screen {
                     this.screenManager.settingScreen.previousScreen = this;
                     this.screenManager.changeScreen(this.screenManager.settingScreen);
                 },
-                showLabel: false // 不显示文字标签
+                showLabel: false
             }
         ];
     }
@@ -91,7 +89,7 @@ class PauseScreen extends Screen {
             // Display buttons
             for (let button of this.buttons) {
                 rectMode(CENTER);
-                // 跳过设置按钮的默认矩形绘制
+
                 if (button.label === "") continue;
                 // Check if mouse is hovering over button
                 let isHovered = window.mouseXGame >= button.x - button.buttonWidth / 2
@@ -121,12 +119,12 @@ class PauseScreen extends Screen {
                 textAlign(CENTER, CENTER);
                 text(button.label, button.x, button.y);
             }
-            // 单独绘制设置图标
+            // Draw settings icon
             const settingButton = this.buttons.find(b => b.label === "");
             if (settingButton) {
                 const isHovered = this.isMouseOverButton(settingButton);
                 
-                // 根据悬停状态选择不同的图片
+
                 const currentImage = isHovered ? this.settingImage2 : this.settingImage;
                 
                 if (currentImage) {

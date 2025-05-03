@@ -14,11 +14,8 @@ function setup() {
 
 function draw() {
     push();
-
     page.applyTransformation();
-
     screenManager.display();
-
     pop();
 }
 
@@ -40,11 +37,10 @@ function mouseDragged() {
 
 function doubleClicked() {
     console.log("Double click detected!");
-    screenManager.doubleClick(); // 调用类的处理函数
+    screenManager.doubleClick();
 }
 
 function mouseMoved() {
-    // 更新鼠标坐标
     page.setupMouseCoordinates();
 }
 
@@ -61,10 +57,7 @@ function keyReleased() {
     screenManager.keyReleased(); // Calls keyReleased in ScreenManager
 }
 
-// 窗口大小改变时的处理
 function windowResized() {
-    // 页面管理器已通过事件监听处理窗口大小变化
-    // 这里只需要确保mouseXGame和mouseYGame得到更新
     page.setupMouseCoordinates();
 }
 

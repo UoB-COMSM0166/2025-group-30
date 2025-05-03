@@ -38,13 +38,12 @@ class Coop extends GameScreen {
         this.drawParticles();
         this.displayUI();
 
-        // 重置字体
         textFont('sans-serif');
     }
 
     displayUI() {
         // Common UI elements
-        fill(254, 224, 173); // 修改为指定的RGB颜色
+        fill(254, 224, 173); 
         textSize(20);
         textStyle(BOLD);
 
@@ -125,14 +124,14 @@ class Coop extends GameScreen {
                         this.specialItems.push(new ProteinShaker(newX, 10));
                         break;
                     case 5:
-                        // 铲子独立掉落
-                        if (random() < 0.5) { // 50% 概率掉铲子
+                        // Shovel drops independently
+                        if (random() < 0.5) { // 50% chance to drop shovel
                             this.specialItems.push(new Shovel(newX, 10));
                         } else {
-                            // 另外两种物品随机掉
-                            if (random() < 0.5) { // 50% 概率掉蛋白粉
+                            // Randomly drop one of the other two items
+                            if (random() < 0.5) { // 50% chance to drop protein shaker
                                 this.specialItems.push(new ProteinShaker(newX + 50, 10));
-                            } else { // 50% 概率掉速度靴
+                            } else { // 50% chance to drop speed boots
                                 this.specialItems.push(new SpeedBoot(newX + 50, 10));
                             }
                         }

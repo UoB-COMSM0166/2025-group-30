@@ -1,24 +1,24 @@
 class SoundManager {
     constructor(screenManager) {
-        // 保存screenManager引用
+        // Save screenManager reference
         this.screenManager = screenManager;
         
-        // 背景音乐
+        // Background music
         this.bgMusic = null;
         this.bgMusicVolume = 0.5;
         
-        // 音效
+        // Sound effects
         this.sounds = {
-            buttonClick: null,    // 按钮点击音效
-            setHay: null,         // 放置干草音效
-            collectHay: null,     // 收集干草音效
+            buttonClick: null,    // Button click sound
+            setHay: null,         // Place hay sound
+            collectHay: null,     // Collect hay sound
             specialItem: null,    // special items
-            gameMusic: null,      // 游戏背景音乐
-            homeMusic: null,      // 主界面背景音乐
-            gameOver: null,       // 游戏结束音效
-            levelSuccess: null,   // 关卡成功音效
-            accomplishMusic: null,     // 通关音效
-            ouch: null            // ouch 音效
+            gameMusic: null,      // Game background music
+            homeMusic: null,      // Main menu background music
+            gameOver: null,       // Game over sound
+            levelSuccess: null,   // Level success sound
+            accomplishMusic: null,     // Level completion sound
+            ouch: null            // Ouch sound
         };
         
         this.soundVolume = 1;
@@ -93,7 +93,7 @@ class SoundManager {
             return;
         }
 
-        // 先停止当前正在播放的音乐
+        // Stop current playing music first
         this.stopBackgroundMusic();
 
         if (this.screenManager.currentScreen instanceof GameScreen) {
@@ -101,20 +101,18 @@ class SoundManager {
         } else if (this.screenManager.currentScreen instanceof AccomplishScreen) {
             this.currentBackgroundMusic = this.sounds.accomplishMusic;
         } else if (this.screenManager.currentScreen === this.screenManager.menuScreen) {
-            // 只在菜单屏幕播放主菜单音乐
+            // Only play main menu music on menu screen
             this.currentBackgroundMusic = this.sounds.homeMusic;
         } else if (this.screenManager.currentScreen instanceof PauseScreen) {
-            // 暂停时不播放音乐
+            // Don't play music during pause
             this.currentBackgroundMusic = null;
         } else {
-            // 其他屏幕不播放背景音乐
+            // Don't play background music on other screens
             this.currentBackgroundMusic = null;
         }
 
-        // 确保音量设置正确
         this.updateBackgroundMusicVolume();
 
-        // 播放选定的音乐
         if (this.currentBackgroundMusic) {
             try {
                 this.currentBackgroundMusic.loop();
@@ -156,13 +154,13 @@ class SoundManager {
     }
     
     updateBackgroundMusicVolume() {
-        // 设置主菜单音乐音量
+        // Set main menu music volume
         if (this.sounds.homeMusic) {
             const homeVolume = 0.8 * this.bgMusicVolume;
             this.sounds.homeMusic.setVolume(homeVolume);
         }
         
-        // 设置游戏音乐音量
+        // Set game music volume
         if (this.sounds.gameMusic) {
             const gameVolume = 0.5 * this.bgMusicVolume;
             this.sounds.gameMusic.setVolume(gameVolume);

@@ -30,7 +30,7 @@ class HomeScreen extends Screen {
         this.gifLoadStartTime = millis();
 
         // Load background GIF
-        loadImage('./assets/HomeScreen-optimize.gif', img => {
+        loadImage('./assets/HomeScreen.gif', img => {
             this.backgroundGif = img;
             this.gifLoaded = true;
 

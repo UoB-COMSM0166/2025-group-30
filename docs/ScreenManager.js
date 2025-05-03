@@ -1,4 +1,4 @@
-// 确保 ScreenManager 类被正确导出
+// ScreenManager class for handling screen transitions and game states
 window.ScreenManager = class ScreenManager {
     constructor() {
         console.log('Initializing ScreenManager');
@@ -11,20 +11,16 @@ window.ScreenManager = class ScreenManager {
         this.coopHelpScreen = new CoopHelpScreen(this);
         this.pvpHelpScreen = new PvpHelpScreen(this);
 
-        // 初始化音效管理器
         this.soundManager = new SoundManager(this);
-
-        // 在 soundManager 初始化后创建 settingScreen
         this.settingScreen = new SettingScreen(this);
 
         this.single = new Single(this);
         this.pvp = new Pvp(this);
         this.coop = new Coop(this);
 
-        this.currentScreen = this.homeScreen; //home screen is the default current
-        this.isChangingScreen = false; // 添加标志来防止屏幕切换时的重叠
+        this.currentScreen = this.homeScreen;
+        this.isChangingScreen = false;
         
-        // 添加页面加载完成后的背景音乐播放
         window.addEventListener('load', () => {
             console.log('Page loaded, playing background music');
             this.soundManager.playBackgroundMusic();
@@ -32,25 +28,20 @@ window.ScreenManager = class ScreenManager {
     }
 
     changeScreen(screen) {
-        if (this.isChangingScreen) return; // 如果正在切换屏幕，直接返回
+        if (this.isChangingScreen) return;
         this.isChangingScreen = true;
         
-        // 切换屏幕
         const previousScreen = this.currentScreen;
         this.currentScreen = screen;
         
         console.log('Previous screen:', previousScreen.constructor.name);
         console.log('Current screen:', screen.constructor.name);
         
-        // 根据屏幕类型播放相应的音效和背景音乐
         if (screen instanceof GameScreen) {
-            // 检查previousScreen是否是PauseScreen的实例
             if (!(previousScreen instanceof PauseScreen)) {
                 console.log('Not from pause screen, restarting music');
                 this.soundManager.stopBackgroundMusic();
                 this.soundManager.playBackgroundMusic();
-            } else {
-                //console.log('From pause screen, keeping music state');
             }
         } else if (screen === this.menuScreen) {
             if (previousScreen !== this.stepByStepHelpScreen && previousScreen !== this.singleHelpScreen 
@@ -60,7 +51,6 @@ window.ScreenManager = class ScreenManager {
                 this.soundManager.playBackgroundMusic();
             }
         } else if (screen === this.homeScreen) {
-            // 从menuScreen回到homeScreen时停止音乐
             if (previousScreen === this.menuScreen) {
                 this.soundManager.stopBackgroundMusic();
             }
@@ -73,7 +63,6 @@ window.ScreenManager = class ScreenManager {
             this.soundManager.playBackgroundMusic();
         }
         
-        // 在下一帧重置标志
         requestAnimationFrame(() => {
             this.isChangingScreen = false;
         });
@@ -115,10 +104,8 @@ window.ScreenManager = class ScreenManager {
         this.currentScreen.keyReleased(); 
     }
 
-    // Handle visibility change (tab switching)
     handleVisibilityChange() {
         if (document.hidden) {
-            // Page is hidden (user switched tabs)
             if (this.currentScreen === this.single && this.single.levelTimerInterval !== null) {
                 this.changeScreen(this.single.pauseScreen);
             } else if (this.currentScreen === this.pvp && this.pvp.levelTimerInterval !== null) {

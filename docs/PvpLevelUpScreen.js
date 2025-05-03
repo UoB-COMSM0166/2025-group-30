@@ -9,7 +9,7 @@ class PvpLevelUpScreen extends Screen {
         this.buttonWidth = 120;
         this.buttonHeight = 40;
 
-        // 初始化动画状态
+        // Initialize animation state
         this.resetAnimationState();
 
         // Buttons for navigating
@@ -39,23 +39,23 @@ class PvpLevelUpScreen extends Screen {
         ];
     }
 
-    // 重置动画状态
+    // Reset animation state
     resetAnimationState() {
         this.alpha = 0;
         this.fadeIn = true;
-        this.fadeSpeed = 5;
+        this.fadeSpeed = 15;
         this.isTransitioning = false;
     }
 
-    // 开始淡出动画
+    // Start fade out animation
     startFadeOut() {
         this.fadeIn = false;
         this.isTransitioning = true;
     }
 
-    // 当屏幕被激活时调用
+    // Called when screen is activated
     onActivate() {
-        // 强制重置所有状态
+        // Force reset all states
         this.alpha = 0;
         this.fadeIn = true;
         this.isTransitioning = false;
@@ -64,16 +64,16 @@ class PvpLevelUpScreen extends Screen {
     display() {
         this.gameScreen.display();
 
-        // 半透明背景
+
         fill(0, 0, 0, 127);
         rect(0, 0, baseWidth, baseHeight);
 
-        // 更新动画透明度
+
         if (this.fadeIn) {
             this.alpha = min(255, this.alpha + this.fadeSpeed);
         } else {
             this.alpha = max(0, this.alpha - this.fadeSpeed);
-            // 当淡出完成时
+
             if (this.alpha === 0 && this.isTransitioning) {
                 this.isTransitioning = false;
                 if (this.lastClickedButton === this.buttons[0]) {
@@ -88,14 +88,14 @@ class PvpLevelUpScreen extends Screen {
             }
         }
 
-        // 使用 board2.webp 作为背景框
+
         tint(255, this.alpha);
         imageMode(CENTER);
         image(this.boardImage, baseWidth / 2, baseHeight / 2, 300, 250);
         image(this.farmerTieImage, baseWidth / 2, baseHeight / 2 - 50, 100, 100);
         noTint();
 
-        // 设置全局文本样式
+
         textFont('Comic Sans MS');
         textStyle(BOLD);
 
@@ -140,7 +140,7 @@ class PvpLevelUpScreen extends Screen {
             text(button.label, button.x, button.y);
         }
 
-        // 重置文本样式
+        // Reset text style
         textStyle(NORMAL);
         textFont('sans-serif');
     }
