@@ -16,13 +16,13 @@ class Player {
         this.maxSpeed = 10;
         this.acceleration = 0.85;
         this.decelerationFactor = 0.8;
-        this.speedReductionPerGrass = 0.1; // 每接到一个草减速的系数
+        this.speedReductionPerHay = 0.1; // 每接到一个草减速的系数
         this.dir = 0;
 
-        this.stack = [];  //visible caught grass
+        this.stack = [];  //visible caught hay
         this.maxStack = 5;
 
-        this.basket = null; // 确保basket被正确初始化
+        this.barrel = null; // 确保barrel被正确初始化
 
         this.flash = new Flash(0);
 
@@ -51,13 +51,13 @@ class Player {
         this.proteinShaker = null;
     }
 
-    movePlayerWithCaughtGrass() {
+    movePlayerWithCaughtHay() {
         if (this.flash.getFlashDuration() > 0) { return; }
 
         const oldX = this.x;
 
         // 根据当前草的堆叠数量计算实际的最大速度
-        let currentMaxSpeed = this.maxSpeed * (1 - this.stack.length * this.speedReductionPerGrass);
+        let currentMaxSpeed = this.maxSpeed * (1 - this.stack.length * this.speedReductionPerHay);
         currentMaxSpeed = Math.max(currentMaxSpeed, this.maxSpeed * 0.3); // 设置最小速度为最大速度的30%
 
         if (this.dir !== 0) {
@@ -78,49 +78,49 @@ class Player {
         else if (this.position === "pvpRight") this.x = constrain(this.x, baseWidth / 2, baseWidth - this.w);
         else this.x = constrain(this.x, 0, baseWidth - this.w);
 
-        // 计算x轴移动距离并更新堆叠的草的位置 caught grass moves with the player
+        // 计算x轴移动距离并更新堆叠的草的位置 caught hay moves with the player
         this.x += this.velocity;
         const dx = this.x - oldX;
-        for (let grass of this.stack) {
-            grass.x += dx;
+        for (let hay of this.stack) {
+            hay.x += dx;
         }
     }
 
-    drawPlayerWithCaughtGrass() { //draw player with caught grass  
-        rectMode(CORNER);  
+    drawPlayerWithCaughtHay() { //draw player with caught hay  
+        rectMode(CORNER);
         this.flash.update();
-        if (!this.flash.playerIsVisible) return;//player with grass is not shown if flash is running 
+        if (!this.flash.playerIsVisible) return;//player with hay is not shown if flash is running 
 
-        //draw caught grass
-        for (let grass of this.stack) {
-            grass.draw();
+        //draw caught hay
+        for (let hay of this.stack) {
+            hay.draw();
         }
 
         // draw player image
         image(this.playerImage, this.x, this.y, this.w, this.h);
     }
 
-    catches(grass) { //return true if grass is caught, false otherwise
-        const yGap = 3; // Use consistent gap for all grass blocks
+    catches(hay) { //return true if hay is caught, false otherwise
+        const yGap = 3; // Use consistent gap for all hay blocks
 
         // 如果是第一个方块，检查是否与木板接触
         if (this.stack.length === 0) {
             // Calculate overlap with player platform
-            const overlapLeft = Math.max(this.x, grass.x);
-            const overlapRight = Math.min(this.x + this.w, grass.x + grass.w);
+            const overlapLeft = Math.max(this.x, hay.x);
+            const overlapRight = Math.min(this.x + this.w, hay.x + hay.w);
             const overlapWidth = Math.max(0, overlapRight - overlapLeft);
-            const minRequiredOverlap = 0.2 * grass.w; // 20% of grass width
+            const minRequiredOverlap = 0.2 * hay.w; // 20% of hay width
 
-            if (grass.y + grass.h >= this.y &&
-                grass.y + grass.h <= this.y + yGap + 2 && // if the falling grass is within the gap range
+            if (hay.y + hay.h >= this.y &&
+                hay.y + hay.h <= this.y + yGap + 2 && // if the falling hay is within the gap range
                 overlapWidth >= minRequiredOverlap) {
 
-                // Smoothly position the grass
-                grass.y = this.y - grass.h + yGap;
-                grass.setPerfectStack(false); // the first grass is not a perfect stack
-                this.stack.push(grass);
+                // Smoothly position the hay
+                hay.y = this.y - hay.h + yGap;
+                hay.setPerfectStack(false); // the first hay is not a perfect stack
+                this.stack.push(hay);
 
-                // Check if adding this grass exceeds the maximum stack size
+                // Check if adding this hay exceeds the maximum stack size
                 if (this.stack.length > this.maxStack) {
                     this.stack = [];
                     this.flash.setFlashDuration(30); // trigger flash immediately
@@ -129,25 +129,25 @@ class Player {
             }
         } else {
             // 获取最上面的方块
-            const topGrass = this.stack[this.stack.length - 1];
+            const topHay = this.stack[this.stack.length - 1];
 
-            // Calculate overlap with top grass in stack
-            const overlapLeft = Math.max(topGrass.x, grass.x);
-            const overlapRight = Math.min(topGrass.x + topGrass.w, grass.x + grass.w);
+            // Calculate overlap with top hay in stack
+            const overlapLeft = Math.max(topHay.x, hay.x);
+            const overlapRight = Math.min(topHay.x + topHay.w, hay.x + hay.w);
             const overlapWidth = Math.max(0, overlapRight - overlapLeft);
-            const minRequiredOverlap = 0.2 * grass.w; // 20% of grass width
+            const minRequiredOverlap = 0.2 * hay.w; // 20% of hay width
 
-            // if the falling grass is within the gap range of the top grass
-            const isVerticalContact = ((grass.y + grass.h) >= topGrass.y) &&
-                ((grass.y + grass.h) <= topGrass.y + yGap + 2);
+            // if the falling hay is within the gap range of the top hay
+            const isVerticalContact = ((hay.y + hay.h) >= topHay.y) &&
+                ((hay.y + hay.h) <= topHay.y + yGap + 2);
 
             if (overlapWidth >= minRequiredOverlap && isVerticalContact) {
-                // Position the new grass block directly on top of the previous one with the gap
-                grass.y = topGrass.y - grass.h + yGap;
-                this.checkPerfectStack(); //check if the new grass is a perfect stack
-                this.stack.push(grass);
+                // Position the new hay block directly on top of the previous one with the gap
+                hay.y = topHay.y - hay.h + yGap;
+                this.checkPerfectStack(); //check if the new hay is a perfect stack
+                this.stack.push(hay);
 
-                // Check if adding this grass exceeds the maximum stack size
+                // Check if adding this hay exceeds the maximum stack size
                 if (this.stack.length > this.maxStack) {
                     this.stack = [];
                     this.flash.setFlashDuration(30); // trigger flash immediately
@@ -163,36 +163,36 @@ class Player {
 
         const minOverlapPercentage = 0.9; // 90% overlap required for "perfect" alignment
 
-        const currentGrass = this.stack[this.stack.length - 1];
-        const grassBelow = this.stack[this.stack.length - 2];
+        const currentHay = this.stack[this.stack.length - 1];
+        const hayBelow = this.stack[this.stack.length - 2];
 
-        if (currentGrass.perfectStack != null) { //grass is checked
+        if (currentHay.perfectStack != null) { //hay is checked
             return false;
         }
 
         // Calculate overlap
-        const overlapLeft = Math.max(currentGrass.x, grassBelow.x);
-        const overlapRight = Math.min(currentGrass.x + currentGrass.w, grassBelow.x + grassBelow.w);
+        const overlapLeft = Math.max(currentHay.x, hayBelow.x);
+        const overlapRight = Math.min(currentHay.x + currentHay.w, hayBelow.x + hayBelow.w);
         const overlapWidth = Math.max(0, overlapRight - overlapLeft);
 
-        // Calculate overlap percentage relative to grass width
-        const overlapPercentage = overlapWidth / currentGrass.w;
+        // Calculate overlap percentage relative to hay width
+        const overlapPercentage = overlapWidth / currentHay.w;
 
         if (overlapPercentage < minOverlapPercentage) {
-            currentGrass.setPerfectStack(false);
+            currentHay.setPerfectStack(false);
             return false;
         }
-        currentGrass.setPerfectStack(true);
+        currentHay.setPerfectStack(true);
         return true;
     }
 
-    emptyToBasket() { //empty grass to the basket
+    emptyToBarrel() { //empty hay to the barrel
         if (this.stack.length === 0) return;
 
         // 计算玩家与篮子的距离
         let playerCenter = this.x + this.w / 2;
-        let basketCenter = this.basket.x + this.basket.w / 2;
-        let distance = abs(playerCenter - basketCenter);
+        let barrelCenter = this.barrel.x + this.barrel.w / 2;
+        let distance = abs(playerCenter - barrelCenter);
 
         // 设置最大放草距离
         let maxDistance = 150; // 可以根据需要调整这个值

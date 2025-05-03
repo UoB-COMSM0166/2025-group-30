@@ -57,9 +57,9 @@ Include a demo video of our game here
 
 # 3.Introduction
 
-Our game is a casual stacking challenge inspired by a classic mini-game from the popular title *Mole Manor*. Drawing from its gameplay, we set the game's backdrop during the harvest season on a farm. Players must control their character's left and right movements to catch falling haystacks and place them into a basket within a limited time in order to reach the collection goal and advance to the next level.
+Our game is a casual stacking challenge inspired by a classic mini-game from the popular title *Mole Manor*. Drawing from its gameplay, we set the game's backdrop during the harvest season on a farm. Players must control their character's left and right movements to catch falling haystacks and place them into a barrel within a limited time in order to reach the collection goal and advance to the next level.
 
-To increase the game's difficulty and reflect real-world limitations on how much a person can carry, each player can catch a maximum of five haystacks at a time. If this limit is exceeded, the character will stumble and drop all collected hay. This mechanic not only adds tension but also introduces strategic decision-making—players must carefully balance between collecting more hay and emptying their basket in time.
+To increase the game's difficulty and reflect real-world limitations on how much a person can carry, each player can catch a maximum of five haystacks at a time. If this limit is exceeded, the character will stumble and drop all collected hay. This mechanic not only adds tension but also introduces strategic decision-making—players must carefully balance between collecting more hay and emptying their barrel in time.
 
 As hay accumulates, the character's movement speed gradually slows down, requiring players to choose the right moment to clear their collection bucket and maintain agility. Building on the original gameplay, the game introduces more challenging elements: in single-player mode, players must dodge falling shovels and buckets while collecting stars for extra lives. In two-player mode, players can either collaborate to achieve a shared goal or compete to see who finishes first. These design features enrich the gameplay and deliver a fun, fast-paced, yet relaxing farm harvest experience.
 
@@ -68,14 +68,14 @@ The following table shows the main elements of the game:
     <i>Table 2: Game Elements</i>
 </p>
 
-| Category | Image | Description |
-|:---      | :---: | :---:       |
-| **Player & lifting basket** | <img src="docs/assets/player1.webp" width="50" style="vertical-align: middle;">        | The character controlled by the player, moving left and right to catch falling hay.                                        |
-| **collection Basket**       | <img src="docs/assets/basket.webp" width="50" style="vertical-align: middle;">         | A secondary basket used for catching hay before transferring it to the main collection basket.                           |
-| **Falling Hay**             | <img src="docs/assets/hay.webp" width="50" style="vertical-align: middle;">            | The hay stacks that fall from the sky. Players must catch them efficiently to reach the target before time runs out.       |
-| **Shovel**                  | <img src="docs/assets/shovel.webp" width="50" style="vertical-align: middle;">         | If the player accidentally comes into contact with a randomly dropped item—a shovel—it will cause the current stack of grass the player is holding to be cleared. However, this does not affect the number of grass bundles that have already been counted in the basket.                                                                                                            |
-| **ProteinShaker**           | <img src="docs/assets/protein-shaker.webp" width="50" style="vertical-align: middle;"> | When used, this item temporarily increases the player's maximum stack limit to 10 (originally 5) for 10 seconds, and removes the movement speed penalty caused by stacking grass. A red particle effect is triggered during this period.                |
-| **SpeedBoot**               | <img src="docs/assets/speed-boot.webp" width="50" style="vertical-align: middle;">     | When used, this item increases the player's movement speed by 20% for 5 seconds and triggers a blue particle effect, granting the player enhanced mobility for a short duration.                                                                         |
+| Category                    |                                         Image                                          |                                                                                                                              Description                                                                                                                              |
+| :-------------------------- | :------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| **Player & lifting barrel** |    <img src="docs/assets/player1.webp" width="50" style="vertical-align: middle;">     |                                                                                          The character controlled by the player, moving left and right to catch falling hay.                                                                                          |
+| **collection Barrel**       |     <img src="docs/assets/barrel.webp" width="50" style="vertical-align: middle;">     |                                                                                    A secondary barrel used for catching hay before transferring it to the main collection barrel.                                                                                     |
+| **Falling Hay**             |      <img src="docs/assets/hay.webp" width="50" style="vertical-align: middle;">       |                                                                         The hay stacks that fall from the sky. Players must catch them efficiently to reach the target before time runs out.                                                                          |
+| **Shovel**                  |     <img src="docs/assets/shovel.webp" width="50" style="vertical-align: middle;">     | If the player accidentally comes into contact with a randomly dropped item—a shovel—it will cause the current stack of hay the player is holding to be cleared. However, this does not affect the number of hay bundles that have already been counted in the barrel. |
+| **ProteinShaker**           | <img src="docs/assets/protein-shaker.webp" width="50" style="vertical-align: middle;"> |                When used, this item temporarily increases the player's maximum stack limit to 10 (originally 5) for 10 seconds, and removes the movement speed penalty caused by stacking hay. A red particle effect is triggered during this period.                 |
+| **SpeedBoot**               |   <img src="docs/assets/speed-boot.webp" width="50" style="vertical-align: middle;">   |                                           When used, this item increases the player's movement speed by 20% for 5 seconds and triggers a blue particle effect, granting the player enhanced mobility for a short duration.                                            |
 
 # 4.Requirements 
 ## 4.1 Game Idea Brainstorming Overview
@@ -93,15 +93,15 @@ The table below summarizes our findings. For each game, we described its core co
 | Cooperative Puzzle Platformer  | Fireboy & Watergirl | Two players work together to navigate levels by controlling Fireboy and Watergirl, each immune to their respective element. Touching the wrong element or falling results in failure. | - New elements like electricity/ice/wind <br> - Attribute swapping mechanics <br> - Time-limited challenges and multiple endings <br> - Unlockable skills and collectibles                                                |
 | Casual Reaction Game           | Flappy Bird         | Players tap to keep a bird in the air and avoid pipes. Each successful pass earns one point. The game restarts upon failure.                                                          | - Moving or rotating obstacles <br> - Power-up system: shields, speed boosts <br> - Multiplayer co-op or versus mode <br> - Timed bonus collection mode                                                                   |
 | Multiplayer Cooperative Puzzle | Pico Park           | Players collect keys and open gates while navigating obstacles together. Movement is limited to up, down, left, and right. Supports 2–8 players.                                      | - Random events triggered by pressure plates <br> - Fog to limit visibility <br> - Assign unique skills to each player (fly, climb, lift) <br> - Add immersive story mode                                                 |
-| Strategy + Reflex Mini Game    | Grass Catching      | Players catch falling grass. The more they collect, the slower they move, increasing challenge and requiring strategic movement and timing.                                           | - Cooperative or versus mode <br> - Special grass types (e.g. poison, explosive) <br> - Weather effects influencing falling patterns <br> - Speed boost or weight-reducing power-ups                                      |
+| Strategy + Reflex Mini Game    | Hay Catching        | Players catch falling hay. The more they collect, the slower they move, increasing challenge and requiring strategic movement and timing.                                             | - Cooperative or versus mode <br> - Special hay types (e.g. poison, explosive) <br> - Weather effects influencing falling patterns <br> - Speed boost or weight-reducing power-ups                                        |
 
 ## 4.2 Game Delection Process
 
-As part of our game development planning, our team initially brainstormed and analyzed five different game inspirations. After careful discussion and evaluation, we shortlisted two candidates for prototyping:Fireboy & Watergirl and Grass Catching.
+As part of our game development planning, our team initially brainstormed and analyzed five different game inspirations. After careful discussion and evaluation, we shortlisted two candidates for prototyping:Fireboy & Watergirl and Hay Catching.
 
 To better understand and experience the game mechanics, we created paper prototypes for both games. By interacting with the prototypes directly, we were able to simulate the core gameplay and interaction flow, design basic maps and character movement paths, observe players' intuitive understanding and reactions, and evaluate whether the gameplay was engaging and expandable.
 
-The following are our paper prototypes for Fireboy & Watergirl and Grass Catching.
+The following are our paper prototypes for Fireboy & Watergirl and Hay Catching.
 
 <p align="center">
   <br><a href="https://youtu.be/uvnLMF2GfXI">Figure 2: Fireboy & Watergirl Game Prototype</a></br>
@@ -118,15 +118,15 @@ The following are our paper prototypes for Fireboy & Watergirl and Grass Catchin
 </p>
 
 ## 4.3 Final Decision
-After multiple rounds of testing and team feedback, we ultimately selected Grass Catching as the core game for our project. This decision was based on several key factors: the gameplay mechanics are simple yet offer meaningful challenge, making the game easy to implement while allowing for depth through the addition of items, constraints, and variations.
+After multiple rounds of testing and team feedback, we ultimately selected Hay Catching as the core game for our project. This decision was based on several key factors: the gameplay mechanics are simple yet offer meaningful challenge, making the game easy to implement while allowing for depth through the addition of items, constraints, and variations.
 
-It also features high replayability—players slow down as they collect more grass, creating a naturally increasing difficulty curve well-suited for score-based challenges. Furthermore, the concept has great potential for creative expansion, such as adding multiplayer modes, weather effects, special types of grass, and animated visual effects. Finally, its intuitive gameplay makes it highly accessible and easy to promote, appealing to a wide range of players and suitable for release on web or mobile platforms.
+It also features high replayability—players slow down as they collect more hay, creating a naturally increasing difficulty curve well-suited for score-based challenges. Furthermore, the concept has great potential for creative expansion, such as adding multiplayer modes, weather effects, special types of hay, and animated visual effects. Finally, its intuitive gameplay makes it highly accessible and easy to promote, appealing to a wide range of players and suitable for release on web or mobile platforms.
 
 ## 4.4 Digital Paper Prototype tool
 
 To help players quickly get familiar with the game, we created a digital model based on the paper prototype. Hanying attempted to generate the digital model using her iPad, which allowed for a representation that more closely resembled the actual game compared to the paper prototype.
 
-This animation shows the player successfully catching the grass and placing it into the barrel.
+This animation shows the player successfully catching the hay and placing it into the barrel.
 
 <p align="center"><b>Figure 4: Success Situation</b></p>
 
@@ -134,7 +134,7 @@ This animation shows the player successfully catching the grass and placing it i
   <img src="https://github.com/user-attachments/assets/dfb59e37-652d-4112-a203-70f36f721ae3" width="500">
 </p>
 
-This animation shows the player failing to catch the grass and losing one life as a result.
+This animation shows the player failing to catch the hay and losing one life as a result.
 
 <p align="center"><b>Figure 5: Failed Situation</b></p>
 
@@ -145,7 +145,7 @@ This animation shows the player failing to catch the grass and losing one life a
 ## 4.5 Requirement Analysis
 
 ### 4.5.1 User Requirements
-- Players should be able to control and stack square grass blocks smoothly
+- Players should be able to control and stack square hay blocks smoothly
 
 ### 4.5.2 Technical Requirements
 - Client-side Development: Implement the game interface and handle user input
@@ -162,11 +162,11 @@ This animation shows the player failing to catch the grass and losing one life a
 - Complex physics calculations may lead to high computational resource consumption, affecting game performance
 
 #### Alternative Plan
-- Switch to simple square grass block stacking without relying on an external physics engine
+- Switch to simple square hay block stacking without relying on an external physics engine
 - Use a rule-based stacking method where each block is placed according to predefined logic
 - Implement basic rectangle overlap detection for collision handling to improve development efficiency
 
-Based on the feasibility analysis, we have decided to adjust the game design by abandoning the complex physics engine integration and opting for a simple square grass block stacking mechanism. This will reduce technical difficulty, improve development efficiency, and ensure game stability.
+Based on the feasibility analysis, we have decided to adjust the game design by abandoning the complex physics engine integration and opting for a simple square hay block stacking mechanism. This will reduce technical difficulty, improve development efficiency, and ensure game stability.
 
 ## 4.6 Stakeholders Analysis 
 
@@ -218,12 +218,12 @@ However, after evaluating the technical feasibility, we identified several chall
 #### Alternative Plan
 In this case, we decided to simplify the design by:
 
-- Switching to simple square grass block stacking without relying on an external physics engine
+- Switching to simple square hay block stacking without relying on an external physics engine
 - Using a rule-based stacking method where each block is placed according to predefined logic
 - Implementing basic rectangle overlap detection for collision handling to improve development efficiency
 
-Originally, one of the key technical challenges was determining how to position irregularly shaped grass blocks in a physically accurate and visually satisfying way.
-With the new simplified plan, the focus shifts to how to perfectly and completely align square grass blocks on top of one another, which significantly reduces complexity while preserving core gameplay value.
+Originally, one of the key technical challenges was determining how to position irregularly shaped hay blocks in a physically accurate and visually satisfying way.
+With the new simplified plan, the focus shifts to how to perfectly and completely align square hay blocks on top of one another, which significantly reduces complexity while preserving core gameplay value.
 
 ## 4.7 User Stories and Epics
 
@@ -382,15 +382,15 @@ To solve this, we updated the code to ensure that only one interval exists at an
 
 During the game development process, through continuous testing and player feedback, we identified and gradually resolved balance issues that were affecting the overall gameplay experience.
 
-In the initial version, we implemented a **health system** with the intention of increasing the game's difficulty. However, during actual testing, we discovered that this design made players **overly cautious**—especially after collecting a significant number of grass blocks. Players became more focused on avoiding mistakes for fear of losing health, which not only limited their strategic choices but also increased the likelihood of failure due to the added **psychological pressure**.
+In the initial version, we implemented a **health system** with the intention of increasing the game's difficulty. However, during actual testing, we discovered that this design made players **overly cautious**—especially after collecting a significant number of hay blocks. Players became more focused on avoiding mistakes for fear of losing health, which not only limited their strategic choices but also increased the likelihood of failure due to the added **psychological pressure**.
 
 After discussions within the team, we decided to **remove the health system**. This change **freed players from the stress** of managing health, allowing them to experiment more freely with different actions and strategies.
 
-As development progressed, we encountered another balancing issue in the game mechanics. Our design required players to **achieve a certain score within a set time** to pass a level. To meet this goal, players were naturally inclined to **catch as many grass bundles as possible** in one go. 
+As development progressed, we encountered another balancing issue in the game mechanics. Our design required players to **achieve a certain score within a set time** to pass a level. To meet this goal, players were naturally inclined to **catch as many hay bundles as possible** in one go. 
 
-However, we had also implemented a **weight system**: the more grass a player collected, the slower they would move. These two systems conflicted in practice—while players wanted to gather more grass to score higher, the resulting **decrease in movement speed** made it difficult to quickly reach the right position to catch grass accurately.
+However, we had also implemented a **weight system**: the more hay a player collected, the slower they would move. These two systems conflicted in practice—while players wanted to gather more hay to score higher, the resulting **decrease in movement speed** made it difficult to quickly reach the right position to catch hay accurately.
 
-After multiple rounds of adjustment and testing, we finally found a **balance**: we **fine-tuned the rate** at which the player's movement speed decreased with the amount of grass collected. This preserved the **strategic aspect** of the weight system without overly hindering the gameplay experience.
+After multiple rounds of adjustment and testing, we finally found a **balance**: we **fine-tuned the rate** at which the player's movement speed decreased with the amount of hay collected. This preserved the **strategic aspect** of the weight system without overly hindering the gameplay experience.
 
 Through this series of adjustments and optimizations, we successfully achieved our intended gameplay experience:
 
@@ -456,7 +456,7 @@ To ensure a balance between functionality and usability during the game developm
   </tr>
   <tr>
     <td>Gameplay Speed</td>
-    <td>The grass-cutting speed varies on different platforms, affecting the gaming experience.</td>
+    <td>The hay-cutting speed varies on different platforms, affecting the gaming experience.</td>
     <td>Error prevention</td>
     <td>4</td>
     <td>4</td>
@@ -465,7 +465,7 @@ To ensure a balance between functionality and usability during the game developm
   </tr>
   <tr>
     <td>Character Store</td>
-    <td>The lack of a store system prevents players from selecting different characters or grass-cutting tools.</td>
+    <td>The lack of a store system prevents players from selecting different characters or hay-cutting tools.</td>
     <td>Flexibility and efficiency of use</td>
     <td>3</td>
     <td>2</td>
@@ -500,37 +500,37 @@ We collected and analyzed SUS questionnaire data from 12 users for both Level 1 
 The results of the Wilcoxon Signed-Rank Test for the System Usability Scale (SUS) scores show no statistically significant difference between the two difficulty levels (W = 10.5, p = 0.5461). Although individual user scores vary slightly, both the easy and hard levels received generally high SUS scores. This suggests that users found the game to be consistently usable across both difficulty settings.
 
 ## 7.3 Test
-We mainly conducted black-box testing for the game. The test cases were designed based on the equivalence partitioning method and focused on core game functionalities. Testing covered five major areas: game mode selection, player movement control, grass block collection mechanics, score calculation system, and shovel item system.
+We mainly conducted black-box testing for the game. The test cases were designed based on the equivalence partitioning method and focused on core game functionalities. Testing covered five major areas: game mode selection, player movement control, hay block collection mechanics, score calculation system, and shovel item system.
 Each test case was designed following the equivalence class principle, covering valid inputs, invalid inputs, and boundary conditions.
 The test results showed that all core functionalities are working correctly, including interface responsiveness, player control accuracy, game mechanic stability, score calculation correctness, and item system functionality.
-Special attention was given to boundary condition handling, such as screen edge limits, basket capacity limits, and time limits, ensuring the game operates normally under all conditions.
+Special attention was given to boundary condition handling, such as screen edge limits, barrel capacity limits, and time limits, ensuring the game operates normally under all conditions.
 All test cases passed, indicating that the core functions have been successfully implemented and are operating correctly.
 <p align="center">
     <i>Table 6: Black-Box Test Table</i>
 </p>
 
-| Test ID | Test Type | Input Condition | Equivalence Class | Expected Output | Actual Output | Test Result |
-|:-------:|:---------:|:---------------:|:-----------------:|:---------------:|:-------------:|:-----------:|
-| GM-01 | UI Interaction | Click "Single Player" button | Valid Input | Enter single-player help screen | Successfully entered single-player help screen | Passed |
-| GM-02 | UI Interaction | Click "Co-op Mode" button | Valid Input | Enter co-op mode help screen | Successfully entered co-op mode help screen | Passed |
-| GM-03 | UI Interaction | Click "PvP Mode" button | Valid Input | Enter PvP mode help screen | Successfully entered PvP mode help screen | Passed |
-| GM-04 | UI Interaction | Click on blank area | Invalid Input | Remain on the current screen | Screen remained unchanged | Passed |
-| PM-01 | Player Control | Press left arrow key | Valid Input | Player moves left | Player moves left smoothly | Passed |
-| PM-02 | Player Control | Press right arrow key | Valid Input | Player moves right | Player moves right smoothly | Passed |
-| PM-03 | Player Control | Press both left and right keys simultaneously | Invalid Input | Player remains stationary | Player remains stationary | Passed |
-| PM-04 | Player Control | Player reaches screen boundary | Boundary Condition | Player stops moving | Player stops at boundary | Passed |
-| GC-01 | Game Mechanics | Player successfully catches a grass block | Valid Input | Grass block enters basket | Grass block enters basket with animation | Passed |
-| GC-02 | Game Mechanics | Player misses the grass block | Valid Input | Grass block continues to fall | Grass block continues falling and disappears | Passed |
-| GC-03 | Game Mechanics | Basket is full when catching grass block | Boundary Condition | Grass block continues to fall | Grass block cannot enter basket | Passed |
-| GC-04 | Game Mechanics | Grass block falls outside the basket | Boundary Condition | Grass block disappears | Grass block disappears after touching ground | Passed |
-| SC-01 | Score System | Successfully collect a grass block | Valid Input | Score increases by 1 point | Score correctly increases by 1 point | Passed |
-| SC-02 | Score System | Perfectly stack grass blocks | Valid Input | Gain additional time reward | Special effects displayed, time increased by 5 seconds | Passed |
-| SC-03 | Score System | Reach target score | Boundary Condition | Advance to next level | Level-clear animation displayed, moved to next level | Passed |
-| SC-04 | Score System | Time runs out before reaching target | Boundary Condition | Game over | Game over screen displayed | Passed |
-| SH-01 | Item System | Press space key to use shovel | Valid Input | Shovel launches forward | Shovel launched forward | Passed |
-| SH-02 | Item System | Shovel hits an opponent | Valid Input | Opponent is knocked back | Opponent knocked back with animation | Passed |
-| SH-03 | Item System | Shovel durability runs out | Boundary Condition | Unable to use shovel | Shovel icon turns gray | Passed |
-| SH-04 | Item System | Shovel misses the target | Valid Input | Shovel disappears after flying | Shovel disappeared after flying | Passed |
+| Test ID |   Test Type    |                Input Condition                | Equivalence Class  |         Expected Output         |                     Actual Output                      | Test Result |
+| :-----: | :------------: | :-------------------------------------------: | :----------------: | :-----------------------------: | :----------------------------------------------------: | :---------: |
+|  GM-01  | UI Interaction |         Click "Single Player" button          |    Valid Input     | Enter single-player help screen |     Successfully entered single-player help screen     |   Passed    |
+|  GM-02  | UI Interaction |           Click "Co-op Mode" button           |    Valid Input     |  Enter co-op mode help screen   |      Successfully entered co-op mode help screen       |   Passed    |
+|  GM-03  | UI Interaction |            Click "PvP Mode" button            |    Valid Input     |   Enter PvP mode help screen    |       Successfully entered PvP mode help screen        |   Passed    |
+|  GM-04  | UI Interaction |              Click on blank area              |   Invalid Input    |  Remain on the current screen   |               Screen remained unchanged                |   Passed    |
+|  PM-01  | Player Control |             Press left arrow key              |    Valid Input     |        Player moves left        |               Player moves left smoothly               |   Passed    |
+|  PM-02  | Player Control |             Press right arrow key             |    Valid Input     |       Player moves right        |              Player moves right smoothly               |   Passed    |
+|  PM-03  | Player Control | Press both left and right keys simultaneously |   Invalid Input    |    Player remains stationary    |               Player remains stationary                |   Passed    |
+|  PM-04  | Player Control |        Player reaches screen boundary         | Boundary Condition |       Player stops moving       |                Player stops at boundary                |   Passed    |
+|  GC-01  | Game Mechanics |    Player successfully catches a hay block    |    Valid Input     |     Hay block enters barrel     |         Hay block enters barrel with animation         |   Passed    |
+|  GC-02  | Game Mechanics |          Player misses the hay block          |    Valid Input     |   Hay block continues to fall   |       Hay block continues falling and disappears       |   Passed    |
+|  GC-03  | Game Mechanics |    Barrel is full when catching hay block     | Boundary Condition |   Hay block continues to fall   |             Hay block cannot enter barrel              |   Passed    |
+|  GC-04  | Game Mechanics |      Hay block falls outside the barrel       | Boundary Condition |      Hay block disappears       |       Hay block disappears after touching ground       |   Passed    |
+|  SC-01  |  Score System  |       Successfully collect a hay block        |    Valid Input     |   Score increases by 1 point    |          Score correctly increases by 1 point          |   Passed    |
+|  SC-02  |  Score System  |          Perfectly stack hay blocks           |    Valid Input     |   Gain additional time reward   | Special effects displayed, time increased by 5 seconds |   Passed    |
+|  SC-03  |  Score System  |              Reach target score               | Boundary Condition |      Advance to next level      |  Level-clear animation displayed, moved to next level  |   Passed    |
+|  SC-04  |  Score System  |     Time runs out before reaching target      | Boundary Condition |            Game over            |               Game over screen displayed               |   Passed    |
+|  SH-01  |  Item System   |         Press space key to use shovel         |    Valid Input     |     Shovel launches forward     |                Shovel launched forward                 |   Passed    |
+|  SH-02  |  Item System   |            Shovel hits an opponent            |    Valid Input     |    Opponent is knocked back     |          Opponent knocked back with animation          |   Passed    |
+|  SH-03  |  Item System   |          Shovel durability runs out           | Boundary Condition |      Unable to use shovel       |                 Shovel icon turns gray                 |   Passed    |
+|  SH-04  |  Item System   |           Shovel misses the target            |    Valid Input     | Shovel disappears after flying  |            Shovel disappeared after flying             |   Passed    |
 
 # 8.Sustainability
 
@@ -566,7 +566,7 @@ Avoid complex animations and optimize render rate
 - Asset Reuse
 
 Keywords: Repetitive content, resource redundancy, storage overheadProblem Source: Designing new assets for each level leads to wasteDeduction Logic: Modularize assets → Enable reuse → Reduce development and loading costImplementation:
-Reuse grass, barrels, and character sprites across levels
+Reuse hay, barrels, and character sprites across levels
 Manage assets uniformly to reduce redundant storage and image loading cost
 
 - Shared Optimization
@@ -578,7 +578,7 @@ Encourage all gameplay to occur on a single shared device
 - Code Optimization
 
 Keywords: Structural redundancy, execution efficiency, maintainabilityProblem Source: Mixed logic and redundant structures lead to low system efficiencyDeduction Logic: Modular structure → Reduce repetition → Improve performance and lower energy useImplementation:
-Clearly divided functions like dropGrass() and checkCatch()
+Clearly divided functions like dropHay() and checkCatch()
 Decoupled structure to avoid unnecessary refreshes or duplicate checks
 
 ## 8.4 Visualization of Sustainability Impact Pathways
@@ -617,7 +617,7 @@ We support local two-player modes—either co-op or alternating turns—allowing
 
 - Reusable assets across levels (Technical + Environmental)
 
-Common assets—such as grass blocks, barrels, and character models—are reused across multiple levels, avoiding redundant design work and reducing digital resource overhead. This follows the Material Optimization pattern, lowering both development and storage costs, and reducing the carbon footprint associated with asset creation and management.
+Common assets—such as hay blocks, barrels, and character models—are reused across multiple levels, avoiding redundant design work and reducing digital resource overhead. This follows the Material Optimization pattern, lowering both development and storage costs, and reducing the carbon footprint associated with asset creation and management.
 
 - Modular and clean code structure (Technical + Economic)
 

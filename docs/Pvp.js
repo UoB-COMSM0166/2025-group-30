@@ -4,59 +4,99 @@ class Pvp extends GameScreen { // player with higher score in the set time wins
         this.pvpLevelUpScreen = new PvpLevelUpScreen(this.screenManager, this);
 
         this.player1 = new Player("pvpLeft");
-        this.basket1 = new Basket("left");
-        this.player1.basket = this.basket1;
+        this.barrel1 = new Barrel("left");
+        this.player1.barrel = this.barrel1;
 
         this.player2 = new Player("pvpRight");
-        this.basket2 = new Basket("right");
-        this.player2.basket = this.basket2;
+        this.barrel2 = new Barrel("right");
+        this.player2.barrel = this.barrel2;
     }
 
     display() {
+        // Set global font
+        textFont('Comic Sans MS');
+
         image(this.backgroundImage, 0, 0, baseWidth, baseHeight);
-        this.basket1.draw();
-        this.basket2.draw();
+        this.barrel1.draw();
+        this.barrel2.draw();
 
         if (this.screenManager.currentScreen === this) {
-            this.player1.movePlayerWithCaughtGrass();
-            this.player2.movePlayerWithCaughtGrass();
-            this.updateFallingGrass();
+            this.player1.movePlayerWithCaughtHay();
+            this.player2.movePlayerWithCaughtHay();
+            this.updateFallingHay();
             this.updateSpecialItems();
         }
 
-        this.drawFallingGrass();
+        this.drawFallingHay();
         this.drawSpecialItems();
-        this.player1.drawPlayerWithCaughtGrass(); //show player with grass 
-        this.player2.drawPlayerWithCaughtGrass();
+        this.player1.drawPlayerWithCaughtHay(); //show player with hay 
+        this.player2.drawPlayerWithCaughtHay();
 
         this.displayUI();
+
+        // Reset font
+        textFont('sans-serif');
+    }
+
+    displayUI() {
+        // Common UI elements
+        fill(254, 224, 173); // Set to specified RGB color
+        textSize(20);
+        textStyle(BOLD);
+
+        // Display level
+        textAlign(CENTER);
+        text(`Level ${this.level.level}`, baseWidth / 2, 30);
+
+        // Display time
+        textAlign(LEFT);
+        text(`Time: ${this.level.timeLeft}s`, 20, 30);
+        textStyle(NORMAL);
+
+        if (this.level.timeLeft > 0) {
+            // Display special item timers for each player
+            if (this.player) {
+                this.displaySpecialItemTimers(this.player);
+            } else if (this.player1 && this.player2) {
+                this.displaySpecialItemTimers(this.player1);
+                this.displaySpecialItemTimers(this.player2);
+            }
+        }
+
+        // Call the game mode specific UI update
+        this.updateScoreDisplay();
+    }
+
+    displaySpecialItemTimers(player) {
+        // 移除所有显示道具时间的文本
+        return;
     }
 
     // --- initialising the game state ---
 
-    startGrassDrop() {
-        if (this.grassDropInterval) {
-            clearInterval(this.grassDropInterval);
-            this.grassDropInterval = null;
+    startHayDrop() {
+        if (this.hayDropInterval) {
+            clearInterval(this.hayDropInterval);
+            this.hayDropInterval = null;
         }
 
-        this.resetGrassArray();
+        this.resetHayArray();
 
         setTimeout(() => {
-            this.grass1.push(new Grass(this.findSafePosition(10, baseWidth / 2 - 70, this.grass1, this.specialItems1), 10));
-            this.grass2.push(new Grass(this.findSafePosition(baseWidth / 2, baseWidth - 70, this.grass2, this.specialItems2), 10));
+            this.hay1.push(new Hay(this.findSafePosition(10, baseWidth / 2 - 70, this.hay1, this.specialItems1), 10));
+            this.hay2.push(new Hay(this.findSafePosition(baseWidth / 2, baseWidth - 70, this.hay2, this.specialItems2), 10));
 
 
-            this.grassDropInterval = setInterval(() => {
+            this.hayDropInterval = setInterval(() => {
                 if (this.screenManager.currentScreen === this) {
                     if (this.player1.flash.getFlashDuration() === 0) {
-                        this.grass1.push(new Grass(this.findSafePosition(10, baseWidth / 2 - 70, this.grass1, this.specialItems1), 10));
+                        this.hay1.push(new Hay(this.findSafePosition(10, baseWidth / 2 - 70, this.hay1, this.specialItems1), 10));
                     }
                     if (this.player2.flash.getFlashDuration() === 0) {
-                        this.grass2.push(new Grass(this.findSafePosition(baseWidth / 2, baseWidth - 70, this.grass2, this.specialItems2), 10));
+                        this.hay2.push(new Hay(this.findSafePosition(baseWidth / 2, baseWidth - 70, this.hay2, this.specialItems2), 10));
                     }
                 }
-            }, this.level.grassDropDelay);
+            }, this.level.hayDropDelay);
         }, 1000);
     }
 
@@ -70,17 +110,17 @@ class Pvp extends GameScreen { // player with higher score in the set time wins
             if (this.screenManager.currentScreen === this) {
 
                 if (this.player1.flash.getFlashDuration() === 0) {
-                    this.generateSpecialItem(10, baseWidth / 2 - 70, this.specialItems1, this.grass1);
+                    this.generateSpecialItem(10, baseWidth / 2 - 70, this.specialItems1, this.hay1);
                 }
                 if (this.player2.flash.getFlashDuration() === 0) {
-                    this.generateSpecialItem(baseWidth / 2, baseWidth - 70, this.specialItems2, this.grass2);
+                    this.generateSpecialItem(baseWidth / 2, baseWidth - 70, this.specialItems2, this.hay2);
                 }
             }
         }, this.level.specialItemDropDelay);
     }
 
-    generateSpecialItem(left, right, specialItemsArray, grassArray) {
-        const newX = this.findSafePosition(left, right, grassArray, specialItemsArray);
+    generateSpecialItem(left, right, specialItemsArray, hayArray) {
+        const newX = this.findSafePosition(left, right, hayArray, specialItemsArray);
         switch (this.level.level) {
             case 2:
                 specialItemsArray.push(new Shovel(newX, 10));
@@ -93,65 +133,62 @@ class Pvp extends GameScreen { // player with higher score in the set time wins
                 break;
             case 5:
             default:
-                // 铲子独立掉落
-                if (random() < 0.5) { // 50% 概率掉铲子
+                // Shovel drops independently
+                if (random() < 0.5) { // 50% chance for shovel
                     specialItemsArray.push(new Shovel(newX, 10));
                 } else {
-                    // 另外两种物品随机掉
-                    if (random() < 0.5) { // 50% 概率掉蛋白粉
+                    // Random drop between the other two items
+                    if (random() < 0.5) { // 50% chance for protein shaker
                         specialItemsArray.push(new ProteinShaker(newX + 50, 10));
-                    } else { // 50% 概率掉速度靴
+                    } else { // 50% chance for speed boot
                         specialItemsArray.push(new SpeedBoot(newX + 50, 10));
                     }
                 }
-
         }
     }
-
 
     // --- main game logic ----
-    updateFallingGrass() { //update the grass from this.grass based on if caught or missed   
-        this.updateFallingGrass1();
-        this.updateFallingGrass2();
+    updateFallingHay() { //update the hay from this.hay based on if caught or missed   
+        this.updateFallingHay1();
+        this.updateFallingHay2();
     }
 
-    updateFallingGrass1() { //update the grass from this.grass1 based on if caught or missed   
-        for (let i = this.grass1.length - 1; i >= 0; i--) {
-            const currentGrass = this.grass1[i];
+    updateFallingHay1() { //update the hay from this.hay1 based on if caught or missed   
+        for (let i = this.hay1.length - 1; i >= 0; i--) {
+            const currentHay = this.hay1[i];
             if (this.player1.flash.getFlashDuration() === 0) {
-                currentGrass.fall();
-            } //stop grass fall if flashing is on or game is paused           
+                currentHay.fall();
+            } //stop hay fall if flashing is on or game is paused           
 
-            if (currentGrass.isOffscreen() ||
-                this.player1.catches(currentGrass)) {
-                this.grass1.splice(i, 1);  // Remove if off-screen or caught
+            if (currentHay.isOffscreen() ||
+                this.player1.catches(currentHay)) {
+                this.hay1.splice(i, 1);  // Remove if off-screen or caught
             }
         }
     }
 
-    updateFallingGrass2() { //update the grass from this.grass2 based on if caught or missed   
-        for (let i = this.grass2.length - 1; i >= 0; i--) {
-            const currentGrass = this.grass2[i];
+    updateFallingHay2() { //update the hay from this.hay2 based on if caught or missed   
+        for (let i = this.hay2.length - 1; i >= 0; i--) {
+            const currentHay = this.hay2[i];
             if (this.player2.flash.getFlashDuration() === 0) {
-                currentGrass.fall(); //stop grass fall if flashing is on or game is paused           
+                currentHay.fall(); //stop hay fall if flashing is on or game is paused           
             }
-            if (currentGrass.isOffscreen() ||
-                this.player2.catches(currentGrass)) {
-                this.grass2.splice(i, 1);  // Remove if off-screen or caught
+            if (currentHay.isOffscreen() ||
+                this.player2.catches(currentHay)) {
+                this.hay2.splice(i, 1);  // Remove if off-screen or caught
             }
         }
     }
 
-    drawFallingGrass() { //draw the grass
-        for (let i = this.grass1.length - 1; i >= 0; i--) this.grass1[i].draw();
-        for (let i = this.grass2.length - 1; i >= 0; i--) this.grass2[i].draw();
+    drawFallingHay() { //draw the hay
+        for (let i = this.hay1.length - 1; i >= 0; i--) this.hay1[i].draw();
+        for (let i = this.hay2.length - 1; i >= 0; i--) this.hay2[i].draw();
     }
 
     updateSpecialItems() {
         this.updateEachPlayerSpecialItems(this.player1, this.specialItems1);
         this.updateEachPlayerSpecialItems(this.player2, this.specialItems2);
     }
-
 
     drawSpecialItems() {
         this.specialItems1.forEach(item => item.draw());
@@ -177,7 +214,7 @@ class Pvp extends GameScreen { // player with higher score in the set time wins
                 }
             }
             else { //check when times run out
-                this.stopGrassDrop();
+                this.stopHayDrop();
                 this.stopLevelTimer();
                 this.stopSpecialItemDrop();
                 this.screenManager.changeScreen(this.pvpLevelUpScreen);
@@ -190,9 +227,9 @@ class Pvp extends GameScreen { // player with higher score in the set time wins
         this.player2.reset();
     }
 
-    resetGrassArray() {
-        this.grass1 = [];
-        this.grass2 = [];
+    resetHayArray() {
+        this.hay1 = [];
+        this.hay2 = [];
     }
 
     resetSpecialItemsArray() {
@@ -206,13 +243,13 @@ class Pvp extends GameScreen { // player with higher score in the set time wins
     }
 
     updateScoreDisplay() {
-        // Update both baskets' scores
-        this.basket1.updateScore(this.player1.score, 0);
-        this.basket2.updateScore(this.player2.score, 0);
+        // Update both barrels' scores
+        this.barrel1.updateScore(this.player1.score, 0);
+        this.barrel2.updateScore(this.player2.score, 0);
 
         // Draw the center line
-        stroke(0);
-        line(baseWidth / 2, 0, baseWidth / 2, baseHeight);
+        stroke(254, 224, 173);
+        line(baseWidth / 2, 50, baseWidth / 2, baseHeight); // Start from y=50 to avoid overlapping with level text
         noStroke();
     }
 
@@ -226,11 +263,11 @@ class Pvp extends GameScreen { // player with higher score in the set time wins
     keyPressed() {
         if (keyCode === RIGHT_ARROW) this.player2.dir = 1;
         else if (keyCode === LEFT_ARROW) this.player2.dir = -1;
-        else if (keyCode === ENTER) this.player2.emptyToBasket();
+        else if (keyCode === ENTER) this.player2.emptyToBarrel();
 
         else if (keyCode === 68) this.player1.dir = 1; // D
         else if (keyCode === 65) this.player1.dir = -1; // A
-        else if (keyCode === 32) this.player1.emptyToBasket(); //spacebar    
+        else if (keyCode === 32) this.player1.emptyToBarrel(); //spacebar    
 
         else if (keyCode === ESCAPE) {
             this.screenManager.changeScreen(this.pauseScreen);

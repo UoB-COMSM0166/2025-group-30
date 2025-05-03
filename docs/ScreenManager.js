@@ -1,8 +1,8 @@
 class ScreenManager {
     constructor() {
-        this.homeScreen = new HomeScreen(this);      
+        this.homeScreen = new HomeScreen(this);
         this.menuScreen = new MenuScreen(this);
-        
+
         this.stepByStepHelpScreen = new StepByStepHelpScreen(this);
         this.singleHelpScreen = new SingleHelpScreen(this);
         this.coopHelpScreen = new CoopHelpScreen(this);
@@ -32,11 +32,11 @@ class ScreenManager {
     }
 
     keyPressed() {
-        this.currentScreen.keyPressed(); 
+        this.currentScreen.keyPressed();
     }
 
     keyReleased() {
-        this.currentScreen.keyReleased(); 
+        this.currentScreen.keyReleased();
     }
 
     // Handle visibility change (tab switching)

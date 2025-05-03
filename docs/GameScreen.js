@@ -11,11 +11,11 @@ class GameScreen extends Screen {
         this.pauseScreen = new PauseScreen(this.screenManager, this);
 
         // Game state
-        this.grassDropInterval = null;
+        this.hayDropInterval = null;
         this.levelTimerInterval = null;
         this.specialItemDropInterval = null;
 
-        this.resetGrassArray();
+        this.resetHayArray();
         this.resetSpecialItemsArray();
         this.resetParticles();
     }
@@ -24,14 +24,14 @@ class GameScreen extends Screen {
         this.throwError('display must be implemented by subclasses');
     }
 
-    startGrassDrop() {
-        throw new Error('startGrassDrop must be implemented by subclasses');
+    startHayDrop() {
+        throw new Error('startHayDrop must be implemented by subclasses');
     }
 
-    stopGrassDrop() {
-        if (this.grassDropInterval) {
-            clearInterval(this.grassDropInterval);
-            this.grassDropInterval = null;
+    stopHayDrop() {
+        if (this.hayDropInterval) {
+            clearInterval(this.hayDropInterval);
+            this.hayDropInterval = null;
         }
     }
 
@@ -46,12 +46,12 @@ class GameScreen extends Screen {
         }
     }
 
-    updateFallingGrass() {
-        throw new Error('updateFallingGrass must be implemented by subclasses');
+    updateFallingHay() {
+        throw new Error('updateFallingHay must be implemented by subclasses');
     }
 
-    drawFallingGrass() {
-        throw new Error('drawFallingGrass must be implemented by subclasses');
+    drawFallingHay() {
+        throw new Error('drawFallingHay must be implemented by subclasses');
     }
 
     checkEachPlayerPerfectStack(player, particles) {
@@ -63,9 +63,9 @@ class GameScreen extends Screen {
 
     createPerfectStackEffects(player, particles) {
         // Get the position of the perfect stack
-        const currentGrass = player.stack[player.stack.length - 1];
-        const x = currentGrass.x + currentGrass.w / 2;
-        const y = currentGrass.y + currentGrass.h / 2;
+        const currentHay = player.stack[player.stack.length - 1];
+        const x = currentHay.x + currentHay.w / 2;
+        const y = currentHay.y + currentHay.h / 2;
 
         // Create sparkles
         for (let i = 0; i < 10; i++) {
@@ -139,11 +139,11 @@ class GameScreen extends Screen {
         this.level.resetTimeLeft();
 
         this.resetPlayers();
-        this.resetGrassArray();
+        this.resetHayArray();
         this.resetSpecialItemsArray();
         this.resetParticles();
 
-        this.stopGrassDrop();
+        this.stopHayDrop();
         this.stopSpecialItemDrop();
         this.stopLevelTimer();
     }
@@ -152,8 +152,8 @@ class GameScreen extends Screen {
         throw new Error('resetPlayers must be implemented by subclasses');
     }
 
-    resetGrassArray() {
-        throw new Error('resetGrassArray must be implemented by subclasses');
+    resetHayArray() {
+        throw new Error('resetHayArray must be implemented by subclasses');
     }
 
     resetSpecialItemsArray() {
@@ -171,7 +171,7 @@ class GameScreen extends Screen {
 
     restartFromCurrentLevel() {
         this.clearStats();
-        this.startGrassDrop();
+        this.startHayDrop();
         this.startSpecialItemDrop();
         this.startLevelTimer();
     }
@@ -221,7 +221,7 @@ class GameScreen extends Screen {
         this.backgroundImage = loadImage("assets/barn.webp");
     }
 
-    findSafePosition(left, right, grassArray, specialItemsArray) {
+    findSafePosition(left, right, hayArray, specialItemsArray) {
         const minDistance = 50;
         let newX;
         let isSafePosition;
@@ -232,9 +232,9 @@ class GameScreen extends Screen {
             newX = random(left, right);
             isSafePosition = true;
 
-            // Check distance from all existing grass
-            for (let grass of grassArray) {
-                if (abs(grass.x - newX) < minDistance) {
+            // Check distance from all existing hay
+            for (let hay of hayArray) {
+                if (abs(hay.x - newX) < minDistance) {
                     isSafePosition = false;
                     break;
                 }

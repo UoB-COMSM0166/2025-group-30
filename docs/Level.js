@@ -14,9 +14,9 @@ class Level {
             //initialTimer: 100,
             timerIncrement: 5,
 
-            initialGrassDropDelay: 2000, //2 seconds
-            grassDropDelayDecrement: 300,
-            minGrassDropDelay: 1000,
+            initialHayDropDelay: 2000, //2 seconds
+            hayDropDelayDecrement: 300,
+            minHayDropDelay: 1000,
 
             initialSpecialItemDropDelay: 10000, //10 seconds
             //initialSpecialItemDropDelay: 2000, //5 seconds
@@ -30,9 +30,9 @@ class Level {
             initialTimer: 15,
             timerIncrement: 15,
 
-            initialGrassDropDelay: 1500,
-            grassDropDelayDecrement: 200,
-            minGrassDropDelay: 500,
+            initialHayDropDelay: 1500,
+            hayDropDelayDecrement: 200,
+            minHayDropDelay: 500,
 
             initialSpecialItemDropDelay: 3500,
             specialItemDropDelayDecrement: 300,
@@ -45,9 +45,9 @@ class Level {
             initialTimer: 30,
             timerIncrement: 30,
 
-            initialGrassDropDelay: 1500,
-            grassDropDelayDecrement: 300,
-            minGrassDropDelay: 500,
+            initialHayDropDelay: 1500,
+            hayDropDelayDecrement: 300,
+            minHayDropDelay: 500,
 
             initialSpecialItemDropDelay: 3500,
             specialItemDropDelayDecrement: 500,
@@ -63,7 +63,7 @@ class Level {
         this.targetScores = settings.initialTargetScores;
         this.timer = settings.initialTimer;
         this.timeLeft = this.timer;
-        this.grassDropDelay = settings.initialGrassDropDelay;
+        this.hayDropDelay = settings.initialHayDropDelay;
         this.specialItemDropDelay = settings.initialSpecialItemDropDelay;
         // Store settings for level progression
         this.settings = settings;
@@ -77,9 +77,9 @@ class Level {
         this.level++;
         this.targetScores += this.settings.targetScoresIncrement;
         this.timer += this.settings.timerIncrement;
-        this.grassDropDelay = max(
-            this.settings.minGrassDropDelay,
-            this.grassDropDelay - this.settings.grassDropDelayDecrement
+        this.hayDropDelay = max(
+            this.settings.minHayDropDelay,
+            this.hayDropDelay - this.settings.hayDropDelayDecrement
         );
         this.specialItemDropDelay = max(
             this.settings.minSpecialItemDropDelay,
@@ -93,7 +93,7 @@ class Level {
         this.level = 1;
         this.targetScores = settings.initialTargetScores;
         this.timer = settings.initialTimer;
-        this.grassDropDelay = settings.initialGrassDropDelay;
+        this.hayDropDelay = settings.initialHayDropDelay;
         this.specialItemDropDelay = settings.initialSpecialItemDropDelay;
         this.resetTimeLeft();
     }

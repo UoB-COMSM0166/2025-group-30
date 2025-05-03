@@ -2,47 +2,165 @@ class HomeScreen extends Screen {
     constructor(screenManager) {
         super(screenManager);
 
-        // 加载背景GIF和标题图片
+        // Load background GIF and title image
         this.backgroundGif = null;
         this.titleImage = null;
         this.backgroundColor = color(205, 238, 226);
-        this.gifLoaded = false;  // 追踪GIF是否成功加载
-        this.titleLoaded = false;  // 追踪标题图片是否成功加载
+        this.gifLoaded = false;  // Track if GIF is successfully loaded
+        this.titleLoaded = false;  // Track if title image is successfully loaded
+        this.isLoading = true;  // Track loading state
+        this.gifReady = false;  // Track if GIF is ready for smooth playback
+        this.gifLoadStartTime = null;  // Track when GIF loading started
 
-        // 文本动画相关变量
-        this.textAlpha = 200;      // 文本透明度
-        this.textFading = false;   // 文本是否正在淡出
-        this.textColor = color(70, 90, 100, this.textAlpha); // 文本颜色：深蓝灰色带透明度
-        this.textYOffset = 0;      // 文本Y轴偏移（用于浮现效果）
-        this.textFloatSpeed = 0.3; // 浮现速度
-        this.textFloatAmount = 5;  // 浮现幅度（像素）
-        // 标题图片浮动效果与文本保持一致
-        this.titleYOffset = 0;     // 标题Y轴偏移
+        // Text animation related variables
+        this.textAlpha = 200;      // Text opacity
+        this.textFading = false;   // Whether text is fading out
+        this.textColor = color(70, 90, 100, this.textAlpha); // Text color: deep blue-gray with opacity
+        this.textYOffset = 0;      // Text Y-axis offset (for floating effect)
+        this.textFloatSpeed = 0.3; // Floating speed
+        this.textFloatAmount = 5;  // Floating amplitude (pixels)
+        // Title image floating effect matches text
+        this.titleYOffset = 0;     // Title Y-axis offset
 
-        // 加载背景GIF和标题图片
-        this.loadBackgroundGif();
+        // Start loading assets
+        this.loadAssets();
     }
 
-    loadBackgroundGif() {
-        // 加载背景GIF
-        loadImage('./assets/HomeScreen.gif', img => {
+    loadAssets() {
+        this.gifLoadStartTime = millis();
+
+        // Load background GIF
+        loadImage('./assets/HomeScreen-optimize.gif', img => {
             this.backgroundGif = img;
             this.gifLoaded = true;
-            this.loadTitleImage();
-        });
-    }
 
-    loadTitleImage() {
-        // 加载标题图片
+            // Start pre-buffering the GIF
+            if (this.backgroundGif) {
+                // Force a few frames to be processed
+                for (let i = 0; i < 5; i++) {
+                    this.backgroundGif.get();
+                }
+            }
+
+            // Wait a short time to ensure smooth playback
+            setTimeout(() => {
+                this.gifReady = true;
+                this.checkLoadingComplete();
+            }, 500);
+        });
+
+        // Load title image
         loadImage('./assets/title.webp', img => {
             this.titleImage = img;
             this.titleLoaded = true;
+            this.checkLoadingComplete();
         });
     }
 
-    // 更新文本动画效果
+    checkLoadingComplete() {
+        if (this.gifLoaded && this.titleLoaded && this.gifReady) {
+            this.isLoading = false;
+        }
+    }
+
+    display() {
+        // Use specified background color
+        background(this.backgroundColor);
+
+        if (this.isLoading) {
+            // Show loading state with progress
+            textAlign(CENTER, CENTER);
+            textFont('Comic Sans MS');
+            textSize(24);
+            fill(70, 90, 100);
+
+            let loadingText = "Loading";
+            if (this.gifLoadStartTime) {
+                const dots = Math.floor((millis() - this.gifLoadStartTime) / 500) % 4;
+                loadingText += ".".repeat(dots);
+            }
+            text(loadingText, baseWidth / 2, baseHeight / 2);
+            return;
+        }
+
+        // Display background GIF
+        if (this.gifLoaded && this.backgroundGif && this.gifReady) {
+            // Calculate scale ratio, maintain GIF aspect ratio
+            let gifWidth = this.backgroundGif.width;
+            let gifHeight = this.backgroundGif.height;
+
+            if (gifWidth > 0 && gifHeight > 0) { // Ensure GIF has loaded dimensions
+                let scale = Math.min(
+                    baseWidth / gifWidth,
+                    baseHeight / gifHeight
+                );
+
+                // Calculate horizontally centered but vertically bottom-aligned position
+                let newWidth = gifWidth * scale;
+                let newHeight = gifHeight * scale;
+                let x = (baseWidth - newWidth) / 2;   // Center horizontally
+                let y = baseHeight - newHeight;       // Align to bottom
+
+                // Draw GIF, maintain original aspect ratio, bottom-aligned
+                image(this.backgroundGif, x, y, newWidth, newHeight);
+            }
+        }
+
+        // Display title and text
+        if (this.titleLoaded && this.titleImage) {
+            // Calculate title position and size variables
+            let titleHeight = 0;
+            let titleBottomY = 30; // Default top margin
+
+            // Calculate title center position
+            const titleWidth = min(this.titleImage.width, baseWidth * 0.8); // Title max width is 80% of canvas width
+            const titleScale = titleWidth / this.titleImage.width;
+            titleHeight = this.titleImage.height * titleScale;
+
+            // Display title centered at top, apply floating effect
+            image(
+                this.titleImage,
+                (baseWidth - titleWidth) / 2, // Center horizontally
+                30 + this.titleYOffset, // Top margin + floating effect
+                titleWidth,
+                titleHeight
+            );
+
+            // Calculate title bottom Y coordinate for text placement
+            titleBottomY = 30 + titleHeight + 30; // Top margin + title height + spacing
+
+            // Update text animation
+            this.updateTextAnimation();
+
+            // Calculate text position based on title position
+            const textY = titleBottomY;
+
+            // Draw semi-transparent background bar to enhance text readability
+            noStroke();
+            fill(255, 255, 255, 60); // Semi-transparent white
+            rectMode(CENTER);
+            rect(baseWidth / 2, textY + this.textYOffset, 400, 40, 15); // Rounded rectangle with floating effect
+
+            // Draw "Double click or press any key to start" prompt with floating effect
+            textAlign(CENTER, CENTER);
+            noStroke();
+            textFont('Comic Sans MS');
+            fill(this.textColor); // Use dynamic color
+
+            // Apply floating animation effect, no shadow
+            textSize(20);
+            textStyle(ITALIC); // Italic
+            text("Double click or press any key to start", baseWidth / 2, textY + this.textYOffset);
+
+            // Reset styles
+            textStyle(NORMAL);
+            textFont('sans-serif');
+        }
+    }
+
+    // Update text animation effects
     updateTextAnimation() {
-        // 更新透明度动画 - 使文本透明度在150-250之间呼吸效果
+        // Update opacity animation - make text opacity breathe between 150-250
         if (this.textFading) {
             this.textAlpha -= 0.8;
             if (this.textAlpha <= 150) {
@@ -55,91 +173,15 @@ class HomeScreen extends Screen {
             }
         }
 
-        // 更新浮现动画 - 使文本上下浮动
+        // Update floating animation - make text float up and down
         this.textYOffset = Math.sin(frameCount * this.textFloatSpeed * 0.05) * this.textFloatAmount;
-        // 更新标题浮动效果 - 使用相同的浮动速度和幅度
+        // Update title floating effect - use same floating speed and amplitude
         this.titleYOffset = this.textYOffset;
 
-        // 更新文本颜色的透明度
+        // Update text color opacity
         this.textColor = color(70, 90, 100, this.textAlpha);
     }
 
-    display() {
-        // 使用指定的背景色
-        background(this.backgroundColor);
-
-        // 显示背景GIF
-        if (this.gifLoaded && this.backgroundGif) {
-            // 计算缩放比例，保持GIF比例
-            let gifWidth = this.backgroundGif.width;
-            let gifHeight = this.backgroundGif.height;
-
-            if (gifWidth > 0 && gifHeight > 0) { // 确保GIF已加载尺寸
-                let scale = Math.min(
-                    baseWidth / gifWidth,
-                    baseHeight / gifHeight
-                );
-
-                // 计算水平居中但垂直底部对齐的位置
-                let newWidth = gifWidth * scale;
-                let newHeight = gifHeight * scale;
-                let x = (baseWidth - newWidth) / 2;   // 水平居中
-                let y = baseHeight - newHeight;       // 底部对齐
-
-                // 绘制GIF，保持原始比例，底部对齐
-                image(this.backgroundGif, x, y, newWidth, newHeight);
-            }
-        }
-
-        // 显示标题和文本
-        if (this.titleLoaded && this.titleImage) {
-            // 计算标题位置和尺寸变量
-            let titleHeight = 0;
-            let titleBottomY = 30; // 默认顶部距离
-
-            // 计算标题居中位置
-            const titleWidth = min(this.titleImage.width, baseWidth * 0.8); // 标题最大宽度为画布宽度的80%
-            const titleScale = titleWidth / this.titleImage.width;
-            titleHeight = this.titleImage.height * titleScale;
-
-            // 在顶部居中显示标题，应用浮动效果
-            image(
-                this.titleImage,
-                (baseWidth - titleWidth) / 2, // 水平居中
-                30 + this.titleYOffset, // 顶部距离 + 浮动效果
-                titleWidth,
-                titleHeight
-            );
-
-            // 计算标题底部y坐标，用于放置文本
-            titleBottomY = 30 + titleHeight + 30; // 标题顶部距离 + 标题高度 + 间距
-
-            // 更新文本动画
-            this.updateTextAnimation();
-
-            // 根据标题位置计算文本位置
-            const textY = titleBottomY;
-
-            // 绘制半透明背景条，增强文本可读性
-            noStroke();
-            fill(255, 255, 255, 60); // 半透明白色
-            rectMode(CENTER);
-            rect(baseWidth / 2, textY + this.textYOffset, 300, 40, 15); // 圆角矩形，应用浮现效果
-
-            // 绘制"Click anywhere to start"提示，带浮现效果
-            textAlign(CENTER, CENTER);
-            noStroke();
-            fill(this.textColor); // 使用动态颜色
-
-            // 应用浮现动画效果，不使用阴影
-            textSize(20);
-            textStyle(ITALIC); // 斜体
-            text("Click anywhere to start", baseWidth / 2, textY + this.textYOffset);
-
-            // 重置样式
-            textStyle(NORMAL);
-        }
-    }
     doubleClicked() {
         this.screenManager.changeScreen(this.screenManager.menuScreen);
     }

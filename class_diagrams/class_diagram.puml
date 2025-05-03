@@ -1,0 +1,139 @@
+@startuml class_diagram
+
+' Abstract Classes
+abstract class Screen {
+    - screenManager: ScreenManager
+    + display(): void
+    + mousePressed(): void
+    + keyPressed(): void
+}
+
+abstract class GameScreen extends Screen {
+    - level: Level
+    - gameMode: string 
+    - hay: List<Hay>
+    - specialItems: List<SpecialItem>
+    - pauseScreen: PauseScreen
+    + startLevelTimer(): void
+    + stopLevelTimer(): void
+    + startNextLevel(): void
+    + clearStats(): void
+}
+
+abstract class FallingObject {
+    + x: int
+    + y: int
+    + speed: int
+    + fall(): void
+    + isOffscreen(): boolean
+}
+
+abstract class SpecialItem extends FallingObject {
+    + hits(player: Player): boolean
+    + applyEffect(player: Player): void
+}
+
+' Concrete Classes
+class ScreenManager {
+    - currentScreen: Screen
+    + changeScreen(screen: Screen): void
+    + display(): void
+    + handleVisibilityChange(): void
+}
+
+class Level {
+    - GAME_MODES
+    + startNextLevel(): void
+}
+
+class HomeScreen extends Screen {
+    + loadAssets(): void
+}
+
+class StepByStepHelpScreen extends Screen {
+    - tutorialSteps: List<Object>
+    + previousStep(): void
+    + nextStep(): void
+}
+
+class SingleHelpScreen extends Screen {
+}
+
+abstract class DoubleHelpScreen extends Screen {
+}
+
+class CoopHelpScreen extends DoubleHelpScreen {
+}
+
+class PvpHelpScreen extends DoubleHelpScreen {
+}
+
+class Single extends GameScreen {
+    - player: Player
+    - barrel: Barrel
+}
+
+class Coop extends GameScreen {
+    - player1: Player
+    - player2: Player
+    - barrel: Barrel
+}
+
+class Pvp extends GameScreen {
+    - player1: Player
+    - player2: Player
+    - barrel1: Barrel
+    - barrel2: Barrel
+}
+
+class Hay extends FallingObject {
+    - perfectStack: boolean
+    + setPerfectStack(value: boolean): void
+}
+
+class Shovel extends SpecialItem {}
+
+class ProteinShaker extends SpecialItem {
+    - boostDuration: int
+}
+
+
+class SpeedBoot extends SpecialItem { 
+    - boostDuration: int
+}
+
+class Player {
+    - score: int
+    - stack: List<Hay>
+    - flash: Flash
+    + catches(hay: Hay): boolean
+    + checkPerfectStack(): boolean
+    + emptyToBarrel(): void
+    + reset(): void
+}
+
+class Flash {
+    - flashDuration: int
+    + setFlashDuration(flashDuration: int): void
+}
+
+class Barrel {
+    - score: int
+    - targetScore: int
+    + updateScore(score: int, targetScore: int): void
+}
+
+' Relationships
+ScreenManager "1" *-- "*" Screen
+GameScreen "1" *-- "1" Level
+GameScreen "1" *-- "1..2" Player
+StepByStepHelpScreen *-- "1" Player
+
+GameScreen "1" *-- "1..2" Barrel
+StepByStepHelpScreen *-- "1" Barrel
+Player "1" *-- "1" Barrel
+Player "1" *-- "1" Flash
+
+GameScreen "1" o-- "0..*" FallingObject
+StepByStepHelpScreen o-- "0..*" FallingObject
+@enduml
