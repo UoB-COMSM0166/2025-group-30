@@ -13,11 +13,18 @@
 - [9. Process](#9process)
 - [10. Conclusion](#10conclusion)
 - [11. Contribution Statement](#11contribution-statement)
-- [12. Additional Marks](#12additional-marks)
 
 # 1. Game & Game video
 
-Play the game [HERE](https://uob-comsm0166.github.io/2025-group-30/) 
+<p align="center">
+  <a href="https://uob-comsm0166.github.io/2025-group-30/">
+    <img src="docs/assets/HomeScreen.gif" alt="Game Screen" />
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://uob-comsm0166.github.io/2025-group-30/">Play the game here</a>
+</p>
 
 Our game lives in the [docs](/docs) folder, and is published using Github pages to the link above.
 
@@ -48,9 +55,7 @@ Watch the demo video
 
 </div>
 
-# 3. Introduction
-- 5% ~250 words 
-- Describe your game, what is based on, what makes it novel? 
+# 3.Introduction
 
 Our game is a lighthearted, fast-paced stacking challenge inspired by a classic mini-game from Mole Manor, reimagined with a fresh farmyard twist. Set during harvest season, players must move their character left and right to catch falling haystacks and deposit them into a barrel before time runs out. The goal: hit the hay collection target to progress to the next level.
 
@@ -75,8 +80,6 @@ The following table shows the main elements of the game:
 | Speed boot         |   <img src="docs/assets/speed-boot.webp" width="50" style="vertical-align: middle;">   | Increase player's speed temporarily.                                      |
 
 # 4. Requirements 
-- 15% ~750 words
-- Use case diagrams, user stories. Early stages design. Ideation process. How did you decide as a team what to develop? 
 
 ## Ideation Process
 
@@ -216,14 +219,12 @@ To better understand the interactions between the game and its users, we used a 
 | **Alternative Flow** | 1. Hay bales fall.<br>2. Player fails to catch.<br>3. Hay disappears offscreen. | N/A                                                                                                      | N/A                                                                                          |
 
 # 5.Design
-
-- 15% ~750 words 
-- System architecture. Class diagrams, behavioural diagrams. 
+<p align="center"><b>Figure 8: Class Diagram</b></p>
+<div align="center">
+  <img src="class_diagram.png" width="1100">
+</div>
 
 # 6.Implementation
-
-- 15% ~750 words
-- Describe implementation of your game, in particular highlighting the three areas of challenge in developing your game. 
 
 ## 6.1 Challenges
 ### 6.1.1 challenge 1:
@@ -255,11 +256,6 @@ Through this series of adjustments and optimizations, we successfully achieved o
 - **Player retention** has significantly improved.
 
 # 7.Evaluation
-
-- 15% ~750 words
-- One qualitative evaluation (your choice) 
-- One quantitative evaluation (of your choice) 
-- Description of how code was tested. 
 
 To ensure a balance between functionality and usability during the game development process, we chose to combine both qualitative and quantitative evaluation methods. Qualitative analysis helped us identify issues within the game, while quantitative evaluation provided insights into user perceptions, guiding us to iteratively improve the design.
 ## 7.1 Qualitative Evaluation - Heuristic Evaluation
@@ -348,12 +344,12 @@ Based on the severity scores in the evaluation table, we will prioritize address
 ## 7.2 Quantitative Evaluation - SUS evaluation
 We collected and analyzed SUS questionnaire data from 12 users for both Level 1 and Level 2, calculating their total SUS scores. We then used the Wilcoxon Signed-Rank Test to examine whether there was a statistically significant difference in usability scores between the two levels. Click [here](sus.md) to see the raw data.
 
-<p align="center"><b>Figure 8: SUS Score Distribution Chart</b></p>
+<p align="center"><b>Figure 10: SUS Score Distribution Chart</b></p>
 <div align="center">
   <img src="SUS evaluation.webp" width="533">
 </div>
 
-<p align="center"><b>Figure 9: Average Score Chart</b></p>
+<p align="center"><b>Figure 11: Average Score Chart</b></p>
 <div align="center">
   <img src="averageScore.webp" width="533">
 </div>
@@ -365,6 +361,9 @@ Each test case was designed following the equivalence class principle, covering 
 The test results showed that all core functionalities are working correctly, including interface responsiveness, player control accuracy, game mechanic stability, score calculation correctness, and item system functionality.
 Special attention was given to boundary condition handling, such as screen edge limits, barrel capacity limits, and time limits, ensuring the game operates normally under all conditions.
 All test cases passed, indicating that the core functions have been successfully implemented and are operating correctly.
+<p align="center">
+    <i>Table 6: Black-Box Test Table</i>
+</p>
 
 | Test ID |   Test Type    |                Input Condition                | Equivalence Class  |         Expected Output         |                     Actual Output                      | Test Result |
 | :-----: | :------------: | :-------------------------------------------: | :----------------: | :-----------------------------: | :----------------------------------------------------: | :---------: |
@@ -442,7 +441,7 @@ Decoupled structure to avoid unnecessary refreshes or duplicate checks
 
 To better visualize the sustainability logic in Hay-stacking, we mapped our design decisions to the five dimensions of the SusAF model—Individual, Social, Technical, Environmental, and Economic—following the Immediate → Enabling → Structural logic. Each design pattern contributes not only to immediate efficiency, but also to long-term structural sustainability.
 
-<p align="center"><b>Figure 10: Sustainability Awareness Diagram</b></p>
+<p align="center"><b>Figure 12: Sustainability Awareness Diagram</b></p>
 <p align="center">
   <img src="https://github.com/user-attachments/assets/dcf6ef86-3c7f-488f-917f-530946ea2709" width="600">
 </p>
@@ -484,73 +483,60 @@ Through these sustainability practices, our game actively addresses the environm
 
 ## 8.6 Conclusion
 
-By following a structured path of problem identification → pattern matching → logic deduction → implementation, our development of Hay-stacking embedded green design at every level. This not only improved system performance but also reduced environmental impact and promoted sustainable awareness among players. The approach provides a reproducible model for future green game design and sustainable software engineering.
+By following a structured path of problem identification → pattern matching → logic deduction → implementation, our development of Hay-stacking embedded green design at every level. This not only improved system performance but also reduced environmental impact and promted sustainable awareness among players. The approach provides a reproducible model for future green game design and sustainable software engineering.
 
 # 9.Process
-- 15% ~750 words
-- Teamwork. How did you work together, what tools did you use. Did you have team roles? Reflection on how you worked together.
 
 In this project, our team adopted the **Scrum** framework, a core methodology in Agile development, to organize teamwork and manage task progression. This approach ensured our project followed a structured workflow while staying aligned with the weekly teaching schedule.
 
----
-
-### 🗂 Project Management and Task Allocation
+### 9.1 Project Management and Task Allocation
 
 We used **GitHub's Kanban Board** to visualize project tasks and track progress. Each week, based on the course schedule, we set **Sprint goals** and assigned tasks to team members. Tasks were categorized into three stages:
 
-- 🟡 **To Do**
-- 🔵 **In Progress**
-- 🟢 **Done**
-<p align="center"><b>Figure 11: Kanban Board</b></p>
+- **To Do**
+- **In Progress**
+- **Done**
+
+Responsibilities such as asset creation, audio collection, and documentation were distributed organically among team members, reflecting our self-organizing working style. This helped us clearly monitor each task's status and streamline our workflow.
+
+<p align="center"><b>Figure 13: Kanban Board</b></p>
 <div align="center">
   <img src="kanban.webp" width="533">
 </div>
-Responsibilities such as asset creation, audio collection, and documentation were distributed organically among team members, reflecting our self-organizing working style. This helped us clearly monitor each task's status and streamline our workflow.
 
----
-
-### 🔀 Version Control and Code Management
-
+### 9.2 Version Control and Code Management
 We used **Git** for version control. Each member worked on their own **feature branch**. After completing their work, they submitted a **Pull Request** for code review. Only after approval would the code be merged into the `main` branch.  
 This ensured code quality and minimized the risk of conflicts.
 
----
-
-### 👥 Team Meetings and Collaboration
-
+### 9.3 Team Meetings and Collaboration
 We held **meetings every week** to:
-
-- ✅ Review current progress
-- ✅ Analyze completed tasks
-- ✅ Discuss existing issues
-- ✅ Distribute new tasks
+- Review current progress
+- Analyze completed tasks
+- Discuss existing issues
+- Distribute new tasks
 
 After each meeting, we updated the **Kanban board** to reflect progress and task updates, keeping everyone aligned. Even for bug fixing or visual polish tasks, the team collaborated without rigid role assignments.
 
----
-
-### 💬 Communication Tools
-
+### 9.4 Communication Tools
 We used **WhatsApp** for quick daily communication and **Teams** for formal discussions and screen sharing.  
 This setup supported efficient, consistent collaboration, even during remote work.
 
----
-
-### 🌱 Agile Practices and Flexibility
-
+### 9.5 Agile Practices and Flexibility
 While our work followed a Sprint-based structure, internal task distribution remained flexible. Members took initiative to work on tasks based on their interests and expertise.  
 Tasks such as tutorial UI, sound design, asset preparation, and even bug fixing were shared among the team in a collaborative and adaptive way. This self-organizing model allowed us to stay responsive, communicate openly, and maintain consistent progress.
 
----
-
-### ✅ Summary
-
+### 9.6 Summary
 By combining **Scrum methodology**, **Kanban-based task tracking**, and **frequent team communication**, we enhanced our development efficiency, maintained progress, and built a strong, collaborative work environment. 
 
 # 10.Conclusion
 
-- 10% ~500 words
-- Reflect on project as a whole. Lessons learned. Reflect on challenges. Future work. 
+Through the development of our farm-themed stacking game, our team has gained valuable hands-on experience in the entire software development lifecycle—from ideation and prototyping to implementation and evaluation. The process not only improved our programming skills but also taught us how to manage a project collaboratively using Agile methods. Weekly sprints, regular meetings, and clear role distribution allowed us to keep track of progress and adapt swiftly to changes.
+
+Throughout the project, we encountered several technical and design challenges, such as managing object drop timing, balancing gameplay difficulty, and ensuring stable cross-platform performance. To address these issues, we constantly made trade-offs, refined debugging skills, and adjusted mechanics based on continuous testing and user feedback. These experiences significantly deepened our understanding of modular code architecture and user-centered development.
+
+Additionally, we prioritized sustainability and accessibility in our development. By reusing assets, designing for short gameplay sessions, supporting local multiplayer, and implementing basic accessibility features, we created a game that is both environmentally friendly and inclusive. In particular, our design is more accessible for players with motor disabilities, reflecting our commitment to user diversity.
+
+In the near future, we plan to introduce new game items such as freeze sprays, glue bottles, and magnetic gloves to further enrich gameplay. These items will introduce new tactical options—such as hindering opponents or boosting speed—making the game more dynamic and engaging. We also aim to expand level design and improve visual effects to enhance immersion. And in the long run, we aim to implement online multiplayer functionality, allowing players to compete or cooperate remotely. As our technical capabilities grow, we also plan to introduce a progression system, global leaderboard, and story mode—adding longevity and depth to the game experience.
 
 # 11.Contribution Statement
 | Name         | Contribution |
@@ -561,17 +547,3 @@ By combining **Scrum methodology**, **Kanban-based task tracking**, and **freque
 | Shiyu Dou    |              |
 | Zhuoyan Qiu  |              |
 | Liyang Li    |              |
-
-- Provide a table of everyone's contribution, which may be used to weight individual grades. We expect that the contribution will be split evenly across team-members in most cases. Let us know as soon as possible if there are any issues with teamwork as soon as they are apparent. 
-
-# 12.Additional Marks
-
-You can delete this section in your own repo, it's just here for information. in addition to the marks above, we will be marking you on the following two points:
-
-- **Quality** of report writing, presentation, use of figures and visual material (5%) 
-  - Please write in a clear concise manner suitable for an interested layperson. Write as if this repo was publicly available.
-
-- **Documentation** of code (5%)
-
-  - Is your repo clearly organised? 
-  - Is code well commented throughout?
