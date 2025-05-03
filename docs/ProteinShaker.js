@@ -34,6 +34,9 @@ class ProteinShaker extends SpecialItem {
     }
 
     applyEffect(player, game) {
+        if (player.soundManager) {
+            player.soundManager.playSound('specialItem');
+        }
         // Create initial burst effect
         this.createBurstEffect(
             player.x + player.w / 2,

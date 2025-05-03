@@ -9,20 +9,21 @@ class Screen {
     mousePressed() {
         if (!this.buttons) return;
         for (let button of this.buttons) {
-            // 计算按钮的点击区域
+            // Calculate button click area
             let buttonTop = button.y - button.buttonHeight / 2;
             let buttonBottom = button.y + button.buttonHeight / 2;
             let buttonLeft = button.x - button.buttonWidth / 2;
             let buttonRight = button.x + button.buttonWidth / 2;
 
-            // 检查鼠标是否在按钮区域内
+            // Check if mouse is within button area
             if (window.mouseXGame > buttonLeft &&
                 window.mouseXGame < buttonRight &&
                 window.mouseYGame > buttonTop &&
                 window.mouseYGame < buttonBottom) {
-
+                // Play button click sound
+                this.screenManager.soundManager.playSound('buttonClick');
                 button.action();
-                return; // 防止点击多个按钮
+                return; // Prevent clicking multiple buttons
             }
         }
     }
@@ -55,4 +56,10 @@ class Screen {
     }
 
     keyReleased() { }
+
+    mouseReleased() { }
+
+    mouseDragged() { }
+
+    doubleClicked() { }
 }

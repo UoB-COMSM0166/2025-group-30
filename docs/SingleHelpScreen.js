@@ -144,25 +144,25 @@ class SingleHelpScreen extends Screen {
 
             let isFocused = this.focusedButtonIndex === this.buttons.indexOf(button);
 
-            // 绘制按钮边框
-            stroke(53, 97, 140);  // 蓝黑色
-            strokeWeight(3);      // 加粗边框
+
+            stroke(53, 97, 140);
+            strokeWeight(3);
             if (isHovered) {
-                fill(227, 249, 253);  // 更亮的按钮颜色
+                fill(227, 249, 253); 
             } else {
-                fill(207, 239, 246);  // 正常按钮颜色
+                fill(207, 239, 246);
             }
             if (isFocused) {
                 stroke(14, 105, 218);
                 strokeWeight(5);
             }
             rect(button.x, button.y, button.buttonWidth, button.buttonHeight, 10);
-            noStroke();  // 重置描边设置
+            noStroke();
 
             // Draw text
             textSize(16);
             textAlign(CENTER, CENTER);
-            fill(53, 97, 140);  // 按钮文字颜色
+            fill(53, 97, 140);
             text(button.label, button.x, button.y);
         }
 
