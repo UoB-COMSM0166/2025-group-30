@@ -14,8 +14,10 @@ class SpeedBoot extends SpecialItem {
     }
 
     createBurstEffect(x, y, game) {
-        if (!game.particles) {
-            game.particles = [];
+        let particles = game.particles;
+        if (game.particles1 && game.particles2) {
+            // PVP or Coop mode
+            particles = game.player1 && game.player1.speedBoot === this ? game.particles1 : game.particles2;
         }
 
         // Create burst particles
@@ -26,12 +28,12 @@ class SpeedBoot extends SpecialItem {
 
             particle.speedX = cos(angle) * speed;
             particle.speedY = sin(angle) * speed;
-            game.particles.push(particle);
+            particles.push(particle);
         }
 
         // Create speed boost text
         const textParticle = new Particle(x, y - 30, 'speed_boost');
-        game.particles.push(textParticle);
+        particles.push(textParticle);
     }
 
     applyEffect(player, game) {
@@ -68,7 +70,6 @@ class SpeedBoot extends SpecialItem {
 
             if (this.timeLeft > 0) {
                 if (screenManager.currentScreen === game) {
-
                     this.timeLeft -= 0.05;
 
                     // Create particles at player's position
@@ -77,6 +78,12 @@ class SpeedBoot extends SpecialItem {
 
                     // Create more particles when moving
                     const particleCount = player.dir !== 0 ? 5 : 2;
+
+                    // Get the correct particles array
+                    let particles = game.particles;
+                    if (game.particles1 && game.particles2) {
+                        particles = game.player1 === player ? game.particles1 : game.particles2;
+                    }
 
                     for (let i = 0; i < particleCount; i++) {
                         const particle = new Particle(x, y, 'speed_trail');
@@ -88,6 +95,9 @@ class SpeedBoot extends SpecialItem {
                             particle.speedY = random(-1, 1); // Slight vertical spread
                             particle.size = random(10, 20); // Larger particles when moving
                             particle.life = 20; // Shorter life for trail effect
+                            
+                            // Adjust particle position based on movement direction
+                            particle.x = player.dir > 0 ? player.x : player.x + player.w;
                         }
 
                         // Blue-white color gradient based on speed
@@ -98,13 +108,13 @@ class SpeedBoot extends SpecialItem {
                             255
                         );
 
-                        game.particles.push(particle);
+                        particles.push(particle);
                     }
                 }
             } else {
                 player.velocity = originalVelocity;
                 player.maxSpeed = originalMaxSpeed;
-                player.speedBoot = null; // 清除引用
+                player.speedBoot = null;
                 clearInterval(this.interval);
             }
         }, 50); // Faster particle spawn rate

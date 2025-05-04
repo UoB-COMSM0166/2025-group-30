@@ -62,16 +62,6 @@ class Coop extends GameScreen {
         text(`Time: ${this.level.timeLeft}s`, 20, 30);
         textStyle(NORMAL);
 
-        if (this.level.timeLeft > 0) {
-            // Display special item timers for each player
-            if (this.player) {
-                this.displaySpecialItemTimers(this.player);
-            } else if (this.player1 && this.player2) {
-                this.displaySpecialItemTimers(this.player1);
-                this.displaySpecialItemTimers(this.player2);
-            }
-        }
-
         // Call the game mode specific UI update
         this.updateScoreDisplay();
     }
@@ -352,44 +342,6 @@ class Coop extends GameScreen {
     keyReleased() {
         if (keyCode === 68 || keyCode === 65) this.player1.dir = 0;
         if (keyCode === LEFT_ARROW || keyCode === RIGHT_ARROW) this.player2.dir = 0;
-    }
-/*
-    displaySpecialItemTimers(player) {
-        if (player.specialItemTimeLeft > 0) {
-            const x = player === this.player1 ? 20 : baseWidth - 120;
-            fill(255, 255, 0);
-            textSize(16);
-            textAlign(LEFT);
-            text(`Special Item: ${player.specialItemTimeLeft.toFixed(1)}s`, x, 60);
-        }
-    }*/
-    displaySpecialItemTimers(player) {
-        const x = player === this.player1 ? 20 : baseWidth - 200;
-        // Only show when speed buff is active
-        if (player.speedBoot) {
-            const remainingTime = player.speedBoot.timeLeft;
-            if (remainingTime > 0) {
-                push();
-                fill(254, 224, 173); // Set to specified RGB color
-                textSize(20);
-                textAlign(LEFT);
-                text(`Speed boost: ${remainingTime.toFixed(0)}s`, x, 60);
-                pop();
-            }
-        }
-
-        // Only show when strength buff is active
-        if (player.proteinShaker) {
-            const remainingTime = player.proteinShaker.timeLeft;
-            if (remainingTime > 0) {
-                push();
-                fill(254, 224, 173); // Set to specified RGB color
-                textSize(20);
-                textAlign(LEFT);
-                text(`Strength boost: ${remainingTime.toFixed(0)}s`, x, 90);
-                pop();
-            }
-        }
     }
 
 }
