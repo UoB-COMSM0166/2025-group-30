@@ -14,7 +14,7 @@
 - [10. Conclusion](#10conclusion)
 - [11. Contribution Statement](#11contribution-statement)
 
-# 1. Game & Game video
+# 1.Game & Game video
 
 <p align="center">
   <a href="https://uob-comsm0166.github.io/2025-group-30/">
@@ -31,7 +31,7 @@ Our game lives in the [docs](/docs) folder, and is published using Github pages 
 Watch the demo video
 [🎬 here](https://github.com/UoB-COMSM0166/2025-group-30/blob/nemo/videos/demo%20video.MP4)
 
-# 2. Team
+# 2.Team
 
 <p align="center">
   <br><i> Figure 1: Group photo of the team</i></br>
@@ -79,7 +79,7 @@ The following table shows the main elements of the game:
 | Protein shake      | <img src="docs/assets/protein-shaker.webp" width="50" style="vertical-align: middle;"> | Increase player's strength temporarily so that they could carry more hay. |
 | Speed boot         |   <img src="docs/assets/speed-boot.webp" width="50" style="vertical-align: middle;">   | Increase player's speed temporarily.                                      |
 
-# 4. Requirements 
+# 4.Requirements 
 
 ## Ideation Process
 
@@ -219,6 +219,9 @@ To better understand the interactions between the game and its users, we used a 
 | **Alternative Flow** | 1. Hay bales fall.<br>2. Player fails to catch.<br>3. Hay disappears offscreen. | N/A                                                                                                      | N/A                                                                                          |
 
 # 5.Design
+- 15% ~750 words 
+- System architecture. Class diagrams, behavioural diagrams
+  
 <p align="center"><b>Figure 8: Class Diagram</b></p>
 <div align="center">
   <img src="class_diagram.png" width="1100">
@@ -278,6 +281,12 @@ if (isPaused && screen === "game") {
 However, as the number of screens grew, this became increasingly difficult to maintain. To solve this, we impletemented a state management class - `ScreenManager` which emcompasses different screens such as the game screens and home screens, and each of the game screen has their respective target score screen, level up screen etc. The `ScreenManager` also maintains a `currentScreen` property and has methods to change and display the current screen.
 
 # 7.Evaluation
+
+- 15% ~750 words
+- One qualitative evaluation (your choice) 
+- One quantitative evaluation (of your choice)
+- Description of how code was tested.
+
 
 To ensure a balance between functionality and usability during the game development process, we chose to combine both qualitative and quantitative evaluation methods. Qualitative analysis helped us identify issues within the game, while quantitative evaluation provided insights into user perceptions, guiding us to iteratively improve the design.
 ## 7.1 Qualitative Evaluation - Heuristic Evaluation
@@ -508,6 +517,8 @@ Through these sustainability practices, our game actively addresses the environm
 By following a structured path of problem identification → pattern matching → logic deduction → implementation, our development of Hay-stacking embedded green design at every level. This not only improved system performance but also reduced environmental impact and promted sustainable awareness among players. The approach provides a reproducible model for future green game design and sustainable software engineering.
 
 # 9.Process
+- 15% ~750 words
+- Teamwork. How did you work together, what tools did you use. Did you have team roles? Reflection on how you worked together.
 
 In this project, our team adopted the **Scrum** framework, a core methodology in Agile development, to organize teamwork and manage task progression. This approach ensured our project followed a structured workflow while staying aligned with the weekly teaching schedule.
 
@@ -551,6 +562,9 @@ Tasks such as tutorial UI, sound design, asset preparation, and even bug fixing 
 By combining **Scrum methodology**, **Kanban-based task tracking**, and **frequent team communication**, we enhanced our development efficiency, maintained progress, and built a strong, collaborative work environment. 
 
 # 10.Conclusion
+- 10% ~500 words
+- Reflect on project as a whole. Lessons learned. Reflect on challenges. Future work.
+
 
 Through the development of our farm-themed stacking game, our team has gained valuable hands-on experience in the entire software development lifecycle—from ideation and prototyping to implementation and evaluation. The process not only improved our programming skills but also taught us how to manage a project collaboratively using Agile methods. Weekly sprints, regular meetings, and clear role distribution allowed us to keep track of progress and adapt swiftly to changes.
 
