@@ -126,7 +126,7 @@ class Pvp extends GameScreen { // player with higher score in the set time wins
     }
 
     startSpecialItemDrop() {
-        if (this.level.level === 1) return;
+        if (this.level.level < 2) return; //special items starts from level 2
         if (this.specialItemDropInterval) clearInterval(this.specialItemDropInterval);
         if (this.shovelDropInterval) clearInterval(this.shovelDropInterval);
 
@@ -168,7 +168,7 @@ class Pvp extends GameScreen { // player with higher score in the set time wins
         const newX = this.findSafePosition(left, right, hayArray, [...specialItemsArray, ...shovelsArray]);
         switch (this.level.level) {
             case 2:
-                shovelsArray.push(new Shovel(newX, 10));
+                //no special item drop for level 2
                 break;
             case 3:
                 specialItemsArray.push(new SpeedBoot(newX, 10));

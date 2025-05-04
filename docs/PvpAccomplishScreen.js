@@ -30,9 +30,7 @@ class PvpAccomplishScreen extends Screen {
     }
 
     keyPressed() {
-        if (keyCode === RETURN) {
-            this.buttons[0].action();
-        }
+        super.keyPressed();
     }
 
     display() {
@@ -78,13 +76,22 @@ class PvpAccomplishScreen extends Screen {
                 && window.mouseYGame >= button.y - button.buttonHeight / 2
                 && window.mouseYGame <= button.y + button.buttonHeight / 2;
 
+            let isFocused = this.focusedButtonIndex === this.buttons.indexOf(button);
+
             if (isHovered) {
                 fill(180, 126, 89);
             } else {
                 fill(130, 76, 39);
             }
+            if (isFocused) {
+                stroke(14, 105, 218);
+                strokeWeight(4);
+            } else {
+                noStroke();
+            }
             rect(button.x, button.y, button.buttonWidth, button.buttonHeight, 10);
 
+            noStroke();
             fill(255);
             textSize(16);
             textAlign(CENTER, CENTER);

@@ -36,11 +36,11 @@ class Level {
             hayDropDelayDecrement: 200,
             minHayDropDelay: 500,
 
-            initialSpecialItemDropDelay: 4000,
+            initialSpecialItemDropDelay: 6000,
             specialItemDropDelayDecrement: 300,
-            minSpecialItemDropDelay: 3000,
+            minSpecialItemDropDelay: 4000,
 
-            initialShovelDropDelay: 3000, //4 seconds
+            initialShovelDropDelay: 4000, //4 seconds
             shovelDropDelayDecrement: 300, //decrease by 0.3 seconds each level
             minShovelDropDelay: 2000, //minimum 2 seconds
         },
@@ -59,9 +59,9 @@ class Level {
             specialItemDropDelayDecrement: 500,
             minSpecialItemDropDelay: 6000,
 
-            initialShovelDropDelay: 3000, //3 seconds
-            shovelDropDelayDecrement: 200, //decrease by 0.4 seconds each level
-            minShovelDropDelay: 1500, //minimum 1.5 seconds
+            initialShovelDropDelay: 5000, //4 seconds
+            shovelDropDelayDecrement: 200, //decrease by 0.2 seconds each level
+            minShovelDropDelay: 300, //minimum 2.5 seconds
         }
     };
 
