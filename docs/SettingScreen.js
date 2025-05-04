@@ -7,10 +7,10 @@ class SettingScreen extends Screen {
         this.focusedButtonIndex = -1;
         
         // Preload volume icons and background image
-        this.volumeIcon = loadImage('assets/volume.png');
-        this.noVolumeIcon = loadImage('assets/no-volume.png');
-        this.musicIcon = loadImage('assets/music.png');
-        this.musicMuteIcon = loadImage('assets/music1.png');
+        this.volumeIcon = loadImage('assets/volume.webp');
+        this.noVolumeIcon = loadImage('assets/no-volume.webp');
+        this.musicIcon = loadImage('assets/music.webp');
+        this.musicMuteIcon = loadImage('assets/music1.webp');
         this.backgroundImage = loadImage('assets/board2.webp');
         
         this.buttonWidth = 200;
