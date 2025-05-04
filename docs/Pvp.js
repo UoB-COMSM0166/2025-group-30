@@ -60,25 +60,26 @@ class Pvp extends GameScreen { // player with higher score in the set time wins
     }
 
     displayUI() {
-        // Common UI elements
-        fill(254, 224, 173); // Set to specified RGB color
-        textSize(20);
-        textStyle(BOLD);
-
-        // Display level
-        textAlign(CENTER);
-        text(`Level ${this.level.level}`, baseWidth / 2, 30);
+        // Draw background box for level and score
+        fill(255, 255, 255, 180);
+        noStroke();
+        rectMode(CENTER);
+        rect(baseWidth / 2, 45, 250, 70, 15);
+        rectMode(CORNER);
 
         // Display time
+        fill(254, 224, 173);
+        textSize(20);
+        textStyle(BOLD);
         textAlign(LEFT);
         text(`Time: ${this.level.timeLeft}s`, 20, 30);
         textStyle(NORMAL);
 
-        if (this.level.timeLeft > 0) {
-            // Display special item timers for each player
-            this.displaySpecialItemTimers(this.player1); 
-            this.displaySpecialItemTimers(this.player2); 
-        }
+        // Display level and score with new color
+        fill(139, 69, 19);
+        textStyle(BOLD);
+        textAlign(CENTER);
+        text(`Level ${this.level.level}`, baseWidth / 2, 35);
 
         // Display scores
         this.displayScores();
@@ -89,10 +90,11 @@ class Pvp extends GameScreen { // player with higher score in the set time wins
 
     displayScores() {
         // display score
-        fill(255, 255, 0);
-        textSize(24);
+        fill(139, 69, 19);
+        textSize(28);
         textAlign(CENTER);
-        text(`Score: ${this.player1Wins} - ${this.player2Wins}`, baseWidth / 2, 60);
+        textStyle(BOLD);
+        text(`Score: ${this.player1Wins} - ${this.player2Wins}`, baseWidth / 2, 65);
     }
 
     // --- initialising the game state ---
@@ -241,6 +243,15 @@ class Pvp extends GameScreen { // player with higher score in the set time wins
         this.updateEachPlayerParticles(this.player2, this.particles2);
     }
 
+    updateEachPlayerParticles(player, particles) {
+        for (let i = particles.length - 1; i >= 0; i--) {
+            particles[i].update();
+            if (particles[i].isDead()) {
+                particles.splice(i, 1);
+            }
+        }
+    }
+
     drawParticles() {
         this.particles1.forEach(particle => particle.draw());
         this.particles2.forEach(particle => particle.draw());
@@ -310,7 +321,7 @@ class Pvp extends GameScreen { // player with higher score in the set time wins
 
         // Draw the center line
         stroke(254, 224, 173);
-        line(baseWidth / 2, 50, baseWidth / 2, baseHeight); // Start from y=50 to avoid overlapping with level text
+        line(baseWidth / 2, 80, baseWidth / 2, baseHeight);
         noStroke();
     }
 
@@ -355,35 +366,6 @@ class Pvp extends GameScreen { // player with higher score in the set time wins
         if (this.shovelDropInterval) {
             clearInterval(this.shovelDropInterval);
             this.shovelDropInterval = null;
-        }
-    }
-
-    displaySpecialItemTimers(player) {
-        const x = player === this.player1 ? 20 : baseWidth - 200;
-        // Only show when speed buff is active
-        if (player.speedBoot) {
-            const remainingTime = player.speedBoot.timeLeft;
-            if (remainingTime > 0) {
-                push();
-                fill(254, 224, 173); // Set to specified RGB color
-                textSize(20);
-                textAlign(LEFT);
-                text(`Speed boost: ${remainingTime.toFixed(0)}s`, x, 60);
-                pop();
-            }
-        }
-
-        // Only show when strength buff is active
-        if (player.proteinShaker) {
-            const remainingTime = player.proteinShaker.timeLeft;
-            if (remainingTime > 0) {
-                push();
-                fill(254, 224, 173); // Set to specified RGB color
-                textSize(20);
-                textAlign(LEFT);
-                text(`Strength boost: ${remainingTime.toFixed(0)}s`, x, 90);
-                pop();
-            }
         }
     }
 
