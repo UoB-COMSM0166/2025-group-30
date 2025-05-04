@@ -62,24 +62,37 @@ class Pvp extends GameScreen { // player with higher score in the set time wins
 
     displayUI() {
         // Common UI elements
-        fill(254, 224, 173); // Set to specified RGB color
         textSize(20);
         textStyle(BOLD);
 
+        push();
+        fill(255, 255, 255, 150);
+        noStroke();
+        const levelText = `Level ${this.level.level}`;
+        const scoreText = `Score: ${this.player1Wins} - ${this.player2Wins}`;
+        textSize(20);
+        const levelWidth = textWidth(levelText);
+        textSize(24);
+        const scoreWidth = textWidth(scoreText);
+        
+        const padding = 40;
+        const boxWidth = max(levelWidth, scoreWidth) + padding * 2;
+        const boxX = (baseWidth - boxWidth) / 2;
+        
+        rect(boxX, 10, boxWidth, 60, 15);
+        pop();
+
         // Display level
         textAlign(CENTER);
+        fill(139, 69, 19);
+        textSize(20);
         text(`Level ${this.level.level}`, baseWidth / 2, 30);
 
         // Display time
         textAlign(LEFT);
+        fill(254, 224, 173);
         text(`Time: ${this.level.timeLeft}s`, 20, 30);
         textStyle(NORMAL);
-
-        if (this.level.timeLeft > 0) {
-            // Display special item timers for each player
-            this.displaySpecialItemTimers(this.player1); 
-            this.displaySpecialItemTimers(this.player2); 
-        }
 
         // Display scores
         this.displayScores();
@@ -90,7 +103,7 @@ class Pvp extends GameScreen { // player with higher score in the set time wins
 
     displayScores() {
         // display score
-        fill(255, 255, 0);
+        fill(139, 69, 19);
         textSize(24);
         textAlign(CENTER);
         text(`Score: ${this.player1Wins} - ${this.player2Wins}`, baseWidth / 2, 60);
@@ -342,7 +355,7 @@ class Pvp extends GameScreen { // player with higher score in the set time wins
 
         // Draw the center line
         stroke(254, 224, 173);
-        line(baseWidth / 2, 50, baseWidth / 2, baseHeight); // Start from y=50 to avoid overlapping with level text
+        line(baseWidth / 2, 100, baseWidth / 2, baseHeight); // 从y=100开始，避免与UI重叠
         noStroke();
     }
 
@@ -397,7 +410,7 @@ class Pvp extends GameScreen { // player with higher score in the set time wins
             const remainingTime = player.speedBoot.timeLeft;
             if (remainingTime > 0) {
                 push();
-                fill(254, 224, 173); // Set to specified RGB color
+                fill(254, 224, 173); // 恢复原来的颜色
                 textSize(20);
                 textAlign(LEFT);
                 text(`Speed boost: ${remainingTime.toFixed(0)}s`, x, 60);
@@ -410,7 +423,7 @@ class Pvp extends GameScreen { // player with higher score in the set time wins
             const remainingTime = player.proteinShaker.timeLeft;
             if (remainingTime > 0) {
                 push();
-                fill(254, 224, 173); // Set to specified RGB color
+                fill(254, 224, 173); // 恢复原来的颜色
                 textSize(20);
                 textAlign(LEFT);
                 text(`Strength boost: ${remainingTime.toFixed(0)}s`, x, 90);
