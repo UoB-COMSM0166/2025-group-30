@@ -46,6 +46,7 @@ class Pvp extends GameScreen { // player with higher score in the set time wins
             this.updateFallingHay();
             this.updateSpecialItems();
             this.updateParticles();
+            this.createMovementParticles();
         }
         this.drawFallingHay();
         this.drawSpecialItems();
@@ -229,6 +230,27 @@ class Pvp extends GameScreen { // player with higher score in the set time wins
         this.updateEachPlayerSpecialItems(this.player2, this.shovels2);
     }
 
+    updateEachPlayerSpecialItems(player, specialItemsArray) {
+        if (this.level.level === 1) {
+            return;
+        }
+        for (let i = specialItemsArray.length - 1; i >= 0; i--) {
+            const currentItem = specialItemsArray[i];
+            if (player.flash.getFlashDuration() === 0) {
+                currentItem.fall();
+            } //stop item fall if flashing is on or game is paused    
+
+            if (currentItem.hits(player)) {
+                // 根据玩家选择正确的粒子数组
+                const particles = player === this.player1 ? this.particles1 : this.particles2;
+                currentItem.applyEffect(player, { particles: particles });
+                specialItemsArray.splice(i, 1);
+            } else if (currentItem.isOffscreen()) {
+                specialItemsArray.splice(i, 1);
+            }
+        }
+    }
+
     drawSpecialItems() {
         this.specialItems1.forEach(item => item.draw());
         this.specialItems2.forEach(item => item.draw());
@@ -239,6 +261,16 @@ class Pvp extends GameScreen { // player with higher score in the set time wins
     updateParticles() {
         this.updateEachPlayerParticles(this.player1, this.particles1);
         this.updateEachPlayerParticles(this.player2, this.particles2);
+    }
+
+    updateEachPlayerParticles(player, particles) {
+        for (let i = particles.length - 1; i >= 0; i--) {
+            const particle = particles[i];
+            particle.update();
+            if (particle.isDead()) {
+                particles.splice(i, 1);
+            }
+        }
     }
 
     drawParticles() {
@@ -391,5 +423,69 @@ class Pvp extends GameScreen { // player with higher score in the set time wins
         console.log('Resetting score');
         this.player1Wins = 0;
         this.player2Wins = 0;
+    }
+
+    createMovementParticles() {
+        // 为玩家1创建移动粒子
+        if (this.player1.dir !== 0) {
+            const x = this.player1.x + this.player1.w / 2;
+            const y = this.player1.y + this.player1.h / 4 * 3;
+            
+            if (this.player1.speedBoot) {
+                // 速度靴特效
+                for (let i = 0; i < 3; i++) {
+                    const particle = new Particle(x, y, 'speed_trail');
+                    particle.speedX = this.player1.dir * random(2, 4);
+                    particle.speedY = random(-1, 1);
+                    particle.size = random(10, 20);
+                    particle.life = 20;
+                    particle.color = color(150, 200, 255, 150);
+                    this.particles1.push(particle);
+                }
+            }
+            if (this.player1.proteinShaker) {
+                // 蛋白粉特效
+                for (let i = 0; i < 3; i++) {
+                    const particle = new Particle(x, y, 'strength_trail');
+                    particle.speedX = this.player1.dir * random(2, 4);
+                    particle.speedY = random(-1, 1);
+                    particle.size = random(10, 20);
+                    particle.life = 20;
+                    particle.color = color(255, 200, 200, 150);
+                    this.particles1.push(particle);
+                }
+            }
+        }
+
+        // 为玩家2创建移动粒子
+        if (this.player2.dir !== 0) {
+            const x = this.player2.x + this.player2.w / 2;
+            const y = this.player2.y + this.player2.h / 4 * 3;
+            
+            if (this.player2.speedBoot) {
+                // 速度靴特效
+                for (let i = 0; i < 3; i++) {
+                    const particle = new Particle(x, y, 'speed_trail');
+                    particle.speedX = this.player2.dir * random(2, 4);
+                    particle.speedY = random(-1, 1);
+                    particle.size = random(10, 20);
+                    particle.life = 20;
+                    particle.color = color(150, 200, 255, 150);
+                    this.particles2.push(particle);
+                }
+            }
+            if (this.player2.proteinShaker) {
+                // 蛋白粉特效
+                for (let i = 0; i < 3; i++) {
+                    const particle = new Particle(x, y, 'strength_trail');
+                    particle.speedX = this.player2.dir * random(2, 4);
+                    particle.speedY = random(-1, 1);
+                    particle.size = random(10, 20);
+                    particle.life = 20;
+                    particle.color = color(255, 200, 200, 150);
+                    this.particles2.push(particle);
+                }
+            }
+        }
     }
 }

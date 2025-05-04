@@ -14,10 +14,6 @@ class SpeedBoot extends SpecialItem {
     }
 
     createBurstEffect(x, y, game) {
-        if (!game.particles) {
-            game.particles = [];
-        }
-
         // Create burst particles
         for (let i = 0; i < 20; i++) {
             const particle = new Particle(x, y, 'speed_burst');
@@ -68,7 +64,6 @@ class SpeedBoot extends SpecialItem {
 
             if (this.timeLeft > 0) {
                 if (screenManager.currentScreen === game) {
-
                     this.timeLeft -= 0.05;
 
                     // Create particles at player's position

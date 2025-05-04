@@ -71,8 +71,11 @@ class MenuScreen extends Screen {
                 buttonWidth: 50,
                 buttonHeight: 50,
                 isSpecial: true,
-                action: () => this.screenManager.changeScreen(this.screenManager.settingScreen), //go to setting screen
-                showLabel: false // 添加这个属性来指示不显示标签
+                action: () => {
+                    this.screenManager.settingScreen.previousScreen = this;
+                    this.screenManager.changeScreen(this.screenManager.settingScreen);
+                },
+                showLabel: false 
             }
         ];
     }

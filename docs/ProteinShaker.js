@@ -41,8 +41,7 @@ class ProteinShaker extends SpecialItem {
         this.createBurstEffect(
             player.x + player.w / 2,
             player.y + player.h / 4 - player.stack.length * 40, // Adjusted to account for stack height
-            game,
-            player
+            game
         );
         this.timeLeft = this.boostDuration / 1000;
 
@@ -64,7 +63,6 @@ class ProteinShaker extends SpecialItem {
 
             if (this.timeLeft > 0) {
                 if (screenManager.currentScreen === game) {
-
                     this.timeLeft -= 0.05;
 
                     // Create particles at player's position
