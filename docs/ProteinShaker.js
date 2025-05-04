@@ -1,7 +1,7 @@
 class ProteinShaker extends SpecialItem {
 
     constructor(x, y) {
-        super(x, y, 50, 50, 3);
+        super(x, y, 50, 50, 2.8);
         this.boostDuration = 10000;  // 10 seconds duration
         this.timeLeft = this.boostDuration / 1000;
         this.interval = null;

@@ -11,47 +11,57 @@ class Level {
             targetScoresIncrement: 5,
 
             initialTimer: 15,
-            //initialTimer: 100,
-            timerIncrement: 5,
+            timerIncrement: 2,
 
-            initialHayDropDelay: 2000, //2 seconds
-            hayDropDelayDecrement: 300,
-            minHayDropDelay: 1000,
+            initialHayDropDelay: 1500, //2 seconds
+            hayDropDelayDecrement: 250,
+            minHayDropDelay: 700,
 
-            initialSpecialItemDropDelay: 10000, //10 seconds
-            //initialSpecialItemDropDelay: 2000, //5 seconds
+            initialSpecialItemDropDelay: 8000, //8 seconds
             specialItemDropDelayDecrement: 500, //decrease by 0.5 seconds each level
-            minSpecialItemDropDelay: 10000, //minimum 10 seconds
+            minSpecialItemDropDelay: 5000, //minimum 5 seconds
+
+            initialShovelDropDelay: 6000, //6 seconds
+            shovelDropDelayDecrement: 400, //decrease by 0.4 seconds each level
+            minShovelDropDelay: 3000, //minimum 3 seconds
         },
         [Level.GAME_MODES.COOP]: {
             initialTargetScores: 5,
-            targetScoresIncrement: 5,
+            targetScoresIncrement: 8,
 
-            initialTimer: 15,
-            timerIncrement: 15,
+            initialTimer: 16,
+            timerIncrement: 2,
 
-            initialHayDropDelay: 1500,
+            initialHayDropDelay: 1000,
             hayDropDelayDecrement: 200,
             minHayDropDelay: 500,
 
-            initialSpecialItemDropDelay: 3500,
+            initialSpecialItemDropDelay: 4000,
             specialItemDropDelayDecrement: 300,
-            minSpecialItemDropDelay: 2500,
+            minSpecialItemDropDelay: 3000,
+
+            initialShovelDropDelay: 3000, //4 seconds
+            shovelDropDelayDecrement: 300, //decrease by 0.3 seconds each level
+            minShovelDropDelay: 2000, //minimum 2 seconds
         },
         [Level.GAME_MODES.PVP]: {
             initialTargetScores: 0, // Not used in PvP
             targetScoresIncrement: 0, // Not used in PvP
 
-            initialTimer: 30,
-            timerIncrement: 30,
+            initialTimer: 15,
+            timerIncrement: 5,
 
             initialHayDropDelay: 1500,
             hayDropDelayDecrement: 300,
             minHayDropDelay: 500,
 
-            initialSpecialItemDropDelay: 3500,
+            initialSpecialItemDropDelay: 8000,
             specialItemDropDelayDecrement: 500,
-            minSpecialItemDropDelay: 2000
+            minSpecialItemDropDelay: 6000,
+
+            initialShovelDropDelay: 3000, //3 seconds
+            shovelDropDelayDecrement: 200, //decrease by 0.4 seconds each level
+            minShovelDropDelay: 1500, //minimum 1.5 seconds
         }
     };
 
@@ -65,6 +75,8 @@ class Level {
         this.timeLeft = this.timer;
         this.hayDropDelay = settings.initialHayDropDelay;
         this.specialItemDropDelay = settings.initialSpecialItemDropDelay;
+        this.shovelDropDelay = settings.initialShovelDropDelay;
+        
         // Store settings for level progression
         this.settings = settings;
     }
@@ -85,6 +97,11 @@ class Level {
             this.settings.minSpecialItemDropDelay,
             this.specialItemDropDelay - this.settings.specialItemDropDelayDecrement
         );
+        this.shovelDropDelay = max(
+            this.settings.minShovelDropDelay,
+            this.shovelDropDelay - this.settings.shovelDropDelayDecrement
+        );
+        
         this.resetTimeLeft();
     }
 
@@ -95,6 +112,8 @@ class Level {
         this.timer = settings.initialTimer;
         this.hayDropDelay = settings.initialHayDropDelay;
         this.specialItemDropDelay = settings.initialSpecialItemDropDelay;
+        this.shovelDropDelay = settings.initialShovelDropDelay;
+        
         this.resetTimeLeft();
     }
 

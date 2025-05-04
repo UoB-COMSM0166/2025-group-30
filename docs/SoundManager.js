@@ -26,10 +26,8 @@ class SoundManager {
         this.isBackgroundMusicPlaying = false;
         this.currentBackgroundMusic = null;
 
-        // 检查音频上下文状态
         this.checkAudioContext();
-        
-        // 加载所有音效
+
         this.loadSounds();
     }
     
@@ -49,13 +47,12 @@ class SoundManager {
     }
     
     preload() {
-        // 为了兼容性保留这个方法，但实际加载在 loadSounds 中进行
         this.loadSounds();
     }
     
     loadSounds() {
         try {
-            // 加载音效
+            // load sounds
             this.sounds.buttonClick = loadSound('assets/sound/click.mp3', () => {
             });
             this.sounds.setHay = loadSound('assets/sound/sethay.wav', () => {
@@ -76,7 +73,7 @@ class SoundManager {
             });
             this.sounds.accomplishMusic = loadSound('assets/sound/accomplish.mp3', () => {
             });
-            // 设置音效音量
+            // set sound volume
             for (let sound in this.sounds) {
                 if (this.sounds[sound]) {
                     this.sounds[sound].setVolume(this.soundVolume);
@@ -98,7 +95,8 @@ class SoundManager {
 
         if (this.screenManager.currentScreen instanceof GameScreen) {
             this.currentBackgroundMusic = this.sounds.gameMusic;
-        } else if (this.screenManager.currentScreen instanceof AccomplishScreen) {
+        } else if (this.screenManager.currentScreen instanceof AccomplishScreen 
+            || this.screenManager.currentScreen instanceof PvpAccomplishScreen) {
             this.currentBackgroundMusic = this.sounds.accomplishMusic;
         } else if (this.screenManager.currentScreen === this.screenManager.menuScreen) {
             // Only play main menu music on menu screen
@@ -165,12 +163,18 @@ class SoundManager {
             const gameVolume = 0.5 * this.bgMusicVolume;
             this.sounds.gameMusic.setVolume(gameVolume);
         }
+
+        // Set accomplish music volume
+        if (this.sounds.accomplishMusic) {
+            const accomplishVolume = 0.8 * this.bgMusicVolume;
+            this.sounds.accomplishMusic.setVolume(accomplishVolume);
+        }
     }
     
     setSoundVolume(volume) {
         this.soundVolume = volume;
         for (let sound in this.sounds) {
-            if (this.sounds[sound] && sound !== 'homeMusic' && sound !== 'gameMusic') {
+            if (this.sounds[sound] && sound !== 'homeMusic' && sound !== 'gameMusic' && sound !== 'accomplishMusic') {
                 this.sounds[sound].setVolume(volume);
             }
         }

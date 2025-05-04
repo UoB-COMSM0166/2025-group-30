@@ -1,7 +1,7 @@
 class SpeedBoot extends SpecialItem {
 
     constructor(x, y) {
-        super(x, y, 50, 50, 3);
+        super(x, y, 50, 50, 2.8);
         this.speedBoostMultiplier = 1.2;  // 20% speed increase
         this.maxBoostSpeed = 15;  // Maximum speed limit during boost
         this.boostDuration = 5000;  // 5 seconds duration
@@ -14,6 +14,10 @@ class SpeedBoot extends SpecialItem {
     }
 
     createBurstEffect(x, y, game) {
+        if (!game.particles) {
+            game.particles = [];
+        }
+
         // Create burst particles
         for (let i = 0; i < 20; i++) {
             const particle = new Particle(x, y, 'speed_burst');

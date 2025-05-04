@@ -50,15 +50,16 @@ window.ScreenManager = class ScreenManager {
                 this.soundManager.stopBackgroundMusic();
                 this.soundManager.playBackgroundMusic();
             }
+            this.pvp.resetScore();
         } else if (screen === this.homeScreen) {
             if (previousScreen === this.menuScreen) {
                 this.soundManager.stopBackgroundMusic();
             }
         } else if (screen instanceof GameOverScreen) {
             this.soundManager.playSound('gameOver');
-        } else if (screen instanceof LevelSuccessScreen) {
+        } else if (screen instanceof LevelSuccessScreen || screen instanceof PvpLevelUpScreen) {
             this.soundManager.playSound('levelSuccess');
-        } else if (screen instanceof AccomplishScreen) {
+        } else if (screen instanceof AccomplishScreen || screen instanceof PvpAccomplishScreen) {
             this.soundManager.stopBackgroundMusic();
             this.soundManager.playBackgroundMusic();
         }

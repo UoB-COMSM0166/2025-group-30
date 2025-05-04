@@ -1,4 +1,4 @@
-class AccomplishScreen extends Screen {
+class PvpAccomplishScreen extends Screen {
     constructor(screenManager, gameScreen) {
         super(screenManager);
         this.gameScreen = gameScreen;
@@ -38,7 +38,6 @@ class AccomplishScreen extends Screen {
     display() {
         this.gameScreen.display();
 
-        // 更新动画
         this.scale = lerp(this.scale, this.targetScale, this.animationSpeed);
 
         fill(0, 0, 0, 180);
@@ -60,13 +59,17 @@ class AccomplishScreen extends Screen {
         textStyle(BOLD);
 
         fill(0);
-        textSize(30);
+        textSize(24);
         textAlign(CENTER, CENTER);
-        text("Congratulations!", baseWidth / 2, baseHeight / 2 - 95);
-        textSize(16);
-        text("You did it! All levels conquered!", baseWidth / 2, baseHeight / 2 - 35);
-        text("Thanks for playing", baseWidth / 2, baseHeight / 2 + 25);
-        text("now go rest those speedy boots!", baseWidth / 2, baseHeight / 2 + 90);
+        text(`Final score: ${this.finalScore1} - ${this.finalScore2}`, baseWidth / 2, baseHeight / 2 - 35);
+        
+        if (this.finalScore1 > this.finalScore2) {
+            text("Player 1 wins!", baseWidth / 2, baseHeight / 2 + 25);
+        } else if (this.finalScore2 > this.finalScore1) {
+            text("Player 2 wins!", baseWidth / 2, baseHeight / 2 + 25);
+        } else {
+            text("It's a Tie!", baseWidth / 2, baseHeight / 2 + 25);
+        }
 
         for (let button of this.buttons) {
             rectMode(CENTER);
