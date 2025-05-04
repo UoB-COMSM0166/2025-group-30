@@ -227,7 +227,7 @@ class Player {
         let distance = abs(playerCenter - barrelCenter);
 
         // Set maximum distance for placing hay
-        let maxDistance = 150; // This value can be adjusted as needed
+        let maxDistance = 100; // reduce max distance to 100 pixels
 
         // Check if player is within reasonable range
         if (distance <= maxDistance) {

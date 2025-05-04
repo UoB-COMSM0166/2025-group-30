@@ -15,14 +15,14 @@ class GameOverScreen extends Screen {
 
         this.buttons = [
             {
-                label: "Home",
+                label: "Menu",
                 x: baseWidth / 4,
                 y: baseHeight / 5 * 4,
                 buttonWidth: this.buttonWidth,
                 buttonHeight: this.buttonHeight,
                 action: () => {
                     this.gameScreen.clearStats();
-                    this.screenManager.changeScreen(this.screenManager.homeScreen);
+                    this.screenManager.changeScreen(this.screenManager.menuScreen);
                 }
             },
             {
