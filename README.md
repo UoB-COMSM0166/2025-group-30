@@ -138,10 +138,10 @@ In the later stage, we also incorporated sustainability-conducive requirements f
 
 <table>
 <tr>
-  <th style="width: 12%;">User Type</th>
-  <th style="width: 15%;">Epic</th>
-  <th style="width: 35%;">User Story</th>
-  <th style="width: 38%;">Acceptance Criteria</th>
+  <th style="width: 10%;">User Type</th>
+  <th style="width: 18%;">Epic</th>
+  <th style="width: 36%;">User Story</th>
+  <th style="width: 36%;">Acceptance Criteria</th>
 </tr>
 
 <tr>
@@ -195,7 +195,7 @@ In the later stage, we also incorporated sustainability-conducive requirements f
 <tr>
   <td>Player</td>
   <td>Support Individual Health, Safety, and Learning</td>
-  <td>As a player, I want the game to have a clear end (5 levels only) so that I don’t feel the need to keep playing endlessly.</td>
+  <td>As a player, I want the game to have a clear end (5 levels only) so that I don't feel the need to keep playing endlessly.</td>
   <td>Given I am in the game, when I finish the 5th level, then I should see a completion screen.</td>
 </tr>
 <tr>
@@ -390,7 +390,7 @@ Heuristic Evaluation examines user interfaces based on Nielsen's ten usability p
 Based on the severity score, we were able to identify a couple of top priority issues.
 
 #### 1. Collision detection of a hay bale
-The current collision detection logic is too lenient, and unrealistic or unintended "catches" are allowed. To address this, we addressed the collision logic to check for at least 80% surface overlap rather than just any contact. We also added visual cues to indicate when a hay bale is considered to be perfectly stacked (more than 90% overlap) and awarded player with extra time. 
+The current collision detection logic is too lenient, and unrealistic or unintended "catches" are allowed. To address this, we addressed the collision logic to check for at least 20% surface overlap rather than just any contact. We also added visual cues to indicate when a hay bale is considered to be perfectly stacked (more than 90% overlap) and awarded player with extra time. 
 
 #### 2. Inconsistent hay dropping logigc to the barrel
 We found that sometimes a player must be very close to the barrel, and other times they can drop hay from farther away. To address this, we defined a consistent interaction radius around the barrel. We would also like to add some visual indications in the hay drop logic. 
@@ -419,37 +419,189 @@ We collected and analyzed SUS questionnaire data from 12 users for both Level 1 
 The results of the Wilcoxon Signed-Rank Test for the System Usability Scale (SUS) scores show no statistically significant difference between the two difficulty levels (W = 10.5, p = 0.5461). Although individual user scores vary slightly, both the easy and hard levels received generally high SUS scores. This suggests that users found the game to be consistently usable across both difficulty settings.
 
 ## Test
-We mainly conducted black-box testing for the game. The test cases were designed based on the equivalence partitioning method and focused on core game functionalities. Testing covered five major areas: game mode selection, player movement control, hay block collection mechanics, score calculation system, and shovel item system.
+We mainly conducted black-box testing for the game. The test cases were designed based on the equivalence partitioning method and focused on core game functionalities. Testing covered five major areas: game mode selection, player movement control, hay block collection mechanics, score calculation system, and special item system.
 Each test case was designed following the equivalence class principle, covering valid inputs, invalid inputs, and boundary conditions.
-The test results showed that all core functionalities are working correctly, including interface responsiveness, player control accuracy, game mechanic stability, score calculation correctness, and item system functionality.
+The test results showed that all core functionalities are working correctly, including interface responsiveness, player control accuracy, game mechanic stability, score calculation correctness, and special item system functionality.
 Special attention was given to boundary condition handling, such as screen edge limits, barrel capacity limits, and time limits, ensuring the game operates normally under all conditions.
 All test cases passed, indicating that the core functions have been successfully implemented and are operating correctly.
 <p align="center">
     <i>Table 6: Black-Box Test Table</i>
 </p>
 
-| Test ID | Test Type      | Input Condition                               | Equivalence Class  | Expected Output                 | Actual Output                                          | Test Result |
-| :------ | :------------- | :-------------------------------------------- | :----------------- | :------------------------------ | :----------------------------------------------------- | :---------- |
-| GM-01   | UI Interaction | Click "Single Player" button                  | Valid Input        | Enter single-player help screen | Successfully entered single-player help screen         | Passed      |
-| GM-02   | UI Interaction | Click "Co-op Mode" button                     | Valid Input        | Enter co-op mode help screen    | Successfully entered co-op mode help screen            | Passed      |
-| GM-03   | UI Interaction | Click "PvP Mode" button                       | Valid Input        | Enter PvP mode help screen      | Successfully entered PvP mode help screen              | Passed      |
-| GM-04   | UI Interaction | Click on blank area                           | Invalid Input      | Remain on the current screen    | Screen remained unchanged                              | Passed      |
-| PM-01   | Player Control | Press left arrow key                          | Valid Input        | Player moves left               | Player moves left smoothly                             | Passed      |
-| PM-02   | Player Control | Press right arrow key                         | Valid Input        | Player moves right              | Player moves right smoothly                            | Passed      |
-| PM-03   | Player Control | Press both left and right keys simultaneously | Invalid Input      | Player remains stationary       | Player remains stationary                              | Passed      |
-| PM-04   | Player Control | Player reaches screen boundary                | Boundary Condition | Player stops moving             | Player stops at boundary                               | Passed      |
-| GC-01   | Game Mechanics | Player successfully catches a hay block       | Valid Input        | Hay block enters barrel         | Hay block enters barrel with animation                 | Passed      |
-| GC-02   | Game Mechanics | Player misses the hay block                   | Valid Input        | Hay block continues to fall     | Hay block continues falling and disappears             | Passed      |
-| GC-03   | Game Mechanics | Barrel is full when catching hay block        | Boundary Condition | Hay block continues to fall     | Hay block cannot enter barrel                          | Passed      |
-| GC-04   | Game Mechanics | Hay block falls outside the barrel            | Boundary Condition | Hay block disappears            | Hay block disappears after touching ground             | Passed      |
-| SC-01   | Score System   | Successfully collect a hay block              | Valid Input        | Score increases by 1 point      | Score correctly increases by 1 point                   | Passed      |
-| SC-02   | Score System   | Perfectly stack hay blocks                    | Valid Input        | Gain additional time reward     | Special effects displayed, time increased by 5 seconds | Passed      |
-| SC-03   | Score System   | Reach target score                            | Boundary Condition | Advance to next level           | Level-clear animation displayed, moved to next level   | Passed      |
-| SC-04   | Score System   | Time runs out before reaching target          | Boundary Condition | Game over                       | Game over screen displayed                             | Passed      |
-| SH-01   | Item System    | Press space key to use shovel                 | Valid Input        | Shovel launches forward         | Shovel launched forward                                | Passed      |
-| SH-02   | Item System    | Shovel hits an opponent                       | Valid Input        | Opponent is knocked back        | Opponent knocked back with animation                   | Passed      |
-| SH-03   | Item System    | Shovel durability runs out                    | Boundary Condition | Unable to use shovel            | Shovel icon turns gray                                 | Passed      |
-| SH-04   | Item System    | Shovel misses the target                      | Valid Input        | Shovel disappears after flying  | Shovel disappeared after flying                        | Passed      |
+<table>
+  <thead>
+    <tr>
+      <th style="width: 10%;">Test ID</th>
+      <th style="width: 15%;">Funtional Unit</th>
+      <th style="width: 20%;">Input Condition</th>
+      <th style="width: 15%;">Category</th>
+      <th style="width: 20%;">Expected Output</th>
+      <th style="width: 10%;">Test Result</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>UI-01</td>
+      <td>UI Interaction</td>
+      <td>Click "Tutorial" button on Menu screen</td>
+      <td>Valid Input</td>
+      <td>Turorial screen appears</td>
+      <td>Passed</td>
+    </tr>
+    <tr>
+      <td>UI-02</td>
+      <td>UI Interaction</td>
+      <td>Click "Confirm" button on the Level screen</td>
+      <td>Valid Input</td>
+      <td>Corresponding game mode starts</td>
+      <td>Passed</td>
+    </tr>
+    <tr>
+      <td>UI-03</td>
+      <td>UI Interaction</td>
+      <td>Press "tab" on the Menu screen</td>
+      <td>Valid Input</td>
+      <td>select the first button on the Men Screen</td>
+      <td>Passed</td>
+    </tr>
+    <tr>
+      <td>UI-04</td>
+      <td>UI Interaction</td>
+      <td>Pressed "enter" when the "Back" button on Menu screen is tab selected</td>
+      <td>Valid Input</td>
+      <td>Home screen appears</td>
+      <td>Passed</td>
+    </tr>
+    <tr>
+      <td>UI-05</td>
+      <td>UI Interaction</td>
+      <td>Click on empty space on a screen</td>
+      <td>Valid Input</td>
+      <td>Nothing changes, user remains on the same screen</td>
+      <td>Passed</td>
+    </tr>
+    <tr>
+      <td>PC-01</td>
+      <td>Player Control</td>
+      <td>Press left arrow key</td>
+      <td>Valid Input</td>
+      <td>Player moves left smoothly</td>
+      <td>Passed</td>
+    </tr>
+    <tr>
+      <td>PC-02</td>
+      <td>Player Control</td>
+      <td>Press right arrow key</td>
+      <td>Valid Input</td>
+      <td>Player moves right smoothly</td>
+      <td>Passed</td>
+    </tr>
+    <tr>
+      <td>PC-03</td>
+      <td>Player Control</td>
+      <td>Player tries to move beyond the game screen</td>
+      <td>Invalid Input</td>
+      <td>Player stops at the boundary</td>
+      <td>Passed</td>
+    </tr>
+    <tr>
+      <td>GM-01</td>
+      <td>Game Mechanics</td>
+      <td>Player moves left/right and intersect with falling hay bale with over 20% overlap</td>
+      <td>Valid Input</td>
+      <td>Hay bale lands and stacks on the player's basket or the top most caught hay bale</td>
+      <td>Passed</td>
+    </tr>
+    <tr>
+      <td>GM-02</td>
+      <td>Game Mechanics</td>
+      <td>Player catches hay bale near edge of existing stack</td>
+      <td>Valid Input</td>
+      <td>Hay block continues to fall, item not added</td>
+      <td>Passed</td>
+    </tr>
+    <tr>
+      <td>GM-03</td>
+      <td>Game Mechanics</td>
+      <td>Player moves while carrying increasingly more hay bales</td>
+      <td>Valid Input</td>
+      <td>Player movement speed reduces</td>
+      <td>Passed</td>
+    </tr>
+    <tr>
+      <td>GM-04</td>
+      <td>Game Mechanics</td>
+      <td>Hay bale falls outside the screen</td>
+      <td>Valid Input</td>
+      <td>Hay block disappears</td>
+      <td>Passed</td>
+    </tr>
+    <tr>
+      <td>SS-01</td>
+      <td>Score System</td>
+      <td>Successfully empty a hay bale to the barrel</td>
+      <td>Valid Input</td>
+      <td>Score increases by 1 point</td>
+      <td>Passed</td>
+    </tr>
+    <tr>
+      <td>SS-02</td>
+      <td>Score System</td>
+      <td>Player tries to empty their basket when far away from the barrel</td>
+      <td>Invalid Input</td>
+      <td>Player unable to empty their basket</td>
+      <td>Passed</td>
+    </tr>
+    <tr>
+      <td>SS-03</td>
+      <td>Score System</td>
+      <td>Reach target score</td>
+      <td>Valid Input</td>
+      <td>Advance to next level</td>
+      <td>Passed</td>
+    </tr>
+    <tr>
+      <td>SS-04</td>
+      <td>Score System</td>
+      <td>Time runs out before reaching target</td>
+      <td>Valid Input</td>
+      <td>Game over screen appears</td>
+      <td>Passed</td>
+    </tr>
+    <tr>
+      <td>SI-01</td>
+      <td>Special Item</td>
+      <td>Player is hit by falling shovel</td>
+      <td>Valid Input</td>
+      <td>Player is freezed and flashes temporarily</td>
+      <td>Passed</td>
+    </tr>
+    <tr>
+      <td>SI-02</td>
+      <td>Special Item</td>
+      <td>Player is hit by falling speedboot</td>
+      <td>Valid Input</td>
+      <td>Player does not slow down as they carry more hay bales in their basket</td>
+      <td>Passed</td>
+    </tr>
+    <tr>
+      <td>SI-02</td>
+      <td>Special Item</td>
+      <td>Player is hit by falling protein shake</td>
+      <td>Valid Input</td>
+      <td>Player does not slow down as they carry more hay bales in their basket and is able to carry unlimited number of hay bales</td>
+      <td>Passed</td>
+    </tr>
+    <tr>
+      <td>SI-03</td>
+      <td>Special Item</td>
+      <td>Protein shake timer runs out</td>
+      <td>Valid Input</td>
+      <td>Extra speed boost disappears and player will freeze and flash if they exceed the limit of 5 by catching another hay bale</td>
+      <td>Passed</td>
+    </tr>
+  </tbody>
+</table>
 
 # 8. Sustainability, Ethics and Accessibility
 
@@ -554,6 +706,9 @@ Sustainability Awareness Framework(SuSAF) is a question-based framework for asse
     </tr>
   </tbody>
 </table>
+
+Additionally, we also applyed patterns published by Green Software Foundation to keep Haystacking emissions minimum. 
+
 
 ## 8.1 Introducing Green Software Design Principles
 
