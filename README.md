@@ -192,6 +192,18 @@ In the later stage, we also incorporated sustainability-conducive requirements f
   <td>As a player with motor disability, I want to navigate and interact with all parts of the game using the keyboard only, so that I don't have to use a mouse.</td>
   <td>Given I am in the game, when I use the keyboard (Tab, Shift+Tab, Enter, Esc), then I can access and operate all interactive elements without a mouse.</td>
 </tr>
+<tr>
+  <td>Player</td>
+  <td>Support Individual Health, Safety, and Learning</td>
+  <td>As a player, I want the game to have a clear end (5 levels only) so that I don’t feel the need to keep playing endlessly.</td>
+  <td>Given I am in the game, when I finish the 5th level, then I should see a completion screen.</td>
+</tr>
+<tr>
+  <td>Player</td>
+  <td>Support Individual Health, Safety, and Learning</td>
+  <td>As a player, I want to play the game without logging in or giving personal data so that my privacy is protected.</td>
+  <td>Given I am in the game web page, when I want to start palying the game, then I should be able to do so without needing to login or signup.</td>
+</tr>
 </table>
 
 
@@ -441,7 +453,107 @@ All test cases passed, indicating that the core functions have been successfully
 
 # 8. Sustainability, Ethics and Accessibility
 
-Sustainability Awareness Framework(SuSAF) is a question-based framework for assessing the potential sustainability impacts of a software to encourage sustainability-conducive requirement making. We analysed the impacts of our game from five sustainabiliity dimensions
+Sustainability Awareness Framework(SuSAF) is a question-based framework for assessing the potential sustainability impacts of a software to encourage sustainability-conducive requirement making. We analysed the impacts of our game from three of the five sustainabiliity dimensions：
+
+### 1. Individual Sustainability
+<p align="center">
+    <i>Table 6: Individual Sustainability Impact</i>
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Topic</th>
+      <th>Impact</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Health</td>
+      <td>Offers stress relief and entertainment, promoting mental well-being.<br> Game capped at 5 levls to prevent overuse and reduce risk of screen fatigue and eye strain.</td>
+    </tr>
+    <tr>
+      <td>Privacy</td>
+      <td>Does not collect any personal data.</td>
+    </tr>
+    <tr>
+      <td>Lifelong learning</td>
+      <td>Encourages cognitive skills like spatial awareness, reflexes and decision making.<br> Multiplayer modes may enhance communication and collaboration skills.</td>
+    </tr>
+    <tr>
+      <td>Safety</td>
+      <td>Non-violent, cartoon-style game makes it suitable for a wide age range.</td>
+    </tr>
+  </tbody>
+</table>
+
+### 2. Environmental Sustainability
+<p align="center">
+    <i>Table 7: Environmental Sustainability Impact</i>
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Topic</th>
+      <th>Impact</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Energy</td>
+      <td>
+        Development done on personal machines with relatively low energy usage.<br> 
+        Minimal energy use as the game is browser-based and runs client-side only.<br> 
+        Optimises codes and assets to minimise CPU/GPU use.
+      </td>
+    </tr>
+    <tr>
+      <td>Biodiversity and Landuse</td>
+      <td>Promotes environmental themes (e.g. sustainable farming, recycling mechanics) subtly through game storyline.</td>
+    </tr>
+    <tr>
+      <td>Material and Resources</td>
+      <td>As a digital game developed with p5.js, it consumed no physical materials (e.g. packaging, discs).</td>
+    </tr>
+  </tbody>
+</table>
+
+### 3. Technical Sustainability
+<p align="center">
+    <i>Table 8: Technical Sustainability Impact</i>
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Topic</th>
+      <th>Impact</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Maintainability</td>
+      <td>Use modular code with clear comments and Git for version control..</td>
+    </tr>
+    <tr>
+      <td>Usability</td>
+      <td>Intuitive and simple game mechanics (catch and stack), clear help screen and feedback UI.</td>
+    </tr>
+    <tr>
+      <td>Extensibility & Adaptability</td>
+      <td>A mode-based structure offers a clean entry point for adding future game modes or challenges</td>
+    </tr>
+    <tr>
+      <td>Security</td>
+      <td>No storage of any user data.</td>
+    </tr>
+     <tr>
+      <td>Scalability</td>
+      <td>No back-end dependencies yet, could potentially expand to mobile platforms.</td>
+    </tr>
+  </tbody>
+</table>
 
 ## 8.1 Introducing Green Software Design Principles
 
