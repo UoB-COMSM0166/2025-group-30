@@ -2,19 +2,19 @@
 2025 COMSM0166 group 30
 
 # Table of Contents
-- [1. Game & Game video](#1game--game-video)
-- [2. Team](#2team)
-- [3. Introduction](#3introduction)
-- [4. Requirements](#4requirements)
-- [5. Design](#5design)
-- [6. Implementation](#6implementation)
-- [7. Evaluation](#7evaluation)
-- [8. Sustainability](#8sustainability)
-- [9. Process](#9process)
-- [10. Conclusion](#10conclusion)
-- [11. Contribution Statement](#11contribution-statement)
+- [1. Game & Game video](#1-game--game-video)
+- [2. Team](#2-team)
+- [3. Introduction](#3-introduction)
+- [4. Requirements](#4-requirements)
+- [5. Design](#5-design)
+- [6. Implementation](#6-implementation)
+- [7. Evaluation](#7-evaluation)
+- [8. Sustainability, Ethics and Accessibility](#8-sustainability-ethics-and-accessibility)
+- [9. Process](#9-process)
+- [10. Conclusion](#10-conclusion)
+- [11. Contribution Statement](#11-contribution-statement)
 
-# 1.Game & Game video
+# 1. Game & Game video
 
 <p align="center">
   <a href="https://uob-comsm0166.github.io/2025-group-30/">
@@ -31,7 +31,7 @@ Our game lives in the [docs](/docs) folder, and is published using Github pages 
 Watch the demo video
 [🎬 here](https://github.com/UoB-COMSM0166/2025-group-30/blob/nemo/videos/demo%20video.MP4)
 
-# 2.Team
+# 2. Team
 
 <p align="center">
   <br><i> Figure 1: Group photo of the team</i></br>
@@ -55,7 +55,7 @@ Watch the demo video
 
 </div>
 
-# 3.Introduction
+# 3. Introduction
 
 Our game is a lighthearted, fast-paced stacking challenge inspired by a classic mini-game from Mole Manor, reimagined with a fresh farmyard twist. Set during harvest season, players must move their character left and right to catch falling haystacks and deposit them into a barrel before time runs out. The goal: hit the hay collection target to progress to the next level.
 
@@ -79,7 +79,7 @@ The following table shows the main elements of the game:
 | Protein shake      | <img src="docs/assets/protein-shaker.webp" width="50" style="vertical-align: middle;"> | Increase player's strength temporarily so that they could carry more hay. |
 | Speed boot         |   <img src="docs/assets/speed-boot.webp" width="50" style="vertical-align: middle;">   | Increase player's speed temporarily.                                      |
 
-# 4.Requirements 
+# 4. Requirements 
 
 ## Ideation Process
 
@@ -218,7 +218,7 @@ To better understand the interactions between the game and its users, we used a 
 | **Include**          | N/A                                                                             | N/A                                                                                                      | Move Left/Right, Stack Hay, Empty to Barrel, Avoid Obstacles, Catch Special Items            |
 | **Alternative Flow** | 1. Hay bales fall.<br>2. Player fails to catch.<br>3. Hay disappears offscreen. | N/A                                                                                                      | N/A                                                                                          |
 
-# 5.Design
+# 5. Design
 - 15% ~750 words 
 - System architecture. Class diagrams, behavioural diagrams
   
@@ -227,7 +227,7 @@ To better understand the interactions between the game and its users, we used a 
   <img src="class_diagram.png" width="1100">
 </div>
 
-# 6.Implementation
+# 6. Implementation
 - 15% ~750 words
 - Describe implementation of your game, in particular highlighting the three areas of challenge in developing your game. 
 
@@ -280,7 +280,7 @@ if (isPaused && screen === "game") {
 
 However, as the number of screens grew, this became increasingly difficult to maintain. To solve this, we impletemented a state management class - `ScreenManager` which emcompasses different screens such as the game screens and home screens, and each of the game screen has their respective target score screen, level up screen etc. The `ScreenManager` also maintains a `currentScreen` property and has methods to change and display the current screen.
 
-# 7.Evaluation
+# 7. Evaluation
 
 - 15% ~750 words
 - One qualitative evaluation (your choice) 
@@ -291,7 +291,7 @@ However, as the number of screens grew, this became increasingly difficult to ma
 To ensure a balance between functionality and usability during the game development process, we chose to combine both qualitative and quantitative evaluation methods. Qualitative analysis helped us identify issues within the game, while quantitative evaluation provided insights into user perceptions, guiding us to iteratively improve the design.
 
 ## Qualitative Evaluation - Heuristic Evaluation
-Heuristic Evaluation examines user interfaces based on Nielsen's ten usability principles. By systematically reviewing every screen of our game, we identified several usability issues. Every issue was evaluated across three dimensions (Frequency, Impact, and Persistence) to obtain an overall severity score. The results in the order of descending severity are shown in the following table:
+Heuristic Evaluation examines user interfaces based on Nielsen's ten usability principles. By systematically reviewing every screen of our game, we identified several usability issues. Every issue was evaluated across three dimensions (Frequency, Impact, and Persistence) to obtain an overall severity score. The results are shown in the following table in descending order of severity :
 <p align="center">
     <i>Table 5: Heuristic Evaluation Table</i>
 </p>
@@ -329,7 +329,7 @@ Heuristic Evaluation examines user interfaces based on Nielsen's ten usability p
     </tr>
     <tr>
       <td>Score</td>
-      <td>The score is displayed in the top-left corner and isn’t clearly visible during gameplay.</td>
+      <td>The score is displayed in the top-left corner and isn't clearly visible during gameplay.</td>
       <td>Visibility of system status</td>
       <td>3</td>
       <td>3</td>
@@ -388,8 +388,11 @@ Intially when a player added hay to the barrel, the score update is shown on the
 
 To improve this, we first recognised that the score should be part of the system's real time feedback. Therefore, we moved the score display to be visually attached to the barrel, and added visual feedback to the barrel by increasing its brightness as more hay is added. In this way, players can perceive progress without needing to look away from the main interaction area.
 
+#### 4. Wordy instruction
+Even though our instructions were relatively short, we recognized that purely text-based explanations might be skipped or misunderstood by players. To lower the user's cognitive load, we used visual representations such as arrow icons to help player to recognise the game action more easily. We also introduced a step by step animated and interactive tutorial for first time users who prefer a more guided experience. 
 
-## 7.2 Quantitative Evaluation - SUS evaluation
+
+## Quantitative Evaluation - SUS evaluation
 We collected and analyzed SUS questionnaire data from 12 users for both Level 1 and Level 2, calculating their total SUS scores. We then used the Wilcoxon Signed-Rank Test to examine whether there was a statistically significant difference in usability scores between the two levels. Click [here](sus.md) to see the raw data.
 
 <p align="center"><b>Figure 10: SUS Score Distribution Chart</b></p>
@@ -403,7 +406,7 @@ We collected and analyzed SUS questionnaire data from 12 users for both Level 1 
 </div>
 The results of the Wilcoxon Signed-Rank Test for the System Usability Scale (SUS) scores show no statistically significant difference between the two difficulty levels (W = 10.5, p = 0.5461). Although individual user scores vary slightly, both the easy and hard levels received generally high SUS scores. This suggests that users found the game to be consistently usable across both difficulty settings.
 
-## 7.3 Test
+## Test
 We mainly conducted black-box testing for the game. The test cases were designed based on the equivalence partitioning method and focused on core game functionalities. Testing covered five major areas: game mode selection, player movement control, hay block collection mechanics, score calculation system, and shovel item system.
 Each test case was designed following the equivalence class principle, covering valid inputs, invalid inputs, and boundary conditions.
 The test results showed that all core functionalities are working correctly, including interface responsiveness, player control accuracy, game mechanic stability, score calculation correctness, and item system functionality.
@@ -413,30 +416,32 @@ All test cases passed, indicating that the core functions have been successfully
     <i>Table 6: Black-Box Test Table</i>
 </p>
 
-| Test ID |   Test Type    |                Input Condition                | Equivalence Class  |         Expected Output         |                     Actual Output                      | Test Result |
-| :-----: | :------------: | :-------------------------------------------: | :----------------: | :-----------------------------: | :----------------------------------------------------: | :---------: |
-|  GM-01  | UI Interaction |         Click "Single Player" button          |    Valid Input     | Enter single-player help screen |     Successfully entered single-player help screen     |   Passed    |
-|  GM-02  | UI Interaction |           Click "Co-op Mode" button           |    Valid Input     |  Enter co-op mode help screen   |      Successfully entered co-op mode help screen       |   Passed    |
-|  GM-03  | UI Interaction |            Click "PvP Mode" button            |    Valid Input     |   Enter PvP mode help screen    |       Successfully entered PvP mode help screen        |   Passed    |
-|  GM-04  | UI Interaction |              Click on blank area              |   Invalid Input    |  Remain on the current screen   |               Screen remained unchanged                |   Passed    |
-|  PM-01  | Player Control |             Press left arrow key              |    Valid Input     |        Player moves left        |               Player moves left smoothly               |   Passed    |
-|  PM-02  | Player Control |             Press right arrow key             |    Valid Input     |       Player moves right        |              Player moves right smoothly               |   Passed    |
-|  PM-03  | Player Control | Press both left and right keys simultaneously |   Invalid Input    |    Player remains stationary    |               Player remains stationary                |   Passed    |
-|  PM-04  | Player Control |        Player reaches screen boundary         | Boundary Condition |       Player stops moving       |                Player stops at boundary                |   Passed    |
-|  GC-01  | Game Mechanics |    Player successfully catches a hay block    |    Valid Input     |     Hay block enters barrel     |         Hay block enters barrel with animation         |   Passed    |
-|  GC-02  | Game Mechanics |          Player misses the hay block          |    Valid Input     |   Hay block continues to fall   |       Hay block continues falling and disappears       |   Passed    |
-|  GC-03  | Game Mechanics |    Barrel is full when catching hay block     | Boundary Condition |   Hay block continues to fall   |             Hay block cannot enter barrel              |   Passed    |
-|  GC-04  | Game Mechanics |      Hay block falls outside the barrel       | Boundary Condition |      Hay block disappears       |       Hay block disappears after touching ground       |   Passed    |
-|  SC-01  |  Score System  |       Successfully collect a hay block        |    Valid Input     |   Score increases by 1 point    |          Score correctly increases by 1 point          |   Passed    |
-|  SC-02  |  Score System  |          Perfectly stack hay blocks           |    Valid Input     |   Gain additional time reward   | Special effects displayed, time increased by 5 seconds |   Passed    |
-|  SC-03  |  Score System  |              Reach target score               | Boundary Condition |      Advance to next level      |  Level-clear animation displayed, moved to next level  |   Passed    |
-|  SC-04  |  Score System  |     Time runs out before reaching target      | Boundary Condition |            Game over            |               Game over screen displayed               |   Passed    |
-|  SH-01  |  Item System   |         Press space key to use shovel         |    Valid Input     |     Shovel launches forward     |                Shovel launched forward                 |   Passed    |
-|  SH-02  |  Item System   |            Shovel hits an opponent            |    Valid Input     |    Opponent is knocked back     |          Opponent knocked back with animation          |   Passed    |
-|  SH-03  |  Item System   |          Shovel durability runs out           | Boundary Condition |      Unable to use shovel       |                 Shovel icon turns gray                 |   Passed    |
-|  SH-04  |  Item System   |           Shovel misses the target            |    Valid Input     | Shovel disappears after flying  |            Shovel disappeared after flying             |   Passed    |
+| Test ID | Test Type      | Input Condition                               | Equivalence Class  | Expected Output                 | Actual Output                                          | Test Result |
+| :------ | :------------- | :-------------------------------------------- | :----------------- | :------------------------------ | :----------------------------------------------------- | :---------- |
+| GM-01   | UI Interaction | Click "Single Player" button                  | Valid Input        | Enter single-player help screen | Successfully entered single-player help screen         | Passed      |
+| GM-02   | UI Interaction | Click "Co-op Mode" button                     | Valid Input        | Enter co-op mode help screen    | Successfully entered co-op mode help screen            | Passed      |
+| GM-03   | UI Interaction | Click "PvP Mode" button                       | Valid Input        | Enter PvP mode help screen      | Successfully entered PvP mode help screen              | Passed      |
+| GM-04   | UI Interaction | Click on blank area                           | Invalid Input      | Remain on the current screen    | Screen remained unchanged                              | Passed      |
+| PM-01   | Player Control | Press left arrow key                          | Valid Input        | Player moves left               | Player moves left smoothly                             | Passed      |
+| PM-02   | Player Control | Press right arrow key                         | Valid Input        | Player moves right              | Player moves right smoothly                            | Passed      |
+| PM-03   | Player Control | Press both left and right keys simultaneously | Invalid Input      | Player remains stationary       | Player remains stationary                              | Passed      |
+| PM-04   | Player Control | Player reaches screen boundary                | Boundary Condition | Player stops moving             | Player stops at boundary                               | Passed      |
+| GC-01   | Game Mechanics | Player successfully catches a hay block       | Valid Input        | Hay block enters barrel         | Hay block enters barrel with animation                 | Passed      |
+| GC-02   | Game Mechanics | Player misses the hay block                   | Valid Input        | Hay block continues to fall     | Hay block continues falling and disappears             | Passed      |
+| GC-03   | Game Mechanics | Barrel is full when catching hay block        | Boundary Condition | Hay block continues to fall     | Hay block cannot enter barrel                          | Passed      |
+| GC-04   | Game Mechanics | Hay block falls outside the barrel            | Boundary Condition | Hay block disappears            | Hay block disappears after touching ground             | Passed      |
+| SC-01   | Score System   | Successfully collect a hay block              | Valid Input        | Score increases by 1 point      | Score correctly increases by 1 point                   | Passed      |
+| SC-02   | Score System   | Perfectly stack hay blocks                    | Valid Input        | Gain additional time reward     | Special effects displayed, time increased by 5 seconds | Passed      |
+| SC-03   | Score System   | Reach target score                            | Boundary Condition | Advance to next level           | Level-clear animation displayed, moved to next level   | Passed      |
+| SC-04   | Score System   | Time runs out before reaching target          | Boundary Condition | Game over                       | Game over screen displayed                             | Passed      |
+| SH-01   | Item System    | Press space key to use shovel                 | Valid Input        | Shovel launches forward         | Shovel launched forward                                | Passed      |
+| SH-02   | Item System    | Shovel hits an opponent                       | Valid Input        | Opponent is knocked back        | Opponent knocked back with animation                   | Passed      |
+| SH-03   | Item System    | Shovel durability runs out                    | Boundary Condition | Unable to use shovel            | Shovel icon turns gray                                 | Passed      |
+| SH-04   | Item System    | Shovel misses the target                      | Valid Input        | Shovel disappears after flying  | Shovel disappeared after flying                        | Passed      |
 
-# 8.Sustainability
+# 8. Sustainability, Ethics and Accessibility
+
+Sustainability Awareness Framework(SuSAF) is a question-based framework for assessing the potential sustainability impacts of a software to encourage sustainability-conducive requirement making. We analysed the impacts of our game from five sustainabiliity dimensions
 
 ## 8.1 Introducing Green Software Design Principles
 
@@ -533,7 +538,7 @@ Through these sustainability practices, our game actively addresses the environm
 
 By following a structured path of problem identification → pattern matching → logic deduction → implementation, our development of Hay-stacking embedded green design at every level. This not only improved system performance but also reduced environmental impact and promted sustainable awareness among players. The approach provides a reproducible model for future green game design and sustainable software engineering.
 
-# 9.Process
+# 9. Process
 - 15% ~750 words
 - Teamwork. How did you work together, what tools did you use. Did you have team roles? Reflection on how you worked together.
 
@@ -578,7 +583,7 @@ Tasks such as tutorial UI, sound design, asset preparation, and even bug fixing 
 ### 9.6 Summary
 By combining **Scrum methodology**, **Kanban-based task tracking**, and **frequent team communication**, we enhanced our development efficiency, maintained progress, and built a strong, collaborative work environment. 
 
-# 10.Conclusion
+# 10. Conclusion
 - 10% ~500 words
 - Reflect on project as a whole. Lessons learned. Reflect on challenges. Future work.
 
@@ -591,7 +596,7 @@ Additionally, we prioritized sustainability and accessibility in our development
 
 In the near future, we plan to introduce new game items such as freeze sprays, glue bottles, and magnetic gloves to further enrich gameplay. These items will introduce new tactical options—such as hindering opponents or boosting speed—making the game more dynamic and engaging. We also aim to expand level design and improve visual effects to enhance immersion. And in the long run, we aim to implement online multiplayer functionality, allowing players to compete or cooperate remotely. As our technical capabilities grow, we also plan to introduce a progression system, global leaderboard, and story mode—adding longevity and depth to the game experience.
 
-# 11.Contribution Statement
+# 11. Contribution Statement
 | Name         | Contribution |
 | ------------ | ------------ |
 | Lingchen Li  |              |
