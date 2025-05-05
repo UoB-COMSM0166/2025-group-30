@@ -289,88 +289,105 @@ However, as the number of screens grew, this became increasingly difficult to ma
 
 
 To ensure a balance between functionality and usability during the game development process, we chose to combine both qualitative and quantitative evaluation methods. Qualitative analysis helped us identify issues within the game, while quantitative evaluation provided insights into user perceptions, guiding us to iteratively improve the design.
-## 7.1 Qualitative Evaluation - Heuristic Evaluation
- For the qualitative method, we adopted Heuristic Evaluation, a practical and widely used approach that examines the interface based on Nielsen's ten usability principles. By systematically reviewing each screen of our game, we identified several usability issues, including unclear navigation flow, inconsistent system feedback, limited user control, and lack of clarity in competitive scoring. Each issue was evaluated across three dimensions—Frequency, Impact, and Persistence—to calculate a severity score and prioritize the most critical problems.The results are shown in the following table:
+
+## Qualitative Evaluation - Heuristic Evaluation
+Heuristic Evaluation examines user interfaces based on Nielsen's ten usability principles. By systematically reviewing every screen of our game, we identified several usability issues. Every issue was evaluated across three dimensions (Frequency, Impact, and Persistence) to obtain an overall severity score. The results in the order of descending severity are shown in the following table:
 <p align="center">
     <i>Table 5: Heuristic Evaluation Table</i>
 </p>
 
 <table>
-  <tr>
-    <th style="width: 15%;">Interface</th>
-    <th style="width: 35%;">Issue</th>
-    <th style="width: 25%;">Heuristic(s)</th>
-    <th style="width: 5%;">F (0-4)</th>
-    <th style="width: 5%;">I (0-4)</th>
-    <th style="width: 5%;">P (0-4)</th>
-    <th style="width: 10%;">Severity</th>
-  </tr>
-  <tr>
-    <td>Main Menu</td>
-    <td>The extra "Start" button is unnecessary; players should select the mode first and then start.</td>
-    <td>User control and freedom</td>
-    <td>3</td>
-    <td>3</td>
-    <td>3</td>
-    <td>3.00</td>
-  </tr>
-  <tr>
-    <td>Mode Selection</td>
-    <td>The single-player or multiplayer selection screen lacks a button to return to the main menu.</td>
-    <td>User control and freedom</td>
-    <td>3</td>
-    <td>3</td>
-    <td>4</td>
-    <td>3.33</td>
-  </tr>
-  <tr>
-    <td>Multiplayer End</td>
-    <td>Missing score comparison prevents players from visually comparing their scores.</td>
-    <td>Visibility of system status</td>
-    <td>3</td>
-    <td>3</td>
-    <td>4</td>
-    <td>3.33</td>
-  </tr>
-  <tr>
-    <td>Multiplayer Gameplay</td>
-    <td>The time display is only on the left side, making it difficult for the right-side player to see the remaining time.</td>
-    <td>Visibility of system status</td>
-    <td>4</td>
-    <td>3</td>
-    <td>4</td>
-    <td>3.67</td>
-  </tr>
-  <tr>
-    <td>Gameplay Speed</td>
-    <td>The hay-cutting speed varies on different platforms, affecting the gaming experience.</td>
-    <td>Error prevention</td>
-    <td>4</td>
-    <td>4</td>
-    <td>4</td>
-    <td>4.00</td>
-  </tr>
-  <tr>
-    <td>Character Store</td>
-    <td>The lack of a store system prevents players from selecting different characters or hay-cutting tools.</td>
-    <td>Flexibility and efficiency of use</td>
-    <td>3</td>
-    <td>2</td>
-    <td>3</td>
-    <td>2.67</td>
-  </tr>
-  <tr>
-    <td>Multiplayer Gameplay</td>
-    <td>In multiplayer mode, the character/tool selection cannot meet the personalized needs of different players.</td>
-    <td>Flexibility and efficiency of use</td>
-    <td>3</td>
-    <td>2</td>
-    <td>3</td>
-    <td>2.67</td>
-  </tr>
+  <thead>
+    <tr>
+      <th style="width: 10%;">Interface</th>
+      <th style="width: 50%;">Issue</th>
+      <th style="width: 15%;">Heuristic(s)</th>
+      <th style="width: 5%;">Frequency (0-4)</th>
+      <th style="width: 5%;">Impact (0-4)</th>
+      <th style="width: 5%;">Persistance (0-4)</th>
+      <th style="width: 5%;">Severity = (F+I+P) / 3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Hay</td>
+      <td>A hay bale is considered "caught" even when only its corner touches the hay or basket below.</td>
+      <td>Error prevention</td>
+      <td>4</td>
+      <td>4</td>
+      <td>4</td>
+      <td>4.0</td>
+    </tr>
+    <tr>
+      <td>Barrel</td>
+      <td>Inconsistent minimal distance required to put down hay into the barrel.</td>
+      <td>Consistency and standard</td>
+      <td>4</td>
+      <td>3</td>
+      <td>4</td>
+      <td>3.7</td>
+    </tr>
+    <tr>
+      <td>Score</td>
+      <td>The score is displayed in the top-left corner and isn’t clearly visible during gameplay.</td>
+      <td>Visibility of system status</td>
+      <td>3</td>
+      <td>3</td>
+      <td>4</td>
+      <td>3.3</td>
+    </tr>
+    <tr>
+      <td>Tutorial</td>
+      <td>Wordy instructions without visual representatiuons.</td>
+      <td>Recognition rather than recall</td>
+      <td>2</td>
+      <td>4</td>
+      <td>4</td>
+      <td>3.3</td>
+    </tr>
+    <tr>
+      <td>Home Screen</td>
+      <td>The extra "Start" button is unnecessary; players should select the mode first and then start.</td>
+      <td>Asthetics and mininalist design</td>
+      <td>3</td>
+      <td>2</td>
+      <td>3</td>
+      <td>2.7</td>
+    </tr>
+    <tr>
+      <td>Mode Selection</td>
+      <td>Player cannot return to the home screen from the mode selection screen.</td>
+      <td>User control and freedom</td>
+      <td>2</td>
+      <td>3</td>
+      <td>3</td>
+      <td>2.7</td>
+    </tr>
+    <tr>
+      <td>Keyboard shortcut</td>
+      <td>No keyboard shortcut to navigate between game pages.</td>
+      <td>Flexibility and efficiency of use</td>
+      <td>3</td>
+      <td>2</td>
+      <td>3</td>
+      <td>2.7</td>
+    </tr>
+  </tbody>
 </table>
 
-Based on the severity scores in the evaluation table, we will prioritize addressing high-severity issues, such as speed inconsistency across platforms and insufficient time display in multiplayer mode.    next development focus will be on enhancing the user experience by improving UI feedback, adding return and help buttons, and introducing a store system for character/tool customization. Through these improvements, we aim to create a smoother, more intuitive, and more engaging gameplay experience.
+Based on the severity score, we were able to identify a couple of top priority issues.
+
+#### 1. Collision detection of a hay bale
+The current collision detection logic is too lenient, and unrealistic or unintended "catches" are allowed. To address this, we addressed the collision logic to check for at least 80% surface overlap rather than just any contact. We also added visual cues to indicate when a hay bale is considered to be perfectly stacked (more than 90% overlap) and awarded player with extra time. 
+
+#### 2. Inconsistent hay dropping logigc to the barrel
+We found that sometimes a player must be very close to the barrel, and other times they can drop hay from farther away. To address this, we defined a consistent interaction radius around the barrel. We would also like to add some visual indications in the hay drop logic. 
+
+#### 3.Score visibility
+Intially when a player added hay to the barrel, the score update is shown on the top-left corner of the gameplay, which was not prominent enough during gameplay. 
+
+To improve this, we first recognised that the score should be part of the system's real time feedback. Therefore, we moved the score display to be visually attached to the barrel, and added visual feedback to the barrel by increasing its brightness as more hay is added. In this way, players can perceive progress without needing to look away from the main interaction area.
+
 
 ## 7.2 Quantitative Evaluation - SUS evaluation
 We collected and analyzed SUS questionnaire data from 12 users for both Level 1 and Level 2, calculating their total SUS scores. We then used the Wilcoxon Signed-Rank Test to examine whether there was a statistically significant difference in usability scores between the two levels. Click [here](sus.md) to see the raw data.
