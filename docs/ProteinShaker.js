@@ -1,7 +1,7 @@
 class ProteinShaker extends SpecialItem {
 
     constructor(x, y) {
-        super(x, y, 50, 50, 3);
+        super(x, y, 50, 50, 2.8);
         this.boostDuration = 10000;  // 10 seconds duration
         this.timeLeft = this.boostDuration / 1000;
         this.interval = null;
@@ -12,6 +12,12 @@ class ProteinShaker extends SpecialItem {
     }
 
     createBurstEffect(x, y, game) {
+        let particles = game.particles;
+        if (game.particles1 && game.particles2) {
+            // PVP or Coop mode
+            particles = game.player1 && game.player1.proteinShaker === this ? game.particles1 : game.particles2;
+        }
+
         // Create burst particles
         for (let i = 0; i < 20; i++) {
             const particle = new Particle(x, y, 'strength_burst');
@@ -20,17 +26,17 @@ class ProteinShaker extends SpecialItem {
 
             particle.speedX = cos(angle) * speed;
             particle.speedY = sin(angle) * speed;
-            game.particles.push(particle);
+            particles.push(particle);
         }
 
         // Create strength boost text
         const textParticle = new Particle(x, y - 30, 'strength_boost');
-        game.particles.push(textParticle);
+        particles.push(textParticle);
 
         // Create additional text showing the new stack limit
         const limitText = new Particle(x, y - 60, 'stack_limit');
         limitText.text = `Unlimited Maximum Stack`;
-        game.particles.push(limitText);
+        particles.push(limitText);
     }
 
     applyEffect(player, game) {
@@ -49,7 +55,7 @@ class ProteinShaker extends SpecialItem {
         // Apply stack size boost and remove speed reduction
         player.maxStack = 10;
         player.speedReductionPerHay = 0;  // No speed reduction during boost
-        player.proteinShaker = this; // 设置对玩家的引用
+        player.proteinShaker = this;
 
         if (this.interval) {
             clearInterval(this.interval);
@@ -64,7 +70,6 @@ class ProteinShaker extends SpecialItem {
 
             if (this.timeLeft > 0) {
                 if (screenManager.currentScreen === game) {
-
                     this.timeLeft -= 0.05;
 
                     // Create particles at player's position
@@ -73,6 +78,12 @@ class ProteinShaker extends SpecialItem {
 
                     // Create more particles when moving
                     const particleCount = player.dir !== 0 ? 5 : 2;
+
+                    // Get the correct particles array
+                    let particles = game.particles;
+                    if (game.particles1 && game.particles2) {
+                        particles = game.player1 === player ? game.particles1 : game.particles2;
+                    }
 
                     for (let i = 0; i < particleCount; i++) {
                         const particle = new Particle(x, y, 'strength_trail');
@@ -94,7 +105,7 @@ class ProteinShaker extends SpecialItem {
                             200 - speedFactor * 50
                         );
 
-                        game.particles.push(particle);
+                        particles.push(particle);
                     }
                 }
             } else {

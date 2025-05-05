@@ -1,7 +1,9 @@
 class Coop extends GameScreen {
     constructor(screenManager, level = 1) {
         super(screenManager, level, Level.GAME_MODES.COOP);
-
+        this.specialItems = [];
+        this.shovels = [];
+        this.shovelDropInterval = null;
         this.gameOverScreen = new GameOverScreen(this.screenManager, this);
         this.levelSuccessScreen = new LevelSuccessScreen(this.screenManager, this);
         this.targetScoreScreen = new TargetScoreScreen(this.screenManager, this);
@@ -14,6 +16,10 @@ class Coop extends GameScreen {
 
         this.player1.soundManager = this.screenManager.soundManager;
         this.player2.soundManager = this.screenManager.soundManager;
+
+        // initialize special item time for each player
+        this.player1.specialItemTimeLeft = 0;
+        this.player2.specialItemTimeLeft = 0;
     }
 
     display() {
@@ -56,16 +62,6 @@ class Coop extends GameScreen {
         text(`Time: ${this.level.timeLeft}s`, 20, 30);
         textStyle(NORMAL);
 
-        if (this.level.timeLeft > 0) {
-            // Display special item timers for each player
-            if (this.player) {
-                this.displaySpecialItemTimers(this.player);
-            } else if (this.player1 && this.player2) {
-                this.displaySpecialItemTimers(this.player1);
-                this.displaySpecialItemTimers(this.player2);
-            }
-        }
-
         // Call the game mode specific UI update
         this.updateScoreDisplay();
     }
@@ -103,20 +99,23 @@ class Coop extends GameScreen {
             clearInterval(this.specialItemDropInterval);
             this.specialItemDropInterval = null;
         }
+        if (this.shovelDropInterval) {
+            clearInterval(this.shovelDropInterval);
+            this.shovelDropInterval = null;
+        }
 
         this.resetSpecialItemsArray();
+        this.resetShovelsArray();
 
+        // special items drop
         this.specialItemDropInterval = setInterval(() => {
             if ((this.player1.flash.getFlashDuration() === 0 ||
                 this.player2.flash.getFlashDuration() === 0) &&
                 this.screenManager.currentScreen === this) {
 
-                const newX = this.findSafePosition(50, baseWidth - 70, this.hay, this.specialItems);
+                const newX = this.findSafePosition(50, baseWidth - 70, this.hay, [...this.specialItems, ...this.shovels]);
 
                 switch (this.level.level) {
-                    case 2:
-                        this.specialItems.push(new Shovel(newX, 10));
-                        break;
                     case 3:
                         this.specialItems.push(new SpeedBoot(newX, 10));
                         break;
@@ -124,21 +123,39 @@ class Coop extends GameScreen {
                         this.specialItems.push(new ProteinShaker(newX, 10));
                         break;
                     case 5:
-                        // Shovel drops independently
-                        if (random() < 0.5) { // 50% chance to drop shovel
-                            this.specialItems.push(new Shovel(newX, 10));
+                        if (random() < 0.5) {
+                            this.specialItems.push(new ProteinShaker(newX + 50, 10));
                         } else {
-                            // Randomly drop one of the other two items
-                            if (random() < 0.5) { // 50% chance to drop protein shaker
-                                this.specialItems.push(new ProteinShaker(newX + 50, 10));
-                            } else { // 50% chance to drop speed boots
-                                this.specialItems.push(new SpeedBoot(newX + 50, 10));
-                            }
+                            this.specialItems.push(new SpeedBoot(newX + 50, 10));
                         }
-
                 }
             }
         }, this.level.specialItemDropDelay);
+
+        // shovel drop
+        this.shovelDropInterval = setInterval(() => {
+            if ((this.player1.flash.getFlashDuration() === 0 ||
+                this.player2.flash.getFlashDuration() === 0) &&
+                this.screenManager.currentScreen === this) {
+
+                const newX = this.findSafePosition(50, baseWidth - 70, this.hay, [...this.specialItems, ...this.shovels]);
+
+                if (this.level.level >= 2) {
+                    this.shovels.push(new Shovel(newX, 10));
+                }
+            }
+        }, this.level.shovelDropDelay);
+    }
+
+    stopSpecialItemDrop() {
+        if (this.specialItemDropInterval) {
+            clearInterval(this.specialItemDropInterval);
+            this.specialItemDropInterval = null;
+        }
+        if (this.shovelDropInterval) {
+            clearInterval(this.shovelDropInterval);
+            this.shovelDropInterval = null;
+        }
     }
 
     // --- main game logic ----
@@ -182,21 +199,57 @@ class Coop extends GameScreen {
             if (currentItem.hits(this.player1) && currentItem.hits(this.player2)) {
                 currentItem.applyEffect(this.player1, this);
                 currentItem.applyEffect(this.player2, this);
+                this.player1.specialItemTimeLeft = currentItem.timeLeft;
+                this.player2.specialItemTimeLeft = currentItem.timeLeft;
                 this.specialItems.splice(i, 1);
             } else if (currentItem.hits(this.player1)) {
                 currentItem.applyEffect(this.player1, this);
+                this.player1.specialItemTimeLeft = currentItem.timeLeft;
                 this.specialItems.splice(i, 1);
             } else if (currentItem.hits(this.player2)) {
                 currentItem.applyEffect(this.player2, this);
+                this.player2.specialItemTimeLeft = currentItem.timeLeft;
                 this.specialItems.splice(i, 1);
             } else if (currentItem.isOffscreen()) {
                 this.specialItems.splice(i, 1);
+            }
+        }
+
+        // update special item time for each player
+        if (this.player1.specialItemTimeLeft > 0) {
+            this.player1.specialItemTimeLeft -= 0.05;
+        }
+        if (this.player2.specialItemTimeLeft > 0) {
+            this.player2.specialItemTimeLeft -= 0.05;
+        }
+
+        // update shovels
+        for (let i = this.shovels.length - 1; i >= 0; i--) {
+            const currentItem = this.shovels[i];
+            if ((this.player1.flash.getFlashDuration() === 0 ||
+                this.player2.flash.getFlashDuration() === 0)) {
+                currentItem.fall();
+            }
+
+            if (currentItem.hits(this.player1) && currentItem.hits(this.player2)) {
+                currentItem.applyEffect(this.player1, this);
+                currentItem.applyEffect(this.player2, this);
+                this.shovels.splice(i, 1);
+            } else if (currentItem.hits(this.player1)) {
+                currentItem.applyEffect(this.player1, this);
+                this.shovels.splice(i, 1);
+            } else if (currentItem.hits(this.player2)) {
+                currentItem.applyEffect(this.player2, this);
+                this.shovels.splice(i, 1);
+            } else if (currentItem.isOffscreen()) {
+                this.shovels.splice(i, 1);
             }
         }
     }
 
     drawSpecialItems() {
         this.specialItems.forEach(item => item.draw());
+        this.shovels.forEach(item => item.draw());
     }
 
     updateParticles() {
@@ -245,6 +298,11 @@ class Coop extends GameScreen {
 
     resetSpecialItemsArray() {
         this.specialItems = [];
+        this.shovels = [];
+    }
+
+    resetShovelsArray() {
+        this.shovels = [];
     }
 
     resetParticles() {

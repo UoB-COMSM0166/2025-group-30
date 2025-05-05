@@ -60,10 +60,10 @@ class PauseScreen extends Screen {
     }
 
     loadSettingImages() {
-        loadImage('./assets/setting.png', img => {
+        loadImage('./assets/setting.webp', img => {
             this.settingImage = img;
         });
-        loadImage('./assets/setting2.jpg', img => {
+        loadImage('./assets/setting2.webp', img => {
             this.settingImage2 = img;
         });
     }

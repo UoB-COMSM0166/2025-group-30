@@ -15,7 +15,7 @@ class PvpLevelUpScreen extends Screen {
         // Buttons for navigating
         this.buttons = [
             {
-                label: "Home",
+                label: "Menu",
                 x: baseWidth / 4,
                 y: baseHeight / 5 * 4,
                 buttonWidth: this.buttonWidth,
@@ -64,10 +64,8 @@ class PvpLevelUpScreen extends Screen {
     display() {
         this.gameScreen.display();
 
-
         fill(0, 0, 0, 127);
         rect(0, 0, baseWidth, baseHeight);
-
 
         if (this.fadeIn) {
             this.alpha = min(255, this.alpha + this.fadeSpeed);
@@ -80,14 +78,17 @@ class PvpLevelUpScreen extends Screen {
                     this.resetAnimationState();
                     this.gameScreen.startNextLevel();
                     this.screenManager.changeScreen(this.gameScreen);
+                    /* restart timer and drop
+                    this.gameScreen.startLevelTimer();
+                    this.gameScreen.startHayDrop();
+                    this.gameScreen.startSpecialItemDrop(); */
                 } else {
                     this.resetAnimationState();
                     this.gameScreen.clearStats();
-                    this.screenManager.changeScreen(this.screenManager.homeScreen);
+                    this.screenManager.changeScreen(this.screenManager.menuScreen);
                 }
             }
         }
-
 
         tint(255, this.alpha);
         imageMode(CENTER);
@@ -95,20 +96,30 @@ class PvpLevelUpScreen extends Screen {
         image(this.farmerTieImage, baseWidth / 2, baseHeight / 2 - 50, 100, 100);
         noTint();
 
-
         textFont('Comic Sans MS');
         textStyle(BOLD);
 
         fill(0, this.alpha);
         textSize(32);
         textAlign(CENTER, CENTER);
+        
+        // display current result
         if (this.gameScreen.player1.score > this.gameScreen.player2.score) {
-            text("Player 1 Wins!", baseWidth / 2, baseHeight / 2 + 20);
+            text("Player 1 wins!", baseWidth / 2, baseHeight / 2 + 20);
         } else if (this.gameScreen.player1.score < this.gameScreen.player2.score) {
-            text("Player 2 Wins!", baseWidth / 2, baseHeight / 2 + 20);
+            text("Player 2 wins!", baseWidth / 2, baseHeight / 2 + 20);
         } else {
             text("It's a Tie!", baseWidth / 2, baseHeight / 2 + 20);
         }
+
+        // display current score with updated values
+        textSize(24);
+        // get the latest score
+        const player1Wins = this.gameScreen.player1.score > this.gameScreen.player2.score ? 
+            this.gameScreen.player1Wins : this.gameScreen.player1Wins;
+        const player2Wins = this.gameScreen.player2.score > this.gameScreen.player1.score ? 
+            this.gameScreen.player2Wins : this.gameScreen.player2Wins;
+        text(`Current score: ${player1Wins} - ${player2Wins}`, baseWidth / 2, baseHeight / 2 + 60);
 
         // Display buttons
         for (let button of this.buttons) {

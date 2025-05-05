@@ -1,6 +1,9 @@
 class Single extends GameScreen {
     constructor(screenManager, level = 1) {
         super(screenManager, level, Level.GAME_MODES.SINGLE);
+        this.specialItems = [];
+        this.shovels = [];
+        this.shovelDropInterval = null;
 
         this.gameOverScreen = new GameOverScreen(this.screenManager, this);
         this.levelSuccessScreen = new LevelSuccessScreen(this.screenManager, this);
@@ -122,24 +125,27 @@ class Single extends GameScreen {
     }
 
     startSpecialItemDrop() {
-        if (this.level.level === 1) return; //special items start from level 2
+        if (this.level.level === 1) return;
         if (this.specialItemDropInterval) {
             clearInterval(this.specialItemDropInterval);
             this.specialItemDropInterval = null;
         }
+        if (this.shovelDropInterval) {
+            clearInterval(this.shovelDropInterval);
+            this.shovelDropInterval = null;
+        }
 
         this.resetSpecialItemsArray();
+        this.resetShovelsArray();
 
+        // special items drop
         this.specialItemDropInterval = setInterval(() => {
             if (this.player.flash.getFlashDuration() === 0
                 && this.screenManager.currentScreen === this) {
 
-                const newX = this.findSafePosition(50, baseWidth - 70, this.hay, this.specialItems);
+                const newX = this.findSafePosition(50, baseWidth - 70, this.hay, [...this.specialItems, ...this.shovels]);
 
                 switch (this.level.level) {
-                    case 2:
-                        this.specialItems.push(new Shovel(newX, 10));
-                        break;
                     case 3:
                         this.specialItems.push(new SpeedBoot(newX, 10));
                         break;
@@ -147,20 +153,27 @@ class Single extends GameScreen {
                         this.specialItems.push(new ProteinShaker(newX, 10));
                         break;
                     case 5:
-                        // Shovel drops independently
-                        if (random() < 0.5) { // 50% chance for shovel
-                            this.specialItems.push(new Shovel(newX, 10));
+                        if (random() < 0.5) {
+                            this.specialItems.push(new ProteinShaker(newX + 50, 10));
                         } else {
-                            // Random drop between the other two items
-                            if (random() < 0.5) { // 50% chance for protein shaker
-                                this.specialItems.push(new ProteinShaker(newX + 50, 10));
-                            } else { // 50% chance for speed boot
-                                this.specialItems.push(new SpeedBoot(newX + 50, 10));
-                            }
+                            this.specialItems.push(new SpeedBoot(newX + 50, 10));
                         }
                 }
             }
         }, this.level.specialItemDropDelay);
+
+        // shovels drop
+        this.shovelDropInterval = setInterval(() => {
+            if (this.player.flash.getFlashDuration() === 0
+                && this.screenManager.currentScreen === this) {
+
+                const newX = this.findSafePosition(50, baseWidth - 70, this.hay, [...this.specialItems, ...this.shovels]);
+
+                if (this.level.level >= 2) {
+                    this.shovels.push(new Shovel(newX, 10));
+                }
+            }
+        }, this.level.shovelDropDelay);
     }
 
     // --- main game logic ----
@@ -190,10 +203,12 @@ class Single extends GameScreen {
 
     updateSpecialItems() {
         this.updateEachPlayerSpecialItems(this.player, this.specialItems);
+        this.updateEachPlayerSpecialItems(this.player, this.shovels);
     }
 
     drawSpecialItems() {
         this.specialItems.forEach(item => item.draw());
+        this.shovels.forEach(item => item.draw());
     }
 
     updateParticles() {
@@ -240,6 +255,11 @@ class Single extends GameScreen {
 
     resetSpecialItemsArray() {
         this.specialItems = [];
+        this.shovels = [];
+    }
+
+    resetShovelsArray() {
+        this.shovels = [];
     }
 
     resetParticles() {
@@ -271,5 +291,16 @@ class Single extends GameScreen {
 
     keyReleased() {
         if (keyCode === LEFT_ARROW || keyCode === RIGHT_ARROW) this.player.dir = 0;
+    }
+
+    stopSpecialItemDrop() {
+        if (this.specialItemDropInterval) {
+            clearInterval(this.specialItemDropInterval);
+            this.specialItemDropInterval = null;
+        }
+        if (this.shovelDropInterval) {
+            clearInterval(this.shovelDropInterval);
+            this.shovelDropInterval = null;
+        }
     }
 }
