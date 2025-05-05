@@ -100,44 +100,30 @@ class TargetScoreScreen extends Screen {
         fill(0, this.alpha);
         textSize(20);
         textAlign(CENTER, CENTER);
-        text(`Level ${this.gameScreen.level.level}`, baseWidth / 2, baseHeight / 2);
+        text(`Level ${this.gameScreen.level.level}`, baseWidth / 2, baseHeight / 2 - 8);
 
         // Draw target score text and value
         textSize(24);
         textAlign(CENTER, CENTER);
-        text("Target Score: " + this.gameScreen.level.targetScores, baseWidth / 2, baseHeight / 2 + 30);
+        text("Target Score: " + this.gameScreen.level.targetScores, baseWidth / 2, baseHeight / 2 + 33);
 
         // Display item description
-        textSize(18);
+        textSize(13);
         let itemDescription = "";
-        let itemDescription2 = "";
         switch (this.gameScreen.level.level) {
             case 2:
-                itemDescription = "Shovel: Clear your hay stack";
+                itemDescription = "Shovel alert! Dodge it or drop it all!";
                 break;
             case 3:
-                itemDescription = "Speed Boot:";
-                itemDescription2 = "Move faster for a while";
+                itemDescription = "Put on that speed boot and slide!";
                 break;
             case 4:
-                itemDescription = "Protein Shaker:";
-                itemDescription2 = "Stack unlimitedly for a while";
+                itemDescription = "Chug that protein shake and stack forever!";
                 break;
             default:
-                itemDescription = "";
-                itemDescription2 = "";
         }
-        if (itemDescription) {
-            if (this.gameScreen.level.level === 4 || this.gameScreen.level.level === 3) {
-                textAlign(LEFT, CENTER);  // First line left-aligned
-                text(itemDescription, baseWidth / 2 - 100, baseHeight / 2 + 65);  // Offset 100 units to the left
-                textAlign(CENTER, CENTER);  // Second line remains center-aligned
-                text(itemDescription2, baseWidth / 2, baseHeight / 2 + 85);
-            } else {
-                textAlign(CENTER, CENTER);
-                text(itemDescription, baseWidth / 2, baseHeight / 2 + 65);
-            }
-        }
+        textAlign(CENTER, CENTER);
+        text(itemDescription, baseWidth / 2, baseHeight / 2 + 75);
 
         // Display confirm button
         rectMode(CENTER);
