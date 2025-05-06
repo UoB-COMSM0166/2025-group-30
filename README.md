@@ -724,7 +724,7 @@ We then classified the identified sustainability impacts into three categories: 
 
 <p align="center"><i>Figure 12: Sustainability Awareness Diagram</i></p>
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/dcf6ef86-3c7f-488f-917f-530946ea2709" width="600">
+  <img src="./assets_for_README/sustainability_awareness_diagram.webp" width="800">
 </p>
 
 Additionally, we applied several patterns published by the Green Software Foundation to keep Haystacking emissions minimum. These included:
@@ -743,7 +743,7 @@ Additionally, we applied several patterns published by the Green Software Founda
   <tbody>
     <tr>
       <td>Serve images in mordern formats</td>
-      <td>A range of cartoon-style visual assets are used in Haystacking. We ensured all image assets are optimised and served in WebP format, which offers significantly smaller file sizes than PNG or JPEG without sacrificing visual quality. In this way, we ae able to lower bandwidth usage, speed up image load times, reduce device power consumption and the game's overall SCI (Software Carbon INtensity) score.</td>
+      <td>A range of cartoon-style visual assets are used in Haystacking. We ensured all image assets are optimised and served in WebP format, which offers significantly smaller file sizes than PNG or JPEG without sacrificing visual quality. In this way, we ae able to lower bandwidth usage, speed up image load times, reduce device power consumption and the game's overall SCI (Software Carbon Intensity) score.</td>
     </tr>
     <tr>
       <td>Defer offscreen images</td>
