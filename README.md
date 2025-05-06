@@ -416,7 +416,7 @@ The NASA TLX is a quantitative evaluation method used to assess users' subjectiv
 
 <p align="center"><b>Figure 10</b></p>
 <div align="center">
-  <img src="NASA TLX  Scores.png" width="533">
+  <img src="NASA TLX Scores.png" width="533">
 </div>
 
 <p align="center"><b>Figure 11</b></p>

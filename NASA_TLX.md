@@ -69,7 +69,7 @@ Based on each player's score for each question, we calculated each player's leve
 #### Based on the above data, we draw the bar chart of each player's score and the average score bar chart of the two level games, as shown below:
 
 <div align="center">
-  <img src="NASA TLX  Scores.png" width="533">
+  <img src="NASA TLX Scores.png" width="533">
 </div>
 
 <div align="center">
