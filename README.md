@@ -242,6 +242,52 @@ To better understand the interactions between the game and its users, we used a 
   <img src="class_diagram.png" width="1100">
 </div>
 
+### Sequence diagram
+<p align="center"><b>Figure 9: Sequence diagram_Single mode</b></p>
+
+<p align="center">
+  <img src="sequence_diagrams/sequence_diagram_single.png" width="500">
+</p>
+
+<p>
+  For Single Player Mode, the player starts the game (<code>changeScreen</code>), timers (<code>startLevelTimer</code>), hay (<code>startHayDrop</code>) and items (<code>startSpecialItemDrop</code>) begin at certain levels. The game loop checks <code>catches(hay)</code>, applies <code>addToStack()</code> and <code>updateScore()</code>, and may call <code>applyEffect()</code> for special items from level 2. Levels progress with <code>startNextLevel()</code> when previous one complete or <code>changeScreen(GameOverScreen)</code> when all levels complete.
+</p>
+
+<p align="center"><b>Figure 10: Sequence diagram_Coop mode</b></p>
+
+<p align="center">
+  <img src="sequence_diagrams/sequence_diagram_coop.png" width="500">
+</p>
+
+<p>
+  Coop mode reuses Single mode’s methods but duplicates <code>catches()</code>, <code>addToStack()</code>, <code>move()</code>, and <code>show()</code> for both players and uses shared resources like score and barrel.
+</p>
+
+<p align="center"><b>Figure 11: Sequence diagram_PvP mode</b></p>
+
+<p align="center">
+  <img src="sequence_diagrams/sequence_diagram_pvp.png" width="500">
+</p>
+
+<p>
+  PvP mode also duplicates Single mode’s methods but separates game states entirely, giving each player independent score tracking and barrels. It also duplicates <code>updateScore()</code> but adds <code>compareScores()</code>  methods only to determine win and loss.
+</p>
+
+The following table summarizes key methods of each modes.
+
+| Method                   | Single Player                          | Coop Mode                                       | PvP Mode                                        |
+|--------------------------|----------------------------------------|------------------------------------------------|------------------------------------------------|
+| `changeScreen()`         | Switches to Single mode screen         | Switches to Coop mode screen                   | Switches to PvP mode screen                    |
+| `startLevelTimer()`      | Called once                            | Called once                                    | Called once                                    |
+| `startHayDrop()`         | Starts hay dropping                    | Same as Single                                 | Same as Single                                 |
+| `catches(hay)`           | Only one player tries to catch hay     | Both players take turns trying to catch hay    | Both players try to catch hay individually     |
+| `addToStack()`           | Used by the player if hay is caught    | Each player can add hay to the stack           | Each player adds to their own stack            |
+| `updateScore()`          | Updates the player’s score             | Updates the shared score                       | Each player’s score is updated separately      |
+| `applyEffect()`          | Called if the player catches an item   | One or both players may apply effects          | Each player can apply effects on themselves    |
+| `compareScores()`        | Not used                               | Not used                                       | Used to determine winner at the end            |
+| `startNextLevel()`       | Called when level is completed         | Same as Single                                 | Same as Single (if continuing)                 |
+| `changeScreen(GameOver)` | Shows Game Over screen when game ends  | Same as Single                                 | Switches to result or home screen              |
+
 # 6. Implementation
 - 15% ~750 words
 - Describe implementation of your game, in particular highlighting the three areas of challenge in developing your game. 
