@@ -113,7 +113,7 @@ As shown in Figure 5, we conducted a stakeholder analysis using the Onion Model.
 <p align="center"><i>Figure 5: Onion Model of Haystacking Game</i></p>
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/5ef9c5c4-04e5-4d8f-b85d-7bf6b9ef1358" width="700">
+  <img width="650" alt="Image" src="assets_for_README/onion_model_updated.pic.jpg" />
 </p>
 
 <p align="center">
@@ -123,7 +123,7 @@ As shown in Figure 5, we conducted a stakeholder analysis using the Onion Model.
 | Stakeholder       | Description                                                                                           |
 | ----------------- | ----------------------------------------------------------------------------------------------------- |
 | Group 30-2025     | Primary developers responsible for design, development, and implementation of the game                |
-| Players           | Includes first-time player, old players, casual players, competitive, players with disability (motor) |
+| Players           | Includes first-time player, returning players, casual players, competitive, players with disability (motor) |
 | Lecturers and TAs | Evaluators assessing project quality                                                                  |
 | Other Teams       | Other student teams working on similar projects                                                       |
 | Bystanders        | Potential future players who may be attracted to the game                                             |
