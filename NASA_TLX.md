@@ -1,4 +1,4 @@
-## Quantitative evaluation: System Usability Scale (SUS) Analysis
+## Quantitative evaluation: NASA TLX Analysis
 
 We collected and analyzed NASA TLX questionnaire data from 11 users for both Level 1 and Level 2, calculating their total NASA TLX scores. We then used the Wilcoxon Signed-Rank Test to examine whether the differences in scores are significantly different.
 
