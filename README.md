@@ -419,11 +419,9 @@ We collected and analyzed SUS questionnaire data from 12 users for both Level 1 
 The results of the Wilcoxon Signed-Rank Test for the System Usability Scale (SUS) scores show no statistically significant difference between the two difficulty levels (W = 10.5, p = 0.5461). Although individual user scores vary slightly, both the easy and hard levels received generally high SUS scores. This suggests that users found the game to be consistently usable across both difficulty settings.
 
 ## Test
-We mainly conducted black-box testing for the game. The test cases were designed based on the equivalence partitioning method and focused on core game functionalities. Testing covered five major areas: game mode selection, player movement control, hay block collection mechanics, score calculation system, and special item system.
-Each test case was designed following the equivalence class principle, covering valid inputs, invalid inputs, and boundary conditions.
-The test results showed that all core functionalities are working correctly, including interface responsiveness, player control accuracy, game mechanic stability, score calculation correctness, and special item system functionality.
-Special attention was given to boundary condition handling, such as screen edge limits, barrel capacity limits, and time limits, ensuring the game operates normally under all conditions.
-All test cases passed, indicating that the core functions have been successfully implemented and are operating correctly.
+We mainly conducted black-box testing for Haystacking. The test cases were designed based on the equivalence partitioning and focused on core game functionalities. Testing covered five major areas: UI interaction, player movement control, game mechanics, score calculation system, and special item system.
+
+As shown in the table below, all test cases passed, indicating that the core functions have been successfully implemented and are operating correctly.
 <p align="center">
     <i>Table 6: Black-Box Test Table</i>
 </p>
@@ -461,7 +459,7 @@ All test cases passed, indicating that the core functions have been successfully
       <td>UI Interaction</td>
       <td>Press "tab" on the Menu screen</td>
       <td>Valid Input</td>
-      <td>select the first button on the Men Screen</td>
+      <td>Select the first button on the Men Screen</td>
       <td>Passed</td>
     </tr>
     <tr>
@@ -569,11 +567,19 @@ All test cases passed, indicating that the core functions have been successfully
       <td>Passed</td>
     </tr>
     <tr>
+      <td>SS-05</td>
+      <td>Score System</td>
+      <td>Score updates for individual player in Pvp mode</td>
+      <td>Valid Input</td>
+      <td>Each player’s score updates independently</td>
+      <td>Passed</td>
+    </tr>
+    <tr>
       <td>SI-01</td>
       <td>Special Item</td>
       <td>Player is hit by falling shovel</td>
       <td>Valid Input</td>
-      <td>Player is freezed and flashes temporarily</td>
+      <td>Player freezes and flashes temporarily</td>
       <td>Passed</td>
     </tr>
     <tr>
@@ -597,7 +603,7 @@ All test cases passed, indicating that the core functions have been successfully
       <td>Special Item</td>
       <td>Protein shake timer runs out</td>
       <td>Valid Input</td>
-      <td>Extra speed boost disappears and player will freeze and flash if they exceed the limit of 5 by catching another hay bale</td>
+      <td>Extra speed boost disappears. Player will freeze and flash if they exceed the limit of 5 by catching another hay bale</td>
       <td>Passed</td>
     </tr>
   </tbody>
