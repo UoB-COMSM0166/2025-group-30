@@ -13,6 +13,7 @@
 - [9. Process](#9-process)
 - [10. Conclusion](#10-conclusion)
 - [11. Contribution Statement](#11-contribution-statement)
+- [12. References](#12-references)
 
 # 1. Game & Game video
 
@@ -80,6 +81,8 @@ The following table shows the main elements of the game:
 | Speed boot         |   <img src="docs/assets/speed-boot.webp" width="50" style="vertical-align: middle;">   | Increase player's speed temporarily.                                      |
 
 # 4. Requirements 
+
+Requirements engineering (RE) is a crucial component of software development, as the success of a project heavily relies on how accurately its requirements are identified during this phase [[1]](#12-references). Unlike traditional development models, where RE is typically confined to the early stages, agile development views RE as an ongoing process throughout the entire development cycle, with continuous refinement and adaptation as the project progresses [[2]](#12-references).
 
 ## Ideation Process
 
@@ -303,7 +306,10 @@ However, as the number of screens grew, this became increasingly difficult to ma
 To ensure a balance between functionality and usability during the game development process, we chose to combine both qualitative and quantitative evaluation methods. Qualitative analysis helped us identify issues within the game, while quantitative evaluation provided insights into user perceptions, guiding us to iteratively improve the design.
 
 ## Qualitative Evaluation - Heuristic Evaluation
-Heuristic Evaluation examines user interfaces based on Nielsen's ten usability principles. By systematically reviewing every screen of our game, we identified several usability issues. Every issue was evaluated across three dimensions (Frequency, Impact, and Persistence) to obtain an overall severity score. The results are shown in the following table in descending order of severity :
+Heuristic evaluation is a quick and cost-effective method that provides clear, concrete, and specific guidelines for directly refining games [[3]](#12-references). For our evaluation of the Haystacking user interface, we selected Nielsen's ten usability heuristics [[4]](#12-references) as the guiding framework.
+
+By systematically reviewing every screen of our game, we identified several usability issues. Each issue was evaluated across three key dimensions (Frequency, Impact, and Persistence) to determine its overall severity. The findings are presented in the following table, ranked in descending order of severity: 
+
 <p align="center">
     <i>Table 5: Heuristic Evaluation Table</i>
 </p>
@@ -419,9 +425,10 @@ We collected and analyzed SUS questionnaire data from 12 users for both Level 1 
 The results of the Wilcoxon Signed-Rank Test for the System Usability Scale (SUS) scores show no statistically significant difference between the two difficulty levels (W = 10.5, p = 0.5461). Although individual user scores vary slightly, both the easy and hard levels received generally high SUS scores. This suggests that users found the game to be consistently usable across both difficulty settings.
 
 ## Test
-We mainly conducted black-box testing for Haystacking. The test cases were designed based on the equivalence partitioning and focused on core game functionalities. Testing covered five major areas: UI interaction, player movement control, game mechanics, score calculation system, and special item system.
+For Haystacking, we primarily conducted black-box testing. The test cases were designed using equivalence partitioning and focused on validating the core functionalities of the game. Testing covered five key areas: UI interaction, player movement control, game mechanics, score calculation system, and the special item system.
 
-As shown in the table below, all test cases passed, indicating that the core functions have been successfully implemented and are operating correctly.
+As shown in the table below, all test cases passed, confirming that the core functions have been successfully implemented and are operating as expected.
+
 <p align="center">
     <i>Table 6: Black-Box Test Table</i>
 </p>
@@ -571,7 +578,7 @@ As shown in the table below, all test cases passed, indicating that the core fun
       <td>Score System</td>
       <td>Score updates for individual player in Pvp mode</td>
       <td>Valid Input</td>
-      <td>Each player’s score updates independently</td>
+      <td>Each player's score updates independently</td>
       <td>Passed</td>
     </tr>
     <tr>
@@ -611,11 +618,11 @@ As shown in the table below, all test cases passed, indicating that the core fun
 
 # 8. Sustainability, Ethics and Accessibility
 
-Sustainability Awareness Framework(SuSAF) is a question-based framework for assessing the potential sustainability impacts of a software to encourage sustainability-conducive requirement making. We analysed the impacts of our game from three of the five sustainabiliity dimensions：
+In the development of Haystacking, we applied the Sustainability Awareness Framework (SuSAF) to align with the principles outlined in the Karlskrona Manifesto [[5]](#12-references). SuSAF is a question-based framework designed to assess the potential sustainability impacts of software, promoting the creation of sustainability-conscious requirements. We evaluated the impacts of our game across three of the five sustainability dimensions:
 
 ### 1. Individual Sustainability
 <p align="center">
-    <i>Table 6: Individual Sustainability Impact</i>
+    <i>Table 7: Individual Sustainability Impact</i>
 </p>
 
 <table>
@@ -647,7 +654,7 @@ Sustainability Awareness Framework(SuSAF) is a question-based framework for asse
 
 ### 2. Environmental Sustainability
 <p align="center">
-    <i>Table 7: Environmental Sustainability Impact</i>
+    <i>Table 8: Environmental Sustainability Impact</i>
 </p>
 
 <table>
@@ -679,7 +686,7 @@ Sustainability Awareness Framework(SuSAF) is a question-based framework for asse
 
 ### 3. Technical Sustainability
 <p align="center">
-    <i>Table 8: Technical Sustainability Impact</i>
+    <i>Table 9: Technical Sustainability Impact</i>
 </p>
 
 <table>
@@ -692,7 +699,7 @@ Sustainability Awareness Framework(SuSAF) is a question-based framework for asse
   <tbody>
     <tr>
       <td>Maintainability</td>
-      <td>Use modular code with clear comments and Git for version control..</td>
+      <td>Use modular code with clear comments and Git for version control.</td>
     </tr>
     <tr>
       <td>Usability</td>
@@ -700,7 +707,7 @@ Sustainability Awareness Framework(SuSAF) is a question-based framework for asse
     </tr>
     <tr>
       <td>Extensibility & Adaptability</td>
-      <td>A mode-based structure offers a clean entry point for adding future game modes or challenges</td>
+      <td>A mode-based structure offers a clean entry point for adding future game modes or challenges.</td>
     </tr>
     <tr>
       <td>Security</td>
@@ -713,103 +720,45 @@ Sustainability Awareness Framework(SuSAF) is a question-based framework for asse
   </tbody>
 </table>
 
-Additionally, we also applyed patterns published by Green Software Foundation to keep Haystacking emissions minimum. 
+We then classified the identified sustainability impacts into three categories: immediate, enabling, and structural effects. To demonstrate how these impacts evolve and interact across different dimensions, we created the Sustainability Awareness Diagram, presented below.
 
-
-## 8.1 Introducing Green Software Design Principles
-
-In today's digital era where environmental awareness and technological advancement go hand in hand, software is not only expected to deliver functionality, but also to operate sustainably. As high-frequency and long-session digital media, games involve complex graphics rendering, logical processing, and user-driven interactions—all of which contribute to device energy consumption and environmental impact.
-
-To align with green software development, we referenced the Green Software Patterns proposed by the Green Software Foundation. These patterns guide the development process from multiple angles—such as performance, resource efficiency, user behavior, and architectural structure—to achieve sustainable and energy-efficient game design.
-
-## 8.2 Identifying Green Logic Chains from Real-World Issues
-
-During the early discussion phase of our project, we analyzed key sustainability challenges based on the operational characteristics of our game. These challenges span multiple dimensions:
-
-Excessive graphics rendering causes overheating and power drain.
-
-Multiplayer experiences require multiple devices, resulting in low hardware utilization.
-
-Repetitive asset design leads to resource waste and maintenance overhead.
-
-Lack of modular structure increases redundant code and reduces energy efficiency.
-
-Building upon these identified issues, we abstracted green logic chains based on green design principles and integrated them into our game development workflow.
-
-## 8.3 Green Logic Chains and Deductive Paths
-
-- UI and Visual Design
-
-Keywords: Graphics load, rendering efficiency, minimal visual complexityProblem Source: Complex visuals and frequent animations overload the GPU/CPUDeduction Logic: Reduce visual complexity → Lower image processing → Save energyImplementation:
-Use pixel-style, low-resolution assets
-Keep sessions short and load only necessary assets using lazy loading
-Avoid complex animations and optimize render rate
-
-- Asset Reuse
-
-Keywords: Repetitive content, resource redundancy, storage overheadProblem Source: Designing new assets for each level leads to wasteDeduction Logic: Modularize assets → Enable reuse → Reduce development and loading costImplementation:
-Reuse hay, barrels, and character sprites across levels
-Manage assets uniformly to reduce redundant storage and image loading cost
-
-- Shared Optimization
-
-Keywords: Device burden, social interaction, shared hardwareProblem Source: Multiplayer play demands multiple devicesDeduction Logic: Support same-device multiplayer → Improve utilization → Reduce hardware energy useImplementation:
-Enable two-player collaboration and turn-based modes
-Encourage all gameplay to occur on a single shared device
-
-- Code Optimization
-
-Keywords: Structural redundancy, execution efficiency, maintainabilityProblem Source: Mixed logic and redundant structures lead to low system efficiencyDeduction Logic: Modular structure → Reduce repetition → Improve performance and lower energy useImplementation:
-Clearly divided functions like dropHay() and checkCatch()
-Decoupled structure to avoid unnecessary refreshes or duplicate checks
-
-## 8.4 Visualization of Sustainability Impact Pathways
-
-To better visualize the sustainability logic in Hay-stacking, we mapped our design decisions to the five dimensions of the SusAF model—Individual, Social, Technical, Environmental, and Economic—following the Immediate → Enabling → Structural logic. Each design pattern contributes not only to immediate efficiency, but also to long-term structural sustainability.
-
-<p align="center"><b>Figure 12: Sustainability Awareness Diagram</b></p>
+<p align="center"><i>Figure 12: Sustainability Awareness Diagram</i></p>
 <p align="center">
   <img src="https://github.com/user-attachments/assets/dcf6ef86-3c7f-488f-917f-530946ea2709" width="600">
 </p>
 
+Additionally, we applied several patterns published by the Green Software Foundation to keep Haystacking emissions minimum. These included:
 
-As shown in the figure:
+<p align="center">
+    <i>Table 10: Green Software Foundation Patterns</i>
+</p>
 
-In the technical dimension, resource redundancy is reduced through asset compression, streamlined logic structures, and modular code.
+<table>
+  <thead>
+    <tr>
+      <th>Patterns</th>
+      <th>Implementation in Haystacking</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Serve images in mordern formats</td>
+      <td>A range of cartoon-style visual assets are used in Haystacking. We ensured all image assets are optimised and served in WebP format, which offers significantly smaller file sizes than PNG or JPEG without sacrificing visual quality. In this way, we ae able to lower bandwidth usage, speed up image load times, reduce device power consumption and the game's overall SCI (Software Carbon INtensity) score.</td>
+    </tr>
+    <tr>
+      <td>Defer offscreen images</td>
+      <td>As Haystacking is implemented entirely in JavaScript using p5.js and contains no HTML image tags, the specific solution described in the pattern (i.e. using <code>loading = lazy</code> on the <code>&lt;img&gt;</code>) is not directly applicable. However, the core principle of the pattern - on-demand loading of assets - is still very relevant. <br>
+      To implement this, we load assets for a specific screen only when that screen is about to be shown and we ensured that nothing is loaded in <code>sketch.js</code> at game boot. As a result, we can reduce device processing and memory usage by loading fewer images at startup.</td>
+    </tr>
+    <tr>
+      <td>Avoiding tracking unnecessary data</td>
+      <td>Haystacking does not include any advertising scripts and uses no third-party analytics. All gameplay is handled locally on the client device and does not collect or store any personal data. As such, we are able to reduce the processing and storage demands on both client and server systems as well as enhance user privacy and safety.</td>
+    </tr>
+    </tr>
+  </tbody>
+</table>
 
-In the environmental dimension, low-resolution graphics and lazy loading effectively lower rendering energy consumption.
-
-In the economic dimension, asset reuse and shared device usage reduce development and maintenance costs.
-
-In the social dimension, cooperative mechanics and fair-play systems enhance user interaction and resource sharing.
-
-In the individual dimension, short session design and low-pressure gameplay help players establish healthy usage patterns.
-
-## 8.5 Sustainability Implementation via SusAF Dimensions
-
-Throughout the design and development of this game, we adopted several green software engineering strategies focused on three core goals: reducing resource consumption, increasing device utilization, and minimizing environmental impact. These approaches align with the five dimensions of the Sustainability Awareness Framework (SusAF)—environmental, technical, economic, individual, and social—and incorporate best practices from the Green Software Foundation Patterns.
-
-- Energy-efficient UI and system design (Environmental + Technical)
-
-The game features a minimalist pixel-art style and low-resolution assets, significantly reducing GPU rendering demands. By simplifying animations and offering short-session gameplay with lazy-loading techniques, we limit CPU and memory usage during runtime. These decisions contribute to lower energy consumption and extended device lifespan, aligning with the Demand Shaping and Green Hosting patterns.
-
-- Shared device and multiplayer optimization (Social + Economic)
-
-We support local two-player modes—either co-op or alternating turns—allowing multiple users to share a single device. This reduces the need for additional hardware purchases and enhances the usage rate of existing devices, thereby decreasing e-waste. The approach reflects the Substitution and Behaviour Change principles in promoting sustainable patterns of production and consumption.
-
-- Reusable assets across levels (Technical + Environmental)
-
-Common assets—such as hay blocks, barrels, and character models—are reused across multiple levels, avoiding redundant design work and reducing digital resource overhead. This follows the Material Optimization pattern, lowering both development and storage costs, and reducing the carbon footprint associated with asset creation and management.
-
-- Modular and clean code structure (Technical + Economic)
-
-The game logic is divided into clear, maintainable modules with optimized, lightweight code. This ensures efficient resource use, improves responsiveness, and simplifies long-term maintenance and scalability. These practices reflect the principles of Sustainable Software Architecture, contributing to both system efficiency and development cost reduction.
-
-Through these sustainability practices, our game actively addresses the environmental and technical challenges of software engineering. These efforts not only reduce the environmental burden of the product but also enhance the overall efficiency, maintainability, and user experience of the system.
-
-## 8.6 Conclusion
-
-By following a structured path of problem identification → pattern matching → logic deduction → implementation, our development of Hay-stacking embedded green design at every level. This not only improved system performance but also reduced environmental impact and promted sustainable awareness among players. The approach provides a reproducible model for future green game design and sustainable software engineering.
+We updated our product backlog to incorporate new requirements and user stories specifically focused on sustainability and accessibility. These additions aimed to ensure that our development process considered environmental impact, long-term maintainability, and inclusive design. Examples include optimising visual assets to reduce energy consumption, and designing user interfaces with high contrast and keyboard accessibility.
 
 # 9. Process
 - 15% ~750 words
@@ -878,3 +827,10 @@ In the near future, we plan to introduce new game items such as freeze sprays, g
 | Shiyu Dou    |              |
 | Zhuoyan Qiu  |              |
 | Liyang Li    |              |
+
+# 12. References
+1. Wang, X., Zhao, L., Wang, Y. and Sun, J., 2014. The role of requirements engineering practices in agile development: an empirical study. In: D. Zowghi and Z. Jin, eds. Requirements engineering. Communications in Computer and Information Science, vol. 432. Berlin, Heidelberg: Springer. Available at: https://doi.org/10.1007/978-3-662-43610-3_15 [Accessed 5 May 2025]
+2. Fægri, T.E. and Moe, N.B., 2015. Re-conceptualizing requirements engineering: findings from a large-scale, agile project. In: Scientific Workshop Proceedings of the XP2015. Helsinki, Finland: Association for Computing Machinery, pp.1–5. Available at: https://doi.org/10.1145/2764979.2764983.
+3. Choi, J. and Bakken, S., 2010. Web-based education for low-literate parents in Neonatal Intensive Care Unit: Development of a website and heuristic evaluation and usability testing. International Journal of Medical Informatics, 79(8), pp.565–575. Available at: https://doi.org/10.1016/j.ijmedinf.2010.05.001.
+4. Nielsen, J., 1995. 10 Usability Heuristics for User Interface Design. Nielsen Norman Group. Available at: https://www.nngroup.com/articles/ten-usability-heuristics/ [Accessed 6 May 2025].
+5. C. Becker, R. Chitchyan, L. Duboc, S. Easterbrook, M. Mahaux, B. Penzenstadler, et al., "The Karlskrona manifesto for sustainability design", 2014, [online] Available: http://arxiv.org/abs/1410.6968.
