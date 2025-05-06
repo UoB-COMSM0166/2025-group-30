@@ -2,10 +2,10 @@
 window.ScreenManager = class ScreenManager {
     constructor() {
         console.log('Initializing ScreenManager');
-        this.homeScreen = new HomeScreen(this);      
+        this.homeScreen = new HomeScreen(this);
         this.menuScreen = new MenuScreen(this);
         this.pauseScreen = new PauseScreen(this);
-        
+
         this.stepByStepHelpScreen = new StepByStepHelpScreen(this);
         this.singleHelpScreen = new SingleHelpScreen(this);
         this.coopHelpScreen = new CoopHelpScreen(this);
@@ -20,7 +20,7 @@ window.ScreenManager = class ScreenManager {
 
         this.currentScreen = this.homeScreen;
         this.isChangingScreen = false;
-        
+
         window.addEventListener('load', () => {
             console.log('Page loaded, playing background music');
             this.soundManager.playBackgroundMusic();
@@ -30,13 +30,13 @@ window.ScreenManager = class ScreenManager {
     changeScreen(screen) {
         if (this.isChangingScreen) return;
         this.isChangingScreen = true;
-        
+
         const previousScreen = this.currentScreen;
         this.currentScreen = screen;
-        
+
         console.log('Previous screen:', previousScreen.constructor.name);
         console.log('Current screen:', screen.constructor.name);
-        
+
         if (screen instanceof GameScreen) {
             if (!(previousScreen instanceof PauseScreen)) {
                 console.log('Not from pause screen, restarting music');
@@ -44,8 +44,8 @@ window.ScreenManager = class ScreenManager {
                 this.soundManager.playBackgroundMusic();
             }
         } else if (screen === this.menuScreen) {
-            if (previousScreen !== this.stepByStepHelpScreen && previousScreen !== this.singleHelpScreen 
-                && previousScreen !== this.coopHelpScreen && previousScreen !== this.pvpHelpScreen 
+            if (previousScreen !== this.stepByStepHelpScreen && previousScreen !== this.singleHelpScreen
+                && previousScreen !== this.coopHelpScreen && previousScreen !== this.pvpHelpScreen
                 && previousScreen !== this.settingScreen) {
                 this.soundManager.stopBackgroundMusic();
                 this.soundManager.playBackgroundMusic();
@@ -63,7 +63,7 @@ window.ScreenManager = class ScreenManager {
             this.soundManager.stopBackgroundMusic();
             this.soundManager.playBackgroundMusic();
         }
-        
+
         requestAnimationFrame(() => {
             this.isChangingScreen = false;
         });
@@ -98,11 +98,11 @@ window.ScreenManager = class ScreenManager {
     }
 
     keyPressed() {
-        this.currentScreen.keyPressed(); 
+        this.currentScreen.keyPressed();
     }
 
     keyReleased() {
-        this.currentScreen.keyReleased(); 
+        this.currentScreen.keyReleased();
     }
 
     handleVisibilityChange() {
