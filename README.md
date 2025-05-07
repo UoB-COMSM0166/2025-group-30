@@ -464,18 +464,20 @@ Even though our instructions were relatively short, we recognized that purely te
 
 ## Quantitative Evaluation - SUS evaluation
 
-The NASA TLX is a quantitative evaluation method used to assess users' subjective workload during task performance, helping designers understand sources of stress in an interface or interaction process. In evaluating the differences between levels in HayStacking, we invited 11 users to play the game at two difficulty levels (Level 1 and Level 2). After each session, participants completed the NASA TLX questionnaire, rating six dimensions of workload—mental demand, physical demand, temporal demand, performance, effort, and frustration. This allowed us to obtain each user's perceived workload scores under different levels. The chart below shows the players' ratings visually, and the original scoring data can be accessed by clicking [here](NASA_TLX.md).
+The NASA TLX is a quantitative evaluation method used to assess users' subjective workload during task performance, helping designers understand sources of stress in an interface or interaction process. In evaluating the differences between levels in HayStacking, we invited 11 users to play the game at two difficulty levels (Level 1 and Level 2). After completing each level, participants answered the NASA TLX questionnaire, rating six dimensions of workload—mental demand, physical demand, temporal demand, performance, effort, and frustration. This allowed us to obtain each user's perceived workload scores under different levels. The chart below shows the players' ratings visually, and the original scoring data can be accessed by clicking [here](./assets_for_README/NASA_TLX.md).
 
 <p align="center"><i>Figure 10</i></p>
 <div align="center">
-  <img src="NASA TLX Scores.png" width="533">
+  <img src="./assets_for_README/NASA TLX Scores.png" width="533">
 </div>
 
 <p align="center"><i>Figure 11</i></p>
 <div align="center">
-  <img src="NASA TLX Scores by Level.png" width="533">
+  <img src="./assets_for_README/NASA TLX Scores by Level.png" width="533">
 </div>
-To analyze these results, we used the Wilcoxon Signed-Rank Test, a non-parametric statistical method suitable for comparing paired samples—particularly effective for assessing changes in subjective ratings from the same group of users under two different conditions. At a significance level of p = 0.05, the critical value for n = 11 is 10. Our calculated test statistic was W = 1, which is less than the critical value of 10. Therefore, we conclude that there is a statistically significant difference in perceived workload between the two levels. In other words, players experienced a significantly higher subjective workload in Level 2 compared to Level 1. This may indicate that Level 2 imposes greater demands on players in terms of mental, temporal, or operational complexity. Alternatively, the more complex rules may require players to exert more attention and effort to complete the tasks. This finding suggests that Level 2 is more challenging for players and provides clear guidance for balancing game difficulty and improving user experience.
+To analyse these results, we used the Wilcoxon Signed-Rank Test, a non-parametric statistical method suitable for comparing paired samples—particularly effective for assessing changes in subjective ratings from the same group of users under two different conditions. 
+
+At a significance level of p = 0.05, the critical value for n = 11 is 10. Our calculated test statistic was W = 1, which is less than the critical value of 10, indicating a statistically significant difference in perceived workload between the two levels. Players experienced a notably higher workload in Level 2 than in Level 1. This outcome aligns with our design goal of progressively increasing the game's difficulty and challenge.
 
 ## Test
 For Haystacking, we primarily conducted black-box testing. The test cases were designed using equivalence partitioning and focused on validating the core functionalities of the game. Testing covered five key areas: UI interaction, player movement control, game mechanics, score calculation system, and the special item system.
@@ -831,7 +833,7 @@ Responsibilities such as asset creation, audio collection, and documentation wer
 
 <p align="center"><i>Figure 13: Kanban Board</i></p>
 <div align="center">
-  <img src="kanban.webp" width="533">
+  <img src="./assets_for_README/kanban.webp" width="533">
 </div>
 
 ### 9.2 Version Control and Code Management
