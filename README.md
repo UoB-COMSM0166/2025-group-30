@@ -819,46 +819,52 @@ We updated our product backlog to incorporate new requirements and user stories 
 - 15% ~750 words
 - Teamwork. How did you work together, what tools did you use. Did you have team roles? Reflection on how you worked together.
 
-In this project, our team adopted the **Scrum** framework, a core methodology in Agile development, to organize teamwork and manage task progression. This approach ensured our project followed a structured workflow while staying aligned with the weekly teaching schedule.
+### Game Ideation
+During the first three weeks, we held in-person meetings to spark design inspiration, facilitate team bonding, and ensure effective communication. In our first meeting (Week 1), each member introduced games they personally found interesting. We collectively shortlisted five existing titles and analyzed their core gameplay elements and mechanics. By the second meeting (Week 2), we conducted a poll on Strawpoll (https://strawpoll.com) to vote on a reference game prototype, considering both implementation feasibility and entertainment value.
 
-### 9.1 Project Management and Task Allocation
+### Feature Planning
+Once the game concept was finalized, we used the Value-Effort matrix to prioritize features based on two criteria: *Effort* (the workload required) and *Value* (the feature's impact on gameplay). We planned to dedicate the first two sprints to implementing features that were high in value but low in effort.  
 
-We used **GitHub's Kanban Board** to visualize project tasks and track progress. Each week, based on the course schedule, we set **Sprint goals** and assigned tasks to team members. Tasks were categorized into three stages:
+We also identified several high-value, high-effort features—such as building the core game framework, expanding game modes, and designing levels—that were both critical and time-consuming. To manage these effectively, we dedicated entire sprints to focus on one such feature at a time. By implementing both types of features, we established a solid game foundation and then gradually enhanced gameplay depth and user experience.
 
-- **To Do**
-- **In Progress**
-- **Done**
+<p align="center">
+  <img src="./assets_for_README/Value-Effort.png" width="800">
+</p>
 
-Responsibilities such as asset creation, audio collection, and documentation were distributed organically among team members, reflecting our self-organizing working style. This helped us clearly monitor each task's status and streamline our workflow.
+### Team Roles
+Initially, all team members participated in coding to build a shared understanding of the game logic. However, we soon realized that this “everyone codes everything” approach led to issues like unclear module boundaries, inconsistent coding styles, and frequent merge conflicts.  
+To address this, we restructured our approach. In the early stages, Liyang developed the foundational features, while Lei and Lingchen reworked the core framework. In later stages, the three developers collaborated to implement additional gameplay functionalities.  
+Shiyu and Zhuoyan focused on gathering user feedback and defining requirements. They organized playtesting sessions, collected both qualitative and quantitative data, and helped guide iterative improvements. Hanying was responsible for sourcing visual and audio assets, ensuring a consistent aesthetic and tone for the game.
 
-<p align="center"><i>Figure 13: Kanban Board</i></p>
-<div align="center">
-  <img src="./assets_for_README/kanban.webp" width="533">
-</div>
+### Project Management Tools
+At the start of each sprint, the entire team participated in Planning Poker sessions to estimate the effort required for each task. This method helped generate unbiased estimations and encouraged discussion to reach consensus.  
+We used Jira (atlassian.com) as our main project management platform to improve task transparency and team collaboration. Each sprint included clearly defined tasks in Jira, complete with story points, assignees, current statuses, and deadlines. Tasks were broken down into smaller, manageable subtasks so that responsibilities and time expectations were clear to everyone.
 
-### 9.2 Version Control and Code Management
-We used **Git** for version control. Each member worked on their own **feature branch**. After completing their work, they submitted a **Pull Request** for code review. Only after approval would the code be merged into the `main` branch.  
-This ensured code quality and minimized the risk of conflicts.
+<p align="center">
+  <img src="./assets_for_README/Jira.png" width="800">
+</p>
 
-### 9.3 Team Meetings and Collaboration
-We held **meetings every week** to:
-- Review current progress
-- Analyze completed tasks
-- Discuss existing issues
-- Distribute new tasks
+<p align="center">
+  <img src="./assets_for_README/Backlog.png" width="800">
+</p>
 
-After each meeting, we updated the **Kanban board** to reflect progress and task updates, keeping everyone aligned. Even for bug fixing or visual polish tasks, the team collaborated without rigid role assignments.
+We also made full use of Jira’s Kanban board to visually track task progress across columns like “To Do,” “In Progress,” and “Done.” This visual management system allowed us to monitor workflow in real time, quickly identify bottlenecks, and make timely adjustments to priorities and resource allocation.
 
-### 9.4 Communication Tools
-We used **WhatsApp** for quick daily communication and **Teams** for formal discussions and screen sharing.  
-This setup supported efficient, consistent collaboration, even during remote work.
+<p align="center">
+  <img src="./assets_for_README/kanban.png" width="800">
+</p>
 
-### 9.5 Agile Practices and Flexibility
-While our work followed a Sprint-based structure, internal task distribution remained flexible. Members took initiative to work on tasks based on their interests and expertise.  
-Tasks such as tutorial UI, sound design, asset preparation, and even bug fixing were shared among the team in a collaborative and adaptive way. This self-organizing model allowed us to stay responsive, communicate openly, and maintain consistent progress.
+### Coding Process
+To build the game’s core framework, we used pair programming. This development practice not only improved code quality and design decisions but also helped every team member gain a deep understanding of the critical game logic. By rotating roles and maintaining continuous dialogue, all members were actively involved in the architecture and major logic implementation, rather than being siloed into isolated components.  
+For module development in later stages, we strictly followed a GitHub-based merge request workflow. All code changes had to be reviewed and approved by at least two team members before being merged into the main branch. This ensured code quality, promoted knowledge sharing, and minimized integration issues and logic bugs from the start.
 
-### 9.6 Summary
-By combining **Scrum methodology**, **Kanban-based task tracking**, and **frequent team communication**, we enhanced our development efficiency, maintained progress, and built a strong, collaborative work environment. 
+### Agile Review
+At the end of each sprint, we conducted Scrum reviews to reflect on progress and fine-tune game features and difficulty levels based on player feedback. We also analyzed burndown charts to compare planned versus actual progress.  
+One major insight came from our misestimation of the effort required to balance level difficulty. Although we initially allocated minimal time to this task, it ended up being highly time-consuming. We had to repeatedly test gameplay with players of varying skill levels and tweak mechanics like grass drop speed, item behavior, level objectives, and time limits.
+
+<p align="center">
+  <img src="./assets_for_README/Burndown chart.png" width="800">
+</p>
 
 # 10. Conclusion
 - 10% ~500 words
