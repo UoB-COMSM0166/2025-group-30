@@ -33,15 +33,16 @@ class PauseScreen extends Screen {
                 }
             },
             {
-                label: "Home",
+                label: "Menu",
                 x: baseWidth / 2,
                 y: baseHeight / 2 + (50 + this.buttonSpacing) * 2,
                 buttonWidth: 200,
                 buttonHeight: 50,
                 action: () => {
                     this.gameScreen.clearStats();
-                    this.screenManager.changeScreen(this.screenManager.homeScreen);
+                    this.screenManager.changeScreen(this.screenManager.menuScreen);
                     this.screenManager.soundManager.stopBackgroundMusic();
+                    this.screenManager.soundManager.playBackgroundMusic();
                 }
             },
             {
