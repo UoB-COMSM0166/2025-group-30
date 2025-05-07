@@ -5,6 +5,15 @@ class SettingScreen extends Screen {
         
         // Reset button focus
         this.focusedButtonIndex = -1;
+        this.focusedControl = null; // 'music', 'sound', 'back'
+        
+        // Add key repeat control
+        this.keyRepeatDelay = 200; // 200ms before key repeat starts
+        this.keyRepeatInterval = 1; // 1ms between repeats
+        this.lastKeyPressTime = 0;
+        this.isKeyRepeating = false;
+        this.keyRepeatDirection = 0; // -1 for left, 1 for right, 0 for no repeat
+        this.volumeChangeSpeed = 0.01; // 1% change per update
         
         // Preload volume icons and background image
         this.volumeIcon = loadImage('assets/volume.webp');
@@ -60,14 +69,81 @@ class SettingScreen extends Screen {
     
     keyPressed() {
         if (keyCode === TAB) {
-            // Toggle button focus
-            this.focusedButtonIndex = (this.focusedButtonIndex + 1) % this.buttons.length;
-            // Play sound effect
-            this.screenManager.soundManager.playSound('buttonClick');
+            // Prevent the default tab behavior
+            event.preventDefault();
+            
+            if (keyIsDown(SHIFT)) {
+                // Shift+Tab: Move focus to previous control
+                if (this.focusedControl === null) {
+                    this.focusedControl = 'back';
+                } else if (this.focusedControl === 'back') {
+                    this.focusedControl = 'sound';
+                } else if (this.focusedControl === 'sound') {
+                    this.focusedControl = 'soundMute';
+                } else if (this.focusedControl === 'soundMute') {
+                    this.focusedControl = 'music';
+                } else if (this.focusedControl === 'music') {
+                    this.focusedControl = 'musicMute';
+                } else if (this.focusedControl === 'musicMute') {
+                    this.focusedControl = null;
+                }
+            } else {
+                // Tab: Move focus to next control
+                if (this.focusedControl === null) {
+                    this.focusedControl = 'musicMute';
+                } else if (this.focusedControl === 'musicMute') {
+                    this.focusedControl = 'music';
+                } else if (this.focusedControl === 'music') {
+                    this.focusedControl = 'soundMute';
+                } else if (this.focusedControl === 'soundMute') {
+                    this.focusedControl = 'sound';
+                } else if (this.focusedControl === 'sound') {
+                    this.focusedControl = 'back';
+                } else if (this.focusedControl === 'back') {
+                    this.focusedControl = null;
+                }
+            }
+            return;
+        } else if (keyCode === LEFT_ARROW || keyCode === RIGHT_ARROW) {
+            const currentTime = millis();
+            const step = keyCode === LEFT_ARROW ? -0.01 : 0.01; // 1% change for first press
+            
+            if (this.focusedControl === 'music') {
+                // First press
+                this.musicVolume = constrain(this.musicVolume + step, 0, 1);
+                this.musicSliderX = baseWidth/2 - this.sliderWidth/2 + (this.musicVolume * this.sliderWidth);
+                this.screenManager.soundManager.setBackgroundMusicVolume(this.musicVolume);
+                this.lastKeyPressTime = currentTime;
+                this.isKeyRepeating = true;
+                this.keyRepeatDirection = keyCode === LEFT_ARROW ? -1 : 1;
+            } else if (this.focusedControl === 'sound') {
+                // First press
+                this.soundVolume = constrain(this.soundVolume + step, 0, 1);
+                this.soundSliderX = baseWidth/2 - this.sliderWidth/2 + (this.soundVolume * this.sliderWidth);
+                this.screenManager.soundManager.setSoundVolume(this.soundVolume);
+                this.lastKeyPressTime = currentTime;
+                this.isKeyRepeating = true;
+                this.keyRepeatDirection = keyCode === LEFT_ARROW ? -1 : 1;
+            }
         } else if (keyCode === ENTER || keyCode === RETURN) {
-            // If a button is currently selected, execute its action
-            if (this.focusedButtonIndex >= 0 && this.focusedButtonIndex < this.buttons.length) {
-                this.buttons[this.focusedButtonIndex].action();
+            if (this.focusedControl === 'back') {
+                this.buttons[0].action();
+            } else if (this.focusedControl === 'musicMute') {
+                this.toggleMute(true);
+            } else if (this.focusedControl === 'soundMute') {
+                this.toggleMute(false);
+            }
+        }
+    }
+    
+    keyReleased() {
+        if (keyCode === LEFT_ARROW || keyCode === RIGHT_ARROW) {
+            this.isKeyRepeating = false;
+            this.keyRepeatDirection = 0;
+            
+            // Play sound effect only when releasing the key
+            if (this.focusedControl === 'sound') {
+                this.screenManager.soundManager.playSound('buttonClick');
             }
         }
     }
@@ -76,6 +152,24 @@ class SettingScreen extends Screen {
         // Display previous screen
         if (this.previousScreen) {
             this.previousScreen.display();
+        }
+        
+        // Handle key repeat for volume control
+        if (this.isKeyRepeating && this.keyRepeatDirection !== 0) {
+            const currentTime = millis();
+            if (currentTime - this.lastKeyPressTime >= this.keyRepeatDelay) {
+                const step = this.keyRepeatDirection * this.volumeChangeSpeed;
+                
+                if (this.focusedControl === 'music') {
+                    this.musicVolume = constrain(this.musicVolume + step, 0, 1);
+                    this.musicSliderX = baseWidth/2 - this.sliderWidth/2 + (this.musicVolume * this.sliderWidth);
+                    this.screenManager.soundManager.setBackgroundMusicVolume(this.musicVolume);
+                } else if (this.focusedControl === 'sound') {
+                    this.soundVolume = constrain(this.soundVolume + step, 0, 1);
+                    this.soundSliderX = baseWidth/2 - this.sliderWidth/2 + (this.soundVolume * this.sliderWidth);
+                    this.screenManager.soundManager.setSoundVolume(this.soundVolume);
+                }
+            }
         }
         
         // Draw semi-transparent black background
@@ -138,7 +232,7 @@ class SettingScreen extends Screen {
                 && window.mouseYGame >= button.y - button.buttonHeight/2 
                 && window.mouseYGame <= button.y + button.buttonHeight/2;
             
-            let isFocused = this.focusedButtonIndex === i;
+            let isFocused = this.focusedControl === (i === 0 ? 'back' : (i === 1 ? 'sound' : 'music'));
             
             if (isHovered) {
                 fill(160, 96, 59); // Darker brown
@@ -165,6 +259,11 @@ class SettingScreen extends Screen {
     }
     
     drawVolumeControl(label, x, y, value, onChange, isDragging, sliderX, isMusicControl) {
+        const controlType = isMusicControl ? 'music' : 'sound';
+        const muteControlType = isMusicControl ? 'musicMute' : 'soundMute';
+        const isFocused = this.focusedControl === controlType;
+        const isMuteFocused = this.focusedControl === muteControlType;
+        
         // Check if mouse is hovering over slider
         const isHovered = !this.isDraggingMusic && !this.isDraggingSound && 
             dist(window.mouseXGame, window.mouseYGame, sliderX, y) <= this.sliderHandleSize/2;
@@ -189,11 +288,20 @@ class SettingScreen extends Screen {
         
         // Draw volume icon first
         if (volumeIcon) {
-            // Draw mute button background (visible on hover)
-            if (isMuteBtnHovered) {
+            // Draw mute button background (visible on hover or focus)
+            if (isMuteBtnHovered || isMuteFocused) {
                 fill(180, 126, 89, 150); // Light brown, semi-transparent
                 noStroke();
                 ellipse(muteBtnX, muteBtnY, this.volumeIconSize + 10);
+            }
+            
+            // Draw focus indicator for mute button
+            if (isMuteFocused) {
+                noFill();
+                stroke(14, 105, 218);
+                strokeWeight(2);
+                ellipse(muteBtnX, muteBtnY, this.volumeIconSize + 10);
+                noStroke();
             }
             
             // Draw volume icon
@@ -214,19 +322,35 @@ class SettingScreen extends Screen {
             this.sliderHeight, 10);
         
         // Draw slider circle
-        if (isHovered || isDragging) {
+        if (isHovered || isDragging || isFocused) {
             fill(160, 82, 45); // Light brown
+            if (isFocused) {
+                stroke(14, 105, 218); // Blue highlight for focused state
+                strokeWeight(4);
+            }
         } else {
             fill(139, 69, 19); // Dark brown
+            noStroke();
         }
         ellipseMode(CENTER);
         ellipse(sliderX, y, this.sliderHandleSize);
         
         // Draw volume value text (moved to right of progress bar)
+        noStroke();
         fill(0, 0, 0);
         textSize(16);
         textAlign(LEFT, CENTER);
         text(`${Math.round(value * 100)}%`, x + this.sliderWidth/2 + 15, y);
+
+        // Draw focus indicator for the slider track
+        if (isFocused) {
+            noFill();
+            stroke(14, 105, 218);
+            strokeWeight(2);
+            rectMode(CORNER);
+            rect(x - this.sliderWidth/2, y - this.sliderHeight/2, this.sliderWidth, this.sliderHeight, 10);
+            noStroke();
+        }
     }
     
     mousePressed() {
@@ -234,7 +358,23 @@ class SettingScreen extends Screen {
         const musicMuteBtnX = baseWidth/2 - this.sliderWidth/2 - this.volumeIconSize - 15;
         const musicMuteBtnY = this.boxY + this.boxHeight/3;
         const soundMuteBtnX = baseWidth/2 - this.sliderWidth/2 - this.volumeIconSize - 15;
-        const soundMuteBtnY = this.boxY + this.boxHeight/2 + 50; // Fix sound mute button Y coordinate
+        const soundMuteBtnY = this.boxY + this.boxHeight/2 + 50;
+        
+        // Check if clicking on music slider area
+        if (this.isMouseOverSlider(this.musicSliderX, this.musicSliderY)) {
+            this.focusedControl = 'music';
+            this.isDraggingMusic = true;
+            this.updateMusicVolume();
+            return;
+        }
+        
+        // Check if clicking on sound slider area
+        if (this.isMouseOverSlider(this.soundSliderX, this.soundSliderY)) {
+            this.focusedControl = 'sound';
+            this.isDraggingSound = true;
+            this.updateSoundVolume();
+            return;
+        }
         
         // Check music mute button
         if (dist(window.mouseXGame, window.mouseYGame, musicMuteBtnX, musicMuteBtnY) <= this.volumeIconSize/2) {
@@ -245,20 +385,6 @@ class SettingScreen extends Screen {
         // Check sound mute button
         if (dist(window.mouseXGame, window.mouseYGame, soundMuteBtnX, soundMuteBtnY) <= this.volumeIconSize/2) {
             this.toggleMute(false);
-            return;
-        }
-        
-        // Check if music slider was clicked
-        if (this.isMouseOverSlider(this.musicSliderX, this.musicSliderY)) {
-            this.isDraggingMusic = true;
-            this.updateMusicVolume();
-            return;
-        }
-        
-        // Check if sound slider was clicked
-        if (this.isMouseOverSlider(this.soundSliderX, this.soundSliderY)) {
-            this.isDraggingSound = true;
-            this.updateSoundVolume();
             return;
         }
         

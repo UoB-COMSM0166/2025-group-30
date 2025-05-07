@@ -72,6 +72,7 @@ class MenuScreen extends Screen {
                 buttonHeight: 50,
                 isSpecial: true,
                 action: () => {
+                    this.focusedButtonIndex = -1; // Reset focus state
                     this.screenManager.settingScreen.previousScreen = this;
                     this.screenManager.changeScreen(this.screenManager.settingScreen);
                 },
@@ -96,6 +97,36 @@ class MenuScreen extends Screen {
         loadImage('./assets/settings.webp', img => {
             this.settingImage = img;
         });
+    }
+
+    keyPressed() {
+        if (keyCode === TAB) {
+            // Prevent the default tab behavior
+            event.preventDefault();
+            
+            if (keyIsDown(SHIFT)) {
+                // Shift+Tab: Move focus to previous button
+                if (this.focusedButtonIndex === -1) {
+                    this.focusedButtonIndex = this.buttons.length - 1;
+                } else {
+                    this.focusedButtonIndex = (this.focusedButtonIndex - 1 + this.buttons.length) % this.buttons.length;
+                }
+            } else {
+                // Tab: Move focus to next button
+                if (this.focusedButtonIndex === this.buttons.length - 1) {
+                    this.focusedButtonIndex = -1;
+                } else {
+                    this.focusedButtonIndex = (this.focusedButtonIndex + 1) % this.buttons.length;
+                }
+            }
+            return;
+        }
+
+        // Handle Enter/Space to activate focused button
+        if ((keyCode === ENTER || keyCode === 32) && this.focusedButtonIndex >= 0) {
+            this.buttons[this.focusedButtonIndex].action();
+            return;
+        }
     }
 
     // Update text animation effect
@@ -152,12 +183,11 @@ class MenuScreen extends Screen {
                 && window.mouseYGame <= button.y + button.buttonHeight / 2;
 
             let isFocused = this.focusedButtonIndex === this.buttons.indexOf(button);
-
-            // 跳过设置按钮的默认按钮绘制
+            
             if (button.label === "") {
                 continue;
             }
-
+            
             // Special button style (Back and Tutorial)
             if (button.isSpecial) {
                 if (isHovered) {
@@ -283,15 +313,16 @@ class MenuScreen extends Screen {
                     && window.mouseYGame >= imageY - imageSize / 2
                     && window.mouseYGame <= imageY + imageSize / 2;
 
-                // Add hover effect
-                if (isHovered) {
-                    push();
-                    tint(255, 200);
-                    image(this.settingImage, imageX - imageSize / 2, imageY - imageSize / 2, imageSize, imageSize);
-                    pop();
-                } else {
-                    image(this.settingImage, imageX - imageSize / 2, imageY - imageSize / 2, imageSize, imageSize);
+                let isFocused = this.focusedButtonIndex === this.buttons.indexOf(settingButton);
+
+                // Add hover and focus effect
+                if (isFocused) {
+                    stroke(14, 105, 218);
+                    strokeWeight(4);
+                    noFill();
+                    ellipse(imageX, imageY, imageSize + 10);
                 }
+                image(this.settingImage, imageX - imageSize / 2, imageY - imageSize / 2, imageSize, imageSize);
             }
         }
     }
