@@ -4,8 +4,8 @@ class Pvp extends GameScreen { // player with higher score in the set time wins
         this.pvpLevelUpScreen = new PvpLevelUpScreen(this.screenManager, this);
         this.specialItems1 = [];
         this.specialItems2 = [];
-        this.shovels1 = []; 
-        this.shovels2 = []; 
+        this.shovels1 = [];
+        this.shovels2 = [];
         this.shovelDropInterval = null;
         this.particles1 = [];
         this.particles2 = [];
@@ -174,12 +174,12 @@ class Pvp extends GameScreen { // player with higher score in the set time wins
                 specialItemsArray.push(new SpeedBoot(newX, 10));
                 break;
             case 4:
-                specialItemsArray.push(new ProteinShaker(newX, 10));
+                specialItemsArray.push(new ProteinShake(newX, 10));
                 break;
             case 5:
             default:
                 if (random() < 0.5) {
-                    specialItemsArray.push(new ProteinShaker(newX + 50, 10));
+                    specialItemsArray.push(new ProteinShake(newX + 50, 10));
                 } else {
                     specialItemsArray.push(new SpeedBoot(newX + 50, 10));
                 }

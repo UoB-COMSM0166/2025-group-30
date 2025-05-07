@@ -85,8 +85,8 @@ class Single extends GameScreen {
         }
 
         // Only show when strength buff is active
-        if (player.proteinShaker) {
-            const remainingTime = player.proteinShaker.timeLeft;
+        if (player.proteinShake) {
+            const remainingTime = player.proteinShake.timeLeft;
             if (remainingTime > 0) {
                 push();
                 fill(254, 224, 173); // Set to specified RGB color
@@ -150,11 +150,11 @@ class Single extends GameScreen {
                         this.specialItems.push(new SpeedBoot(newX, 10));
                         break;
                     case 4:
-                        this.specialItems.push(new ProteinShaker(newX, 10));
+                        this.specialItems.push(new ProteinShake(newX, 10));
                         break;
                     case 5:
                         if (random() < 0.5) {
-                            this.specialItems.push(new ProteinShaker(newX + 50, 10));
+                            this.specialItems.push(new ProteinShake(newX + 50, 10));
                         } else {
                             this.specialItems.push(new SpeedBoot(newX + 50, 10));
                         }

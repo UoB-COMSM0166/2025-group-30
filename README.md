@@ -71,14 +71,14 @@ The following table shows the main elements of the game:
     <i>Table 2: Game Elements</i>
 </p>
 
-| Category           |                                         Image                                          | Description                                                               |
-| :----------------- | :------------------------------------------------------------------------------------: | :------------------------------------------------------------------------ |
-| Player with basket |    <img src="docs/assets/player1.webp" width="50" style="vertical-align: middle;">     | Player collects hay bales to their basket.                                |
-| Barrel             |                     <img src="docs/assets/barrel.webp" width="50">                     | A barrel where the caught hay bales in the basket are emptied to.         |
-| Hay bale           |      <img src="docs/assets/hay.webp" width="50" style="vertical-align: middle;">       | Catch to stack in player's basket.                                        |
-| Shovel             |     <img src="docs/assets/shovel.webp" width="50" style="vertical-align: middle;">     | Cause player to lose all current stack if hits the player.                |
-| Protein shake      | <img src="docs/assets/protein-shaker.webp" width="50" style="vertical-align: middle;"> | Increase player's strength temporarily so that they could carry more hay. |
-| Speed boot         |   <img src="docs/assets/speed-boot.webp" width="50" style="vertical-align: middle;">   | Increase player's speed temporarily.                                      |
+| Category           |                                         Image                                         | Description                                                               |
+| :----------------- | :-----------------------------------------------------------------------------------: | :------------------------------------------------------------------------ |
+| Player with basket |    <img src="docs/assets/player1.webp" width="50" style="vertical-align: middle;">    | Player collects hay bales to their basket.                                |
+| Barrel             |                    <img src="docs/assets/barrel.webp" width="50">                     | A barrel where the caught hay bales in the basket are emptied to.         |
+| Hay bale           |      <img src="docs/assets/hay.webp" width="50" style="vertical-align: middle;">      | Catch to stack in player's basket.                                        |
+| Shovel             |    <img src="docs/assets/shovel.webp" width="50" style="vertical-align: middle;">     | Cause player to lose all current stack if hits the player.                |
+| Protein shake      | <img src="docs/assets/protein-shake.webp" width="50" style="vertical-align: middle;"> | Increase player's strength temporarily so that they could carry more hay. |
+| Speed boot         |  <img src="docs/assets/speed-boot.webp" width="50" style="vertical-align: middle;">   | Increase player's speed temporarily.                                      |
 
 # 4. Requirements 
 
@@ -89,14 +89,14 @@ Requirements engineering (RE) is a crucial component of software development, as
 Our team initially brainstormed five distinct game concepts, which we narrowed down to [two](./assets_for_README/Initial_ideas.md) after group discussions evaluating feasibility, appeal, and gameplay potential. To explore these ideas further, we developed paper prototypes for both shortlisted concepts, allowing us to simulate and assess the core mechanics before moving forward.
 
 <p align="center">
-  <br>Figure 3: Paper Prototype for <a href="https://youtu.be/uvnLMF2GfXI">Haystacking </a></br>
+  <br><i>Figure 2: Paper Prototype for <a href="https://youtu.be/uvnLMF2GfXI">Haystacking </a></i></br>
   <a href="https://youtu.be/uvnLMF2GfXI">
     <img src="./assets_for_README/haystacking_paper_prototype.gif" width="400">
   </a>
 </p>
 
 <p align="center">
-  <br>Figure 4: Paper Prototype for <a href="https://youtu.be/uvnLMF2GfXI">Fireboy & Watergirl</a></br>
+  <br><i>Figure 3: Paper Prototype for <a href="https://youtu.be/uvnLMF2GfXI">Fireboy & Watergirl</a></i></br>
   <a href="https://youtu.be/kqHrW4fSKdE">
     <img src="./assets_for_README/fireboy_watergirl_paper_prototype.gif" width="400">
   </a>
@@ -108,9 +108,9 @@ With these factors in mind, we ultimately selected Haystacking as our final conc
 
 ## Identifying Stakeholders 
 
-As shown in Figure 5, we conducted a stakeholder analysis using the Onion Model. This helped us to categorise key parties based on their proximity to the systme, understandand their needs and prioritise them accordingly during the development process.
+As shown in Figure 4, we conducted a stakeholder analysis using the Onion Model. This helped us to categorise key parties based on their proximity to the systme, understandand their needs and prioritise them accordingly during the development process.
 
-<p align="center"><i>Figure 5: Onion Model of Haystacking Game</i></p>
+<p align="center"><i>Figure 4: Onion Model of Haystacking Game</i></p>
 
 <p align="center">
   <img width="650" alt="Image" src="assets_for_README/onion_model_updated.pic.jpg" />
@@ -120,13 +120,13 @@ As shown in Figure 5, we conducted a stakeholder analysis using the Onion Model.
     <i>Table 3: Stakeholders Analysis</i>
 </p>
 
-| Stakeholder       | Description                                                                                           |
-| ----------------- | ----------------------------------------------------------------------------------------------------- |
-| Group 30-2025     | Primary developers responsible for design, development, and implementation of the game                |
+| Stakeholder       | Description                                                                                                 |
+| ----------------- | ----------------------------------------------------------------------------------------------------------- |
+| Group 30-2025     | Primary developers responsible for design, development, and implementation of the game                      |
 | Players           | Includes first-time player, returning players, casual players, competitive, players with disability (motor) |
-| Lecturers and TAs | Evaluators assessing project quality                                                                  |
-| Other Teams       | Other student teams working on similar projects                                                       |
-| Bystanders        | Potential future players who may be attracted to the game                                             |
+| Lecturers and TAs | Evaluators assessing project quality                                                                        |
+| Other Teams       | Other student teams working on similar projects                                                             |
+| Bystanders        | Potential future players who may be attracted to the game                                                   |
 
 
 ## User Stories and Acceptance Criteria
@@ -214,7 +214,7 @@ In the later stage, we also incorporated sustainability-conducive requirements f
 
 To better understand the interactions between the game and its users, we used a Use Case Model to describe the game's functional requirements.
 
-<p align="center"><i>Figure 7: Use-Case Diagram</i></p>
+<p align="center"><i>Figure 5: Use-Case Diagram</i></p>
 
 <p align="center">
   <img width="800" alt="Image" src="assets_for_README/use_case_diagram.jpg" />
@@ -236,57 +236,63 @@ To better understand the interactions between the game and its users, we used a 
 # 5. Design
 - 15% ~750 words 
 - System architecture. Class diagrams, behavioural diagrams
-  
-<p align="center"><b>Figure 8: Class Diagram</b></p>
+
+Having analysed the system requirements, we then proceeded to the design phase. We adopted object-oriented (OO) design principles to create a modular and maintainable sytstem architecture.
+
+Our design follows closely to core OO principles. Abstraction is used to define base classes such as Screen and `FallingObject`, which provide common functionality to their subclasses while hiding specific implementations. Encapsulation ensures that classes like `Player` manage their internal state—such as their haystack stack and scoring logic—independently. Inheritance is used to structure the system logically; for example, `Single`, `Coop`, and `Pvp` all extend from GameScreen to reuse shared logic. Polymorphism allows different object types (e.g., game modes, falling objects) to implement shared methods in different ways, facilitating flexibility and code clarity. Collectively, these principles allowed us to design a clean and extendable system.
+
+### Class diagram
+
+We created a class diagram to present the static relatonships between objects. To improve readability and focus on high-level structure, only key attributes and methods are shown. 
+
+
+<p align="center"><i>Figure 6: Class Diagram</i></p>
 <div align="center">
-  <img src="class_diagram.png" width="1100">
+  <img src="./assets_for_README/class_diagrams/class_diagram.png" width="1100">
 </div>
 
+Some of the key classes and relationships highlighted in the design:
+
+1. **Screen hierarchy**: `Screen` is the abstract base class for all screens in the game. `GameScreen` extends `Screen` and is the base class for all gameplay screens (Single, Coop, Pvp). A `ScreenManager` manages all screens and handles transitions between them.
+
+2. **Game modes**: `Single` player mode has one player and one barrel. `Coop` mode has two players sharing one barrel, while `Pvp` mode has two players and two barrels.
+
+3. **Player**: Each `Player` manages a stack of `Hay` objects and is connected to a `Barrel` for scoring. It also interacts with a `SoundManager` for feedback and includes visual effects such as `Flash`.
+
+4. **Game objects**: `FallingObject` is an abstract class extended by `Hay` and `SpecialItem`. Specific SpecialItem types (e.g. `Shovel`, `ProteinShake`, `SpeedBoot`) implement unique gameplay effects..
+
+5. **Game logic**: `Level` manages game progression and modes. `Barrel` handles scoring and target scores
+
+6. **Sound management**: `SoundManager` is a central class for handling all game audio. It maintains a map of sound effects and provides methods for playing sounds and controlling volume. It is connected to `ScreenManager` via composition and `Player` via aggragation.
+
+7. **Help system**: `StepByStepHelpScreen` is an interactive tutorial. `SingleHelpScreen` is for single player mode, whereas `DoubleHelpScreen` is an abstract base for two-player help screens: `CoopHelpScreen` and `PvpHelpScreen`.
+
+
 ### Sequence diagram
-<p align="center"><b>Figure 9: Sequence diagram_Single mode</b></p>
+
+To demonstrate the dynamic behaviour of the system, we first developed a sequence diagram that focuses on the basic single-player mode, as shown in Figure 7. This diagram illustrates the flow of messages exchanged between objects during gameplay, how components collaborate to manage user input, object movement, collision detection, and game state updates.
+
+<p align="center"><i>Figure 7: Sequence diagram for Single mode</i></p>
 
 <p align="center">
-  <img src="sequence_diagrams/sequence_diagram_single.png" width="500">
+  <img src="./assets_for_README/sequence_diagrams/sequence_diagram_single.png" width="800">
 </p>
 
-<p>
-  For Single Player Mode, the player starts the game (<code>changeScreen</code>), timers (<code>startLevelTimer</code>), hay (<code>startHayDrop</code>) and items (<code>startSpecialItemDrop</code>) begin at certain levels. The game loop checks <code>catches(hay)</code>, applies <code>addToStack()</code> and <code>updateScore()</code>, and may call <code>applyEffect()</code> for special items from level 2. Levels progress with <code>startNextLevel()</code> when previous one complete or <code>changeScreen(GameOverScreen)</code> when all levels complete.
-</p>
 
-<p align="center"><b>Figure 10: Sequence diagram_Coop mode</b></p>
+Building on the single-player sequence diagram, we subsequently developed sequence diagrams for both co-op (Figure 8) and PvP modes (Figure 9). In the co-op mode, the core game mechanics remain consistent with single-player gameplay; however, both players contribute to a shared barrel, reflecting a combined scoring system. In contrast, the PvP mode introduces independent barrels and scoring for each player, along with additional win, lose, or draw conditions determined by comparing individual scores at the end of the game.
+
+<p align="center"><i>Figure 8: Sequence diagram for Coop mode</i></p>
 
 <p align="center">
-  <img src="sequence_diagrams/sequence_diagram_coop.png" width="500">
+  <img src="./assets_for_README/sequence_diagrams/sequence_diagram_coop.png" width="800">
 </p>
 
-<p>
-  Coop mode reuses Single mode’s methods but duplicates <code>catches()</code>, <code>addToStack()</code>, <code>move()</code>, and <code>show()</code> for both players and uses shared resources like score and barrel.
-</p>
-
-<p align="center"><b>Figure 11: Sequence diagram_PvP mode</b></p>
+<p align="center"><i>Figure 9: Sequence diagram for PvP mode</i></p>
 
 <p align="center">
-  <img src="sequence_diagrams/sequence_diagram_pvp.png" width="500">
+  <img src="./assets_for_README/sequence_diagrams/sequence_diagram_pvp.png" width="800">
 </p>
 
-<p>
-  PvP mode also duplicates Single mode’s methods but separates game states entirely, giving each player independent score tracking and barrels. It also duplicates <code>updateScore()</code> but adds <code>compareScores()</code>  methods only to determine win and loss.
-</p>
-
-The following table summarizes key methods of each modes.
-
-| Method                   | Single Player                          | Coop Mode                                       | PvP Mode                                        |
-|--------------------------|----------------------------------------|------------------------------------------------|------------------------------------------------|
-| `changeScreen()`         | Switches to Single mode screen         | Switches to Coop mode screen                   | Switches to PvP mode screen                    |
-| `startLevelTimer()`      | Called once                            | Called once                                    | Called once                                    |
-| `startHayDrop()`         | Starts hay dropping                    | Same as Single                                 | Same as Single                                 |
-| `catches(hay)`           | Only one player tries to catch hay     | Both players take turns trying to catch hay    | Both players try to catch hay individually     |
-| `addToStack()`           | Used by the player if hay is caught    | Each player can add hay to the stack           | Each player adds to their own stack            |
-| `updateScore()`          | Updates the player’s score             | Updates the shared score                       | Each player’s score is updated separately      |
-| `applyEffect()`          | Called if the player catches an item   | One or both players may apply effects          | Each player can apply effects on themselves    |
-| `compareScores()`        | Not used                               | Not used                                       | Used to determine winner at the end            |
-| `startNextLevel()`       | Called when level is completed         | Same as Single                                 | Same as Single (if continuing)                 |
-| `changeScreen(GameOver)` | Shows Game Over screen when game ends  | Same as Single                                 | Switches to result or home screen              |
 
 # 6. Implementation
 - 15% ~750 words
@@ -357,7 +363,7 @@ Heuristic evaluation is a quick and cost-effective method that provides clear, c
 By systematically reviewing every screen of our game, we identified several usability issues. Each issue was evaluated across three key dimensions (Frequency, Impact, and Persistence) to determine its overall severity. The findings are presented in the following table, ranked in descending order of severity: 
 
 <p align="center">
-    <i>Table 5: Heuristic Evaluation Table</i>
+    <i>Table 6: Heuristic Evaluation Table</i>
 </p>
 
 <table>
@@ -458,18 +464,20 @@ Even though our instructions were relatively short, we recognized that purely te
 
 ## Quantitative Evaluation - SUS evaluation
 
-The NASA TLX is a quantitative evaluation method used to assess users' subjective workload during task performance, helping designers understand sources of stress in an interface or interaction process. In evaluating the differences between levels in HayStacking, we invited 11 users to play the game at two difficulty levels (Level 1 and Level 2). After each session, participants completed the NASA TLX questionnaire, rating six dimensions of workload—mental demand, physical demand, temporal demand, performance, effort, and frustration. This allowed us to obtain each user's perceived workload scores under different levels. The chart below shows the players' ratings visually, and the original scoring data can be accessed by clicking [here](NASA_TLX.md).
+The NASA TLX is a quantitative evaluation method used to assess users' subjective workload during task performance, helping designers understand sources of stress in an interface or interaction process. In evaluating the differences between levels in HayStacking, we invited 11 users to play the game at two difficulty levels (Level 1 and Level 2). After completing each level, participants answered the NASA TLX questionnaire, rating six dimensions of workload—mental demand, physical demand, temporal demand, performance, effort, and frustration. This allowed us to obtain each user's perceived workload scores under different levels. The chart below shows the players' ratings visually, and the original scoring data can be accessed by clicking [here](./assets_for_README/NASA_TLX.md).
 
-<p align="center"><b>Figure 10</b></p>
+<p align="center"><i>Figure 10</i></p>
 <div align="center">
-  <img src="NASA TLX Scores.png" width="533">
+  <img src="./assets_for_README/NASA TLX Scores.png" width="533">
 </div>
 
-<p align="center"><b>Figure 11</b></p>
+<p align="center"><i>Figure 11</i></p>
 <div align="center">
-  <img src="NASA TLX Scores by Level.png" width="533">
+  <img src="./assets_for_README/NASA TLX Scores by Level.png" width="533">
 </div>
-To analyze these results, we used the Wilcoxon Signed-Rank Test, a non-parametric statistical method suitable for comparing paired samples—particularly effective for assessing changes in subjective ratings from the same group of users under two different conditions. At a significance level of p = 0.05, the critical value for n = 11 is 10. Our calculated test statistic was W = 1, which is less than the critical value of 10. Therefore, we conclude that there is a statistically significant difference in perceived workload between the two levels. In other words, players experienced a significantly higher subjective workload in Level 2 compared to Level 1. This may indicate that Level 2 imposes greater demands on players in terms of mental, temporal, or operational complexity. Alternatively, the more complex rules may require players to exert more attention and effort to complete the tasks. This finding suggests that Level 2 is more challenging for players and provides clear guidance for balancing game difficulty and improving user experience.
+To analyse these results, we used the Wilcoxon Signed-Rank Test, a non-parametric statistical method suitable for comparing paired samples—particularly effective for assessing changes in subjective ratings from the same group of users under two different conditions. 
+
+At a significance level of p = 0.05, the critical value for n = 11 is 10. Our calculated test statistic was W = 1, which is less than the critical value of 10, indicating a statistically significant difference in perceived workload between the two levels. Players experienced a notably higher workload in Level 2 than in Level 1. This outcome aligns with our design goal of progressively increasing the game's difficulty and challenge.
 
 ## Test
 For Haystacking, we primarily conducted black-box testing. The test cases were designed using equivalence partitioning and focused on validating the core functionalities of the game. Testing covered five key areas: UI interaction, player movement control, game mechanics, score calculation system, and the special item system.
@@ -477,7 +485,7 @@ For Haystacking, we primarily conducted black-box testing. The test cases were d
 As shown in the table below, all test cases passed, confirming that the core functions have been successfully implemented and are operating as expected.
 
 <p align="center">
-    <i>Table 6: Black-Box Test Table</i>
+    <i>Table 7: Black-Box Test Table</i>
 </p>
 
 <table>
@@ -669,7 +677,7 @@ In the development of Haystacking, we applied the Sustainability Awareness Frame
 
 ### 1. Individual Sustainability
 <p align="center">
-    <i>Table 7: Individual Sustainability Impact</i>
+    <i>Table 8: Individual Sustainability Impact</i>
 </p>
 
 <table>
@@ -701,7 +709,7 @@ In the development of Haystacking, we applied the Sustainability Awareness Frame
 
 ### 2. Environmental Sustainability
 <p align="center">
-    <i>Table 8: Environmental Sustainability Impact</i>
+    <i>Table 9: Environmental Sustainability Impact</i>
 </p>
 
 <table>
@@ -733,7 +741,7 @@ In the development of Haystacking, we applied the Sustainability Awareness Frame
 
 ### 3. Technical Sustainability
 <p align="center">
-    <i>Table 9: Technical Sustainability Impact</i>
+    <i>Table 10: Technical Sustainability Impact</i>
 </p>
 
 <table>
@@ -777,7 +785,7 @@ We then classified the identified sustainability impacts into three categories: 
 Additionally, we applied several patterns published by the Green Software Foundation to keep Haystacking emissions minimum. These included:
 
 <p align="center">
-    <i>Table 10: Green Software Foundation Patterns</i>
+    <i>Table 11: Green Software Foundation Patterns</i>
 </p>
 
 <table>
@@ -823,9 +831,9 @@ We used **GitHub's Kanban Board** to visualize project tasks and track progress.
 
 Responsibilities such as asset creation, audio collection, and documentation were distributed organically among team members, reflecting our self-organizing working style. This helped us clearly monitor each task's status and streamline our workflow.
 
-<p align="center"><b>Figure 13: Kanban Board</b></p>
+<p align="center"><i>Figure 13: Kanban Board</i></p>
 <div align="center">
-  <img src="kanban.webp" width="533">
+  <img src="./assets_for_README/kanban.webp" width="533">
 </div>
 
 ### 9.2 Version Control and Code Management

@@ -273,8 +273,8 @@ class GameScreen extends Screen {
         }
 
         // Only display when strength buff is active
-        if (player.proteinShaker) {
-            const remainingTime = player.proteinShaker.timeLeft;
+        if (player.proteinShake) {
+            const remainingTime = player.proteinShake.timeLeft;
             if (remainingTime > 0) {
                 push();
                 fill(255);

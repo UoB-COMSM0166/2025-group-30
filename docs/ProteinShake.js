@@ -1,4 +1,4 @@
-class ProteinShaker extends SpecialItem {
+class ProteinShake extends SpecialItem {
 
     constructor(x, y) {
         super(x, y, 50, 50, 2.8);
@@ -15,7 +15,7 @@ class ProteinShaker extends SpecialItem {
         let particles = game.particles;
         if (game.particles1 && game.particles2) {
             // PVP or Coop mode
-            particles = game.player1 && game.player1.proteinShaker === this ? game.particles1 : game.particles2;
+            particles = game.player1 && game.player1.proteinShake === this ? game.particles1 : game.particles2;
         }
 
         // Create burst particles
@@ -55,7 +55,7 @@ class ProteinShaker extends SpecialItem {
         // Apply stack size boost and remove speed reduction
         player.maxStack = 10;
         player.speedReductionPerHay = 0;  // No speed reduction during boost
-        player.proteinShaker = this;
+        player.proteinShake = this;
 
         if (this.interval) {
             clearInterval(this.interval);
@@ -64,7 +64,7 @@ class ProteinShaker extends SpecialItem {
         // Create strength trail particles
         this.interval = setInterval(() => {
             // Check if player still has this effect (to prevent dangling interval)
-            if (player.proteinShaker !== this) {
+            if (player.proteinShake !== this) {
                 return;
             }
 
@@ -111,7 +111,7 @@ class ProteinShaker extends SpecialItem {
             } else {
                 player.maxStack = 5;
                 player.speedReductionPerHay = 0.1;
-                player.proteinShaker = null;
+                player.proteinShake = null;
                 clearInterval(this.interval);
             }
         }, 50); // Faster particle spawn rate
