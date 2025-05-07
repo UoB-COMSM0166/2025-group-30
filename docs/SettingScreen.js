@@ -5,7 +5,7 @@ class SettingScreen extends Screen {
         
         // Reset button focus
         this.focusedButtonIndex = -1;
-        this.focusedControl = null; // 'music', 'sound', 'back'
+        this.controls = ['musicMute', 'music', 'soundMute', 'sound', 'back'];
         
         // Add key repeat control
         this.keyRepeatDelay = 200; // 200ms before key repeat starts
@@ -74,35 +74,20 @@ class SettingScreen extends Screen {
             
             if (keyIsDown(SHIFT)) {
                 // Shift+Tab: Move focus to previous control
-                if (this.focusedControl === null) {
-                    this.focusedControl = 'back';
-                } else if (this.focusedControl === 'back') {
-                    this.focusedControl = 'sound';
-                } else if (this.focusedControl === 'sound') {
-                    this.focusedControl = 'soundMute';
-                } else if (this.focusedControl === 'soundMute') {
-                    this.focusedControl = 'music';
-                } else if (this.focusedControl === 'music') {
-                    this.focusedControl = 'musicMute';
-                } else if (this.focusedControl === 'musicMute') {
-                    this.focusedControl = null;
+                if (this.focusedButtonIndex === -1) {
+                    this.focusedButtonIndex = this.controls.length - 1;
+                } else {
+                    this.focusedButtonIndex = (this.focusedButtonIndex - 1 + this.controls.length) % this.controls.length;
                 }
             } else {
                 // Tab: Move focus to next control
-                if (this.focusedControl === null) {
-                    this.focusedControl = 'musicMute';
-                } else if (this.focusedControl === 'musicMute') {
-                    this.focusedControl = 'music';
-                } else if (this.focusedControl === 'music') {
-                    this.focusedControl = 'soundMute';
-                } else if (this.focusedControl === 'soundMute') {
-                    this.focusedControl = 'sound';
-                } else if (this.focusedControl === 'sound') {
-                    this.focusedControl = 'back';
-                } else if (this.focusedControl === 'back') {
-                    this.focusedControl = null;
+                if (this.focusedButtonIndex === this.controls.length - 1) {
+                    this.focusedButtonIndex = -1;
+                } else {
+                    this.focusedButtonIndex = (this.focusedButtonIndex + 1) % this.controls.length;
                 }
             }
+            this.focusedControl = this.focusedButtonIndex === -1 ? null : this.controls[this.focusedButtonIndex];
             return;
         } else if (keyCode === LEFT_ARROW || keyCode === RIGHT_ARROW) {
             const currentTime = millis();
