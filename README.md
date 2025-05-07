@@ -19,7 +19,7 @@
 
 <p align="center">
   <a href="https://uob-comsm0166.github.io/2025-group-30/">
-    <img src="docs/assets/HomeScreen.gif" alt="Game Screen" />
+    <img src="./assets_for_README/haystacking.gif" alt="Game Screen" width="700" />
   </a>
 </p>
 
