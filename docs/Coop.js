@@ -49,7 +49,7 @@ class Coop extends GameScreen {
 
     displayUI() {
         // Common UI elements
-        fill(254, 224, 173); 
+        fill(254, 224, 173);
         textSize(20);
         textStyle(BOLD);
 
@@ -120,11 +120,11 @@ class Coop extends GameScreen {
                         this.specialItems.push(new SpeedBoot(newX, 10));
                         break;
                     case 4:
-                        this.specialItems.push(new ProteinShaker(newX, 10));
+                        this.specialItems.push(new ProteinShake(newX, 10));
                         break;
                     case 5:
                         if (random() < 0.5) {
-                            this.specialItems.push(new ProteinShaker(newX + 50, 10));
+                            this.specialItems.push(new ProteinShake(newX + 50, 10));
                         } else {
                             this.specialItems.push(new SpeedBoot(newX + 50, 10));
                         }

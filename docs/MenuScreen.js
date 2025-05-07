@@ -152,12 +152,12 @@ class MenuScreen extends Screen {
                 && window.mouseYGame <= button.y + button.buttonHeight / 2;
 
             let isFocused = this.focusedButtonIndex === this.buttons.indexOf(button);
-            
+
             // 跳过设置按钮的默认按钮绘制
             if (button.label === "") {
                 continue;
             }
-            
+
             // Special button style (Back and Tutorial)
             if (button.isSpecial) {
                 if (isHovered) {

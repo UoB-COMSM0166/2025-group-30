@@ -30,9 +30,9 @@ class Player {
         this.loadPlayerImage();
 
         this.speedBoot = null;
-        this.proteinShaker = null;
+        this.proteinShake = null;
 
-        this.soundManager = null; 
+        this.soundManager = null;
 
     }
 
@@ -54,7 +54,7 @@ class Player {
         this.flash.setFlashDuration(0);
 
         this.speedBoot = null;
-        this.proteinShaker = null;
+        this.proteinShake = null;
     }
 
     movePlayerWithCaughtHay() {

@@ -1,4 +1,4 @@
-@startuml
+@startuml class_diagram
 
 ' Abstract Classes
 abstract class Screen {
@@ -21,9 +21,9 @@ abstract class GameScreen extends Screen {
 }
 
 abstract class FallingObject {
-    + x: int
-    + y: int
-    + speed: int
+    - x: int
+    - y: int
+    - speed: int
     + fall(): void
     + isOffscreen(): boolean
 }
@@ -36,9 +36,18 @@ abstract class SpecialItem extends FallingObject {
 ' Concrete Classes
 class ScreenManager {
     - currentScreen: Screen
+    - soundManager: SoundManager
     + changeScreen(screen: Screen): void
     + display(): void
     + handleVisibilityChange(): void
+}
+
+class SoundManager {
+    - screenManager: ScreenManager
+    - sounds: Map<String, Sound>
+    + playSound(soundName: String): void
+    + setBackgroundMusicVolume(volume: float): void
+    + setSoundVolume(volume: float): void
 }
 
 class Level {
@@ -93,10 +102,9 @@ class Hay extends FallingObject {
 
 class Shovel extends SpecialItem {}
 
-class ProteinShaker extends SpecialItem {
+class ProteinShake extends SpecialItem {
     - boostDuration: int
 }
-
 
 class SpeedBoot extends SpecialItem { 
     - boostDuration: int
@@ -106,6 +114,7 @@ class Player {
     - score: int
     - stack: List<Hay>
     - flash: Flash
+    - soundManager: SoundManager
     + catches(hay: Hay): boolean
     + checkPerfectStack(): boolean
     + emptyToBarrel(): void
@@ -125,6 +134,7 @@ class Barrel {
 
 ' Relationships
 ScreenManager "1" *-- "*" Screen
+ScreenManager "1" *-- "1" SoundManager
 GameScreen "1" *-- "1" Level
 GameScreen "1" *-- "1..2" Player
 StepByStepHelpScreen *-- "1" Player
@@ -133,6 +143,7 @@ GameScreen "1" *-- "1..2" Barrel
 StepByStepHelpScreen *-- "1" Barrel
 Player "1" *-- "1" Barrel
 Player "1" *-- "1" Flash
+Player "1" o-- "1" SoundManager
 
 GameScreen "1" o-- "0..*" FallingObject
 StepByStepHelpScreen o-- "0..*" FallingObject
