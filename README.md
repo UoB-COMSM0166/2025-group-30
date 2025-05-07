@@ -841,11 +841,11 @@ At the start of each sprint, the entire team participated in Planning Poker sess
 We used Jira (atlassian.com) as our main project management platform to improve task transparency and team collaboration. Each sprint included clearly defined tasks in Jira, complete with story points, assignees, current statuses, and deadlines. Tasks were broken down into smaller, manageable subtasks so that responsibilities and time expectations were clear to everyone.
 
 <p align="center">
-  <img src="./assets_for_README/Backlog.png" width="800">
+  <img src="./assets_for_README/Jira.png" width="800">
 </p>
 
 <p align="center">
-  <img src="./assets_for_README/Jira.png" width="800">
+  <img src="./assets_for_README/Backlog.png" width="800">
 </p>
 
 We also made full use of Jira’s Kanban board to visually track task progress across columns like “To Do,” “In Progress,” and “Done.” This visual management system allowed us to monitor workflow in real time, quickly identify bottlenecks, and make timely adjustments to priorities and resource allocation.
