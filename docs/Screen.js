@@ -1,7 +1,7 @@
 class Screen {
     constructor(screenManager) {
         this.screenManager = screenManager;
-        this.focusedButtonIndex = -1; // Track currently focused button
+        this.resetFocusButton(); // Track currently focused button
     }
 
     display() { }
@@ -53,6 +53,10 @@ class Screen {
             this.buttons[this.focusedButtonIndex].action();
             return;
         }
+    }
+
+    resetFocusButton() {
+        this.focusedButtonIndex = -1;
     }
 
     keyReleased() { }

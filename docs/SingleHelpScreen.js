@@ -148,7 +148,7 @@ class SingleHelpScreen extends Screen {
             stroke(53, 97, 140);
             strokeWeight(3);
             if (isHovered) {
-                fill(227, 249, 253); 
+                fill(227, 249, 253);
             } else {
                 fill(207, 239, 246);
             }

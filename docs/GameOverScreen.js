@@ -44,10 +44,6 @@ class GameOverScreen extends Screen {
         this.fadeSpeed = 5;
     }
 
-    onActivate() {
-        this.resetAnimationState();
-    }
-
     loadFarmerImage() {
         loadImage('./assets/Farmer Cry.gif', img => {
             this.farmerImage = img;

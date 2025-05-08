@@ -29,10 +29,6 @@ class PvpAccomplishScreen extends Screen {
         this.finalScore2 = score2;
     }
 
-    keyPressed() {
-        super.keyPressed();
-    }
-
     display() {
         this.gameScreen.display();
 
@@ -60,7 +56,7 @@ class PvpAccomplishScreen extends Screen {
         textSize(24);
         textAlign(CENTER, CENTER);
         text(`Final score: ${this.finalScore1} - ${this.finalScore2}`, baseWidth / 2, baseHeight / 2 - 35);
-        
+
         if (this.finalScore1 > this.finalScore2) {
             text("Player 1 wins!", baseWidth / 2, baseHeight / 2 + 25);
         } else if (this.finalScore2 > this.finalScore1) {
