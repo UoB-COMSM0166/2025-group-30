@@ -283,15 +283,29 @@ class MenuScreen extends Screen {
                     && window.mouseYGame >= imageY - imageSize / 2
                     && window.mouseYGame <= imageY + imageSize / 2;
 
-                // Add hover effect
+                // Draw background circle
+                push();
                 if (isHovered) {
-                    push();
-                    tint(255, 200);
-                    image(this.settingImage, imageX - imageSize / 2, imageY - imageSize / 2, imageSize, imageSize);
-                    pop();
+                    fill(95, 140, 96, 200); // 悬浮时的背景色
+                    stroke(111, 148, 112, 230);
+                    strokeWeight(2);
                 } else {
-                    image(this.settingImage, imageX - imageSize / 2, imageY - imageSize / 2, imageSize, imageSize);
+                    fill(95, 140, 96, 100); // 默认背景色
+                    stroke(111, 148, 112, 100);
+                    strokeWeight(1);
                 }
+                ellipse(imageX, imageY, imageSize * 1.2, imageSize * 1.2);
+                pop();
+
+                // Draw setting icon with hover effect
+                push();
+                if (isHovered) {
+                    tint(255, 255, 255, 255); // 悬浮时的图标颜色
+                } else {
+                    tint(255, 255, 255, 180); // 默认图标颜色
+                }
+                image(this.settingImage, imageX - imageSize / 2, imageY - imageSize / 2, imageSize, imageSize);
+                pop();
             }
         }
     }
