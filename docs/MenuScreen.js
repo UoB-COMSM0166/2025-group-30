@@ -313,9 +313,17 @@ class MenuScreen extends Screen {
                     && window.mouseYGame >= imageY - imageSize / 2
                     && window.mouseYGame <= imageY + imageSize / 2;
 
-                let isFocused = this.focusedButtonIndex === this.buttons.indexOf(settingButton);
+                if (isHovered) {
+                    push();
+                    tint(255, 128);
+                    image(this.settingImage, imageX - imageSize / 2, imageY - imageSize / 2, imageSize, imageSize);
+                    pop();
+                } else {
+                    image(this.settingImage, imageX - imageSize / 2, imageY - imageSize / 2, imageSize, imageSize);
+                }
 
-                // Add hover and focus effect
+                // Add focus effect
+                let isFocused = this.focusedButtonIndex === this.buttons.indexOf(settingButton);
                 if (isFocused) {
                     stroke(14, 105, 218);
                     strokeWeight(4);
