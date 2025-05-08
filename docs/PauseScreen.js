@@ -2,11 +2,11 @@ class PauseScreen extends Screen {
     constructor(screenManager, gameScreen) {
         super(screenManager);
         this.gameScreen = gameScreen;
-        
+
         this.settingImage = null;
         this.settingImage2 = null;
         this.loadSettingImages();
-        
+
         this.buttonSpacing = 30;
         this.focusedButtonIndex = -1;
         this.buttons = [
@@ -98,7 +98,7 @@ class PauseScreen extends Screen {
                 let isHovered = window.mouseXGame >= button.x - button.buttonWidth / 2
                     && window.mouseXGame <= button.x + button.buttonWidth / 2
                     && window.mouseYGame >= button.y - button.buttonHeight / 2
-                    && window.mouseYGame <= button.y + button.buttonHeight/2;
+                    && window.mouseYGame <= button.y + button.buttonHeight / 2;
 
                 let isFocused = this.focusedButtonIndex === this.buttons.indexOf(button);
 
@@ -129,7 +129,7 @@ class PauseScreen extends Screen {
                 const isFocused = this.focusedButtonIndex === this.buttons.indexOf(settingButton);
 
                 const currentImage = isHovered ? this.settingImage2 : this.settingImage;
-                
+
                 if (currentImage) {
                     if (isFocused) {
                         stroke(14, 105, 218);
@@ -137,11 +137,11 @@ class PauseScreen extends Screen {
                         noFill();
                         ellipse(settingButton.x, settingButton.y, settingButton.buttonWidth + 10, settingButton.buttonHeight + 10);
                     }
-                    image(currentImage, 
-                          settingButton.x - settingButton.buttonWidth/2,
-                          settingButton.y - settingButton.buttonHeight/2,
-                          settingButton.buttonWidth,
-                          settingButton.buttonHeight);
+                    image(currentImage,
+                        settingButton.x - settingButton.buttonWidth / 2,
+                        settingButton.y - settingButton.buttonHeight / 2,
+                        settingButton.buttonWidth,
+                        settingButton.buttonHeight);
                 }
             }
         }
@@ -158,23 +158,19 @@ class PauseScreen extends Screen {
             }
         }
     }
-    
-    isMouseOverButton(button) {
-        return window.mouseXGame >= button.x - button.buttonWidth/2 &&
-               window.mouseXGame <= button.x + button.buttonWidth/2 &&
-               window.mouseYGame >= button.y - button.buttonHeight/2 &&
-               window.mouseYGame <= button.y + button.buttonHeight/2;
-    }
 
-    onActivate() {
-        this.focusedButtonIndex = -1;  // every time the screen is activated, the focused button is reset to the first button
+    isMouseOverButton(button) {
+        return window.mouseXGame >= button.x - button.buttonWidth / 2 &&
+            window.mouseXGame <= button.x + button.buttonWidth / 2 &&
+            window.mouseYGame >= button.y - button.buttonHeight / 2 &&
+            window.mouseYGame <= button.y + button.buttonHeight / 2;
     }
 
     keyPressed() {
         if (keyCode === TAB) {
             // Prevent the default tab behavior
             event.preventDefault();
-            
+
             if (keyIsDown(SHIFT)) {
                 // Shift+Tab: Move focus to previous button
                 if (this.focusedButtonIndex === -1) {

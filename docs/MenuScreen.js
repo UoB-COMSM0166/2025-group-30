@@ -99,15 +99,11 @@ class MenuScreen extends Screen {
         });
     }
 
-    onActivate() {
-        this.focusedButtonIndex = -1;  // every time the screen is activated, reset focus to no button
-    }
-
     keyPressed() {
         if (keyCode === TAB) {
             // Prevent the default tab behavior
             event.preventDefault();
-            
+
             if (keyIsDown(SHIFT)) {
                 // Shift+Tab: Move focus to previous button
                 if (this.focusedButtonIndex === -1) {
@@ -187,11 +183,11 @@ class MenuScreen extends Screen {
                 && window.mouseYGame <= button.y + button.buttonHeight / 2;
 
             let isFocused = this.focusedButtonIndex === this.buttons.indexOf(button);
-            
+
             if (button.label === "") {
                 continue;
             }
-            
+
             // Special button style (Back and Tutorial)
             if (button.isSpecial) {
                 if (isHovered) {

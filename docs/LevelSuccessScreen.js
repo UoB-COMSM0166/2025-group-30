@@ -50,10 +50,6 @@ class LevelSuccessScreen extends Screen {
         this.resetAnimationState();
     }
 
-    onActivate() {
-        this.focusedButtonIndex = -1;
-    }
-
     display() {
         this.gameScreen.display();
 

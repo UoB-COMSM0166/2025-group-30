@@ -24,10 +24,6 @@ class DoubleHelpScreen extends Screen {
 
     }
 
-    onActivate() {
-        this.focusedButtonIndex = -1;
-    }
-
     display() {
         // Draw background image
         if (this.backgroundImage) {

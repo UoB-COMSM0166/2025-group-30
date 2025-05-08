@@ -534,10 +534,6 @@ class StepByStepHelpScreen extends Screen {
         super.keyPressed();
     }
 
-    onActivate() {
-        this.focusedButtonIndex = -1;  // every time the screen is activated, reset focus to no button
-    }
-
     // Override the mousePressed method to respect button visibility conditions
     mousePressed() {
         if (!this.buttons) return;

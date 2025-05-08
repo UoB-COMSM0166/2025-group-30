@@ -34,6 +34,8 @@ window.ScreenManager = class ScreenManager {
         const previousScreen = this.currentScreen;
         this.currentScreen = screen;
 
+        screen.resetFocusButton();
+
         if (screen.onActivate) {
             screen.onActivate();
         }
