@@ -54,7 +54,7 @@ class PvpLevelUpScreen extends Screen {
     }
 
     // Called when screen is activated
-    onActivate() {
+    resetScreenState() {
         // Force reset all states
         this.alpha = 0;
         this.fadeIn = true;
@@ -102,7 +102,7 @@ class PvpLevelUpScreen extends Screen {
         fill(0, this.alpha);
         textSize(32);
         textAlign(CENTER, CENTER);
-        
+
         // display current result
         if (this.gameScreen.player1.score > this.gameScreen.player2.score) {
             text("Player 1 wins!", baseWidth / 2, baseHeight / 2 + 20);
@@ -115,9 +115,9 @@ class PvpLevelUpScreen extends Screen {
         // display current score with updated values
         textSize(24);
         // get the latest score
-        const player1Wins = this.gameScreen.player1.score > this.gameScreen.player2.score ? 
+        const player1Wins = this.gameScreen.player1.score > this.gameScreen.player2.score ?
             this.gameScreen.player1Wins : this.gameScreen.player1Wins;
-        const player2Wins = this.gameScreen.player2.score > this.gameScreen.player1.score ? 
+        const player2Wins = this.gameScreen.player2.score > this.gameScreen.player1.score ?
             this.gameScreen.player2Wins : this.gameScreen.player2Wins;
         text(`Current score: ${player1Wins} - ${player2Wins}`, baseWidth / 2, baseHeight / 2 + 60);
 

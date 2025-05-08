@@ -462,7 +462,7 @@ To improve this, we first recognised that the score should be part of the system
 Even though our instructions were relatively short, we recognized that purely text-based explanations might be skipped or misunderstood by players. To lower the user's cognitive load, we used visual representations such as arrow icons to help player to recognise the game action more easily. We also introduced a step by step animated and interactive tutorial for first time users who prefer a more guided experience. 
 
 
-## Quantitative Evaluation - SUS evaluation
+## Quantitative Evaluation - NASA TLX evaluation
 
 The NASA TLX is a quantitative evaluation method used to assess users' subjective workload during task performance, helping designers understand sources of stress in an interface or interaction process. In evaluating the differences between levels in HayStacking, we invited 11 users to play the game at two difficulty levels (Level 1 and Level 2). After completing each level, participants answered the NASA TLX questionnaire, rating six dimensions of workload—mental demand, physical demand, temporal demand, performance, effort, and frustration. This allowed us to obtain each user's perceived workload scores under different levels. The chart below shows the players' ratings visually, and the original scoring data can be accessed by clicking [here](./assets_for_README/NASA_TLX.md).
 

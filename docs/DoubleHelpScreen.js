@@ -24,7 +24,6 @@ class DoubleHelpScreen extends Screen {
 
     }
 
-
     display() {
         // Draw background image
         if (this.backgroundImage) {
