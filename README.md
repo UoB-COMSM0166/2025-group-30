@@ -820,13 +820,14 @@ We updated our product backlog to incorporate new requirements and user stories 
 - Teamwork. How did you work together, what tools did you use. Did you have team roles? Reflection on how you worked together.
 
 ### Game Ideation
-During the first three weeks, we held in-person meetings to spark design inspiration, facilitate team bonding, and ensure effective communication. In our first meeting (Week 1), each member introduced games they personally found interesting. We collectively shortlisted five existing titles and analyzed their core gameplay elements and mechanics. By the second meeting (Week 2), we conducted a poll on Strawpoll (https://strawpoll.com) to vote on a reference game prototype, considering both implementation feasibility and entertainment value.
+During the first two weeks, we held in-person meetings to spark design inspiration, facilitate team bonding, and ensure effective communication. In our first meeting (Week 1), each member introduced games they personally found interesting. We collectively shortlisted five existing titles and analyzed their core gameplay elements and mechanics. By the second meeting (Week 2), we conducted a poll on Strawpoll (https://strawpoll.com) to vote on a reference game prototype, considering both implementation feasibility and entertainment value.
 
 ### Feature Planning
 Once the game concept was finalized, we used the Value-Effort matrix to prioritize features based on two criteria: *Effort* (the workload required) and *Value* (the feature's impact on gameplay). We planned to dedicate the first two sprints to implementing features that were high in value but low in effort.  
 
 We also identified several high-value, high-effort features—such as building the core game framework, expanding game modes, and designing levels—that were both critical and time-consuming. To manage these effectively, we dedicated entire sprints to focus on one such feature at a time. By implementing both types of features, we established a solid game foundation and then gradually enhanced gameplay depth and user experience.
 
+<p align="center"><i>Figure 13: Value-Effort Metrix </i></p>
 <p align="center">
   <img src="./assets_for_README/Value-Effort.png" width="800">
 </p>
@@ -840,16 +841,19 @@ Shiyu and Zhuoyan focused on gathering user feedback and defining requirements. 
 At the start of each sprint, the entire team participated in Planning Poker sessions to estimate the effort required for each task. This method helped generate unbiased estimations and encouraged discussion to reach consensus.  
 We used Jira (atlassian.com) as our main project management platform to improve task transparency and team collaboration. Each sprint included clearly defined tasks in Jira, complete with story points, assignees, current statuses, and deadlines. Tasks were broken down into smaller, manageable subtasks so that responsibilities and time expectations were clear to everyone.
 
+<p align="center"><i>Figure 14: Jira Interface</i></p>
 <p align="center">
   <img src="./assets_for_README/Jira.png" width="800">
 </p>
 
+<p align="center"><i>Figure 15: sprint Management</i></p>
 <p align="center">
   <img src="./assets_for_README/Backlog.png" width="800">
 </p>
 
 We also made full use of Jira’s Kanban board to visually track task progress across columns like “To Do,” “In Progress,” and “Done.” This visual management system allowed us to monitor workflow in real time, quickly identify bottlenecks, and make timely adjustments to priorities and resource allocation.
 
+<p align="center"><i>Figure 16: Kanban Board</i></p>
 <p align="center">
   <img src="./assets_for_README/kanban.png" width="800">
 </p>
@@ -862,6 +866,7 @@ For module development in later stages, we strictly followed a GitHub-based merg
 At the end of each sprint, we conducted Scrum reviews to reflect on progress and fine-tune game features and difficulty levels based on player feedback. We also analyzed burndown charts to compare planned versus actual progress.  
 One major insight came from our misestimation of the effort required to balance level difficulty. Although we initially allocated minimal time to this task, it ended up being highly time-consuming. We had to repeatedly test gameplay with players of varying skill levels and tweak mechanics like grass drop speed, item behavior, level objectives, and time limits.
 
+<p align="center"><i>Figure 17: Sprint 7 Different Levels Burndown Chart </i></p>
 <p align="center">
   <img src="./assets_for_README/Burndown chart.png" width="800">
 </p>
