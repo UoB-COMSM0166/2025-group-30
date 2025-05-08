@@ -99,6 +99,10 @@ class MenuScreen extends Screen {
         });
     }
 
+    onActivate() {
+        this.focusedButtonIndex = -1;  // every time the screen is activated, reset focus to no button
+    }
+
     keyPressed() {
         if (keyCode === TAB) {
             // Prevent the default tab behavior

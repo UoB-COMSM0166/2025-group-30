@@ -42,6 +42,10 @@ class SingleHelpScreen extends Screen {
         this.instructions = "Maximum 5 hay blocks at a time";
     }
 
+    onActivate() {
+        this.focusedButtonIndex = -1;
+    }
+
     display() {
         // Draw background image
         image(this.backgroundImage, 0, 0, baseWidth, baseHeight);

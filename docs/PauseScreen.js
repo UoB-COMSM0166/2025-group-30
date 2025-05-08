@@ -8,6 +8,7 @@ class PauseScreen extends Screen {
         this.loadSettingImages();
         
         this.buttonSpacing = 30;
+        this.focusedButtonIndex = -1;
         this.buttons = [
             {
                 label: "Continue",
@@ -53,6 +54,7 @@ class PauseScreen extends Screen {
                 buttonHeight: 40,
                 action: () => {
                     this.screenManager.settingScreen.previousScreen = this;
+                    this.screenManager.settingScreen.focusedButtonIndex = -1;
                     this.screenManager.changeScreen(this.screenManager.settingScreen);
                 },
                 showLabel: false
@@ -124,11 +126,17 @@ class PauseScreen extends Screen {
             const settingButton = this.buttons.find(b => b.label === "");
             if (settingButton) {
                 const isHovered = this.isMouseOverButton(settingButton);
-                
+                const isFocused = this.focusedButtonIndex === this.buttons.indexOf(settingButton);
 
                 const currentImage = isHovered ? this.settingImage2 : this.settingImage;
                 
                 if (currentImage) {
+                    if (isFocused) {
+                        stroke(14, 105, 218);
+                        strokeWeight(4);
+                        noFill();
+                        ellipse(settingButton.x, settingButton.y, settingButton.buttonWidth + 10, settingButton.buttonHeight + 10);
+                    }
                     image(currentImage, 
                           settingButton.x - settingButton.buttonWidth/2,
                           settingButton.y - settingButton.buttonHeight/2,
@@ -156,5 +164,39 @@ class PauseScreen extends Screen {
                window.mouseXGame <= button.x + button.buttonWidth/2 &&
                window.mouseYGame >= button.y - button.buttonHeight/2 &&
                window.mouseYGame <= button.y + button.buttonHeight/2;
+    }
+
+    onActivate() {
+        this.focusedButtonIndex = -1;  // every time the screen is activated, the focused button is reset to the first button
+    }
+
+    keyPressed() {
+        if (keyCode === TAB) {
+            // Prevent the default tab behavior
+            event.preventDefault();
+            
+            if (keyIsDown(SHIFT)) {
+                // Shift+Tab: Move focus to previous button
+                if (this.focusedButtonIndex === -1) {
+                    this.focusedButtonIndex = this.buttons.length - 1;
+                } else {
+                    this.focusedButtonIndex = (this.focusedButtonIndex - 1 + this.buttons.length) % this.buttons.length;
+                }
+            } else {
+                // Tab: Move focus to next button
+                if (this.focusedButtonIndex === this.buttons.length - 1) {
+                    this.focusedButtonIndex = -1;
+                } else {
+                    this.focusedButtonIndex = (this.focusedButtonIndex + 1) % this.buttons.length;
+                }
+            }
+            return;
+        }
+
+        // Handle Enter/Space to activate focused button
+        if ((keyCode === ENTER || keyCode === 32) && this.focusedButtonIndex >= 0) {
+            this.buttons[this.focusedButtonIndex].action();
+            return;
+        }
     }
 }

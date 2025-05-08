@@ -479,4 +479,9 @@ class SettingScreen extends Screen {
         
         return clickedHandle || clickedTrack;
     }
+
+    onActivate() {
+        this.focusedButtonIndex = -1;  // every time the screen is activated, reset focus to no button
+        this.focusedControl = null;    // reset focused control
+    }
 }

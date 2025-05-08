@@ -34,6 +34,13 @@ window.ScreenManager = class ScreenManager {
         const previousScreen = this.currentScreen;
         this.currentScreen = screen;
 
+        if (screen.onActivate) {
+            screen.onActivate();
+        }
+        if (screen.resetScreenState) {
+            screen.resetScreenState();
+        }
+
         console.log('Previous screen:', previousScreen.constructor.name);
         console.log('Current screen:', screen.constructor.name);
 

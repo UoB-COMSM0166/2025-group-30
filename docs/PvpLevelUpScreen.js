@@ -54,11 +54,15 @@ class PvpLevelUpScreen extends Screen {
     }
 
     // Called when screen is activated
-    onActivate() {
+    resetScreenState() {
         // Force reset all states
         this.alpha = 0;
         this.fadeIn = true;
         this.isTransitioning = false;
+    }
+
+    onActivate() {
+        this.focusedButtonIndex = -1;
     }
 
     display() {
