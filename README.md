@@ -866,7 +866,7 @@ For module development in later stages, we strictly followed a GitHub-based merg
 At the end of each sprint, we conducted Scrum reviews to reflect on progress and fine-tune game features and difficulty levels based on player feedback. We also analyzed burndown charts to compare planned versus actual progress.  
 One major insight came from our misestimation of the effort required to balance level difficulty. Although we initially allocated minimal time to this task, it ended up being highly time-consuming. We had to repeatedly test gameplay with players of varying skill levels and tweak mechanics like grass drop speed, item behavior, level objectives, and time limits.
 
-<p align="center"><i>Figure 17: Sprint 7 Different Levels Burndowndown Chart </i></p>
+<p align="center"><i>Figure 17: Sprint 7 Different Levels Burndown Chart </i></p>
 <p align="center">
   <img src="./assets_for_README/Burndown chart.png" width="800">
 </p>
