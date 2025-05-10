@@ -24,7 +24,7 @@
 </p>
 
 <p align="center">
-  <a href="https://uob-comsm0166.github.io/2025-group-30/">Play the game here</a>
+  <a href="https://youtu.be/Kw-NbS6OgyI">Play the game here</a>
 </p>
 
 Our game lives in the [docs](/docs) folder, and is published using Github pages to the link above.
