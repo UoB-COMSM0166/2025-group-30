@@ -24,13 +24,13 @@
 </p>
 
 <p align="center">
-  <a href="https://youtu.be/Kw-NbS6OgyI">Play the game here</a>
+  <a href="https://uob-comsm0166.github.io/2025-group-30/">Play the game here</a>
 </p>
 
 Our game lives in the [docs](/docs) folder, and is published using Github pages to the link above.
 
 Watch the demo video
-[🎬 here](https://github.com/UoB-COMSM0166/2025-group-30/blob/nemo/videos/demo%20video.MP4)
+[🎬 here](https://youtu.be/Kw-NbS6OgyI)
 
 # 2. Team
 
