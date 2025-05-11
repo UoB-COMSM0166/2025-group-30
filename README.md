@@ -26,7 +26,7 @@
 </p>
 
 <p align="center">
-  <a href="https://uob-comsm0166.github.io/2025-group-30/">Click here to Watch the game video</a>
+  <a href="https://youtu.be/hiw8fzNDeQ0">Click here to Watch the game video</a>
 </p>
 
 Play game [here](https://uob-comsm0166.github.io/2025-group-30/)
