@@ -30,7 +30,7 @@
 Our game lives in the [docs](/docs) folder, and is published using Github pages to the link above.
 
 Watch the demo video
-[🎬 here](https://github.com/UoB-COMSM0166/2025-group-30/blob/nemo/videos/demo%20video.MP4)
+[🎬 here](https://youtu.be/Kw-NbS6OgyI)
 
 # 2. Team
 
