@@ -111,7 +111,7 @@ With these factors in mind, we ultimately selected Haystacking as our final conc
 
 ## Identifying Stakeholders
 
-As shown in Figure 4, we conducted a stakeholder analysis using the Onion Model. This helped us to categorise key parties based on their proximity to the systme, understandand their needs and prioritise them accordingly during the development process.
+As shown in Figure 4, we conducted a stakeholder analysis using the Onion Model [[3]](#12-references). This helped us to categorise key parties based on their proximity to the systme, understandand their needs and prioritise them accordingly during the development process.
 
 <p align="center"><i>Figure 4: Onion Model of Haystacking Game</i></p>
 
@@ -213,7 +213,7 @@ In the later stage, we also incorporated sustainability-conducive requirements f
 
 ## Use Cases Breakdown
 
-To better understand the interactions between the game and its users, we used a Use Case Model to describe the game's functional requirements.
+To better understand the interactions between the game and its users, we used a Use Case Model [[4]](#12-references) to describe the game's functional requirements.
 
 <p align="center"><i>Figure 5: Use-Case Diagram</i></p>
 
@@ -267,7 +267,7 @@ Some of the key classes and relationships highlighted in the design:
 
 ### Sequence diagram
 
-To demonstrate the dynamic behaviour of the system, we first developed a sequence diagram that focuses on the basic single-player mode, as shown in Figure 7. This diagram illustrates the flow of messages exchanged between objects during gameplay, how components collaborate to manage user input, object movement, collision detection, and game state updates.
+To demonstrate the dynamic behaviour of the system, we first developed a sequence diagram [[5]](#12-references) that focuses on the basic single-player mode, as shown in Figure 7. This diagram illustrates the flow of messages exchanged between objects during gameplay, how components collaborate to manage user input, object movement, collision detection, and game state updates.
 
 <p align="center"><i>Figure 7: Sequence diagram for Single mode</i></p>
 
@@ -347,7 +347,7 @@ To ensure a balance between functionality and usability during the game developm
 
 ## Qualitative Evaluation - Heuristic Evaluation
 
-Heuristic evaluation is a quick and cost-effective method that provides clear, concrete, and specific guidelines for directly refining games [[3]](#12-references). For our evaluation of the Haystacking user interface, we selected Nielsen's ten usability heuristics [[4]](#12-references) as the guiding framework.
+Heuristic evaluation is a quick and cost-effective method that provides clear, concrete, and specific guidelines for directly refining games [[6]](#12-references). For our evaluation of the Haystacking user interface, we selected Nielsen's ten usability heuristics [[7]](#12-references) as the guiding framework.
 
 By systematically reviewing every screen of our game, we identified several usability issues. Each issue was evaluated across three key dimensions (Frequency, Impact, and Persistence) to determine its overall severity. The findings are presented in the following table, ranked in descending order of severity:
 
@@ -456,7 +456,7 @@ Even though our instructions were relatively short, we recognized that purely te
 
 ## Quantitative Evaluation - NASA TLX evaluation
 
-The NASA TLX is a quantitative evaluation method used to assess users' subjective workload during task performance, helping designers understand sources of stress in an interface or interaction process. In evaluating the differences between levels in HayStacking, we invited 11 users to play the game at two difficulty levels (Level 1 and Level 2). After completing each level, participants answered the NASA TLX questionnaire, rating six dimensions of workload—mental demand, physical demand, temporal demand, performance, effort, and frustration. This allowed us to obtain each user's perceived workload scores under different levels. The chart below shows the players' ratings visually, and the original scoring data can be accessed by clicking [here](./assets_for_README/NASA_TLX.md).
+The NASA TLX [[8]](#12-references) is a quantitative evaluation method used to assess users' subjective workload during task performance, helping designers understand sources of stress in an interface or interaction process. In evaluating the differences between levels in HayStacking, we invited 11 users to play the game at two difficulty levels (Level 1 and Level 2). After completing each level, participants answered the NASA TLX questionnaire, rating six dimensions of workload—mental demand, physical demand, temporal demand, performance, effort, and frustration. This allowed us to obtain each user's perceived workload scores under different levels. The chart below shows the players' ratings visually, and the original scoring data can be accessed by clicking [here](./assets_for_README/NASA_TLX.md).
 
 <p align="center"><i>Figure 10</i></p>
 <div align="center">
@@ -473,7 +473,7 @@ At a significance level of p = 0.05, the critical value for n = 11 is 10. Our ca
 
 ## Test
 
-For Haystacking, we primarily conducted black-box testing. The test cases were designed using equivalence partitioning and focused on validating the core functionalities of the game. Testing covered five key areas: UI interaction, player movement control, game mechanics, score calculation system, and the special item system.
+For Haystacking, we primarily conducted black-box testing [[9]](#12-references). The test cases were designed using equivalence partitioning and focused on validating the core functionalities of the game. Testing covered five key areas: UI interaction, player movement control, game mechanics, score calculation system, and the special item system.
 
 As shown in the table below, all test cases passed, confirming that the core functions have been successfully implemented and are operating as expected.
 
@@ -666,7 +666,7 @@ As shown in the table below, all test cases passed, confirming that the core fun
 
 # 8. Sustainability, Ethics and Accessibility
 
-In the development of Haystacking, we applied the Sustainability Awareness Framework (SuSAF) to align with the principles outlined in the Karlskrona Manifesto [[5]](#12-references). SuSAF is a question-based framework designed to assess the potential sustainability impacts of software, promoting the creation of sustainability-conscious requirements. We evaluated the impacts of our game across three of the five sustainability dimensions:
+In the development of Haystacking, we applied the Sustainability Awareness Framework (SuSAF) to align with the principles outlined in the Karlskrona Manifesto [[10]](#12-references). SuSAF is a question-based framework designed to assess the potential sustainability impacts of software, promoting the creation of sustainability-conscious requirements. We evaluated the impacts of our game across three of the five sustainability dimensions:
 
 ### 1. Individual Sustainability
 
@@ -888,18 +888,23 @@ Looking further ahead, we plan to implement online multiplayer functionality, en
 # 11. Contribution Statement
 
 | Name         | Contribution |
-| ------------ | ------------ |
-| Lingchen Li  |              |
-| Lei Gao      |              |
-| Hanying Bian |              |
-| Shiyu Dou    |              |
-| Zhuoyan Qiu  |              |
-| Liyang Li    |              |
+|--------------|:------------:|
+| Lingchen Li  |      1       |
+| Lei Gao      |      1       |
+| Hanying Bian |      1       |
+| Shiyu Dou    |      1       |
+| Zhuoyan Qiu  |      1       |
+| Liyang Li    |      1       |
 
 # 12. References
 
 1. Wang, X., Zhao, L., Wang, Y. and Sun, J., 2014. The role of requirements engineering practices in agile development: an empirical study. In: D. Zowghi and Z. Jin, eds. Requirements engineering. Communications in Computer and Information Science, vol. 432. Berlin, Heidelberg: Springer. Available at: https://doi.org/10.1007/978-3-662-43610-3_15 [Accessed 5 May 2025]
 2. Fægri, T.E. and Moe, N.B., 2015. Re-conceptualizing requirements engineering: findings from a large-scale, agile project. In: Scientific Workshop Proceedings of the XP2015. Helsinki, Finland: Association for Computing Machinery, pp.1–5. Available at: https://doi.org/10.1145/2764979.2764983.
-3. Choi, J. and Bakken, S., 2010. Web-based education for low-literate parents in Neonatal Intensive Care Unit: Development of a website and heuristic evaluation and usability testing. International Journal of Medical Informatics, 79(8), pp.565–575. Available at: https://doi.org/10.1016/j.ijmedinf.2010.05.001.
-4. Nielsen, J., 1995. 10 Usability Heuristics for User Interface Design. Nielsen Norman Group. Available at: https://www.nngroup.com/articles/ten-usability-heuristics/ [Accessed 6 May 2025].
-5. C. Becker, R. Chitchyan, L. Duboc, S. Easterbrook, M. Mahaux, B. Penzenstadler, et al., "The Karlskrona manifesto for sustainability design", 2014, [online] Available: http://arxiv.org/abs/1410.6968.
+3. Alexander, I.F. 2005. A Taxonomy of Stakeholders. International Journal of Technology and Human Interaction, [online] , pp.23–59. Available at: https://www.academia.edu/91630227/A_Taxonomy_of_Stakeholders.
+4. Muhairat, M. (2010) ‘UML diagrams generator: A new case tool to construct the use-case and class diagrams from an event table’, Journal of Computer Science, 6(3), pp. 253–260. doi: 10.3844/jcssp.2010.253.260.
+5. Bjørner, D. 2006. Software Engineering 2: Specification of Systems and Languages. Berlin: Springer-Verlag. [online] Internet Archive. Available at: https://archive.org/details/softwareengineer0000bjrn_p3g9.
+6. Choi, J. and Bakken, S., 2010. Web-based education for low-literate parents in Neonatal Intensive Care Unit: Development of a website and heuristic evaluation and usability testing. International Journal of Medical Informatics, 79(8), pp.565–575. Available at: https://doi.org/10.1016/j.ijmedinf.2010.05.001.
+7. Nielsen, J., 1995. 10 Usability Heuristics for User Interface Design. Nielsen Norman Group. Available at: https://www.nngroup.com/articles/ten-usability-heuristics/ [Accessed 6 May 2025].
+8. Hart, S.G. and Staveland, L.E., 1988. Development of NASA-TLX (Task Load Index): Results of empirical and theoretical research. Advances in Psychology, 52, pp.139–183. Available at: https://www.sciencedirect.com/science/article/abs/pii/S0166411508623869.
+9. Roman, A. and Roman, A., 2018. Black-Box Testing Techniques. In: A Study Guide to the ISTQB® Foundation Level 2018 Syllabus: Test Techniques and Sample Mock Exams, pp.25–60. Available at: https://link.springer.com/chapter/10.1007/978-3-319-98740-8_4.
+10. C. Becker, R. Chitchyan, L. Duboc, S. Easterbrook, M. Mahaux, B. Penzenstadler, et al., "The Karlskrona manifesto for sustainability design", 2014, [online] Available at: http://arxiv.org/abs/1410.6968.
