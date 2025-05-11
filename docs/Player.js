@@ -128,10 +128,7 @@ class Player {
 
                 // Play collect hay sound effect
                 if (this.soundManager) {
-                    console.log('Playing collectHay sound');
                     this.soundManager.playSound('collectHay');
-                } else {
-                    console.error('SoundManager not set');
                 }
 
                 // Check if adding this hay exceeds the maximum stack size
@@ -140,7 +137,6 @@ class Player {
                     this.flash.setFlashDuration(30); // trigger flash immediately
                     // Play ouch sound effect
                     if (this.soundManager) {
-                        console.log('Playing ouch sound');
                         this.soundManager.playSound('ouch');
                     }
                 }
@@ -168,10 +164,7 @@ class Player {
 
                 // Play collect hay sound effect
                 if (this.soundManager) {
-                    console.log('Playing collectHay sound');
                     this.soundManager.playSound('collectHay');
-                } else {
-                    console.error('SoundManager not set');
                 }
 
                 // Check if adding this hay exceeds the maximum stack size
@@ -180,7 +173,6 @@ class Player {
                     this.flash.setFlashDuration(30); // trigger flash immediately
                     // Play ouch sound effect
                     if (this.soundManager) {
-                        console.log('Playing ouch sound');
                         this.soundManager.playSound('ouch');
                     }
                 }
@@ -234,10 +226,7 @@ class Player {
             this.score += this.stack.length;
             // Play set hay sound effect
             if (this.soundManager) {
-                console.log('Playing setHay sound');
                 this.soundManager.playSound('setHay');
-            } else {
-                console.error('SoundManager not set');
             }
             this.stack = [];
         }

@@ -27,7 +27,6 @@ class Pvp extends GameScreen { // player with higher score in the set time wins
         this.player2.soundManager = this.screenManager.soundManager;
 
         // initialize score for new game
-        console.log('Initializing score');
         this.player1Wins = 0;
         this.player2Wins = 0;
     }
@@ -370,7 +369,6 @@ class Pvp extends GameScreen { // player with higher score in the set time wins
     }
 
     resetScore() {
-        console.log('Resetting score');
         this.player1Wins = 0;
         this.player2Wins = 0;
     }

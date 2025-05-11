@@ -55,8 +55,8 @@ class SpeedBoot extends SpecialItem {
         // Apply speed boost with limit
         player.velocity *= this.speedBoostMultiplier;
         player.maxSpeed = min(player.maxSpeed * this.speedBoostMultiplier, this.maxBoostSpeed);
-        player.speedBoot = this; // 设置对玩家的引用
-
+        player.speedBoot = this;
+        
         // Create speed trail particles
         if (this.interval) {
             clearInterval(this.interval);

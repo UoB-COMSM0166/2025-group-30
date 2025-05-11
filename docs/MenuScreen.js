@@ -316,11 +316,11 @@ class MenuScreen extends Screen {
                 // Draw background circle
                 push();
                 if (isHovered) {
-                    fill(95, 140, 96, 200); // 悬浮时的背景色
+                    fill(95, 140, 96, 200);
                     stroke(111, 148, 112, 230);
                     strokeWeight(2);
                 } else {
-                    fill(95, 140, 96, 100); // 默认背景色
+                    fill(95, 140, 96, 100);
                     stroke(111, 148, 112, 100);
                     strokeWeight(1);
                 }
@@ -330,9 +330,9 @@ class MenuScreen extends Screen {
                 // Draw setting icon with hover effect
                 push();
                 if (isHovered) {
-                    tint(255, 255, 255, 255); // 悬浮时的图标颜色
+                    tint(255, 255, 255, 255);
                 } else {
-                    tint(255, 255, 255, 180); // 默认图标颜色
+                    tint(255, 255, 255, 180);
                 }
                 image(this.settingImage, imageX - imageSize / 2, imageY - imageSize / 2, imageSize, imageSize);
                 pop();

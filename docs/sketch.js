@@ -36,7 +36,6 @@ function mouseDragged() {
 }
 
 function doubleClicked() {
-    console.log("Double click detected!");
     screenManager.doubleClick();
 }
 
