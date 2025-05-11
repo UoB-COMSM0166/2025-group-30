@@ -8,7 +8,7 @@ class ProteinShake extends SpecialItem {
     }
 
     loadImage() {
-        this.image = loadImage('assets/protein-shaker.webp');
+        this.image = loadImage('assets/protein-shake.webp');
     }
 
     createBurstEffect(x, y, game) {

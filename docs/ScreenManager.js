@@ -1,7 +1,6 @@
 // ScreenManager class for handling screen transitions and game states
 window.ScreenManager = class ScreenManager {
     constructor() {
-        console.log('Initializing ScreenManager');
         this.homeScreen = new HomeScreen(this);
         this.menuScreen = new MenuScreen(this);
         this.pauseScreen = new PauseScreen(this);
@@ -22,7 +21,6 @@ window.ScreenManager = class ScreenManager {
         this.isChangingScreen = false;
 
         window.addEventListener('load', () => {
-            console.log('Page loaded, playing background music');
             this.soundManager.playBackgroundMusic();
         });
     }
@@ -43,12 +41,8 @@ window.ScreenManager = class ScreenManager {
             screen.resetScreenState();
         }
 
-        console.log('Previous screen:', previousScreen.constructor.name);
-        console.log('Current screen:', screen.constructor.name);
-
         if (screen instanceof GameScreen) {
             if (!(previousScreen instanceof PauseScreen)) {
-                console.log('Not from pause screen, restarting music');
                 this.soundManager.stopBackgroundMusic();
                 this.soundManager.playBackgroundMusic();
             }

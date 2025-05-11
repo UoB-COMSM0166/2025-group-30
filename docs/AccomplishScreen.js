@@ -38,7 +38,6 @@ class AccomplishScreen extends Screen {
     display() {
         this.gameScreen.display();
 
-        // 更新动画
         this.scale = lerp(this.scale, this.targetScale, this.animationSpeed);
 
         fill(0, 0, 0, 180);

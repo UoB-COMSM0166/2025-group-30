@@ -72,9 +72,7 @@ class PauseScreen extends Screen {
     }
 
     display() {
-        console.log('PauseScreen display called, currentScreen:', this.screenManager.currentScreen.constructor.name);
         if (this.screenManager.currentScreen === this) {
-            console.log('Drawing PauseScreen');
             this.gameScreen.display();
             // Draw semi-transparent overlay
             fill(0, 0, 0, 180);
@@ -148,12 +146,9 @@ class PauseScreen extends Screen {
     }
 
     mousePressed() {
-        console.log('PauseScreen mousePressed called');
         for (let button of this.buttons) {
             if (this.isMouseOverButton(button)) {
-                console.log('Button clicked:', button.label || 'Setting Button');
                 button.action();
-                console.log('After button action, currentScreen:', this.screenManager.currentScreen.constructor.name);
                 return;
             }
         }
