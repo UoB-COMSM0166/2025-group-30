@@ -236,9 +236,6 @@ To better understand the interactions between the game and its users, we used a 
 
 # 5. Design
 
-- 15% ~750 words
-- System architecture. Class diagrams, behavioural diagrams
-
 Having analysed the system requirements, we then proceeded to the design phase. We adopted object-oriented (OO) design principles to create a modular and maintainable sytstem architecture.
 
 Our design follows closely to core OO principles. Abstraction is used to define base classes such as Screen and `FallingObject`, which provide common functionality to their subclasses while hiding specific implementations. Encapsulation ensures that classes like `Player` manage their internal state—such as their haystack stack and scoring logic—independently. Inheritance is used to structure the system logically; for example, `Single`, `Coop`, and `Pvp` all extend from GameScreen to reuse shared logic. Polymorphism allows different object types (e.g., game modes, falling objects) to implement shared methods in different ways, facilitating flexibility and code clarity. Collectively, these principles allowed us to design a clean and extendable system.
@@ -294,9 +291,6 @@ Building on the single-player sequence diagram, we subsequently developed sequen
 
 # 6. Implementation
 
-- 15% ~750 words
-- Describe implementation of your game, in particular highlighting the three areas of challenge in developing your game.
-
 ## Challenges
 
 We encountered three main challenges when developing the game:
@@ -348,11 +342,6 @@ if (isPaused && screen === "game") {
 However, as the number of screens grew, this became increasingly difficult to maintain. To solve this, we impletemented a state management class - `ScreenManager` which emcompasses different screens such as the game screens and home screens, and each of the game screen has their respective target score screen, level up screen etc. The `ScreenManager` also maintains a `currentScreen` property and has methods to change and display the current screen.
 
 # 7. Evaluation
-
-- 15% ~750 words
-- One qualitative evaluation (your choice)
-- One quantitative evaluation (of your choice)
-- Description of how code was tested.
 
 To ensure a balance between functionality and usability during the game development process, we chose to combine both qualitative and quantitative evaluation methods. Qualitative analysis helped us identify issues within the game, while quantitative evaluation provided insights into user perceptions, guiding us to iteratively improve the design.
 
@@ -824,9 +813,6 @@ We updated our product backlog to incorporate new requirements and user stories 
 
 # 9. Process
 
-- 15% ~750 words
-- Teamwork. How did you work together, what tools did you use. Did you have team roles? Reflection on how you worked together.
-
 ### 1. Collaboration
 
 #### Team Formation and Roles
@@ -889,16 +875,15 @@ As development progressed, we followed GitHub-based merge request workflow. All 
 
 # 10. Conclusion
 
-- 10% ~500 words
-- Reflect on project as a whole. Lessons learned. Reflect on challenges. Future work.
-
 Through the development of our farm-themed stacking game, our team has gained valuable hands-on experience in the software development lifecycle: from ideation and prototyping to implementation and evaluation. The process not only improved our programming skills but also taught us how to manage a project collaboratively using Agile methods. Weekly sprints, regular meetings, and clear role distribution allowed us to keep track of progress and adapt swiftly to changes.
 
 Throughout the project, we encountered several technical and design challenges, such as managing object drop timing, balancing gameplay difficulty, and ensuring stable cross-platform performance. To address these issues, we constantly made trade-offs, refined debugging skills, and adjusted mechanics based on continuous testing and user feedback. These experiences significantly deepened our understanding of modular code architecture and user-centered development.
 
 Additionally, we prioritized sustainability and accessibility in our development. By reusing assets, designing for short gameplay sessions, supporting local multiplayer, and implementing basic accessibility features, we created a game that is both environmentally friendly and inclusive. In particular, our design is more accessible for players with motor disabilities, reflecting our commitment to user diversity.
 
-In the near future, we plan to introduce new game items such as freeze sprays, glue bottles, and magnetic gloves to further enrich gameplay. These items will introduce new tactical options—such as hindering opponents or boosting speed—making the game more dynamic and engaging. We also aim to expand level design and improve visual effects to enhance immersion. And in the long run, we aim to implement online multiplayer functionality, allowing players to compete or cooperate remotely. As our technical capabilities grow, we also plan to introduce a progression system, global leaderboard, and story mode—adding longevity and depth to the game experience.
+In the near future, we plan to introduce new game items such as freeze sprays, glue bottles, and magnetic gloves to enrich gameplay variety. These additions will offer new tactical options—such as hindering opponents or boosting player speed—making matches more dynamic and engaging. We also aim to expand level design and enhance visual effects to improve immersion and aesthetic appeal.
+
+Looking further ahead, we plan to implement online multiplayer functionality, enabling players to compete or cooperate remotely. We also intend to develop a mobile version of the game to reach a wider audience and provide a more accessible, on-the-go experience. As our technical capabilities grow, we aim to introduce a progression system, global leaderboard, and a story mode—features that will add longevity, structure, and narrative depth to the overall game experience.
 
 # 11. Contribution Statement
 
