@@ -1,7 +1,9 @@
 # 2025-group-30
+
 2025 COMSM0166 group 30
 
 # Table of Contents
+
 - [1. Game & Game video](#1-game--game-video)
 - [2. Team](#2-team)
 - [3. Introduction](#3-introduction)
@@ -67,6 +69,7 @@ Beyond its core mechanic, the game introduces novel twists to deepen the experie
 By combining charming visuals, progressively tricky mechanics, and multiple play modes, our game offers an accessible yet addictive take on the stacking genre. Whether playing solo or with a friend, players are treated to a fun and strategic farming experience that's easy to pick up but hard to master.
 
 The following table shows the main elements of the game:
+
 <p align="center">
     <i>Table 2: Game Elements</i>
 </p>
@@ -80,7 +83,7 @@ The following table shows the main elements of the game:
 | Protein shake      | <img src="docs/assets/protein-shake.webp" width="50" style="vertical-align: middle;"> | Increase player's strength temporarily so that they could carry more hay. |
 | Speed boot         |  <img src="docs/assets/speed-boot.webp" width="50" style="vertical-align: middle;">   | Increase player's speed temporarily.                                      |
 
-# 4. Requirements 
+# 4. Requirements
 
 Requirements engineering (RE) is a crucial component of software development, as the success of a project heavily relies on how accurately its requirements are identified during this phase [[1]](#12-references). Unlike traditional development models, where RE is typically confined to the early stages, agile development views RE as an ongoing process throughout the entire development cycle, with continuous refinement and adaptation as the project progresses [[2]](#12-references).
 
@@ -106,7 +109,7 @@ During this process, we observed a shared preference within the team for mini-ga
 
 With these factors in mind, we ultimately selected Haystacking as our final concept. Its straightforward yet strategic mechanics and lighthearted tone aligned well with our vision for an accessible and enjoyable game experience.
 
-## Identifying Stakeholders 
+## Identifying Stakeholders
 
 As shown in Figure 4, we conducted a stakeholder analysis using the Onion Model. This helped us to categorise key parties based on their proximity to the systme, understandand their needs and prioritise them accordingly during the development process.
 
@@ -128,10 +131,9 @@ As shown in Figure 4, we conducted a stakeholder analysis using the Onion Model.
 | Other Teams       | Other student teams working on similar projects                                                             |
 | Bystanders        | Potential future players who may be attracted to the game                                                   |
 
-
 ## User Stories and Acceptance Criteria
 
-Throughout the development processes, we continuously evaluated and refined our user stories after every sprint review to make sure our game align with evolving users requirements. This iterative approach allowed us to stay responsive to feedback and maintain a user-centered design focus. 
+Throughout the development processes, we continuously evaluated and refined our user stories after every sprint review to make sure our game align with evolving users requirements. This iterative approach allowed us to stay responsive to feedback and maintain a user-centered design focus.
 
 In the later stage, we also incorporated sustainability-conducive requirements from the Sustainability Awareness Framework (SusAF), which enabled us to evaluate the potential impacts of the game from a more holistic standpoint. Table 4 presents the finalised user stories along with their corresponding acceptance criteria.
 
@@ -209,7 +211,6 @@ In the later stage, we also incorporated sustainability-conducive requirements f
 </tr>
 </table>
 
-
 ## Use Cases Breakdown
 
 To better understand the interactions between the game and its users, we used a Use Case Model to describe the game's functional requirements.
@@ -234,8 +235,6 @@ To better understand the interactions between the game and its users, we used a 
 | **Alternative Flow** | 1. Hay bales fall.<br>2. Player fails to catch.<br>3. Hay disappears offscreen. | N/A                                                                                                      | N/A                                                                                          |
 
 # 5. Design
-- 15% ~750 words 
-- System architecture. Class diagrams, behavioural diagrams
 
 Having analysed the system requirements, we then proceeded to the design phase. We adopted object-oriented (OO) design principles to create a modular and maintainable sytstem architecture.
 
@@ -243,8 +242,7 @@ Our design follows closely to core OO principles. Abstraction is used to define 
 
 ### Class diagram
 
-We created a class diagram to present the static relatonships between objects. To improve readability and focus on high-level structure, only key attributes and methods are shown. 
-
+We created a class diagram to present the static relatonships between objects. To improve readability and focus on high-level structure, only key attributes and methods are shown.
 
 <p align="center"><i>Figure 6: Class Diagram</i></p>
 <div align="center">
@@ -267,7 +265,6 @@ Some of the key classes and relationships highlighted in the design:
 
 7. **Help system**: `StepByStepHelpScreen` is an interactive tutorial. `SingleHelpScreen` is for single player mode, whereas `DoubleHelpScreen` is an abstract base for two-player help screens: `CoopHelpScreen` and `PvpHelpScreen`.
 
-
 ### Sequence diagram
 
 To demonstrate the dynamic behaviour of the system, we first developed a sequence diagram that focuses on the basic single-player mode, as shown in Figure 7. This diagram illustrates the flow of messages exchanged between objects during gameplay, how components collaborate to manage user input, object movement, collision detection, and game state updates.
@@ -277,7 +274,6 @@ To demonstrate the dynamic behaviour of the system, we first developed a sequenc
 <p align="center">
   <img src="./assets_for_README/sequence_diagrams/sequence_diagram_single.png" width="800">
 </p>
-
 
 Building on the single-player sequence diagram, we subsequently developed sequence diagrams for both co-op (Figure 8) and PvP modes (Figure 9). In the co-op mode, the core game mechanics remain consistent with single-player gameplay; however, both players contribute to a shared barrel, reflecting a combined scoring system. In contrast, the PvP mode introduces independent barrels and scoring for each player, along with additional win, lose, or draw conditions determined by comparing individual scores at the end of the game.
 
@@ -293,14 +289,12 @@ Building on the single-player sequence diagram, we subsequently developed sequen
   <img src="./assets_for_README/sequence_diagrams/sequence_diagram_pvp.png" width="800">
 </p>
 
-
 # 6. Implementation
-- 15% ~750 words
-- Describe implementation of your game, in particular highlighting the three areas of challenge in developing your game. 
 
 ## Challenges
 
-We encountered three main challenges when developing the game: 
+We encountered three main challenges when developing the game:
+
 1. Managing the timing of dropping objects
 2. Implementing rule-based stacking mechanics
 3. Managing screen switching logic
@@ -327,9 +321,9 @@ This change allowed us to reliably manage the start and stop behavior of the obj
 
 Initially, we planned to use a physics engine such as Matter.js to simulate the realistic falling and stackking of hay bales. However, we quickly realised it introduced significant complexity, including collision handling, rotation, and gravity simulations. We then opted for a simpler design of using only rectangular hay blocks in a cartoon-like asthetic. The challenge then becoame making the stacking feel realistic and rewarding.
 
-We first introduced a minimum horizontal overlap thresholder for a hay bale to be considered caught. We also implemented some backback mechanisms such as a gradual speed decrease as the player take on more hay bales. We thought we should impose a penalty for missing any hay bale, so we added a `Flash` object to the `Player`, which would cause the player to freeze and flash for a 0.5s. However, many users complainted about this features during the initial evalutation process. In fast-paced later levels, players could enter a frustrating loop where a missed bale triggered a flash, which caused them to miss the next bale immediately upon resuming — resulting in a chain of unavoidable penalties. Therefore, we scraped this setting. However, we were able to repurposed the `Flash` mechanics to be activated when a player exceeds the maximum number of hay bales they could carry. 
+We first introduced a minimum horizontal overlap thresholder for a hay bale to be considered caught. We also implemented some backback mechanisms such as a gradual speed decrease as the player take on more hay bales. We thought we should impose a penalty for missing any hay bale, so we added a `Flash` object to the `Player`, which would cause the player to freeze and flash for a 0.5s. However, many users complainted about this features during the initial evalutation process. In fast-paced later levels, players could enter a frustrating loop where a missed bale triggered a flash, which caused them to miss the next bale immediately upon resuming — resulting in a chain of unavoidable penalties. Therefore, we scraped this setting. However, we were able to repurposed the `Flash` mechanics to be activated when a player exceeds the maximum number of hay bales they could carry.
 
-Finally, to encourage precision, we implemented a `PerfectStack` reward system. If a player achieved a stacking alignment of 90% or greater with the hay bale or basket below, they received a time bonus. 
+Finally, to encourage precision, we implemented a `PerfectStack` reward system. If a player achieved a stacking alignment of 90% or greater with the hay bale or basket below, they received a time bonus.
 
 #### Challenge 3: Managing screen switching logic
 
@@ -339,9 +333,9 @@ At first, we started with a single-page prototype focused solely on the stacking
 
 ```javascript
 if (isPaused && screen === "game") {
-    // ... game paused logic
+  // ... game paused logic
 } else if (screen === "home") {
-    // ... home screen logic
+  // ... home screen logic
 }
 ```
 
@@ -349,18 +343,13 @@ However, as the number of screens grew, this became increasingly difficult to ma
 
 # 7. Evaluation
 
-- 15% ~750 words
-- One qualitative evaluation (your choice) 
-- One quantitative evaluation (of your choice)
-- Description of how code was tested.
-
-
 To ensure a balance between functionality and usability during the game development process, we chose to combine both qualitative and quantitative evaluation methods. Qualitative analysis helped us identify issues within the game, while quantitative evaluation provided insights into user perceptions, guiding us to iteratively improve the design.
 
 ## Qualitative Evaluation - Heuristic Evaluation
+
 Heuristic evaluation is a quick and cost-effective method that provides clear, concrete, and specific guidelines for directly refining games [[3]](#12-references). For our evaluation of the Haystacking user interface, we selected Nielsen's ten usability heuristics [[4]](#12-references) as the guiding framework.
 
-By systematically reviewing every screen of our game, we identified several usability issues. Each issue was evaluated across three key dimensions (Frequency, Impact, and Persistence) to determine its overall severity. The findings are presented in the following table, ranked in descending order of severity: 
+By systematically reviewing every screen of our game, we identified several usability issues. Each issue was evaluated across three key dimensions (Frequency, Impact, and Persistence) to determine its overall severity. The findings are presented in the following table, ranked in descending order of severity:
 
 <p align="center">
     <i>Table 6: Heuristic Evaluation Table</i>
@@ -448,19 +437,22 @@ By systematically reviewing every screen of our game, we identified several usab
 Based on the severity score, we were able to identify a couple of top priority issues.
 
 #### 1. Collision detection of a hay bale
-The current collision detection logic is too lenient, and unrealistic or unintended "catches" are allowed. To address this, we addressed the collision logic to check for at least 20% surface overlap rather than just any contact. We also added visual cues to indicate when a hay bale is considered to be perfectly stacked (more than 90% overlap) and awarded player with extra time. 
+
+The current collision detection logic is too lenient, and unrealistic or unintended "catches" are allowed. To address this, we addressed the collision logic to check for at least 20% surface overlap rather than just any contact. We also added visual cues to indicate when a hay bale is considered to be perfectly stacked (more than 90% overlap) and awarded player with extra time.
 
 #### 2. Inconsistent hay dropping logigc to the barrel
-We found that sometimes a player must be very close to the barrel, and other times they can drop hay from farther away. To address this, we defined a consistent interaction radius around the barrel. We would also like to add some visual indications in the hay drop logic. 
+
+We found that sometimes a player must be very close to the barrel, and other times they can drop hay from farther away. To address this, we defined a consistent interaction radius around the barrel. We would also like to add some visual indications in the hay drop logic.
 
 #### 3.Score visibility
-Intially when a player added hay to the barrel, the score update is shown on the top-left corner of the gameplay, which was not prominent enough during gameplay. 
+
+Intially when a player added hay to the barrel, the score update is shown on the top-left corner of the gameplay, which was not prominent enough during gameplay.
 
 To improve this, we first recognised that the score should be part of the system's real time feedback. Therefore, we moved the score display to be visually attached to the barrel, and added visual feedback to the barrel by increasing its brightness as more hay is added. In this way, players can perceive progress without needing to look away from the main interaction area.
 
 #### 4. Wordy instruction
-Even though our instructions were relatively short, we recognized that purely text-based explanations might be skipped or misunderstood by players. To lower the user's cognitive load, we used visual representations such as arrow icons to help player to recognise the game action more easily. We also introduced a step by step animated and interactive tutorial for first time users who prefer a more guided experience. 
 
+Even though our instructions were relatively short, we recognized that purely text-based explanations might be skipped or misunderstood by players. To lower the user's cognitive load, we used visual representations such as arrow icons to help player to recognise the game action more easily. We also introduced a step by step animated and interactive tutorial for first time users who prefer a more guided experience.
 
 ## Quantitative Evaluation - NASA TLX evaluation
 
@@ -475,11 +467,12 @@ The NASA TLX is a quantitative evaluation method used to assess users' subjectiv
 <div align="center">
   <img src="./assets_for_README/NASA TLX Scores by Level.png" width="533">
 </div>
-To analyse these results, we used the Wilcoxon Signed-Rank Test, a non-parametric statistical method suitable for comparing paired samples—particularly effective for assessing changes in subjective ratings from the same group of users under two different conditions. 
+To analyse these results, we used the Wilcoxon Signed-Rank Test, a non-parametric statistical method suitable for comparing paired samples—particularly effective for assessing changes in subjective ratings from the same group of users under two different conditions.
 
 At a significance level of p = 0.05, the critical value for n = 11 is 10. Our calculated test statistic was W = 1, which is less than the critical value of 10, indicating a statistically significant difference in perceived workload between the two levels. Players experienced a notably higher workload in Level 2 than in Level 1. This outcome aligns with our design goal of progressively increasing the game's difficulty and challenge.
 
 ## Test
+
 For Haystacking, we primarily conducted black-box testing. The test cases were designed using equivalence partitioning and focused on validating the core functionalities of the game. Testing covered five key areas: UI interaction, player movement control, game mechanics, score calculation system, and the special item system.
 
 As shown in the table below, all test cases passed, confirming that the core functions have been successfully implemented and are operating as expected.
@@ -676,6 +669,7 @@ As shown in the table below, all test cases passed, confirming that the core fun
 In the development of Haystacking, we applied the Sustainability Awareness Framework (SuSAF) to align with the principles outlined in the Karlskrona Manifesto [[5]](#12-references). SuSAF is a question-based framework designed to assess the potential sustainability impacts of software, promoting the creation of sustainability-conscious requirements. We evaluated the impacts of our game across three of the five sustainability dimensions:
 
 ### 1. Individual Sustainability
+
 <p align="center">
     <i>Table 8: Individual Sustainability Impact</i>
 </p>
@@ -708,6 +702,7 @@ In the development of Haystacking, we applied the Sustainability Awareness Frame
 </table>
 
 ### 2. Environmental Sustainability
+
 <p align="center">
     <i>Table 9: Environmental Sustainability Impact</i>
 </p>
@@ -740,6 +735,7 @@ In the development of Haystacking, we applied the Sustainability Awareness Frame
 </table>
 
 ### 3. Technical Sustainability
+
 <p align="center">
     <i>Table 10: Technical Sustainability Impact</i>
 </p>
@@ -816,75 +812,81 @@ Additionally, we applied several patterns published by the Green Software Founda
 We updated our product backlog to incorporate new requirements and user stories specifically focused on sustainability and accessibility. These additions aimed to ensure that our development process considered environmental impact, long-term maintainability, and inclusive design. Examples include optimising visual assets to reduce energy consumption, and designing user interfaces with high contrast and keyboard accessibility.
 
 # 9. Process
-- 15% ~750 words
-- Teamwork. How did you work together, what tools did you use. Did you have team roles? Reflection on how you worked together.
 
-### Game Ideation
-During the first two weeks, we held in-person meetings to spark design inspiration, facilitate team bonding, and ensure effective communication. In our first meeting (Week 1), each member introduced games they personally found interesting. We collectively shortlisted five existing titles and analyzed their core gameplay elements and mechanics. By the second meeting (Week 2), we conducted a poll on Strawpoll (https://strawpoll.com) to vote on a reference game prototype, considering both implementation feasibility and entertainment value.
+### 1. Collaboration
 
-### Feature Planning
-Once the game concept was finalized, we used the Value-Effort matrix to prioritize features based on two criteria: *Effort* (the workload required) and *Value* (the feature's impact on gameplay). We planned to dedicate the first two sprints to implementing features that were high in value but low in effort.  
+#### Team Formation and Roles
 
-We also identified several high-value, high-effort features—such as building the core game framework, expanding game modes, and designing levels—that were both critical and time-consuming. To manage these effectively, we dedicated entire sprints to focus on one such feature at a time. By implementing both types of features, we established a solid game foundation and then gradually enhanced gameplay depth and user experience.
+During term time, we held regular in-person meetings to brainstorm ideas and build team rapport. In our first session, each member shared games they personally enjoyed, which led to a shortlist of five titles. We then used [Strawpoll](https://strawpoll.com), a platform the team relied on throughout the project, to vote and finalise the reference game concept.
 
-<p align="center"><i>Figure 13: Value-Effort Metrix </i></p>
-<p align="center">
-  <img src="./assets_for_README/Value-Effort.png" width="800">
-</p>
+Once the concept was confirmed, team roles began to take shape. Initially, all members contributed to the game development to build a shared understanding of the system. However, this approach quickly led to challenges such as unclear module boundaries, inconsistent coding styles, and frequent merge conflicts. To address this, we adopted a more clearly defined team structure:
 
-### Team Roles
-Initially, all team members participated in coding to build a shared understanding of the game logic. However, we soon realized that this “everyone codes everything” approach led to issues like unclear module boundaries, inconsistent coding styles, and frequent merge conflicts.  
-To address this, we restructured our approach. In the early stages, Liyang developed the foundational features, while Lei and Lingchen reworked the core framework. In later stages, the three developers collaborated to implement additional gameplay functionalities.  
-Shiyu and Zhuoyan focused on gathering user feedback and defining requirements. They organized playtesting sessions, collected both qualitative and quantitative data, and helped guide iterative improvements. Hanying was responsible for sourcing visual and audio assets, ensuring a consistent aesthetic and tone for the game.
+- Liyang focused on implementing foundational features and later worked with Lingchen on advanced gameplay development.
 
-### Project Management Tools
-At the start of each sprint, the entire team participated in Planning Poker sessions to estimate the effort required for each task. This method helped generate unbiased estimations and encouraged discussion to reach consensus.  
-We used Jira (atlassian.com) as our main project management platform to improve task transparency and team collaboration. Each sprint included clearly defined tasks in Jira, complete with story points, assignees, current statuses, and deadlines. Tasks were broken down into smaller, manageable subtasks so that responsibilities and time expectations were clear to everyone.
+- Lei served as the lead UI designer and also collaborated with Lingchen on refactoring the core framework.
 
-<p align="center"><i>Figure 14: Jira Interface</i></p>
-<p align="center">
-  <img src="./assets_for_README/Jira.png" width="800">
-</p>
+- Shiyu, Zhuoyan, and Hanying led user research, organizing playtesting sessions and collecting data to guide design iterations.
 
-<p align="center"><i>Figure 15: sprint Management</i></p>
-<p align="center">
-  <img src="./assets_for_README/Backlog.png" width="800">
-</p>
+#### Communication and Agile Practices
 
-We also made full use of Jira’s Kanban board to visually track task progress across columns like “To Do,” “In Progress,” and “Done.” This visual management system allowed us to monitor workflow in real time, quickly identify bottlenecks, and make timely adjustments to priorities and resource allocation.
+Throughout development, we followed the Scrum framework. We conducted Planning Poker sessions to estimate task efforts and plan the sprint accordingly. At the end of each sprint, we held reviews to reflect on progress and adjust features based on user feedback.
 
-<p align="center"><i>Figure 16: Kanban Board</i></p>
-<p align="center">
-  <img src="./assets_for_README/kanban.png" width="800">
-</p>
+One particular sprint, which focused on fine-tuning the gameplay settings for each level, turned out to be more time-consuming than anticipated. We had to iteratively test and adjust parameters such as item behavior, hay bale drop speed, and level objectives to accommodate players of varying skill levels, ensuring the game became progressively more challenging while still remaining fair and completable.
 
-### Coding Process
-To build the game’s core framework, we used pair programming. This development practice not only improved code quality and design decisions but also helped every team member gain a deep understanding of the critical game logic. By rotating roles and maintaining continuous dialogue, all members were actively involved in the architecture and major logic implementation, rather than being siloed into isolated components.  
-For module development in later stages, we strictly followed a GitHub-based merge request workflow. All code changes had to be reviewed and approved by at least two team members before being merged into the main branch. This ensured code quality, promoted knowledge sharing, and minimized integration issues and logic bugs from the start.
-
-### Agile Review
-At the end of each sprint, we conducted Scrum reviews to reflect on progress and fine-tune game features and difficulty levels based on player feedback. We also analyzed burndown charts to compare planned versus actual progress.  
-One major insight came from our misestimation of the effort required to balance level difficulty. Although we initially allocated minimal time to this task, it ended up being highly time-consuming. We had to repeatedly test gameplay with players of varying skill levels and tweak mechanics like grass drop speed, item behavior, level objectives, and time limits.
-
-<p align="center"><i>Figure 17: Sprint 7 Different Levels Burndown Chart </i></p>
+<p align="center"><i>Figure 13:cBurndown Chart for Spring 7</i></p>
 <p align="center">
   <img src="./assets_for_README/Burndown chart.png" width="800">
 </p>
 
+One notable challenge we faced was the misalignment in team members’ perceptions of work quality. While everyone was committed, expectations varied regarding what constituted a “complete” or “polished” deliverable. This occasionally led to rework, delays in reviews, and friction during integration. To address this, we established clearer definitions of done, introduced peer reviews earlier in the sprint cycle, and fostered open communication to align quality standards across the team.
+
+### 2. Tools and Techniques
+
+#### Project Management Tools
+
+We used [Jira](https://atlassian.com) as our main project management platform for organising work. Sprints were structured around clearly defined tasks, each tagged with story points, deadlines, and assignees. Tasks were broken down into subtasks for better granularity and accountability.
+
+<p align="center"><i>Figure 14: Sprint Management on Jira</i></p>
+<p align="center">
+  <img src="./assets_for_README/Jira.png" width="800">
+</p>
+
+We also leveraged Jira’s Kanban board to track progress in real time. Visual columns like “To Do,” “In Progress,” and “Done” helped the team identify bottlenecks and reallocate resources efficiently.
+
+<p align="center"><i>Figure 15: Kanban Board</i></p>
+<p align="center">
+  <img src="./assets_for_README/kanban.png" width="800">
+</p>
+
+#### Feature Prioritisation and Planning
+
+To prioritize development, we applied the Value-Effort matrix, which allowed us to distinguish high-value, low-effort features ideal for early sprints. These quick wins enabled us to build a playable prototype early on. More complex, high-effort features, such as core framework development, expanded game modes, and level design, were scheduled for dedicated sprints to ensure thorough implementation without sacrificing quality. This phased approach helped us maintain momentum while gradually adding depth and polish.
+
+<p align="center"><i>Figure 16: User Story Value vs. Effort Matrix </i></p>
+<p align="center">
+  <img src="./assets_for_README/Value-Effort.png" width="800">
+</p>
+
+#### Development Practices
+
+We adopted pair programming for core game logic, which enhanced both code quality and team understanding. Regular rotation of helm and tactician roles ensured that all developers were engaged with key architectural decisions.
+
+As development progressed, we followed GitHub-based merge request workflow. All code changes required approval from at least two team members before merging into the main branch. This practice promoted accountability, minimized integration issues, and maintained a clean, stable codebase.
+
 # 10. Conclusion
-- 10% ~500 words
-- Reflect on project as a whole. Lessons learned. Reflect on challenges. Future work.
 
-
-Through the development of our farm-themed stacking game, our team has gained valuable hands-on experience in the entire software development lifecycle—from ideation and prototyping to implementation and evaluation. The process not only improved our programming skills but also taught us how to manage a project collaboratively using Agile methods. Weekly sprints, regular meetings, and clear role distribution allowed us to keep track of progress and adapt swiftly to changes.
+Through the development of our farm-themed stacking game, our team has gained valuable hands-on experience in the software development lifecycle: from ideation and prototyping to implementation and evaluation. The process not only improved our programming skills but also taught us how to manage a project collaboratively using Agile methods. Weekly sprints, regular meetings, and clear role distribution allowed us to keep track of progress and adapt swiftly to changes.
 
 Throughout the project, we encountered several technical and design challenges, such as managing object drop timing, balancing gameplay difficulty, and ensuring stable cross-platform performance. To address these issues, we constantly made trade-offs, refined debugging skills, and adjusted mechanics based on continuous testing and user feedback. These experiences significantly deepened our understanding of modular code architecture and user-centered development.
 
 Additionally, we prioritized sustainability and accessibility in our development. By reusing assets, designing for short gameplay sessions, supporting local multiplayer, and implementing basic accessibility features, we created a game that is both environmentally friendly and inclusive. In particular, our design is more accessible for players with motor disabilities, reflecting our commitment to user diversity.
 
-In the near future, we plan to introduce new game items such as freeze sprays, glue bottles, and magnetic gloves to further enrich gameplay. These items will introduce new tactical options—such as hindering opponents or boosting speed—making the game more dynamic and engaging. We also aim to expand level design and improve visual effects to enhance immersion. And in the long run, we aim to implement online multiplayer functionality, allowing players to compete or cooperate remotely. As our technical capabilities grow, we also plan to introduce a progression system, global leaderboard, and story mode—adding longevity and depth to the game experience.
+In the near future, we plan to introduce new game items such as freeze sprays, glue bottles, and magnetic gloves to enrich gameplay variety. These additions will offer new tactical options—such as hindering opponents or boosting player speed—making matches more dynamic and engaging. We also aim to expand level design and enhance visual effects to improve immersion and aesthetic appeal.
+
+Looking further ahead, we plan to implement online multiplayer functionality, enabling players to compete or cooperate remotely. We also intend to develop a mobile version of the game to reach a wider audience and provide a more accessible, on-the-go experience. As our technical capabilities grow, we aim to introduce a progression system, global leaderboard, and a story mode—features that will add longevity, structure, and narrative depth to the overall game experience.
 
 # 11. Contribution Statement
+
 | Name         | Contribution |
 | ------------ | ------------ |
 | Lingchen Li  |              |
@@ -895,6 +897,7 @@ In the near future, we plan to introduce new game items such as freeze sprays, g
 | Liyang Li    |              |
 
 # 12. References
+
 1. Wang, X., Zhao, L., Wang, Y. and Sun, J., 2014. The role of requirements engineering practices in agile development: an empirical study. In: D. Zowghi and Z. Jin, eds. Requirements engineering. Communications in Computer and Information Science, vol. 432. Berlin, Heidelberg: Springer. Available at: https://doi.org/10.1007/978-3-662-43610-3_15 [Accessed 5 May 2025]
 2. Fægri, T.E. and Moe, N.B., 2015. Re-conceptualizing requirements engineering: findings from a large-scale, agile project. In: Scientific Workshop Proceedings of the XP2015. Helsinki, Finland: Association for Computing Machinery, pp.1–5. Available at: https://doi.org/10.1145/2764979.2764983.
 3. Choi, J. and Bakken, S., 2010. Web-based education for low-literate parents in Neonatal Intensive Care Unit: Development of a website and heuristic evaluation and usability testing. International Journal of Medical Informatics, 79(8), pp.565–575. Available at: https://doi.org/10.1016/j.ijmedinf.2010.05.001.
