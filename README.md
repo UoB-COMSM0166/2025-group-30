@@ -20,19 +20,18 @@
 # 1. Game & Game video
 
 <p align="center">
-  <a href="https://uob-comsm0166.github.io/2025-group-30/">
-    <img src="./assets_for_README/haystacking.gif" alt="Game Screen" width="700" />
+  <a href="https://youtu.be/hiw8fzNDeQ0">
+    <img src="./assets_for_README/homepage.gif" alt="Game Screen" width="700" />
   </a>
 </p>
 
 <p align="center">
-  <a href="https://uob-comsm0166.github.io/2025-group-30/">Play the game here</a>
+  <a href="https://uob-comsm0166.github.io/2025-group-30/">Click here to Watch the game video</a>
 </p>
 
-Our game lives in the [docs](/docs) folder, and is published using Github pages to the link above.
+Play game [here](https://uob-comsm0166.github.io/2025-group-30/)
 
-Watch the demo video
-[🎬 here](https://youtu.be/Kw-NbS6OgyI)
+Our game lives in the [docs](/docs) folder, and is published using Github pages to the link above.
 
 # 2. Team
 
