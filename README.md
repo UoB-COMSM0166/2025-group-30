@@ -20,13 +20,13 @@
 # 1. Game & Game video
 
 <p align="center">
-  <a href="https://youtu.be/hiw8fzNDeQ0">
+  <a href="https://youtu.be/YNNF9lyJ_CA">
     <img src="./assets_for_README/homepage.gif" alt="Game Screen" width="700" />
   </a>
 </p>
 
 <p align="center">
-  <a href="https://youtu.be/hiw8fzNDeQ0">Click here to Watch the game video</a>
+  <a href="https://youtu.be/YNNF9lyJ_CA">Click here to Watch the game video</a>
 </p>
 
 Play game [here](https://uob-comsm0166.github.io/2025-group-30/)
