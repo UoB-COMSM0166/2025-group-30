@@ -1,7 +1,5 @@
 # 2025-group-30
 
-2025 COMSM0166 group 30
-
 # Table of Contents
 
 - [1. Game & Game video](#1-game--game-video)
