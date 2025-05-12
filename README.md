@@ -26,10 +26,18 @@
 </p>
 
 <p align="center">
-  <a href="https://youtu.be/YNNF9lyJ_CA">Click here to Watch the game video</a>
+  Watch the <a href="https://youtu.be/YNNF9lyJ_CA">demo video</a>
 </p>
 
-Play game [here](https://uob-comsm0166.github.io/2025-group-30/)
+<p align="center">
+  <a href="https://uob-comsm0166.github.io/2025-group-30/">
+    <img src="./assets_for_README/haystacking.gif" alt="Game Screen" width="700" />
+  </a>
+</p>
+
+<p align="center">
+  Play the <a href="https://uob-comsm0166.github.io/2025-group-30/">game</a>
+</p>
 
 Our game lives in the [docs](/docs) folder, and is published using Github pages to the link above.
 
@@ -455,7 +463,7 @@ Even though our instructions were relatively short, we recognized that purely te
 
 ## Quantitative Evaluation - NASA TLX evaluation
 
-The NASA TLX [[8]](#12-references) is a quantitative evaluation method used to assess users' subjective workload during task performance, helping designers understand sources of stress in an interface or interaction process. In evaluating the differences between levels in HayStacking, we invited 11 users to play the game at two difficulty levels (Level 1 and Level 2). After completing each level, participants answered the NASA TLX questionnaire, rating six dimensions of workload—mental demand, physical demand, temporal demand, performance, effort, and frustration. This allowed us to obtain each user's perceived workload scores under different levels. The chart below shows the players' ratings visually, and the original scoring data can be accessed by clicking [here](./assets_for_README/NASA_TLX.md).
+The NASA TLX [[8]](#12-references) is a quantitative evaluation method used to assess users' subjective workload during task performance, helping designers understand sources of stress in an interface or interaction process. In evaluating the differences between levels in HayStacking, we invited 11 users to play the game at two difficulty levels (Level 1 and Level 2). After completing each level, participants answered the NASA TLX questionnaire, rating six dimensions of workload—mental demand, physical demand, temporal demand, performance, effort, and frustration. This allowed us to obtain each user's perceived workload scores under different levels. The chart below shows the players' ratings visually, and the original scoring data can be accessed [here](./assets_for_README/NASA_TLX.md).
 
 <p align="center"><i>Figure 10</i></p>
 <div align="center">
@@ -887,7 +895,7 @@ Looking further ahead, we plan to implement online multiplayer functionality, en
 # 11. Contribution Statement
 
 | Name         | Contribution |
-|--------------|:------------:|
+| ------------ | :----------: |
 | Lingchen Li  |      1       |
 | Lei Gao      |      1       |
 | Hanying Bian |      1       |
