@@ -212,7 +212,7 @@ In the later stage, we also incorporated sustainability-conducive requirements f
   <td>Player</td>
   <td>Support Individual Health, Safety, and Learning</td>
   <td>As a player, I want to play the game without logging in or giving personal data so that my privacy is protected.</td>
-  <td>Given I am in the game web page, when I want to start palying the game, then I should be able to do so without needing to login or signup.</td>
+  <td>Given I am in the game web page, when I want to start playing the game, then I should be able to do so without needing to login or signup.</td>
 </tr>
 </table>
 
@@ -241,7 +241,7 @@ To better understand the interactions between the game and its users, we used a 
 
 # 5. Design
 
-Having analysed the system requirements, we then proceeded to the design phase. We adopted object-oriented (OO) design principles to create a modular and maintainable sytstem architecture.
+Having analysed the system requirements, we then proceeded to the design phase. We adopted object-oriented (OO) design principles to create a modular and maintainable system architecture.
 
 Our design follows closely to core OO principles. Abstraction is used to define base classes such as Screen and `FallingObject`, which provide common functionality to their subclasses while hiding specific implementations. Encapsulation ensures that classes like `Player` manage their internal state—such as their haystack stack and scoring logic—independently. Inheritance is used to structure the system logically; for example, `Single`, `Coop`, and `Pvp` all extend from GameScreen to reuse shared logic. Polymorphism allows different object types (e.g., game modes, falling objects) to implement shared methods in different ways, facilitating flexibility and code clarity. Collectively, these principles allowed us to design a clean and extendable system.
 
@@ -324,9 +324,9 @@ This change allowed us to reliably manage the start and stop behavior of the obj
 
 #### Challenge 2: Implementing rule-based stacking mechanics
 
-Initially, we planned to use a physics engine such as Matter.js to simulate the realistic falling and stackking of hay bales. However, we quickly realised it introduced significant complexity, including collision handling, rotation, and gravity simulations. We then opted for a simpler design of using only rectangular hay blocks in a cartoon-like asthetic. The challenge then becoame making the stacking feel realistic and rewarding.
+Initially, we planned to use a physics engine such as Matter.js to simulate the realistic falling and stackking of hay bales. However, we quickly realised it introduced significant complexity, including collision handling, rotation, and gravity simulations. We then opted for a simpler design of using only rectangular hay blocks in a cartoon-like aesthetic. The challenge then became making the stacking feel realistic and rewarding.
 
-We first introduced a minimum horizontal overlap thresholder for a hay bale to be considered caught. We also implemented some backback mechanisms such as a gradual speed decrease as the player take on more hay bales. We thought we should impose a penalty for missing any hay bale, so we added a `Flash` object to the `Player`, which would cause the player to freeze and flash for a 0.5s. However, many users complainted about this features during the initial evalutation process. In fast-paced later levels, players could enter a frustrating loop where a missed bale triggered a flash, which caused them to miss the next bale immediately upon resuming — resulting in a chain of unavoidable penalties. Therefore, we scraped this setting. However, we were able to repurposed the `Flash` mechanics to be activated when a player exceeds the maximum number of hay bales they could carry.
+We first introduced a minimum horizontal overlap threholder for a hay bale to be considered caught. We also implemented some feedback mechanisms such as a gradual speed decrease as the player take on more hay bales. We thought we should impose a penalty for missing any hay bale, so we added a `Flash` object to the `Player`, which would cause the player to freeze and flash for a 0.5s. However, many users complainted about this features during the initial evalutation process. In fast-paced later levels, players could enter a frustrating loop where a missed bale triggered a flash, which caused them to miss the next bale immediately upon resuming — resulting in a chain of unavoidable penalties. Therefore, we scrapped this setting. However, we were able to repurpose the `Flash` mechanics to be activated when a player exceeds the maximum number of hay bales they could carry.
 
 Finally, to encourage precision, we implemented a `PerfectStack` reward system. If a player achieved a stacking alignment of 90% or greater with the hay bale or basket below, they received a time bonus.
 
@@ -344,7 +344,7 @@ if (isPaused && screen === "game") {
 }
 ```
 
-However, as the number of screens grew, this became increasingly difficult to maintain. To solve this, we impletemented a state management class - `ScreenManager` which emcompasses different screens such as the game screens and home screens, and each of the game screen has their respective target score screen, level up screen etc. The `ScreenManager` also maintains a `currentScreen` property and has methods to change and display the current screen.
+However, as the number of screens grew, this became increasingly difficult to maintain. To solve this, we impleemented a state management class - `ScreenManager` which encompasses different screens such as the game screens and home screens, and each of the game screen has their respective target score screen, level up screen etc. The `ScreenManager` also maintains a `currentScreen` property and has methods to change and display the current screen.
 
 # 7. Evaluation
 
@@ -402,7 +402,7 @@ By systematically reviewing every screen of our game, we identified several usab
     </tr>
     <tr>
       <td>Tutorial</td>
-      <td>Wordy instructions without visual representatiuons.</td>
+      <td>Wordy instructions without visual representations.</td>
       <td>Recognition rather than recall</td>
       <td>2</td>
       <td>4</td>
@@ -412,7 +412,7 @@ By systematically reviewing every screen of our game, we identified several usab
     <tr>
       <td>Home Screen</td>
       <td>The extra "Start" button is unnecessary; players should select the mode first and then start.</td>
-      <td>Asthetics and mininalist design</td>
+      <td>Aesthetics and minimalist design</td>
       <td>3</td>
       <td>2</td>
       <td>3</td>
@@ -798,8 +798,8 @@ Additionally, we applied several patterns published by the Green Software Founda
   </thead>
   <tbody>
     <tr>
-      <td>Serve images in mordern formats</td>
-      <td>A range of cartoon-style visual assets are used in Haystacking. We ensured all image assets are optimised and served in WebP format, which offers significantly smaller file sizes than PNG or JPEG without sacrificing visual quality. In this way, we ae able to lower bandwidth usage, speed up image load times, reduce device power consumption and the game's overall SCI (Software Carbon Intensity) score.</td>
+      <td>Serve images in modern formats</td>
+      <td>A range of cartoon-style visual assets are used in Haystacking. We ensured all image assets are optimised and served in WebP format, which offers significantly smaller file sizes than PNG or JPEG without sacrificing visual quality. In this way, we are able to lower bandwidth usage, speed up image load times, reduce device power consumption and the game's overall SCI (Software Carbon Intensity) score.</td>
     </tr>
     <tr>
       <td>Defer offscreen images</td>
@@ -838,7 +838,7 @@ Throughout development, we followed the Scrum framework. We conducted Planning P
 
 One particular sprint, which focused on fine-tuning the gameplay settings for each level, turned out to be more time-consuming than anticipated. We had to iteratively test and adjust parameters such as item behavior, hay bale drop speed, and level objectives to accommodate players of varying skill levels, ensuring the game became progressively more challenging while still remaining fair and completable.
 
-<p align="center"><i>Figure 13:cBurndown Chart for Spring 7</i></p>
+<p align="center"><i>Figure 13: Burndown Chart for Spring 7</i></p>
 <p align="center">
   <img src="./assets_for_README/Burndown chart.png" width="800">
 </p>
